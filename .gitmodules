@@ -1,0 +1,6 @@
+[submodule "app/larascript-framework"]
+	path = app/larascript-framework
+	url = https://github.com/Larascript-Framework/larascript-framework
+[submodule "packages/larascript-core"]
+	path = packages/larascript-core
+	url = https://github.com/ben-shepherd/larascript-core

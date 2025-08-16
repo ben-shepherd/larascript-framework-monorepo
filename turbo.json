@@ -1,6 +1,11 @@
 {
     "$schema": "https://turborepo.com/schema.json",
     "tasks": {
+        "depcheck": {
+            "outputs": [
+                "depcheck.json"
+            ]
+        },
         "test": {
             "outputs": [
                 "dist/**"

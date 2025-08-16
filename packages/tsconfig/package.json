@@ -1,0 +1,12 @@
+{
+    "name": "@ben-shepherd/tsconfig",
+    "version": "1.0.0",
+    "main": "./tsconfig.json",
+    "exports": {
+        ".": "./tsconfig.json"
+    },
+    "devDependencies": {
+        "@types/node": "^22.13.10",
+        "typescript": "^5.8.2"
+    }
+}

@@ -1,0 +1,11 @@
+{
+    "name": "@ben-shepherd/eslint-config",
+    "version": "1.0.0",
+    "exports": {
+        ".": "./eslint.config.mts"
+    },
+    "devDependencies": {
+        "eslint": "^9.22.0",
+        "typescript-eslint": "^8.25.0"
+    }
+}

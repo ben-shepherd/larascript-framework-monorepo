@@ -12,9 +12,12 @@
                 "^build"
             ],
             "outputs": [
-                ".next/**",
-                "!.next/cache/**"
+                "dist/**"
             ]
+        },
+        "build:watch": {
+            "persistent": true,
+            "cache": false
         },
         "check-types": {
             "dependsOn": [

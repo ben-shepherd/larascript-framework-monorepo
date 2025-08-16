@@ -1,10 +1,10 @@
 {
-  "name": "@ben-shepherd/larascript-forkable-bundle",
-  "version": "1.0.0",
-  "description": "PLACEHOLDER DESCRIPTION",
+  "name": "@ben-shepherd/larascript-acl",
+  "version": "1.0.5",
+  "description": "Access Control List (ACL) module for the Larascript Framework.",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/ben-shepherd/PLACEHOLDER_REPOSITORY"
+    "url": "git+https://github.com/ben-shepherd/larascript-acl"
   },
   "license": "ISC",
   "author": "ben.shepherd@gmx.com",
@@ -16,9 +16,9 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests",
-    "test:coverage": "jest --coverage --passWithNoTests",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "tsc --skipLibCheck && tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -36,8 +36,8 @@
     "upstream:rebase": "git fetch upstream && git rebase upstream/main"
   },
   "devDependencies": {
-    "@ben-shepherd/tsconfig": "workspace:*",
     "@ben-shepherd/eslint-config": "workspace:*",
+    "@ben-shepherd/tsconfig": "workspace:*",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@types/jest": "^29.5.14",

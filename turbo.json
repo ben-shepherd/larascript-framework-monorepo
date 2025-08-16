@@ -3,8 +3,7 @@
     "tasks": {
         "test": {
             "outputs": [
-                ".next/**",
-                "!.next/cache/**"
+                "dist/**"
             ]
         },
         "build": {

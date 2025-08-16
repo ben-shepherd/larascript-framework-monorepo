@@ -2,8 +2,8 @@ import {
   BaseAdapter,
   DependencyLoader,
   RequiresDependency,
-} from "@ben-shepherd/larascript-core";
-import { ILoggerService } from "@ben-shepherd/larascript-logger";
+} from "@repo/larascript-core";
+import { ILoggerService } from "@repo/larascript-logger";
 import {
   BaseMailAdapters,
   IMail,

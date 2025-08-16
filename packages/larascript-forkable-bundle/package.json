@@ -1,5 +1,5 @@
 {
-  "name": "@ben-shepherd/larascript-forkable-bundle",
+  "name": "@repo/larascript-forkable-bundle",
   "version": "1.0.0",
   "description": "PLACEHOLDER DESCRIPTION",
   "repository": {
@@ -20,7 +20,7 @@
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "test:coverage": "jest --coverage --passWithNoTests",
-    "build": "tsc --skipLibCheck && tsc-alias",
+    "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -38,8 +38,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@ben-shepherd/tsconfig": "workspace:*",
-    "@ben-shepherd/eslint-config": "workspace:*",
+    "@repo/check-exports": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@types/jest": "^29.5.14",

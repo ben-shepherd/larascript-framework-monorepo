@@ -1,5 +1,5 @@
 import { HasConfigConcern } from "@/concerns/HasConfigConcern";
-import { compose } from "@ben-shepherd/larascript-utils-bundle";
+import { compose } from "@repo/larascript-utils";
 
 export class BaseConfig extends compose(class {}, HasConfigConcern) {
   declare getConfig: <T = unknown>() => T;

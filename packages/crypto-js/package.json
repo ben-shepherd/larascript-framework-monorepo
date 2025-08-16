@@ -1,5 +1,5 @@
 {
-  "name": "@ben-shepherd/crypto-js",
+  "name": "@repo/crypto-js",
   "version": "1.0.0",
   "description": "A TypeScript library for cryptographic utilities and helpers.",
   "repository": {
@@ -20,7 +20,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "tsc --skipLibCheck && tsc-alias",
+    "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -38,8 +38,8 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@ben-shepherd/eslint-config": "workspace:*",
-    "@ben-shepherd/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@types/jest": "^29.5.14",

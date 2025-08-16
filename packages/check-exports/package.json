@@ -1,0 +1,6 @@
+{
+    "name": "@repo/check-exports",
+    "version": "1.0.0",
+    "main": "./check-exports.js",
+    "type": "module"
+}

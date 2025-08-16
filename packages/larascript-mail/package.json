@@ -1,5 +1,5 @@
 {
-  "name": "@ben-shepherd/larascript-mail",
+  "name": "@repo/larascript-mail",
   "version": "1.0.1",
   "description": "Larascript bundle providing mail utilities and components.",
   "repository": {
@@ -20,7 +20,7 @@
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "tsc --skipLibCheck && tsc-alias",
+    "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -38,11 +38,11 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@ben-shepherd/tsconfig": "workspace:*",
-    "@ben-shepherd/eslint-config": "workspace:*",
-    "@ben-shepherd/larascript-core": "workspace:*",
-    "@ben-shepherd/larascript-logger": "github:ben-shepherd/larascript-logger",
-    "@ben-shepherd/larascript-views": "github:ben-shepherd/larascript-views",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
+    "@repo/larascript-core": "workspace:*",
+    "@repo/larascript-logger": "github:ben-shepherd/larascript-logger",
+    "@repo/larascript-views": "github:ben-shepherd/larascript-views",
     "nodemailer": "^7.0.5",
     "resend": "^6.0.1"
   },

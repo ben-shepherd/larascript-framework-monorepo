@@ -1,5 +1,5 @@
 {
-  "extends": "@ben-shepherd/tsconfig",
+  "extends": "@repo/tsconfig",
   "compilerOptions": {
     "baseUrl": "./",
     "rootDir": "./src",

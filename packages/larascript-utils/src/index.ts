@@ -1,5 +1,5 @@
-export * from "@ben-shepherd/cast-js";
-export * from "@ben-shepherd/dot-notation-extractor";
+export * from "@repo/cast-js";
+export * from "@repo/dot-notation-extractor";
 export * from "./baseFormatter";
 export { compose } from "./compose";
 export { TClassConstructor } from "./interfaces";

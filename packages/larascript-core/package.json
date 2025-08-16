@@ -1,5 +1,5 @@
 {
-  "name": "@ben-shepherd/larascript-core",
+  "name": "@repo/larascript-core",
   "version": "1.0.23",
   "description": "Core modules and utilities for the Larascript Framework.",
   "repository": {
@@ -20,7 +20,7 @@
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
-    "build": "tsc --skipLibCheck && tsc-alias",
+    "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -38,11 +38,11 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@ben-shepherd/larascript-utils-bundle": "github:ben-shepherd/larascript-utils-bundle"
+    "@repo/larascript-utils": "workspace:*"
   },
   "devDependencies": {
-    "@ben-shepherd/tsconfig": "workspace:*",
-    "@ben-shepherd/eslint-config": "workspace:*",
+    "@repo/tsconfig": "workspace:*",
+    "@repo/eslint-config": "workspace:*",
     "@commitlint/cli": "^19.8.1",
     "@commitlint/config-conventional": "^19.8.1",
     "@types/jest": "^29.5.14",

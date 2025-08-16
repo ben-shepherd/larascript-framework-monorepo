@@ -8,39 +8,42 @@ importers:
 
   .:
     dependencies:
-      '@ben-shepherd/async-session':
-        specifier: workspace:*
-        version: link:packages/async-session
-      '@ben-shepherd/crypto-js':
-        specifier: workspace:*
-        version: link:packages/crypto-js
-      '@ben-shepherd/larascript-acl':
-        specifier: workspace:*
-        version: link:packages/larascript-acl
-      '@ben-shepherd/larascript-collection':
-        specifier: workspace:*
-        version: link:packages/larascript-collection
-      '@ben-shepherd/larascript-core':
-        specifier: workspace:*
-        version: link:packages/larascript-core
-      '@ben-shepherd/larascript-logger':
-        specifier: workspace:*
-        version: link:packages/larascript-logger
-      '@ben-shepherd/larascript-observer':
-        specifier: workspace:*
-        version: link:packages/larascript-observer
-      '@ben-shepherd/larascript-utils':
-        specifier: workspace:*
-        version: link:packages/larascript-utils
-      '@ben-shepherd/larascript-validator':
-        specifier: workspace:*
-        version: link:packages/larascript-validator
-      '@ben-shepherd/larascript-views':
-        specifier: workspace:*
-        version: link:packages/larascript-views
       '@jest/globals':
         specifier: ^29.7.0
         version: 29.7.0
+      '@repo/async-session':
+        specifier: workspace:*
+        version: link:packages/async-session
+      '@repo/check-exports':
+        specifier: workspace:*
+        version: link:packages/check-exports
+      '@repo/crypto-js':
+        specifier: workspace:*
+        version: link:packages/crypto-js
+      '@repo/larascript-acl':
+        specifier: workspace:*
+        version: link:packages/larascript-acl
+      '@repo/larascript-collection':
+        specifier: workspace:*
+        version: link:packages/larascript-collection
+      '@repo/larascript-core':
+        specifier: workspace:*
+        version: link:packages/larascript-core
+      '@repo/larascript-logger':
+        specifier: workspace:*
+        version: link:packages/larascript-logger
+      '@repo/larascript-observer':
+        specifier: workspace:*
+        version: link:packages/larascript-observer
+      '@repo/larascript-utils':
+        specifier: workspace:*
+        version: link:packages/larascript-utils
+      '@repo/larascript-validator':
+        specifier: workspace:*
+        version: link:packages/larascript-validator
+      '@repo/larascript-views':
+        specifier: workspace:*
+        version: link:packages/larascript-views
       aws-sdk:
         specifier: ^2.1692.0
         version: 2.1692.0
@@ -83,6 +86,9 @@ importers:
       pg:
         specifier: ^8.12.0
         version: 8.16.3
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
       readline:
         specifier: ^1.3.0
         version: 1.3.0
@@ -190,18 +196,18 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -245,18 +251,18 @@ importers:
         specifier: ^4.36.1
         version: 4.36.1
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -294,20 +300,22 @@ importers:
         specifier: ^1.3.2
         version: 1.3.2(typescript@5.9.2)
 
+  packages/check-exports: {}
+
   packages/crypto-js:
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -347,18 +355,18 @@ importers:
 
   packages/dot-notation-extractor:
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -397,6 +405,10 @@ importers:
         version: 1.3.2(typescript@5.9.2)
 
   packages/eslint-config:
+    dependencies:
+      prettier:
+        specifier: ^3.6.2
+        version: 3.6.2
     devDependencies:
       eslint:
         specifier: ^9.22.0
@@ -407,18 +419,18 @@ importers:
 
   packages/larascript-acl:
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -462,73 +474,46 @@ importers:
         specifier: ^4.36.1
         version: 4.36.1
     devDependencies:
-      '@ben-shepherd/eslint-config':
+      '@repo/check-exports':
+        specifier: workspace:*
+        version: link:../check-exports
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
+      '@repo/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@commitlint/cli':
-        specifier: ^19.8.1
-        version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
-      '@commitlint/config-conventional':
-        specifier: ^19.8.1
-        version: 19.8.1
       '@types/jest':
-        specifier: ^29.5.14
+        specifier: ^29.5.12
         version: 29.5.14
-      eslint:
-        specifier: ^9.32.0
-        version: 9.33.0(jiti@2.5.1)
-      globals:
-        specifier: ^16.3.0
-        version: 16.3.0
+      '@types/node':
+        specifier: ^20.11.19
+        version: 20.19.11
       jest:
-        specifier: ^30.0.5
-        version: 30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
-      jiti:
-        specifier: ^2.5.1
-        version: 2.5.1
-      lefthook:
-        specifier: ^1.12.2
-        version: 1.12.3
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
-      ts-jest:
-        specifier: ^29.4.1
-        version: 29.4.1(@babel/core@7.28.3)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.3))(jest-util@30.0.5)(jest@30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)))(typescript@5.9.2)
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
       typescript:
-        specifier: ^5.9.2
+        specifier: ^5.3.3
         version: 5.9.2
-      typescript-eslint:
-        specifier: ^8.39.0
-        version: 8.39.1(eslint@9.33.0(jiti@2.5.1))(typescript@5.9.2)
-      validate-branch-name:
-        specifier: ^1.3.2
-        version: 1.3.2(typescript@5.9.2)
 
   packages/larascript-core:
     dependencies:
-      '@ben-shepherd/larascript-utils-bundle':
-        specifier: github:ben-shepherd/larascript-utils-bundle
-        version: '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013'
+      '@repo/larascript-utils':
+        specifier: workspace:*
+        version: link:../larascript-utils
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -562,18 +547,21 @@ importers:
 
   packages/larascript-forkable-bundle:
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/check-exports':
+        specifier: workspace:*
+        version: link:../check-exports
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -617,18 +605,18 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -668,19 +656,19 @@ importers:
 
   packages/larascript-mail:
     dependencies:
-      '@ben-shepherd/eslint-config':
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ben-shepherd/larascript-core':
+      '@repo/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core
-      '@ben-shepherd/larascript-logger':
+      '@repo/larascript-logger':
         specifier: github:ben-shepherd/larascript-logger
-        version: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21
-      '@ben-shepherd/larascript-views':
+        version: '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21'
+      '@repo/larascript-views':
         specifier: github:ben-shepherd/larascript-views
-        version: https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6
-      '@ben-shepherd/tsconfig':
+        version: '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6'
+      '@repo/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       nodemailer:
@@ -735,63 +723,36 @@ importers:
 
   packages/larascript-observer:
     devDependencies:
-      '@ben-shepherd/eslint-config':
+      '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
+      '@repo/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
-      '@commitlint/cli':
-        specifier: ^19.8.1
-        version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
-      '@commitlint/config-conventional':
-        specifier: ^19.8.1
-        version: 19.8.1
       '@types/jest':
-        specifier: ^29.5.14
+        specifier: ^29.5.12
         version: 29.5.14
+      '@types/node':
+        specifier: ^20.11.19
+        version: 20.19.11
       eslint:
-        specifier: ^9.32.0
+        specifier: ^9.22.0
         version: 9.33.0(jiti@2.5.1)
-      globals:
-        specifier: ^16.3.0
-        version: 16.3.0
       jest:
-        specifier: ^30.0.5
-        version: 30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
-      jiti:
-        specifier: ^2.5.1
-        version: 2.5.1
-      lefthook:
-        specifier: ^1.12.2
-        version: 1.12.3
-      prettier:
-        specifier: 3.6.2
-        version: 3.6.2
-      ts-jest:
-        specifier: ^29.4.1
-        version: 29.4.1(@babel/core@7.28.3)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.3))(jest-util@30.0.5)(jest@30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)))(typescript@5.9.2)
-      tsc-alias:
-        specifier: ^1.8.16
-        version: 1.8.16
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
       typescript:
-        specifier: ^5.9.2
+        specifier: ^5.3.3
         version: 5.9.2
-      typescript-eslint:
-        specifier: ^8.39.0
-        version: 8.39.1(eslint@9.33.0(jiti@2.5.1))(typescript@5.9.2)
-      validate-branch-name:
-        specifier: ^1.3.2
-        version: 1.3.2(typescript@5.9.2)
 
   packages/larascript-utils:
     dependencies:
-      '@ben-shepherd/cast-js':
+      '@repo/cast-js':
         specifier: github:ben-shepherd/cast-js
-        version: https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c
-      '@ben-shepherd/dot-notation-extractor':
+        version: '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c'
+      '@repo/dot-notation-extractor':
         specifier: github:ben-shepherd/dot-notation-extractor
-        version: https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37
+        version: '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37'
       crypto:
         specifier: ^1.0.1
         version: 1.0.1
@@ -802,103 +763,61 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
-      '@types/jest':
-        specifier: ^29.5.14
-        version: 29.5.14
-      jest:
-        specifier: ^30.0.5
-        version: 30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
-      jiti:
-        specifier: ^2.5.1
-        version: 2.5.1
-      lefthook:
-        specifier: ^1.12.2
-        version: 1.12.3
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
-      ts-jest:
-        specifier: ^29.4.1
-        version: 29.4.1(@babel/core@7.28.3)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.3))(jest-util@30.0.5)(jest@30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)))(typescript@5.9.2)
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      eslint:
+        specifier: ^9.10.0
+        version: 9.33.0(jiti@2.5.1)
       tsc-alias:
         specifier: ^1.8.16
         version: 1.8.16
-      typescript:
-        specifier: ^5.9.2
-        version: 5.9.2
-      typescript-eslint:
-        specifier: ^8.39.0
-        version: 8.39.1(eslint@9.33.0(jiti@2.5.1))(typescript@5.9.2)
       validate-branch-name:
         specifier: ^1.3.2
         version: 1.3.2(typescript@5.9.2)
 
   packages/larascript-validator:
     dependencies:
-      '@ben-shepherd/larascript-utils-bundle':
-        specifier: github:ben-shepherd/larascript-utils-bundle
-        version: '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013'
-    devDependencies:
-      '@ben-shepherd/eslint-config':
+      '@repo/larascript-utils':
         specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
-      '@commitlint/cli':
-        specifier: ^19.8.1
-        version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
-      '@commitlint/config-conventional':
-        specifier: ^19.8.1
-        version: 19.8.1
-      '@types/jest':
-        specifier: ^29.5.14
-        version: 29.5.14
-      eslint:
-        specifier: ^9.32.0
-        version: 9.33.0(jiti@2.5.1)
-      globals:
-        specifier: ^16.3.0
-        version: 16.3.0
-      jest:
-        specifier: ^30.0.5
-        version: 30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
-      jiti:
-        specifier: ^2.5.1
-        version: 2.5.1
-      lefthook:
-        specifier: ^1.12.2
-        version: 1.12.3
-      prettier:
-        specifier: ^3.6.2
-        version: 3.6.2
-      ts-jest:
-        specifier: ^29.4.1
-        version: 29.4.1(@babel/core@7.28.3)(@jest/transform@30.0.5)(@jest/types@30.0.5)(babel-jest@30.0.5(@babel/core@7.28.3))(jest-util@30.0.5)(jest@30.0.5(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)))(typescript@5.9.2)
+        version: link:../larascript-utils
       tsc-alias:
         specifier: ^1.8.16
         version: 1.8.16
+    devDependencies:
+      '@repo/check-exports':
+        specifier: workspace:*
+        version: link:../check-exports
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      '@types/jest':
+        specifier: ^29.5.12
+        version: 29.5.14
+      '@types/node':
+        specifier: ^20.11.19
+        version: 20.19.11
+      eslint:
+        specifier: ^9.22.0
+        version: 9.33.0(jiti@2.5.1)
+      jest:
+        specifier: ^29.7.0
+        version: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
       typescript:
-        specifier: ^5.9.2
+        specifier: ^5.3.3
         version: 5.9.2
-      typescript-eslint:
-        specifier: ^8.39.0
-        version: 8.39.1(eslint@9.33.0(jiti@2.5.1))(typescript@5.9.2)
-      validate-branch-name:
-        specifier: ^1.3.2
-        version: 1.3.2(typescript@5.9.2)
 
   packages/larascript-views:
     dependencies:
@@ -906,18 +825,18 @@ importers:
         specifier: ^3.1.10
         version: 3.1.10
     devDependencies:
-      '@ben-shepherd/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@ben-shepherd/tsconfig':
-        specifier: workspace:*
-        version: link:../tsconfig
       '@commitlint/cli':
         specifier: ^19.8.1
         version: 19.8.1(@types/node@22.17.2)(typescript@5.9.2)
       '@commitlint/config-conventional':
         specifier: ^19.8.1
         version: 19.8.1
+      '@repo/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@repo/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
       '@types/jest':
         specifier: ^29.5.14
         version: 29.5.14
@@ -1146,10 +1065,6 @@ packages:
   '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21}
     version: 1.0.1
-
-  '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013':
-    resolution: {commit: ecfa4545cd2af678d060a576427c152560ed2013, repo: git@github.com:ben-shepherd/larascript-utils-bundle.git, type: git}
-    version: 1.0.8
 
   '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6}
@@ -1655,6 +1570,9 @@ packages:
 
   '@types/ms@2.1.0':
     resolution: {integrity: sha512-GsCCIZDE/p3i96vtEqx+7dBUGXrc7zeSK3wwPHIaRThS+9OhWIXRqzs4d6k1SVU8g91DrNRWxWUGhp5KXQb2VA==}
+
+  '@types/node@20.19.11':
+    resolution: {integrity: sha512-uug3FEEGv0r+jrecvUUpbY8lLisvIjg6AAic6a2bSP5OEOLeJsDSnvhCDov7ipFFMXS3orMpzlmi0ZcuGkBbow==}
 
   '@types/node@22.17.2':
     resolution: {integrity: sha512-gL6z5N9Jm9mhY+U2KXZpteb+09zyffliRkZyZOHODGATyC5B1Jt/7TzuuiLkFsSUMLbS1OLmlj/E+/3KF4Q/4w==}
@@ -5464,14 +5382,6 @@ snapshots:
     dependencies:
       winston: 3.17.0
 
-  '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013':
-    dependencies:
-      '@ben-shepherd/cast-js': https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c
-      '@ben-shepherd/dot-notation-extractor': https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37
-      crypto: 1.0.1
-      lodash: 4.17.21
-      uuid: 11.1.0
-
   '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
     dependencies:
       ejs: 3.1.10
@@ -6244,6 +6154,10 @@ snapshots:
   '@types/minimatch@3.0.5': {}
 
   '@types/ms@2.1.0': {}
+
+  '@types/node@20.19.11':
+    dependencies:
+      undici-types: 6.21.0
 
   '@types/node@22.17.2':
     dependencies:
@@ -7104,6 +7018,21 @@ snapshots:
       parse-json: 5.2.0
     optionalDependencies:
       typescript: 5.9.2
+
+  create-jest@29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
+    dependencies:
+      '@jest/types': 29.6.3
+      chalk: 4.1.2
+      exit: 0.1.2
+      graceful-fs: 4.2.11
+      jest-config: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+      jest-util: 29.7.0
+      prompts: 2.4.2
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
 
   create-jest@29.7.0(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
     dependencies:
@@ -8261,6 +8190,25 @@ snapshots:
       - babel-plugin-macros
       - supports-color
 
+  jest-cli@29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
+    dependencies:
+      '@jest/core': 29.7.0(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+      '@jest/test-result': 29.7.0
+      '@jest/types': 29.6.3
+      chalk: 4.1.2
+      create-jest: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+      exit: 0.1.2
+      import-local: 3.2.0
+      jest-config: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      yargs: 17.7.2
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
+
   jest-cli@29.7.0(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
     dependencies:
       '@jest/core': 29.7.0(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
@@ -8298,6 +8246,37 @@ snapshots:
       - esbuild-register
       - supports-color
       - ts-node
+
+  jest-config@29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
+    dependencies:
+      '@babel/core': 7.28.3
+      '@jest/test-sequencer': 29.7.0
+      '@jest/types': 29.6.3
+      babel-jest: 29.7.0(@babel/core@7.28.3)
+      chalk: 4.1.2
+      ci-info: 3.9.0
+      deepmerge: 4.3.1
+      glob: 7.2.3
+      graceful-fs: 4.2.11
+      jest-circus: 29.7.0
+      jest-environment-node: 29.7.0
+      jest-get-type: 29.6.3
+      jest-regex-util: 29.6.3
+      jest-resolve: 29.7.0
+      jest-runner: 29.7.0
+      jest-util: 29.7.0
+      jest-validate: 29.7.0
+      micromatch: 4.0.8
+      parse-json: 5.2.0
+      pretty-format: 29.7.0
+      slash: 3.0.0
+      strip-json-comments: 3.1.1
+    optionalDependencies:
+      '@types/node': 20.19.11
+      ts-node: 10.9.2(@types/node@22.17.2)(typescript@5.9.2)
+    transitivePeerDependencies:
+      - babel-plugin-macros
+      - supports-color
 
   jest-config@29.7.0(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
     dependencies:
@@ -8798,6 +8777,18 @@ snapshots:
       jest-util: 30.0.5
       merge-stream: 2.0.0
       supports-color: 8.1.1
+
+  jest@29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
+    dependencies:
+      '@jest/core': 29.7.0(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+      '@jest/types': 29.6.3
+      import-local: 3.2.0
+      jest-cli: 29.7.0(@types/node@20.19.11)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2))
+    transitivePeerDependencies:
+      - '@types/node'
+      - babel-plugin-macros
+      - supports-color
+      - ts-node
 
   jest@29.7.0(@types/node@22.17.2)(ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2)):
     dependencies:

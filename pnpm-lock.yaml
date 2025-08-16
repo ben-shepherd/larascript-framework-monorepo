@@ -9,35 +9,35 @@ importers:
   .:
     dependencies:
       '@ben-shepherd/async-session':
-        specifier: github:ben-shepherd/async-session
-        version: https://codeload.github.com/ben-shepherd/async-session/tar.gz/42d3836876bd16ef4ded2a98288233fef2c0efae
+        specifier: workspace:*
+        version: link:packages/async-session
       '@ben-shepherd/crypto-js':
-        specifier: github:ben-shepherd/crypto-js
-        version: https://codeload.github.com/ben-shepherd/crypto-js/tar.gz/46476973252d50a0c4d93915c6a36d84056616e3
+        specifier: workspace:*
+        version: link:packages/crypto-js
       '@ben-shepherd/larascript-acl':
-        specifier: github:ben-shepherd/larascript-acl
-        version: https://codeload.github.com/ben-shepherd/larascript-acl/tar.gz/de6b161b8fdb44dceec49406b291f289b4420f1b
+        specifier: workspace:*
+        version: link:packages/larascript-acl
       '@ben-shepherd/larascript-collection':
-        specifier: github:ben-shepherd/larascript-collection
-        version: https://codeload.github.com/ben-shepherd/larascript-collection/tar.gz/b599bf465169f7d0212878f414c63a5557cedef3
+        specifier: workspace:*
+        version: link:packages/larascript-collection
       '@ben-shepherd/larascript-core':
         specifier: workspace:*
         version: link:packages/larascript-core
       '@ben-shepherd/larascript-logger':
-        specifier: github:ben-shepherd/larascript-logger
-        version: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21
+        specifier: workspace:*
+        version: link:packages/larascript-logger
       '@ben-shepherd/larascript-observer':
-        specifier: github:ben-shepherd/larascript-observer
-        version: https://codeload.github.com/ben-shepherd/larascript-observer/tar.gz/33a4f40c05ddf85b1b12b116dbff2d3031b7318e
+        specifier: workspace:*
+        version: link:packages/larascript-observer
       '@ben-shepherd/larascript-utils':
-        specifier: github:ben-shepherd/larascript-utils
-        version: https://codeload.github.com/ben-shepherd/larascript-utils/tar.gz/ecfa4545cd2af678d060a576427c152560ed2013
+        specifier: workspace:*
+        version: link:packages/larascript-utils
       '@ben-shepherd/larascript-validator':
-        specifier: github:ben-shepherd/larascript-validator
-        version: https://codeload.github.com/ben-shepherd/larascript-validator/tar.gz/ad128a42c43d777324b348d56a5a0e7dca4d42dc
+        specifier: workspace:*
+        version: link:packages/larascript-validator
       '@ben-shepherd/larascript-views':
-        specifier: github:ben-shepherd/larascript-views
-        version: https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6
+        specifier: workspace:*
+        version: link:packages/larascript-views
       '@jest/globals':
         specifier: ^29.7.0
         version: 29.7.0
@@ -1135,49 +1135,21 @@ packages:
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
 
-  '@ben-shepherd/async-session@https://codeload.github.com/ben-shepherd/async-session/tar.gz/42d3836876bd16ef4ded2a98288233fef2c0efae':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/async-session/tar.gz/42d3836876bd16ef4ded2a98288233fef2c0efae}
-    version: 1.0.1
-
   '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c}
-    version: 1.0.0
-
-  '@ben-shepherd/crypto-js@https://codeload.github.com/ben-shepherd/crypto-js/tar.gz/46476973252d50a0c4d93915c6a36d84056616e3':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/crypto-js/tar.gz/46476973252d50a0c4d93915c6a36d84056616e3}
     version: 1.0.0
 
   '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37}
     version: 1.0.0
 
-  '@ben-shepherd/larascript-acl@https://codeload.github.com/ben-shepherd/larascript-acl/tar.gz/de6b161b8fdb44dceec49406b291f289b4420f1b':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-acl/tar.gz/de6b161b8fdb44dceec49406b291f289b4420f1b}
-    version: 1.0.5
-
-  '@ben-shepherd/larascript-collection@https://codeload.github.com/ben-shepherd/larascript-collection/tar.gz/b599bf465169f7d0212878f414c63a5557cedef3':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-collection/tar.gz/b599bf465169f7d0212878f414c63a5557cedef3}
-    version: 1.0.0
-
   '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21}
     version: 1.0.1
 
-  '@ben-shepherd/larascript-observer@https://codeload.github.com/ben-shepherd/larascript-observer/tar.gz/33a4f40c05ddf85b1b12b116dbff2d3031b7318e':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-observer/tar.gz/33a4f40c05ddf85b1b12b116dbff2d3031b7318e}
-    version: 1.0.0
-
   '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013':
     resolution: {commit: ecfa4545cd2af678d060a576427c152560ed2013, repo: git@github.com:ben-shepherd/larascript-utils-bundle.git, type: git}
     version: 1.0.8
-
-  '@ben-shepherd/larascript-utils@https://codeload.github.com/ben-shepherd/larascript-utils/tar.gz/ecfa4545cd2af678d060a576427c152560ed2013':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-utils/tar.gz/ecfa4545cd2af678d060a576427c152560ed2013}
-    version: 1.0.8
-
-  '@ben-shepherd/larascript-validator@https://codeload.github.com/ben-shepherd/larascript-validator/tar.gz/ad128a42c43d777324b348d56a5a0e7dca4d42dc':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-validator/tar.gz/ad128a42c43d777324b348d56a5a0e7dca4d42dc}
-    version: 1.0.1
 
   '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6}
@@ -5482,29 +5454,15 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@ben-shepherd/async-session@https://codeload.github.com/ben-shepherd/async-session/tar.gz/42d3836876bd16ef4ded2a98288233fef2c0efae':
-    dependencies:
-      uuid: 11.1.0
-
   '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c':
     dependencies:
       collect.js: 4.36.1
 
-  '@ben-shepherd/crypto-js@https://codeload.github.com/ben-shepherd/crypto-js/tar.gz/46476973252d50a0c4d93915c6a36d84056616e3': {}
-
   '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37': {}
-
-  '@ben-shepherd/larascript-acl@https://codeload.github.com/ben-shepherd/larascript-acl/tar.gz/de6b161b8fdb44dceec49406b291f289b4420f1b': {}
-
-  '@ben-shepherd/larascript-collection@https://codeload.github.com/ben-shepherd/larascript-collection/tar.gz/b599bf465169f7d0212878f414c63a5557cedef3':
-    dependencies:
-      collect.js: 4.36.1
 
   '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
     dependencies:
       winston: 3.17.0
-
-  '@ben-shepherd/larascript-observer@https://codeload.github.com/ben-shepherd/larascript-observer/tar.gz/33a4f40c05ddf85b1b12b116dbff2d3031b7318e': {}
 
   '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013':
     dependencies:
@@ -5513,18 +5471,6 @@ snapshots:
       crypto: 1.0.1
       lodash: 4.17.21
       uuid: 11.1.0
-
-  '@ben-shepherd/larascript-utils@https://codeload.github.com/ben-shepherd/larascript-utils/tar.gz/ecfa4545cd2af678d060a576427c152560ed2013':
-    dependencies:
-      '@ben-shepherd/cast-js': https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c
-      '@ben-shepherd/dot-notation-extractor': https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37
-      crypto: 1.0.1
-      lodash: 4.17.21
-      uuid: 11.1.0
-
-  '@ben-shepherd/larascript-validator@https://codeload.github.com/ben-shepherd/larascript-validator/tar.gz/ad128a42c43d777324b348d56a5a0e7dca4d42dc':
-    dependencies:
-      '@ben-shepherd/larascript-utils-bundle': '@ben-shepherd/larascript-utils@git+https://git@github.com:ben-shepherd/larascript-utils-bundle.git#ecfa4545cd2af678d060a576427c152560ed2013'
 
   '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
     dependencies:

@@ -1,0 +1,152 @@
+# Project Overview
+
+## What is Larascript?
+
+Larascript is a modern, type-safe Node.js framework designed for building scalable applications with a focus on developer experience. It provides a comprehensive ecosystem of modular packages that can be used independently or together to create robust, maintainable applications.
+
+## 🎯 Core Philosophy
+
+### Developer Experience First
+- **Type Safety**: Full TypeScript support with strict typing
+- **Modular Design**: Use only what you need, compose as you grow
+- **Intuitive APIs**: Clean, expressive interfaces that feel natural
+- **Comprehensive Tooling**: Built-in testing, linting, and development tools
+
+### Enterprise Ready
+- **Scalable Architecture**: Designed for growth from startup to enterprise
+- **Security Focused**: Built-in authentication, authorization, and security features
+- **Database Agnostic**: Support for multiple databases with unified interfaces
+- **Production Ready**: Comprehensive logging, monitoring, and deployment tools
+
+## 🏗️ Architecture Overview
+
+### Monorepo Structure
+```
+larascript-monorepo/
+├── apps/
+│   └── larascript-framework/     # Main framework application
+├── libs/                         # Shared libraries and packages
+│   ├── larascript-core/         # Core framework components
+│   ├── larascript-acl/          # Access control system
+│   ├── larascript-validator/    # Validation system
+│   └── ...                      # Other specialized packages
+└── docs/                        # Documentation
+```
+
+### Package Categories
+
+#### 🎯 Core Framework Packages
+These packages form the foundation of the Larascript ecosystem:
+
+- **`@repo/larascript-core`** - Core components, base classes, and foundational patterns
+- **`@repo/larascript-acl`** - Access Control List system for authorization
+- **`@repo/larascript-validator`** - Comprehensive validation system
+- **`@repo/larascript-logger`** - Structured logging with multiple transports
+- **`@repo/larascript-observer`** - Event-driven architecture patterns
+- **`@repo/larascript-views`** - Template rendering and view management
+- **`@repo/larascript-collection`** - Collection utilities and data structures
+- **`@repo/larascript-utils`** - Common utility functions and helpers
+
+#### 🔧 Utility Packages
+Standalone utilities that can be used in any Node.js project:
+
+- **`@repo/async-session`** - Asynchronous session management
+- **`@repo/cast-js`** - Type casting and transformation utilities
+- **`@repo/crypto-js`** - Cryptographic operations and security utilities
+- **`@repo/dot-notation-extractor`** - Dot notation data extraction and manipulation
+- **`@repo/larascript-mail`** - Email functionality with multiple providers
+
+#### 🛠️ Development Tools
+Shared configurations and development utilities:
+
+- **`@repo/eslint-config`** - Standardized ESLint configuration
+- **`@repo/tsconfig`** - Shared TypeScript configuration
+- **`@repo/jest-config`** - Jest testing configuration
+- **`@repo/check-exports`** - Export validation utilities
+
+## 🚀 Key Features
+
+### Framework Features
+- **Full-Stack Capabilities**: Web framework with built-in ORM, templating, and API support
+- **Database Integration**: Support for PostgreSQL, MongoDB, and other databases
+- **Authentication & Authorization**: JWT-based auth with flexible ACL system
+- **Email System**: Multi-provider email support (Nodemailer, Resend)
+- **File Uploads**: Built-in file handling with cloud storage support
+- **API Development**: RESTful API development with automatic documentation
+- **Template Engine**: EJS templating with layouts and partials
+
+### Development Features
+- **Hot Reloading**: Development server with automatic reloading
+- **Type Safety**: Full TypeScript support with strict configuration
+- **Testing**: Comprehensive testing setup with Jest
+- **Code Quality**: ESLint, Prettier, and automated code formatting
+- **Docker Support**: Containerized development and deployment
+- **Monorepo Management**: Turbo-powered build system with caching
+
+### Production Features
+- **Logging**: Structured logging with multiple transports
+- **Monitoring**: Built-in health checks and monitoring endpoints
+- **Security**: CSRF protection, rate limiting, and security headers
+- **Performance**: Optimized builds and runtime performance
+- **Deployment**: Docker-based deployment with environment configuration
+
+## 🎯 Use Cases
+
+### Web Applications
+Build full-stack web applications with server-side rendering, API endpoints, and modern frontend integration.
+
+### API Services
+Create robust REST APIs with automatic documentation, validation, and authentication.
+
+### Microservices
+Use individual packages to build microservices with shared utilities and consistent patterns.
+
+### Enterprise Applications
+Scale from small applications to large enterprise systems with built-in security, monitoring, and maintainability features.
+
+## 🔄 Technology Stack
+
+### Runtime & Language
+- **Node.js** - JavaScript runtime
+- **TypeScript** - Type-safe JavaScript
+
+### Package Management & Build
+- **pnpm** - Fast, disk space efficient package manager
+- **Turbo** - High-performance build system for JavaScript and TypeScript codebases
+
+### Databases & ORM
+- **PostgreSQL** - Primary relational database
+- **MongoDB** - NoSQL database support
+- **Sequelize** - ORM for database operations
+
+### Web Framework & Middleware
+- **Express.js** - Web application framework
+- **EJS** - Template engine
+- **CORS** - Cross-origin resource sharing
+- **JWT** - JSON Web Tokens for authentication
+
+### Development Tools
+- **Jest** - Testing framework
+- **ESLint** - Code linting
+- **Prettier** - Code formatting
+- **Docker** - Containerization
+
+### Cloud & Services
+- **AWS SDK** - Cloud services integration
+- **Nodemailer** - Email functionality
+- **Resend** - Modern email API
+
+## 🎯 Getting Started
+
+Ready to dive in? Check out our [Quick Start Guide](./quick-start.md) to get up and running in minutes, or explore the [Architecture Guide](./architecture.md) to understand the system design.
+
+## 🤝 Community & Support
+
+- **GitHub**: [larascript-monorepo](https://github.com/ben-shepherd/larascript-monorepo)
+- **Issues**: [Report bugs or request features](https://github.com/ben-shepherd/larascript-monorepo/issues)
+- **Email**: ben.shepherd@gmx.com
+- **LinkedIn**: [Benjamin Shepherd](https://www.linkedin.com/in/benjamin-programmer/)
+
+---
+
+**Next Steps**: [Quick Start Guide](./quick-start.md) → [Architecture Guide](./architecture.md) → [Development Setup](./development-setup.md)

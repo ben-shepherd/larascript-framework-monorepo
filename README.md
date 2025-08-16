@@ -1,4 +1,4 @@
-# Larascript Monorepo
+# Larascript Framework
 
 A comprehensive monorepo containing the Larascript Framework and its ecosystem of packages, providing a powerful Node.js framework with built-in ORM, type safety, and developer-friendly APIs.
 
@@ -6,34 +6,34 @@ A comprehensive monorepo containing the Larascript Framework and its ecosystem o
 
 Larascript is a modern, type-safe Node.js framework designed for building scalable applications with a focus on developer experience. This monorepo contains the main framework application and a collection of modular packages that can be used independently or together.
 
-## �� Packages
+## 📦 Packages
 
 ### Core Framework
 - **`app/larascript-framework`** - The main Larascript Framework application with full-stack capabilities
 
 ### Core Packages
-- **`@ben-shepherd/larascript-core`** - Core components and foundational patterns
-- **`@ben-shepherd/larascript-acl`** - Access Control List (ACL) system
-- **`@ben-shepherd/larascript-collection`** - Collection utilities and data structures
-- **`@ben-shepherd/larascript-logger`** - Logging system
-- **`@ben-shepherd/larascript-observer`** - Event observer pattern implementation
-- **`@ben-shepherd/larascript-validator`** - Validation system
-- **`@ben-shepherd/larascript-views`** - View rendering system
-- **`@ben-shepherd/larascript-utils`** - Utility functions and helpers
+- **`@repo/larascript-core`** - Core components and foundational patterns
+- **`@repo/larascript-acl`** - Access Control List (ACL) system
+- **`@repo/larascript-collection`** - Collection utilities and data structures
+- **`@repo/larascript-logger`** - Logging system
+- **`@repo/larascript-observer`** - Event observer pattern implementation
+- **`@repo/larascript-validator`** - Validation system
+- **`@repo/larascript-views`** - View rendering system
+- **`@repo/larascript-utils`** - Utility functions and helpers
 
 ### Specialized Packages
-- **`@ben-shepherd/async-session`** - Asynchronous session management
-- **`@ben-shepherd/cast-js`** - Type casting utilities
-- **`@ben-shepherd/crypto-js`** - Cryptographic utilities
-- **`@ben-shepherd/dot-notation-extractor`** - Dot notation data extraction
-- **`@ben-shepherd/larascript-mail`** - Email functionality
+- **`@repo/async-session`** - Asynchronous session management
+- **`@repo/cast-js`** - Type casting utilities
+- **`@repo/crypto-js`** - Cryptographic utilities
+- **`@repo/dot-notation-extractor`** - Dot notation data extraction
+- **`@repo/larascript-mail`** - Email functionality
 
 ### Development Tools
 - **`packages/eslint-config`** - Shared ESLint configuration
 - **`packages/tsconfig`** - Shared TypeScript configuration
 
 ## Templates
-- **`@ben-shepherd/larascript-forkable-bundle`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
+- **`@repo/larascript-forkable-bundle`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
 
 ## 🛠️ Technology Stack
 
@@ -44,7 +44,7 @@ Larascript is a modern, type-safe Node.js framework designed for building scalab
 - **Testing**: Jest
 - **Linting**: ESLint
 - **Database**: PostgreSQL, MongoDB
-- **ORM**: Sequelize
+- **ORM**: Utilizes Sequelize for initial schema setup, complemented by Larascript's custom schema system
 - **Web Framework**: Express.js
 - **Template Engine**: EJS
 - **Authentication**: JWT, bcrypt
@@ -68,6 +68,46 @@ cd larascript-monorepo
 
 # Install dependencies
 pnpm install
+```
+
+### Setting Up Git Remote (Optional)
+
+Make sure your own repository is setup instead of the original - update the git remote:
+
+```bash
+# Remove the original remote
+git remote remove origin
+
+# Add your own repository as the new remote
+git remote add origin https://github.com/yourusername/your-repo-name.git
+
+# Or if using SSH
+git remote add origin git@github.com:yourusername/your-repo-name.git
+
+# Verify the new remote
+git remote -v
+
+# Push to your repository (if you want to keep the history)
+git push -u origin main
+```
+
+### Framework Setup
+
+```bash
+# Add write permissions to logs directory
+chmod -R 755 apps/larascript-framework/storage
+
+# Start PostgreSQL and MongoDB
+pnpm db:up
+
+# Run setup command (optional - populates .env with configured settings)
+pnpm setup
+
+# Run database migrations
+pnpm dev migrate:up
+
+# Start development environment
+pnpm dev
 ```
 
 ### Development
@@ -118,11 +158,13 @@ pnpm api:sh
 larascript-monorepo/
 ├── app/
 │   └── larascript-framework/     # Main framework application
-├── packages/                     # Individual packages
+├── libs/                        # Core framework libraries
 │   ├── larascript-core/         # Core framework components
 │   ├── larascript-acl/          # Access control system
 │   ├── larascript-collection/   # Collection utilities
-│   └── ...                      # Other packages
+│   └── ...                      # Other libraries
+├── packages/                    # Your own packages
+│   └── ...                      # Add your custom packages here
 ├── docs/                        # Documentation
 ├── package.json                 # Root package configuration
 ├── pnpm-workspace.yaml         # Workspace configuration
@@ -163,7 +205,7 @@ pnpm test:coverage
 
 ## 📚 Documentation
 
-- **Framework Documentation**: See `app/larascript-framework/` for main framework docs
+- **Framework Documentation**: See `docs/` for main docs
 - **Package Documentation**: Each package contains its own README and documentation
 - **API Documentation**: Available when running the framework application
 
@@ -195,7 +237,7 @@ ISC License - see individual package.json files for details.
 ## 🔗 Links
 
 - **Framework**: [Larascript Framework](./app/larascript-framework/)
-- **Core Package**: [@ben-shepherd/larascript-core](./packages/larascript-core/)
+- **Core Package**: [@repo/larascript-core](./packages/larascript-core/)
 - **Documentation**: [Docs](./docs/)
 
 ---

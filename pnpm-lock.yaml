@@ -20,6 +20,9 @@ importers:
       '@repo/crypto-js':
         specifier: workspace:*
         version: link:packages/crypto-js
+      '@repo/jest-config':
+        specifier: workspace:*
+        version: link:packages/jest-config
       '@repo/larascript-acl':
         specifier: workspace:*
         version: link:packages/larascript-acl
@@ -205,6 +208,9 @@ importers:
       '@repo/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
+      '@repo/jest-config':
+        specifier: workspace:*
+        version: link:../jest-config
       '@repo/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
@@ -416,6 +422,8 @@ importers:
       typescript-eslint:
         specifier: ^8.25.0
         version: 8.39.1(eslint@9.33.0(jiti@2.5.1))(typescript@5.9.2)
+
+  packages/jest-config: {}
 
   packages/larascript-acl:
     devDependencies:

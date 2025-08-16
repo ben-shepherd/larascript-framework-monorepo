@@ -1,0 +1,6 @@
+{
+    "name": "@repo/jest-config",
+    "version": "1.0.0",
+    "main": "./jest.config.js",
+    "type": "module"
+}

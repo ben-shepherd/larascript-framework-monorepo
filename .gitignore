@@ -1,4 +1,14 @@
-node_modules
+storage/logs/*
+!storage/logs/.gitkeep
+
+storage/temp/*
+!storage/temp/.gitkeep
+
+storage/upload/*
+!storage/upload/.gitkeep
+
+storage/cache/*
+!storage/cache/.gitkeep
 
 # Created by https://www.toptal.com/developers/gitignore/api/node,turbo,visualstudiocode
 # Edit at https://www.toptal.com/developers/gitignore?templates=node,turbo,visualstudiocode

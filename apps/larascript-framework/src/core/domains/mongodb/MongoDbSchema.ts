@@ -114,7 +114,11 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
     // eslint-disable-next-line no-unused-vars
     async dropTable(tableName: string, ...args: any[]): Promise<void> {
         try {
-            await this.getAdapter().getDb().dropCollection(tableName);
+            const db = this.getAdapter().getDb();
+            const collections = await (await db.listCollections({ name: tableName })).toArray();
+            if (collections.length > 0) {
+                await db.dropCollection(tableName);
+            }
         }
         catch (err) {
             logger().error('Error dropping table: ' + (err as Error).message);

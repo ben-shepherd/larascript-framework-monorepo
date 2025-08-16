@@ -10,6 +10,7 @@
   "author": "ben.shepherd@gmx.com",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
+  "type": "module",
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"

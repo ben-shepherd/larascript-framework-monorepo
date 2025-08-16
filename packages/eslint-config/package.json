@@ -2,7 +2,7 @@
     "name": "@ben-shepherd/eslint-config",
     "version": "1.0.0",
     "exports": {
-        ".": "./eslint.config.mts"
+        ".": "./eslint.config.js"
     },
     "devDependencies": {
         "eslint": "^9.22.0",

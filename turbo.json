@@ -47,7 +47,7 @@
             "persistent": true,
             "cache": false
         },
-        "dev:tinker": {
+        "tinker": {
             "persistent": true,
             "cache": false
         },

@@ -1,7 +1,7 @@
+import BaseMailAdapter from "@src/core/domains/mail/base/BaseMailAdapter";
 import Mail from "@src/core/domains/mail/data/Mail";
 import { MailAdapter } from "@src/core/domains/mail/interfaces/adapter";
 import { Resend } from 'resend';
-import BaseMailAdapter from "@src/core/domains/mail/base/BaseMailAdapter";
 ;
 
 type ResendMailOptions = {
@@ -25,7 +25,9 @@ class ResendMailDriver extends BaseMailAdapter implements MailAdapter {
     constructor(options: ResendMailOptions = {} as ResendMailOptions) {
         super()
         this.options = options
-        this.resend = new Resend(options.apiKey)
+        if(options.apiKey) {
+            this.resend = new Resend(options.apiKey)
+        }
     }
 
     /**

@@ -178,8 +178,38 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.101.2)
 
-  apps/larascript-framework:
+  apps/framework:
     dependencies:
+      '@repo/async-session':
+        specifier: workspace:*
+        version: link:../../libs/async-session
+      '@repo/crypto-js':
+        specifier: workspace:*
+        version: link:../../libs/crypto-js
+      '@repo/larascript-acl':
+        specifier: workspace:*
+        version: link:../../libs/larascript-acl
+      '@repo/larascript-collection':
+        specifier: workspace:*
+        version: link:../../libs/larascript-collection
+      '@repo/larascript-core':
+        specifier: workspace:*
+        version: link:../../libs/larascript-core
+      '@repo/larascript-logger':
+        specifier: workspace:*
+        version: link:../../libs/larascript-logger
+      '@repo/larascript-observer':
+        specifier: workspace:*
+        version: link:../../libs/larascript-observer
+      '@repo/larascript-utils':
+        specifier: workspace:*
+        version: link:../../libs/larascript-utils
+      '@repo/larascript-validator':
+        specifier: workspace:*
+        version: link:../../libs/larascript-validator
+      '@repo/larascript-views':
+        specifier: workspace:*
+        version: link:../../libs/larascript-views
       aws-sdk:
         specifier: ^2.1692.0
         version: 2.1692.0

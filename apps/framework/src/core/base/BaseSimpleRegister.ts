@@ -63,7 +63,7 @@ class BaseSimpleRegister implements ISimpleRegister {
     /**
      * Store all the lists
      */
-    protected listMapRegistry: TSimpleRegisterDatabaseMap = new Map();
+    listMapRegistry: TSimpleRegisterDatabaseMap = new Map();
 
 
     /**
@@ -230,45 +230,45 @@ class BaseSimpleRegister implements ISimpleRegister {
         return commandHandlers[command]() as ICommandOptionArguement[K]['returns']
     }
 
-    protected createList(listName: string) {
+    createList(listName: string) {
         this.listMapRegistry.set(listName, new Map());
     }
 
-    protected listExists(listName: string) {
+    listExists(listName: string) {
         return this.listMapRegistry.has(listName);
     }
 
-    protected createListOverwrite(listName: string) {
+    createListOverwrite(listName: string) {
         this.listMapRegistry.set(listName, new Map());
     }
 
-    protected getList<T extends TListValueMap = TListValueMap>(listName: string): T {
+    getList<T extends TListValueMap = TListValueMap>(listName: string): T {
         return this.listMapRegistry.get(listName) as T;
     }
 
-    protected updateList(listName: string, listValue?: TListValueMap) {
+    updateList(listName: string, listValue?: TListValueMap) {
         this.listMapRegistry.set(listName, listValue ?? new Map());
     }
 
-    protected clearList(listName: string) {
+    clearList(listName: string) {
         this.listMapRegistry.set(listName, new Map());
     }
 
-    protected deleteList(listName: string) {
+    deleteList(listName: string) {
         if(this.listMapRegistry.has(listName)) {
             this.listMapRegistry.delete(listName);
         }
     }
 
-    protected setValue(key: string, listValue: unknown, listName: string) {
+    setValue(key: string, listValue: unknown, listName: string) {
         this.getList(listName)?.set(key, listValue);
     }
 
-    protected hasValue(key: string, listName: string) {
+    hasValue(key: string, listName: string) {
         return this.getList(listName)?.has(key) ?? false;
     }
 
-    protected getValue<T = unknown>(key: string, listName: string): T | undefined{
+    getValue<T = unknown>(key: string, listName: string): T | undefined{
         return this.getList(listName)?.get(key) as T ?? undefined
     }
 

@@ -30,6 +30,16 @@
     "api:sh": "docker exec -it larascript-api /bin/bash"
   },
   "dependencies": {
+    "@repo/async-session": "workspace:*",
+		"@repo/crypto-js": "workspace:*",
+		"@repo/larascript-acl": "workspace:*",
+		"@repo/larascript-collection": "workspace:*",
+		"@repo/larascript-core": "workspace:*",
+		"@repo/larascript-logger": "workspace:*",
+		"@repo/larascript-observer": "workspace:*",
+		"@repo/larascript-utils": "workspace:*",
+		"@repo/larascript-validator": "workspace:*",
+		"@repo/larascript-views": "workspace:*",
     "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "collect.js": "^4.36.1",

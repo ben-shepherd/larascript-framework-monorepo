@@ -41,7 +41,7 @@ const EventWorkerConcern = (Base: TClassConstructor) => {
          * @param options The options to use when processing the event
          * @private
          */
-        private async handleWorkerModel(workerModel: IWorkerModel, options: TEventWorkerOptions): Promise<void> {
+        async handleWorkerModel(workerModel: IWorkerModel, options: TEventWorkerOptions): Promise<void> {
             try {
                 const eventName = workerModel.getAttributeSync('eventName');
 
@@ -75,7 +75,7 @@ const EventWorkerConcern = (Base: TClassConstructor) => {
          * @param options The options to use when updating the worker model document
          * @private
          */
-        private async handleUpdateWorkerModelAttempts(workerModel: IWorkerModel, options: TEventWorkerOptions) {
+        async handleUpdateWorkerModelAttempts(workerModel: IWorkerModel, options: TEventWorkerOptions) {
 
             const attempt = await workerModel.getAttributeSync('attempt') ?? 0
             const newAttempt = attempt + 1
@@ -101,7 +101,7 @@ const EventWorkerConcern = (Base: TClassConstructor) => {
          * @param options The options to use when handling the failed worker model
          * @private
          */
-        private async handleFailedWorkerModel(workerModel: IWorkerModel, options: TEventWorkerOptions) {
+        async handleFailedWorkerModel(workerModel: IWorkerModel, options: TEventWorkerOptions) {
             const FailedWorkerModel = new options.failedWorkerModelCtor({
                 eventName: workerModel.getAttributeSync('eventName'),
                 queueName: workerModel.getAttributeSync('queueName'),
@@ -116,7 +116,7 @@ const EventWorkerConcern = (Base: TClassConstructor) => {
         /**
          * Fetches worker model documents
          */
-        private async fetchWorkerModelDocuments(options: TEventWorkerOptions): Promise<IWorkerModel[]> {
+        async fetchWorkerModelDocuments(options: TEventWorkerOptions): Promise<IWorkerModel[]> {
             return (
                 await queryBuilder(options.workerModelCtor)
                     .where('queueName', options.queueName)

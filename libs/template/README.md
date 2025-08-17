@@ -1,85 +1,94 @@
-# Larascript Bundle Template
+# Larascript Package Template
 
-This is a template repository for creating Larascript bundles. Follow the steps below to create your own bundle.
+This is a template for creating new packages within the Larascript monorepo. Follow the steps below to create your own package.
 
-## Creating a New Bundle
+## Creating a New Package
 
-### 1. Fork or Clone the Repository
+### 1. Copy the Template Directory
 
-**Option A: Fork the repository**
-- Go to the original repository on GitHub
-- Click the "Fork" button to create your own copy
-
-**Option B: Clone the repository**
-```bash
-git clone https://github.com/ben-shepherd/larascript-forkable-bundle-original.git
-```
-
-### 2. Rename the Directory
-
-Change the cloned directory name to match your bundle name:
+Copy the template directory to create your new package:
 
 ```bash
-# If you cloned the repo
-mv larascript-forkable-bundle-original larascript-your-bundle-name
+# From the monorepo root
+cp -r libs/template libs/your-package-name
 
 # Example:
-mv larascript-forkable-bundle-original larascript-components-bundle
+cp -r libs/template libs/larascript-my-feature
 ```
 
-### 3. Update package.json
+### 2. Rename and Update Package Configuration
+
+Navigate to your new package directory and update the configuration:
+
+```bash
+cd libs/your-package-name
+```
+
+#### Update package.json
 
 Edit the `package.json` file and update the following fields:
 
 ```json
 {
-  "name": "@your-username/larascript-your-bundle-name",
-  "description": "Your bundle description here",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/your-username/larascript-your-bundle-name"
-  }
+  "name": "@larascript-framework/your-package-name",
+  "description": "Your package description here",
+  "version": "0.1.0"
 }
 ```
 
 **Required changes:**
-- `name`: Change from "PLACEHOLDER" to your bundle name (e.g., "larascript-components-bundle")
+- `name`: Change from "PLACEHOLDER" to your package name (e.g., "@larascript-framework/larascript-my-feature")
 - `description`: Replace "PLACEHOLDER DESCRIPTION" with a meaningful description
-- `repository.url`: Update to point to your new repository URL
+- `version`: Set to "0.1.0" for new packages
 
-### 4. Set Git Remote Origin URL
+#### Update README.md
 
-Update your git remote to point to your new repository:
+Replace the template README content with documentation specific to your package:
+- What the package does
+- How to install and use it
+- Examples and API documentation
+- Contributing guidelines
 
-```bash
-git remote set-url origin https://github.com/your-username/larascript-your-bundle-name.git
+### 3. Add Package to Turbo Pipeline
+
+If your package has build/test/lint scripts, add it to the root `turbo.json` pipeline:
+
+```json
+{
+  "pipeline": {
+    "build": {
+      "dependsOn": ["^build"],
+      "outputs": ["dist/**"]
+    },
+    "test": {
+      "dependsOn": ["^build"],
+      "outputs": []
+    },
+    "lint": {
+      "outputs": []
+    }
+  }
+}
 ```
 
-### 5. Update Repository Settings
-
-If you forked the repository:
-1. Go to your forked repository on GitHub
-2. Update the repository name to match your bundle name
-3. Update the repository description
-
-### 6. Initialize Your Bundle
+### 4. Initialize Your Package
 
 ```bash
-# Install dependencies
-npm install
+# From the monorepo root, install dependencies
+pnpm install
 
 # Run tests to ensure everything works
-npm test
+pnpm test
 
 # Build the project
-npm run build
+pnpm build
 ```
 
-### 7. Customize Your Bundle
+### 5. Customize Your Package
 
-- Add your bundle-specific code to `src/index.ts`
+- Add your package-specific code to `src/index.ts`
 - Update tests in the `src/tests/` directory
-- Modify configuration files as needed (`tsconfig.json`, `jest.config.js`, etc.)
+- Modify configuration files as needed (they already extend from the base configs)
 
 ## Important Notes
 
@@ -126,23 +135,24 @@ export * from './utils';
 export * from './types';
 ```
 
-### 8. Update This README
+### Configuration Inheritance
 
-Replace this content with documentation specific to your bundle:
-- What the bundle does
-- How to install and use it
-- Examples and API documentation
-- Contributing guidelines
+This template is already configured to:
+- Extend `@larascript-framework/tsconfig` in `tsconfig.json`
+- Import and export `@larascript-framework/eslint-config` in `eslint.config.js`
+- Use `@larascript-framework/jest-config` in `jest.config.js`
+
+No additional configuration is needed unless you have package-specific requirements.
 
 ## Development Workflow
 
 This template includes several helpful scripts:
 
-- `npm run build` - Build the TypeScript code
-- `npm test` - Run tests
-- `npm run lint` - Check code style
-- `npm run lint:fix` - Fix code style issues
-- `npm run format` - Format code with Prettier
+- `pnpm build` - Build the TypeScript code
+- `pnpm test` - Run tests
+- `pnpm lint` - Check code style
+- `pnpm lint:fix` - Fix code style issues
+- `pnpm format` - Format code with Prettier
 
 ### Setting up Lefthook
 
@@ -159,17 +169,6 @@ lefthook install
 
 Lefthook will automatically run linting, formatting, and tests before each commit to ensure code quality.
 
-### Upstream Repository Management
-
-If you've forked this repository and want to keep your fork in sync with the original repository, use these commands:
-
-- `npm run upstream:setup` - Sets up the upstream remote pointing to the original repository
-- `npm run upstream:fetch` - Fetches the latest changes from the upstream repository
-- `npm run upstream:merge` - Fetches and merges the latest changes from upstream into your current branch
-- `npm run upstream:rebase` - Fetches and rebases your current branch on top of the latest upstream changes
-
-**Note**: The `upstream:setup` command configures the upstream remote to prevent accidental pushes to the original repository. You cannot push to the upstream repository - it's configured as read-only.
-
 ## Publishing
 
 When ready to publish:
@@ -177,19 +176,20 @@ When ready to publish:
 1. Update the version in `package.json`
 2. Commit your changes
 3. Create a git tag for the version
-4. Push to GitHub
-5. The package will be published to the GitHub Package Registry
+4. Push to the repository
+5. The package will be published to the npm registry
 
 ## Template Features
 
-- TypeScript configuration
-- Jest testing setup
-- ESLint and Prettier for code quality
+- TypeScript configuration (extends base config)
+- Jest testing setup (extends base config)
+- ESLint and Prettier for code quality (extends base config)
 - Commit message linting with conventional commits
 - GitHub Actions ready
 - Branch name validation
 - Pre-commit hooks with Lefthook
+- Monorepo workspace integration
 
 ## Support
 
-For questions about this template or Larascript bundles in general, please refer to the main Larascript documentation or create an issue in the original repository.
+For questions about this template or Larascript packages in general, please refer to the main Larascript documentation or create an issue in the repository.

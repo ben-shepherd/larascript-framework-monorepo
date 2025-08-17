@@ -47,5 +47,8 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "crypto": "^1.0.1"
   }
 }

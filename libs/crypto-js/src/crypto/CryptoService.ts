@@ -1,4 +1,4 @@
-import crypto from "crypto";
+import crypto from "node:crypto";
 import { ICryptoConfig } from "./ICryptoConfig.t";
 import { ICryptoService } from "./ICryptoService.t";
 

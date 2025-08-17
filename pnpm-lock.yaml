@@ -178,7 +178,7 @@ importers:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.101.2)
 
-  apps/framework:
+  apps/larascript-framework:
     dependencies:
       '@larascript-framework/async-session':
         specifier: workspace:*
@@ -310,6 +310,9 @@ importers:
       terser-webpack-plugin:
         specifier: ^5.3.10
         version: 5.3.14(webpack@5.101.2)
+      tsc-alias:
+        specifier: ^1.8.10
+        version: 1.8.16
       webpack:
         specifier: ^5.92.1
         version: 5.101.2(webpack-cli@5.1.4)
@@ -351,6 +354,10 @@ importers:
   libs/check-exports: {}
 
   libs/crypto-js:
+    dependencies:
+      crypto:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
       '@larascript-framework/eslint-config':
         specifier: workspace:*

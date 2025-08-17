@@ -12,28 +12,28 @@ Larascript is a modern, type-safe Node.js framework designed for building scalab
 - **`app/larascript-framework`** - The main Larascript Framework application with full-stack capabilities
 
 ### Core Packages
-- **`@repo/larascript-core`** - Core components and foundational patterns
-- **`@repo/larascript-acl`** - Access Control List (ACL) system
-- **`@repo/larascript-collection`** - Collection utilities and data structures
-- **`@repo/larascript-logger`** - Logging system
-- **`@repo/larascript-observer`** - Event observer pattern implementation
-- **`@repo/larascript-validator`** - Validation system
-- **`@repo/larascript-views`** - View rendering system
-- **`@repo/larascript-utils`** - Utility functions and helpers
+- **`@larascript-framework/larascript-core`** - Core components and foundational patterns
+- **`@larascript-framework/larascript-acl`** - Access Control List (ACL) system
+- **`@larascript-framework/larascript-collection`** - Collection utilities and data structures
+- **`@larascript-framework/larascript-logger`** - Logging system
+- **`@larascript-framework/larascript-observer`** - Event observer pattern implementation
+- **`@larascript-framework/larascript-validator`** - Validation system
+- **`@larascript-framework/larascript-views`** - View rendering system
+- **`@larascript-framework/larascript-utils`** - Utility functions and helpers
 
 ### Specialized Packages
-- **`@repo/async-session`** - Asynchronous session management
-- **`@repo/cast-js`** - Type casting utilities
-- **`@repo/crypto-js`** - Cryptographic utilities
-- **`@repo/dot-notation-extractor`** - Dot notation data extraction
-- **`@repo/larascript-mail`** - Email functionality
+- **`@larascript-framework/async-session`** - Asynchronous session management
+- **`@larascript-framework/cast-js`** - Type casting utilities
+- **`@larascript-framework/crypto-js`** - Cryptographic utilities
+- **`@larascript-framework/dot-notation-extractor`** - Dot notation data extraction
+- **`@larascript-framework/larascript-mail`** - Email functionality
 
 ### Development Tools
 - **`packages/eslint-config`** - Shared ESLint configuration
 - **`packages/tsconfig`** - Shared TypeScript configuration
 
 ## Templates
-- **`@repo/larascript-forkable-bundle`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
+- **`@larascript-framework/larascript-forkable-bundle`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
 
 ## 🛠️ Technology Stack
 
@@ -237,7 +237,7 @@ ISC License - see individual package.json files for details.
 ## 🔗 Links
 
 - **Framework**: [Larascript Framework](./app/larascript-framework/)
-- **Core Package**: [@repo/larascript-core](./packages/larascript-core/)
+- **Core Package**: [@larascript-framework/larascript-core](./packages/larascript-core/)
 - **Documentation**: [Docs](./docs/)
 
 ---

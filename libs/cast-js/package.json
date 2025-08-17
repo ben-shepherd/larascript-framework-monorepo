@@ -1,5 +1,5 @@
 {
-  "name": "@repo/cast-js",
+  "name": "@larascript-framework/cast-js",
   "version": "1.0.0",
   "description": "TypeScript utilities for casting objects and primitives with flexible type support.",
   "repository": {
@@ -37,9 +37,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

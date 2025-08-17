@@ -1,4 +1,4 @@
-import { replaceEnvValue } from "@repo/larascript-utils";
+import { replaceEnvValue } from "@larascript-framework/larascript-utils";
 import fs from "fs";
 
 export interface IEnvService {

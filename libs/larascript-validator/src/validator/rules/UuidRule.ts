@@ -1,4 +1,4 @@
-import { isUuid } from "@repo/larascript-utils";
+import { isUuid } from "@larascript-framework/larascript-utils";
 import AbstractRule from "../abstract/AbstractRule";
 import { IRule, IRuleError } from "../interfaces/IRule";
 

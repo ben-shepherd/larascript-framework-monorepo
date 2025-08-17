@@ -38,31 +38,31 @@ larascript-monorepo/
 #### 🎯 Core Framework Packages
 These packages form the foundation of the Larascript ecosystem:
 
-- **`@repo/larascript-core`** - Core components, base classes, and foundational patterns
-- **`@repo/larascript-acl`** - Access Control List system for authorization
-- **`@repo/larascript-validator`** - Comprehensive validation system
-- **`@repo/larascript-logger`** - Structured logging with multiple transports
-- **`@repo/larascript-observer`** - Event-driven architecture patterns
-- **`@repo/larascript-views`** - Template rendering and view management
-- **`@repo/larascript-collection`** - Collection utilities and data structures
-- **`@repo/larascript-utils`** - Common utility functions and helpers
+- **`@larascript-framework/larascript-core`** - Core components, base classes, and foundational patterns
+- **`@larascript-framework/larascript-acl`** - Access Control List system for authorization
+- **`@larascript-framework/larascript-validator`** - Comprehensive validation system
+- **`@larascript-framework/larascript-logger`** - Structured logging with multiple transports
+- **`@larascript-framework/larascript-observer`** - Event-driven architecture patterns
+- **`@larascript-framework/larascript-views`** - Template rendering and view management
+- **`@larascript-framework/larascript-collection`** - Collection utilities and data structures
+- **`@larascript-framework/larascript-utils`** - Common utility functions and helpers
 
 #### 🔧 Utility Packages
 Standalone utilities that can be used in any Node.js project:
 
-- **`@repo/async-session`** - Asynchronous session management
-- **`@repo/cast-js`** - Type casting and transformation utilities
-- **`@repo/crypto-js`** - Cryptographic operations and security utilities
-- **`@repo/dot-notation-extractor`** - Dot notation data extraction and manipulation
-- **`@repo/larascript-mail`** - Email functionality with multiple providers
+- **`@larascript-framework/async-session`** - Asynchronous session management
+- **`@larascript-framework/cast-js`** - Type casting and transformation utilities
+- **`@larascript-framework/crypto-js`** - Cryptographic operations and security utilities
+- **`@larascript-framework/dot-notation-extractor`** - Dot notation data extraction and manipulation
+- **`@larascript-framework/larascript-mail`** - Email functionality with multiple providers
 
 #### 🛠️ Development Tools
 Shared configurations and development utilities:
 
-- **`@repo/eslint-config`** - Standardized ESLint configuration
-- **`@repo/tsconfig`** - Shared TypeScript configuration
-- **`@repo/jest-config`** - Jest testing configuration
-- **`@repo/check-exports`** - Export validation utilities
+- **`@larascript-framework/eslint-config`** - Standardized ESLint configuration
+- **`@larascript-framework/tsconfig`** - Shared TypeScript configuration
+- **`@larascript-framework/jest-config`** - Jest testing configuration
+- **`@larascript-framework/check-exports`** - Export validation utilities
 
 ## 🚀 Key Features
 

@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-core",
+  "name": "@larascript-framework/larascript-core",
   "version": "1.0.23",
   "description": "Core modules and utilities for the Larascript Framework.",
   "repository": {
@@ -38,12 +38,12 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@repo/larascript-utils": "workspace:*"
+    "@larascript-framework/larascript-utils": "workspace:*"
   },
   "devDependencies": {
-    "@repo/tsconfig": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

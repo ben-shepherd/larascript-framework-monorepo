@@ -1,5 +1,5 @@
 {
-    "name": "@repo/check-exports",
+    "name": "@larascript-framework/check-exports",
     "version": "1.0.0",
     "main": "./check-exports.js",
     "type": "module"

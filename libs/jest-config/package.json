@@ -1,5 +1,5 @@
 {
-    "name": "@repo/jest-config",
+    "name": "@larascript-framework/jest-config",
     "version": "1.0.0",
     "main": "./jest.config.js",
     "type": "module",

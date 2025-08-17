@@ -1,4 +1,4 @@
-import { BaseSingleton } from "@repo/larascript-core";
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { EnvironmentType } from "@src/core/consts/Environment";
 import { IProvider } from "@src/core/interfaces/IProvider";
 import { AppSingleton } from "@src/core/services/App";

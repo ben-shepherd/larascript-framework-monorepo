@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-mail",
+  "name": "@larascript-framework/larascript-mail",
   "version": "1.0.1",
   "description": "Larascript bundle providing mail utilities and components.",
   "repository": {
@@ -37,16 +37,16 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@repo/larascript-core": "workspace:*",
-    "@repo/larascript-logger": "github:ben-shepherd/larascript-logger",
-    "@repo/larascript-views": "github:ben-shepherd/larascript-views",
+    "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/larascript-logger": "github:ben-shepherd/larascript-logger",
+    "@larascript-framework/larascript-views": "github:ben-shepherd/larascript-views",
     "nodemailer": "^7.0.5",
     "resend": "^6.0.1"
   },
   "devDependencies": {
-    "@repo/jest-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

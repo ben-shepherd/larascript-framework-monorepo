@@ -1,4 +1,4 @@
-import { BaseService } from "@repo/larascript-core";
+import { BaseService } from "@larascript-framework/larascript-core";
 import { IAppService } from "@src/app/interfaces/IAppService";
 
 class AppService extends BaseService implements IAppService {

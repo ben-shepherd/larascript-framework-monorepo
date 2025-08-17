@@ -1,4 +1,4 @@
-import { BaseSingleton } from '@repo/larascript-core';
+import { BaseSingleton } from '@larascript-framework/larascript-core';
 import { Providers } from '@src/config/providers.config';
 import UninitializedContainerError from '@src/core/exceptions/UninitializedContainerError';
 import Kernel from '@src/core/Kernel';

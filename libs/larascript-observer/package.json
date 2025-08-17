@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-observer",
+  "name": "@larascript-framework/larascript-observer",
   "version": "1.0.0",
   "description": "A type-safe, extensible TypeScript Observer pattern implementation for the Larascript Framework, supporting lifecycle and custom events.",
   "repository": {
@@ -36,9 +36,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*"
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*"
   },
   "exports": {
     ".": {

@@ -1,16 +1,16 @@
 import {
-  BaseAdapter,
-  DependencyLoader,
-  RequiresDependency,
-} from "@repo/larascript-core";
-import { ILoggerService } from "@repo/larascript-logger";
+    BaseAdapter,
+    DependencyLoader,
+    RequiresDependency,
+} from "@larascript-framework/larascript-core";
+import { ILoggerService } from "@larascript-framework/larascript-logger";
 import {
-  BaseMailAdapters,
-  IMail,
-  IMailConfig,
-  IMailService,
-  MailAdapter,
-  MailAdapters,
+    BaseMailAdapters,
+    IMail,
+    IMailConfig,
+    IMailService,
+    MailAdapter,
+    MailAdapters,
 } from "../interfaces";
 
 export class MailService

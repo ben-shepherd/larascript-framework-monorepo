@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-validator",
+  "name": "@larascript-framework/larascript-validator",
   "version": "1.0.1",
   "description": "A powerful, flexible validation library for the Larascript Framework with support for custom rules, nested data validation, and comprehensive error handling.",
   "repository": {
@@ -37,14 +37,14 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@repo/larascript-utils": "workspace:*",
+    "@larascript-framework/larascript-utils": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "devDependencies": {
-    "@repo/check-exports": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*"
+    "@larascript-framework/check-exports": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*"
   },
   "exports": {
     ".": {

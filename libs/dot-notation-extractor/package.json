@@ -1,5 +1,5 @@
 {
-  "name": "@repo/dot-notation-extractor",
+  "name": "@larascript-framework/dot-notation-extractor",
   "version": "1.0.0",
   "description": "A TypeScript library for extracting data from nested objects using dot notation paths, with support for array indexing and wildcards.",
   "repository": {
@@ -37,9 +37,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

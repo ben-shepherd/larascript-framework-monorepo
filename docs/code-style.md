@@ -168,7 +168,7 @@ function sum(...numbers: number[]): number {
 
 #### Custom Exceptions
 ```typescript
-import { LarascriptException } from '@repo/larascript-core';
+import { LarascriptException } from '@larascript-framework/larascript-core';
 
 export class ValidationException extends LarascriptException {
   constructor(message: string, public readonly errors?: string[]) {
@@ -443,9 +443,9 @@ import { v4 as uuidv4 } from 'uuid';
 import bcrypt from 'bcryptjs';
 
 // 3. Internal packages (workspace dependencies)
-import { Logger } from '@repo/larascript-logger';
-import { Validator } from '@repo/larascript-validator';
-import { BaseService } from '@repo/larascript-core';
+import { Logger } from '@larascript-framework/larascript-logger';
+import { Validator } from '@larascript-framework/larascript-validator';
+import { BaseService } from '@larascript-framework/larascript-core';
 
 // 4. Relative imports (same package)
 import { User } from '../models/user';
@@ -454,7 +454,7 @@ import { CreateUserData } from '../types/user';
 
 // 5. Type imports
 import type { Request, Response } from 'express';
-import type { LogLevel } from '@repo/larascript-logger';
+import type { LogLevel } from '@larascript-framework/larascript-logger';
 ```
 
 ### Export Organization
@@ -490,7 +490,7 @@ export class UserManager {
 // user-service.test.ts
 import { UserService } from '../user-service';
 import { UserRepository } from '../user-repository';
-import { ValidationException } from '@repo/larascript-core';
+import { ValidationException } from '@larascript-framework/larascript-core';
 
 describe('UserService', () => {
   let userService: UserService;
@@ -630,13 +630,13 @@ Service for managing user operations including creation, retrieval, and updates.
 ## Installation
 
 ```bash
-pnpm add @repo/larascript-core
+pnpm add @larascript-framework/larascript-core
 ```
 
 ## Usage
 
 ```typescript
-import { UserService } from '@repo/larascript-core';
+import { UserService } from '@larascript-framework/larascript-core';
 
 const userService = new UserService(userRepository);
 

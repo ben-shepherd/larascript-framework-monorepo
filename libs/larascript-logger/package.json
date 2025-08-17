@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-logger",
+  "name": "@larascript-framework/larascript-logger",
   "version": "1.0.1",
   "description": "A flexible and extensible logger for the Larascript Framework, built on top of winston.",
   "repository": {
@@ -40,9 +40,9 @@
     "winston": "^3.17.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

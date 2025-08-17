@@ -1,15 +1,15 @@
-import { DotNotationDataExtrator } from "@repo/larascript-utils";
+import { DotNotationDataExtrator } from "@larascript-framework/larascript-utils";
 import { ValidatorResult } from "../data";
 import { ValidatorException } from "../exceptions";
 import {
-  IRule,
-  IRuleContext,
-  IRulesObject,
-  IValidator,
-  IValidatorAttributes,
-  IValidatorFn,
-  IValidatorMessages,
-  IValidatorResult,
+    IRule,
+    IRuleContext,
+    IRulesObject,
+    IValidator,
+    IValidatorAttributes,
+    IValidatorFn,
+    IValidatorMessages,
+    IValidatorResult,
 } from "../interfaces";
 
 /**

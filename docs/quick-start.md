@@ -171,8 +171,8 @@ pnpm build:watch
 
 ```typescript
 // Import from a Larascript package
-import { Collection } from '@repo/larascript-collection';
-import { Logger } from '@repo/larascript-logger';
+import { Collection } from '@larascript-framework/larascript-collection';
+import { Logger } from '@larascript-framework/larascript-logger';
 
 // Use the package
 const collection = new Collection([1, 2, 3]);
@@ -190,7 +190,7 @@ const logger = new Logger();
 2. **Update Package Configuration**:
    ```json
    {
-     "name": "@repo/my-new-package",
+     "name": "@larascript-framework/my-new-package",
      "version": "1.0.0",
      "description": "Your package description"
    }

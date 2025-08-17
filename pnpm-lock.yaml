@@ -8,37 +8,37 @@ importers:
 
   .:
     dependencies:
-      '@repo/async-session':
+      '@larascript-framework/async-session':
         specifier: workspace:*
         version: link:libs/async-session
-      '@repo/check-exports':
+      '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:libs/check-exports
-      '@repo/crypto-js':
+      '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:libs/crypto-js
-      '@repo/larascript-acl':
+      '@larascript-framework/larascript-acl':
         specifier: workspace:*
         version: link:libs/larascript-acl
-      '@repo/larascript-collection':
+      '@larascript-framework/larascript-collection':
         specifier: workspace:*
         version: link:libs/larascript-collection
-      '@repo/larascript-core':
+      '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:libs/larascript-core
-      '@repo/larascript-logger':
+      '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:libs/larascript-logger
-      '@repo/larascript-observer':
+      '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:libs/larascript-observer
-      '@repo/larascript-utils':
+      '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:libs/larascript-utils
-      '@repo/larascript-validator':
+      '@larascript-framework/larascript-validator':
         specifier: workspace:*
         version: link:libs/larascript-validator
-      '@repo/larascript-views':
+      '@larascript-framework/larascript-views':
         specifier: workspace:*
         version: link:libs/larascript-views
       aws-sdk:
@@ -102,13 +102,13 @@ importers:
       '@jest/globals':
         specifier: ^30.0.5
         version: 30.0.5
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:libs/eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:libs/jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:libs/tsconfig
       '@types/bcryptjs':
@@ -180,34 +180,34 @@ importers:
 
   apps/framework:
     dependencies:
-      '@repo/async-session':
+      '@larascript-framework/async-session':
         specifier: workspace:*
         version: link:../../libs/async-session
-      '@repo/crypto-js':
+      '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:../../libs/crypto-js
-      '@repo/larascript-acl':
+      '@larascript-framework/larascript-acl':
         specifier: workspace:*
         version: link:../../libs/larascript-acl
-      '@repo/larascript-collection':
+      '@larascript-framework/larascript-collection':
         specifier: workspace:*
         version: link:../../libs/larascript-collection
-      '@repo/larascript-core':
+      '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../../libs/larascript-core
-      '@repo/larascript-logger':
+      '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:../../libs/larascript-logger
-      '@repo/larascript-observer':
+      '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:../../libs/larascript-observer
-      '@repo/larascript-utils':
+      '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../../libs/larascript-utils
-      '@repo/larascript-validator':
+      '@larascript-framework/larascript-validator':
         specifier: workspace:*
         version: link:../../libs/larascript-validator
-      '@repo/larascript-views':
+      '@larascript-framework/larascript-views':
         specifier: workspace:*
         version: link:../../libs/larascript-views
       aws-sdk:
@@ -274,13 +274,13 @@ importers:
       '@faker-js/faker':
         specifier: ^9.0.3
         version: 9.9.0
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../../libs/eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../../libs/jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../../libs/tsconfig
       '@types/bcryptjs':
@@ -320,13 +320,13 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -335,13 +335,13 @@ importers:
 
   libs/cast-js:
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -352,13 +352,13 @@ importers:
 
   libs/crypto-js:
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -367,13 +367,13 @@ importers:
 
   libs/dot-notation-extractor:
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -407,13 +407,13 @@ importers:
 
   libs/larascript-acl:
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -426,13 +426,13 @@ importers:
         specifier: ^4.36.1
         version: 4.36.1
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -441,17 +441,17 @@ importers:
 
   libs/larascript-core:
     dependencies:
-      '@repo/larascript-utils':
+      '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -464,13 +464,13 @@ importers:
         specifier: ^3.17.0
         version: 3.17.0
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -479,13 +479,13 @@ importers:
 
   libs/larascript-mail:
     dependencies:
-      '@repo/larascript-core':
+      '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core
-      '@repo/larascript-logger':
+      '@larascript-framework/larascript-logger':
         specifier: github:ben-shepherd/larascript-logger
         version: '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21'
-      '@repo/larascript-views':
+      '@larascript-framework/larascript-views':
         specifier: github:ben-shepherd/larascript-views
         version: '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6'
       nodemailer:
@@ -495,13 +495,13 @@ importers:
         specifier: ^6.0.1
         version: 6.0.1(@react-email/render@1.1.2(react-dom@19.1.1(react@19.1.1))(react@19.1.1))
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -510,22 +510,22 @@ importers:
 
   libs/larascript-observer:
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
 
   libs/larascript-utils:
     dependencies:
-      '@repo/cast-js':
+      '@larascript-framework/cast-js':
         specifier: github:ben-shepherd/cast-js
         version: '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c'
-      '@repo/dot-notation-extractor':
+      '@larascript-framework/dot-notation-extractor':
         specifier: github:ben-shepherd/dot-notation-extractor
         version: '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37'
       crypto:
@@ -538,13 +538,13 @@ importers:
         specifier: ^11.1.0
         version: 11.1.0
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -553,23 +553,23 @@ importers:
 
   libs/larascript-validator:
     dependencies:
-      '@repo/larascript-utils':
+      '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils
       tsc-alias:
         specifier: ^1.8.16
         version: 1.8.16
     devDependencies:
-      '@repo/check-exports':
+      '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
 
@@ -579,13 +579,13 @@ importers:
         specifier: ^3.1.10
         version: 3.1.10
     devDependencies:
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:
@@ -594,16 +594,16 @@ importers:
 
   libs/template:
     devDependencies:
-      '@repo/check-exports':
+      '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports
-      '@repo/eslint-config':
+      '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
-      '@repo/jest-config':
+      '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@repo/tsconfig':
+      '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig
       tsc-alias:

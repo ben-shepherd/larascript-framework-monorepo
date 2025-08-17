@@ -1,6 +1,6 @@
 // .cursorrules prompts for this monorepo:
 
-// 1. When adding a new package, ensure its tsconfig.json extends "@repo/tsconfig" and its eslint.config.js imports and exports "@repo/eslint-config".
+// 1. When adding a new package, ensure its tsconfig.json extends "@larascript-framework/tsconfig" and its eslint.config.js imports and exports "@larascript-framework/eslint-config".
 
 // 2. All TypeScript source files should be placed in a "src" directory within each package.
 

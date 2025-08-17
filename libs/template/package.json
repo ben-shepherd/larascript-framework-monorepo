@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-forkable-bundle",
+  "name": "@larascript-framework/template",
   "version": "1.0.0",
   "description": "PLACEHOLDER DESCRIPTION",
   "repository": {
@@ -37,10 +37,10 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/check-exports": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/eslint-config": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/check-exports": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

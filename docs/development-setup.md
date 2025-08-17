@@ -375,7 +375,7 @@ cd libs/my-new-package
 
 # Update package.json
 {
-  "name": "@repo/my-new-package",
+  "name": "@larascript-framework/my-new-package",
   "version": "1.0.0",
   "description": "Your package description"
 }
@@ -523,7 +523,7 @@ Each package has its own Jest configuration extending the base config:
 
 ```javascript
 // libs/larascript-core/jest.config.js
-const baseConfig = require('@repo/jest-config/jest.config.js');
+const baseConfig = require('@larascript-framework/jest-config/jest.config.js');
 
 module.exports = {
   ...baseConfig,
@@ -643,7 +643,7 @@ Each package extends the base configuration:
 
 ```json
 {
-  "extends": "@repo/tsconfig/tsconfig.json",
+  "extends": "@larascript-framework/tsconfig/tsconfig.json",
   "compilerOptions": {
     "outDir": "./dist",
     "rootDir": "./src"

@@ -1,6 +1,6 @@
-import { DependencyLoader, RequiresDependency } from "@repo/larascript-core";
-import { ILoggerService } from "@repo/larascript-logger";
-import { IViewRenderService } from "@repo/larascript-views";
+import { DependencyLoader, RequiresDependency } from "@larascript-framework/larascript-core";
+import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { IViewRenderService } from "@larascript-framework/larascript-views";
 import { IMail } from "../interfaces";
 
 abstract class BaseMailAdapter implements RequiresDependency {

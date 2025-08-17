@@ -1,5 +1,5 @@
 {
-    "name": "@repo/tsconfig",
+    "name": "@larascript-framework/tsconfig",
     "version": "1.0.0",
     "main": "./tsconfig.json",
     "exports": {

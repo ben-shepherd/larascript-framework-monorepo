@@ -1,4 +1,4 @@
-import { BaseAdapter } from "@repo/larascript-core";
+import { BaseAdapter } from "@larascript-framework/larascript-core";
 import { AuthAdapters } from "@src/config/auth.config";
 import { IBasicACLService } from "@src/core/domains/accessControl/interfaces/IACLService";
 import BasicACLService from "@src/core/domains/accessControl/services/BasicACLService";

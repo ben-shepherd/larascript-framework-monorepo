@@ -1,4 +1,4 @@
-import { BaseAdapter } from "@repo/larascript-core";
+import { BaseAdapter } from "@larascript-framework/larascript-core";
 import { TUploadedFile } from "@src/core/domains/http/interfaces/UploadedFile";
 import StorageFile from "@src/core/domains/storage/data/StorageFile";
 import { StorageTypes } from "@src/core/domains/storage/enums/StorageTypes";

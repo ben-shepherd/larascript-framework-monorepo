@@ -275,13 +275,13 @@ Brief description of the package.
 ## Installation
 
 ```bash
-pnpm add @repo/package-name
+pnpm add @larascript-framework/package-name
 ```
 
 ## Usage
 
 ```typescript
-import { PackageClass } from '@repo/package-name';
+import { PackageClass } from '@larascript-framework/package-name';
 
 const instance = new PackageClass();
 ```
@@ -338,7 +338,7 @@ type ApiResponse<T> = {
 #### Error Handling
 ```typescript
 // Use custom exceptions
-import { ValidationException, NotFoundException } from '@repo/larascript-core';
+import { ValidationException, NotFoundException } from '@larascript-framework/larascript-core';
 
 async function validateUser(data: any): Promise<void> {
   if (!data.email) {

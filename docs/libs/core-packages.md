@@ -4,11 +4,11 @@ The core packages form the foundation of the Larascript ecosystem. These package
 
 ## 📦 Package Overview
 
-### `@repo/larascript-core`
+### `@larascript-framework/larascript-core`
 The foundation package containing base classes, interfaces, and core patterns for the Larascript Framework.
 
 **Version**: 1.0.23  
-**Dependencies**: `@repo/larascript-utils`
+**Dependencies**: `@larascript-framework/larascript-utils`
 
 #### Key Components
 
@@ -20,7 +20,7 @@ import {
   BaseProvider, 
   BaseConfig, 
   BaseSingleton 
-} from '@repo/larascript-core';
+} from '@larascript-framework/larascript-core';
 
 // Base service for business logic
 class UserService extends BaseService {
@@ -62,7 +62,7 @@ import {
   IAdapter,
   IDependency,
   IHasConfigConcern 
-} from '@repo/larascript-core';
+} from '@larascript-framework/larascript-core';
 
 // Service interface
 interface IUserService extends IService {
@@ -91,7 +91,7 @@ import {
   AdapterException,
   DependencyException,
   UninitializedContainerError 
-} from '@repo/larascript-core';
+} from '@larascript-framework/larascript-core';
 
 // Custom exceptions
 throw new AdapterException('Database connection failed');
@@ -103,7 +103,7 @@ throw new UninitializedContainerError('Container not initialized');
 
 ##### Service Implementation
 ```typescript
-import { BaseService } from '@repo/larascript-core';
+import { BaseService } from '@larascript-framework/larascript-core';
 
 class UserService extends BaseService {
   constructor(config: any = null) {
@@ -132,7 +132,7 @@ class UserService extends BaseService {
 
 ##### Adapter Implementation
 ```typescript
-import { BaseAdapter } from '@repo/larascript-core';
+import { BaseAdapter } from '@larascript-framework/larascript-core';
 
 class DatabaseAdapter extends BaseAdapter {
   async connect(): Promise<void> {
@@ -152,7 +152,7 @@ class DatabaseAdapter extends BaseAdapter {
 
 ##### Provider Implementation
 ```typescript
-import { BaseProvider } from '@repo/larascript-core';
+import { BaseProvider } from '@larascript-framework/larascript-core';
 
 class UserProvider extends BaseProvider {
   register(): void {
@@ -171,7 +171,7 @@ class UserProvider extends BaseProvider {
 
 ##### Configuration Implementation
 ```typescript
-import { BaseConfig } from '@repo/larascript-core';
+import { BaseConfig } from '@larascript-framework/larascript-core';
 
 class AppConfig extends BaseConfig {
   constructor() {
@@ -196,17 +196,17 @@ class AppConfig extends BaseConfig {
 
 ---
 
-### `@repo/larascript-acl`
+### `@larascript-framework/larascript-acl`
 Access Control List system for flexible authorization.
 
 **Version**: Latest  
-**Dependencies**: `@repo/larascript-core`
+**Dependencies**: `@larascript-framework/larascript-core`
 
 #### Key Components
 
 ##### ACL Service
 ```typescript
-import { BasicACLService } from '@repo/larascript-acl';
+import { BasicACLService } from '@larascript-framework/larascript-acl';
 
 const acl = new BasicACLService();
 
@@ -221,7 +221,7 @@ const canManage = acl.can('admin', 'manage', 'user');
 
 ##### Composable ACL
 ```typescript
-import { ComposableACL } from '@repo/larascript-acl';
+import { ComposableACL } from '@larascript-framework/larascript-acl';
 
 // Create composable ACL
 const userACL = new ComposableACL()
@@ -243,7 +243,7 @@ const combinedACL = userACL.compose(adminACL);
 
 ##### Basic Permission Checking
 ```typescript
-import { BasicACLService } from '@repo/larascript-acl';
+import { BasicACLService } from '@larascript-framework/larascript-acl';
 
 class PostController extends BaseController {
   constructor(private acl: BasicACLService) {
@@ -280,7 +280,7 @@ class PostController extends BaseController {
 
 ##### Role-Based Authorization
 ```typescript
-import { BasicACLService } from '@repo/larascript-acl';
+import { BasicACLService } from '@larascript-framework/larascript-acl';
 
 // Setup ACL with roles and permissions
 const acl = new BasicACLService();
@@ -314,11 +314,11 @@ const requirePermission = (action: string, resource: string) => {
 
 ---
 
-### `@repo/larascript-validator`
+### `@larascript-framework/larascript-validator`
 Comprehensive validation system with TypeScript integration.
 
 **Version**: Latest  
-**Dependencies**: `@repo/larascript-core`
+**Dependencies**: `@larascript-framework/larascript-core`
 
 #### Key Components
 
@@ -328,7 +328,7 @@ import {
   Validator,
   ValidationRule,
   ValidatorException 
-} from '@repo/larascript-validator';
+} from '@larascript-framework/larascript-validator';
 
 // Create validator
 const userValidator = new Validator({
@@ -353,7 +353,7 @@ const userValidator = new Validator({
 
 ##### Custom Validators
 ```typescript
-import { CustomValidator } from '@repo/larascript-validator';
+import { CustomValidator } from '@larascript-framework/larascript-validator';
 
 // Custom validator for password strength
 class PasswordStrengthValidator extends CustomValidator {
@@ -397,7 +397,7 @@ class UniqueValidator extends CustomValidator {
 
 ##### Request Validation
 ```typescript
-import { Validator } from '@repo/larascript-validator';
+import { Validator } from '@larascript-framework/larascript-validator';
 
 class UserController extends BaseController {
   constructor(private userValidator: Validator) {
@@ -444,7 +444,7 @@ class UserController extends BaseController {
 
 ##### Form Validation
 ```typescript
-import { Validator } from '@repo/larascript-validator';
+import { Validator } from '@larascript-framework/larascript-validator';
 
 // Registration form validator
 const registrationValidator = new Validator({
@@ -475,7 +475,7 @@ const registrationValidator = new Validator({
 
 ---
 
-### `@repo/larascript-logger`
+### `@larascript-framework/larascript-logger`
 Structured logging system with multiple transports.
 
 **Version**: Latest  
@@ -485,7 +485,7 @@ Structured logging system with multiple transports.
 
 ##### Logger Service
 ```typescript
-import { Logger, LogLevel } from '@repo/larascript-logger';
+import { Logger, LogLevel } from '@larascript-framework/larascript-logger';
 
 // Create logger instance
 const logger = new Logger({
@@ -502,7 +502,7 @@ logger.debug('Processing request', { method: 'POST', path: '/api/users' });
 
 ##### Custom Transports
 ```typescript
-import { LoggerTransport, LogEntry } from '@repo/larascript-logger';
+import { LoggerTransport, LogEntry } from '@larascript-framework/larascript-logger';
 
 // Custom transport for external logging service
 class ExternalLoggingTransport implements LoggerTransport {
@@ -539,7 +539,7 @@ class SlackTransport implements LoggerTransport {
 
 ##### Application Logging
 ```typescript
-import { Logger } from '@repo/larascript-logger';
+import { Logger } from '@larascript-framework/larascript-logger';
 
 class Application {
   private logger: Logger;
@@ -581,7 +581,7 @@ class Application {
 
 ##### Request Logging Middleware
 ```typescript
-import { Logger } from '@repo/larascript-logger';
+import { Logger } from '@larascript-framework/larascript-logger';
 
 const logger = new Logger();
 
@@ -617,7 +617,7 @@ export const requestLogger = (req: Request, res: Response, next: NextFunction) =
 
 ---
 
-### `@repo/larascript-observer`
+### `@larascript-framework/larascript-observer`
 Event observer pattern implementation for decoupled communication.
 
 **Version**: Latest  
@@ -627,7 +627,7 @@ Event observer pattern implementation for decoupled communication.
 
 ##### Observer Pattern
 ```typescript
-import { Observer, EventEmitter } from '@repo/larascript-observer';
+import { Observer, EventEmitter } from '@larascript-framework/larascript-observer';
 
 // Create event emitter
 const eventEmitter = new EventEmitter();
@@ -673,7 +673,7 @@ class AuditObserver extends Observer {
 
 ##### Service with Events
 ```typescript
-import { EventEmitter } from '@repo/larascript-observer';
+import { EventEmitter } from '@larascript-framework/larascript-observer';
 
 class UserService extends BaseService {
   private eventEmitter: EventEmitter;
@@ -717,7 +717,7 @@ class UserService extends BaseService {
 
 ##### Observer Registration
 ```typescript
-import { EventEmitter, Observer } from '@repo/larascript-observer';
+import { EventEmitter, Observer } from '@larascript-framework/larascript-observer';
 
 class Application {
   private eventEmitter: EventEmitter;
@@ -742,7 +742,7 @@ class Application {
 
 ---
 
-### `@repo/larascript-views`
+### `@larascript-framework/larascript-views`
 Template rendering and view management system.
 
 **Version**: Latest  
@@ -752,7 +752,7 @@ Template rendering and view management system.
 
 ##### View Engine
 ```typescript
-import { ViewEngine, ViewRenderer } from '@repo/larascript-views';
+import { ViewEngine, ViewRenderer } from '@larascript-framework/larascript-views';
 
 // Create view engine
 const viewEngine = new ViewEngine({
@@ -768,7 +768,7 @@ const renderer = new ViewRenderer(viewEngine);
 
 ##### Template Rendering
 ```typescript
-import { ViewRenderer } from '@repo/larascript-views';
+import { ViewRenderer } from '@larascript-framework/larascript-views';
 
 class PageController extends BaseController {
   constructor(private renderer: ViewRenderer) {
@@ -836,7 +836,7 @@ class PageController extends BaseController {
 
 ---
 
-### `@repo/larascript-collection`
+### `@larascript-framework/larascript-collection`
 Collection utilities and data structures.
 
 **Version**: Latest  
@@ -846,7 +846,7 @@ Collection utilities and data structures.
 
 ##### Collection Class
 ```typescript
-import { Collection } from '@repo/larascript-collection';
+import { Collection } from '@larascript-framework/larascript-collection';
 
 // Create collection
 const users = new Collection([
@@ -864,7 +864,7 @@ const hasJane = users.contains(user => user.name === 'Jane');
 
 ##### Collection Methods
 ```typescript
-import { Collection } from '@repo/larascript-collection';
+import { Collection } from '@larascript-framework/larascript-collection';
 
 const numbers = new Collection([1, 2, 3, 4, 5]);
 
@@ -884,7 +884,7 @@ const unique = numbers.unique();
 
 ##### Data Processing
 ```typescript
-import { Collection } from '@repo/larascript-collection';
+import { Collection } from '@larascript-framework/larascript-collection';
 
 class UserService extends BaseService {
   async getActiveUsers(): Promise<Collection<User>> {
@@ -919,7 +919,7 @@ class UserService extends BaseService {
 
 ##### API Response Formatting
 ```typescript
-import { Collection } from '@repo/larascript-collection';
+import { Collection } from '@larascript-framework/larascript-collection';
 
 class UserController extends BaseController {
   async index(req: Request, res: Response) {
@@ -963,7 +963,7 @@ class UserController extends BaseController {
 
 ---
 
-### `@repo/larascript-utils`
+### `@larascript-framework/larascript-utils`
 Common utility functions and helpers.
 
 **Version**: Latest  
@@ -979,7 +979,7 @@ import {
   camelCase,
   snakeCase,
   kebabCase 
-} from '@repo/larascript-utils';
+} from '@larascript-framework/larascript-utils';
 
 // String transformations
 const slug = slugify('Hello World!'); // "hello-world"
@@ -1001,7 +1001,7 @@ import {
   flatten,
   unique,
   shuffle 
-} from '@repo/larascript-utils';
+} from '@larascript-framework/larascript-utils';
 
 // Array operations
 const chunks = chunk([1, 2, 3, 4, 5], 2); // [[1, 2], [3, 4], [5]]
@@ -1018,7 +1018,7 @@ import {
   deepMerge,
   pick,
   omit 
-} from '@repo/larascript-utils';
+} from '@larascript-framework/larascript-utils';
 
 // Object operations
 const cloned = deepClone({ a: 1, b: { c: 2 } });
@@ -1035,7 +1035,7 @@ import {
   StringUtils,
   ObjectUtils,
   ArrayUtils 
-} from '@repo/larascript-utils';
+} from '@larascript-framework/larascript-utils';
 
 class UserService extends BaseService {
   async createUser(data: CreateUserData): Promise<User> {
@@ -1074,7 +1074,7 @@ class UserService extends BaseService {
 
 ##### API Response Helpers
 ```typescript
-import { ObjectUtils, StringUtils } from '@repo/larascript-utils';
+import { ObjectUtils, StringUtils } from '@larascript-framework/larascript-utils';
 
 class ApiController extends BaseController {
   formatResponse(data: any, fields?: string[]): any {
@@ -1149,17 +1149,17 @@ To use these packages in your project:
 
 ```bash
 # Install specific packages
-pnpm add @repo/larascript-core
-pnpm add @repo/larascript-acl
-pnpm add @repo/larascript-validator
-pnpm add @repo/larascript-logger
-pnpm add @repo/larascript-observer
-pnpm add @repo/larascript-views
-pnpm add @repo/larascript-collection
-pnpm add @repo/larascript-utils
+pnpm add @larascript-framework/larascript-core
+pnpm add @larascript-framework/larascript-acl
+pnpm add @larascript-framework/larascript-validator
+pnpm add @larascript-framework/larascript-logger
+pnpm add @larascript-framework/larascript-observer
+pnpm add @larascript-framework/larascript-views
+pnpm add @larascript-framework/larascript-collection
+pnpm add @larascript-framework/larascript-utils
 
 # Or install all core packages
-pnpm add @repo/larascript-core @repo/larascript-acl @repo/larascript-validator @repo/larascript-logger @repo/larascript-observer @repo/larascript-views @repo/larascript-collection @repo/larascript-utils
+pnpm add @larascript-framework/larascript-core @larascript-framework/larascript-acl @larascript-framework/larascript-validator @larascript-framework/larascript-logger @larascript-framework/larascript-observer @larascript-framework/larascript-views @larascript-framework/larascript-collection @larascript-framework/larascript-utils
 ```
 
 ---

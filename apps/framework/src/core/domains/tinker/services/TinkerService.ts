@@ -1,4 +1,4 @@
-import { BaseSingleton } from "@repo/larascript-core";
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 import appConfig from "@src/config/app.config";
 import providers from "@src/config/providers.config";
 import { EnvironmentProduction } from "@src/core/consts/Environment";

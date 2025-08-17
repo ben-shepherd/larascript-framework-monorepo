@@ -1,4 +1,4 @@
-import { BaseService } from '@repo/larascript-core';
+import { BaseService } from '@larascript-framework/larascript-core';
 import Middleware from '@src/core/domains/http/base/Middleware';
 import { default as IExpressConfig, default as IHttpConfig } from '@src/core/domains/http/interfaces/IHttpConfig';
 import IHttpService from '@src/core/domains/http/interfaces/IHttpService';

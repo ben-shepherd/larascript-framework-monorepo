@@ -1,4 +1,4 @@
-import { BaseSingleton } from "@repo/larascript-core";
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { Request } from "express";
 
 export type TSortDirection = 'asc' | 'desc'

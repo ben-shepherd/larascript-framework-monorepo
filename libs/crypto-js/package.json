@@ -1,5 +1,5 @@
 {
-  "name": "@repo/crypto-js",
+  "name": "@larascript-framework/crypto-js",
   "version": "1.0.0",
   "description": "A TypeScript library for cryptographic utilities and helpers.",
   "repository": {
@@ -37,9 +37,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

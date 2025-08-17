@@ -1,5 +1,5 @@
 {
-  "name": "@repo/async-session",
+  "name": "@larascript-framework/async-session",
   "version": "1.0.1",
   "description": "Async session management utilities.",
   "repository": {
@@ -40,9 +40,9 @@
     "uuid": "^11.1.0"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

@@ -1,5 +1,5 @@
 {
-    "name": "@repo/eslint-config",
+    "name": "@larascript-framework/eslint-config",
     "version": "1.0.0",
     "exports": {
         ".": "./eslint.config.js"

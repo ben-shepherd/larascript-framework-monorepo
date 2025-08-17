@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-collection",
+  "name": "@larascript-framework/larascript-collection",
   "version": "1.0.0",
   "description": "A TypeScript collection library with Laravel-inspired API and proxy-based array access, built on collect.js.",
   "repository": {
@@ -37,9 +37,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "dependencies": {

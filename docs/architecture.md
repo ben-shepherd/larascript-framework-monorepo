@@ -66,7 +66,7 @@ package-name/
 
 ### Core Framework Packages
 
-#### `@repo/larascript-core`
+#### `@larascript-framework/larascript-core`
 The foundation of the Larascript ecosystem.
 
 **Key Components:**
@@ -77,9 +77,9 @@ The foundation of the Larascript ecosystem.
 - **Utilities**: Framework-specific utilities
 
 **Dependencies:**
-- `@repo/larascript-utils` (workspace dependency)
+- `@larascript-framework/larascript-utils` (workspace dependency)
 
-#### `@repo/larascript-acl`
+#### `@larascript-framework/larascript-acl`
 Access Control List system for authorization.
 
 **Key Components:**
@@ -89,9 +89,9 @@ Access Control List system for authorization.
 - **Exception Handling**: ACL-specific exceptions
 
 **Dependencies:**
-- `@repo/larascript-core` (workspace dependency)
+- `@larascript-framework/larascript-core` (workspace dependency)
 
-#### `@repo/larascript-validator`
+#### `@larascript-framework/larascript-validator`
 Comprehensive validation system.
 
 **Key Components:**
@@ -101,11 +101,11 @@ Comprehensive validation system.
 - **Type Validation**: TypeScript integration
 
 **Dependencies:**
-- `@repo/larascript-core` (workspace dependency)
+- `@larascript-framework/larascript-core` (workspace dependency)
 
 ### Utility Packages
 
-#### `@repo/async-session`
+#### `@larascript-framework/async-session`
 Asynchronous session management.
 
 **Key Components:**
@@ -113,7 +113,7 @@ Asynchronous session management.
 - **Storage Adapters**: Multiple storage backends
 - **Session Middleware**: Express.js integration
 
-#### `@repo/cast-js`
+#### `@larascript-framework/cast-js`
 Type casting and transformation utilities.
 
 **Key Components:**
@@ -121,7 +121,7 @@ Type casting and transformation utilities.
 - **Built-in Casts**: Common type casting operations
 - **Custom Casts**: Extensible casting system
 
-#### `@repo/crypto-js`
+#### `@larascript-framework/crypto-js`
 Cryptographic operations and security utilities.
 
 **Key Components:**
@@ -132,7 +132,7 @@ Cryptographic operations and security utilities.
 
 ### Development Tools
 
-#### `@repo/eslint-config`
+#### `@larascript-framework/eslint-config`
 Standardized ESLint configuration.
 
 **Features:**
@@ -141,7 +141,7 @@ Standardized ESLint configuration.
 - **Code Quality**: Best practices enforcement
 - **Extensible**: Easy to extend for specific needs
 
-#### `@repo/tsconfig`
+#### `@larascript-framework/tsconfig`
 Shared TypeScript configuration.
 
 **Features:**

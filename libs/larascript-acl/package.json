@@ -1,5 +1,5 @@
 {
-  "name": "@repo/larascript-acl",
+  "name": "@larascript-framework/larascript-acl",
   "version": "1.0.5",
   "description": "Access Control List (ACL) module for the Larascript Framework.",
   "repository": {
@@ -37,9 +37,9 @@
     "depcheck": "depcheck"
   },
   "devDependencies": {
-    "@repo/eslint-config": "workspace:*",
-    "@repo/tsconfig": "workspace:*",  
-    "@repo/jest-config": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",  
+    "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

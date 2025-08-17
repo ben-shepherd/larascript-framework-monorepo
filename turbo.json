@@ -24,8 +24,12 @@
             "outputs": ["dist/**", "coverage/**"]
         },
         "build": {
-            "dependsOn": ["^build"],
-            "outputs": ["dist/**"]
+            "dependsOn": [
+                "^build"
+            ],
+            "outputs": [
+                "dist/**"
+            ]
         },
         "build:watch": {
             "persistent": true,

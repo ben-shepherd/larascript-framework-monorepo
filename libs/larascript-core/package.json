@@ -15,6 +15,7 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
+    "dev": "tsc --watch",
     "prepare": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -45,8 +46,10 @@
     "@repo/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
-  "validate-branch-name": {
-    "pattern": "^(feat|fix|hotfix|release|test|experimental|refactor)/.+$",
-    "errorMsg": "Branch name validation failed"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   }
 }

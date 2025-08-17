@@ -10,7 +10,6 @@
   "author": "ben.shepherd@gmx.com",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
-  "type": "module",
   "publishConfig": {
     "access": "public",
     "registry": "https://npm.pkg.github.com"
@@ -41,8 +40,10 @@
     "@repo/tsconfig": "workspace:*",
     "@repo/jest-config": "workspace:*"
   },
-  "validate-branch-name": {
-    "pattern": "^(feat|fix|hotfix|release|test|experimental|refactor)/.+$",
-    "errorMsg": "Branch name validation failed"
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
   }
 }

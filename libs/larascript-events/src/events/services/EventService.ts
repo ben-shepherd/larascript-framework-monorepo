@@ -1,8 +1,8 @@
 
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { BaseEventListener } from "../base";
-import EventDispatchException from "../exceptions/EventDispatchException";
-import EventNotDispatchedException from "../exceptions/EventNotDispatchedException";
+import { EventDispatchException } from "../exceptions/EventDispatchException";
+import { EventNotDispatchedException } from "../exceptions/EventNotDispatchedException";
 import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService, SubscriberConstructor, TEventWorkerOptions, TListenersConfigOption, TMockableEventCallback } from "../interfaces";
 import { IEventConfig } from "../interfaces/config.t";
 import EventRegistry from "../registry/EventRegistry";
@@ -16,7 +16,7 @@ import EventRegistry from "../registry/EventRegistry";
  * @extends BaseEventService
  * @implements IEventService
  */
-class EventService implements IEventService {
+export class EventService implements IEventService {
 
     /** Array of events to mock */
     mockEvents: TClassConstructor<IBaseEvent>[] = [];

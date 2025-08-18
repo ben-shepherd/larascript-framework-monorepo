@@ -17,9 +17,10 @@ export interface IEventDriversConfig
 }
 
 export interface IQueableDriverOptions {
+    [key: string]: unknown;
     queueName: string;
     retries: number;
     failedCollection: string;
     runAfterSeconds: number;
-    workerModelCtor: IWorkerCreatorConstructor;
-}
+    workerCreator: IWorkerCreatorConstructor;
+} 

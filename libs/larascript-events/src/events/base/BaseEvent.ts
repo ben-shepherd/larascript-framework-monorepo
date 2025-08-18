@@ -1,8 +1,8 @@
 import { AppSingleton } from "@larascript-framework/larascript-core";
 import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
-import EventInvalidPayloadException from "../exceptions/EventInvalidPayloadException";
+import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException";
 import { IBaseEvent, IEventDriver } from "../interfaces";
-import EventRegistry from "../registry/EventRegistry";
+import { EventRegistry } from "../registry/EventRegistry";
 
 abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBaseEvent<TPayload> {
 

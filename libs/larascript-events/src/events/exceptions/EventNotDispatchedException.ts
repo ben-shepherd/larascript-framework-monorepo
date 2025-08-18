@@ -1,4 +1,4 @@
-export default class EventNotDispatchedException extends Error {
+export class EventNotDispatchedException extends Error {
 
     constructor(message: string = 'Event Not Dispatched Exception') {
         super(message);

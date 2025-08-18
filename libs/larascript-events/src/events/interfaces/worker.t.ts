@@ -14,12 +14,11 @@ export interface IWorkerCreator {
 }
 
 export interface IWorkerModel  {
-    setWorkerData(data: IWorkerAttributes): void;
-    getWorkerData<T extends IWorkerAttributes = IWorkerAttributes>(): T | null;
     createWorkerData(data: IWorkerAttributes): Promise<void>;
-    saveWorkerData(): Promise<void>;
     updateWorkerData(data: IWorkerAttributes): Promise<void>;
-    deleteWorkerData(): Promise<boolean>;
+    getWorkerData<T extends IWorkerAttributes = IWorkerAttributes>(): T | null;
+    saveWorkerData(): Promise<void>;
+    deleteWorkerData(): Promise<void>;
 }
 
 export interface IWorkerAttributes {
@@ -32,7 +31,7 @@ export interface IWorkerAttributes {
     failedAt?: Date;
     createdAt: Date;
     updatedAt: Date;
-    deletedAt: Date;
+    deletedAt?: Date;
 }
 
 export type TEventWorkerOptions = {

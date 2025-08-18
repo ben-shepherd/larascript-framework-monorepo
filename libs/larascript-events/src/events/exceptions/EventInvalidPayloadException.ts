@@ -1,4 +1,4 @@
-export default class EventInvalidPayloadException extends Error {
+export class EventInvalidPayloadException extends Error {
 
     constructor(message: string = 'Invalid payload') {
         super(message);

@@ -1,4 +1,4 @@
-export default class EventDriverException extends Error {
+export class EventDriverException extends Error {
 
     constructor(message: string = 'Event Driver Exception') {
         super(message);

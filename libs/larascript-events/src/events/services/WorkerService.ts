@@ -1,26 +1,37 @@
-import { DependencyLoader, RequiresDependency } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import EventWorkerException from "../exceptions/EventWorkerException";
-import { IWorkerAttributes, IWorkerModel, IWorkerRepository, TEventWorkerOptions } from "../interfaces";
+import { EventWorkerException } from "../exceptions/EventWorkerException";
+import { IWorkerAttributes, IWorkerCreator, IWorkerModel, IWorkerRepository, TEventWorkerOptions } from "../interfaces";
 import { IEventService } from "../interfaces/services.t";
 
 
-export class WorkerService implements RequiresDependency {
+export class WorkerService {
 
         private workerRepository!: IWorkerRepository;
 
         private logger!: ILoggerService;
 
         private eventService!: IEventService;
+
+        private workerCreator!: IWorkerCreator;
     
         protected onCreateWorkerModel!: () => Promise<IWorkerModel>;
 
         protected onCreateFailedWorkerModel!: () => Promise<IWorkerModel>;
 
-        setDependencyLoader(loader: DependencyLoader): void {
-            this.workerRepository = loader('workerRepository') as IWorkerRepository
-            this.logger = loader('logger') as ILoggerService
-            this.eventService = loader('events') as IEventService
+        setWorkerRepository(workerRepository: IWorkerRepository): void {
+            this.workerRepository = workerRepository;
+        }
+
+        setLogger(logger: ILoggerService): void {
+            this.logger = logger;
+        }
+
+        setEventService(eventService: IEventService): void {
+            this.eventService = eventService;
+        }
+
+        setWorkerCreator(workerCreator: IWorkerCreator): void {
+            this.workerCreator = workerCreator;
         }
 
         /**

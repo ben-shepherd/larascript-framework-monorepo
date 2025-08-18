@@ -195,6 +195,9 @@ importers:
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../../libs/larascript-core
+      '@larascript-framework/larascript-events':
+        specifier: workspace:*
+        version: link:../../libs/larascript-events
       '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:../../libs/larascript-logger

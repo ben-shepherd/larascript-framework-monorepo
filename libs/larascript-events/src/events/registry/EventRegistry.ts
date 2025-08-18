@@ -4,7 +4,7 @@ import { IBaseEvent, ListenerConstructor, SubscriberConstructor } from "../inter
 /**
  * A static registry for events that can work before the event service is available
  */
-class EventRegistry {
+export class EventRegistry {
 
     private static events: Set<TClassConstructor<IBaseEvent>> = new Set();
 

@@ -1,10 +1,9 @@
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { EventWorkerException } from "../exceptions/EventWorkerException";
-import { IWorkerAttributes, IWorkerCreator, IWorkerModel, IWorkerRepository, TEventWorkerOptions } from "../interfaces";
+import { IWorkerAttributes, IWorkerCreator, IWorkerModel, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "../interfaces";
 import { IEventService } from "../interfaces/services.t";
 
-
-export class WorkerService {
+export class WorkerService implements IWorkerService {
 
         private workerRepository!: IWorkerRepository;
 

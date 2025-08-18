@@ -41,3 +41,11 @@ export type TEventWorkerOptions = {
     runOnce?: boolean;
     workerCreator: IWorkerCreatorConstructor;
 }
+
+export interface IWorkerService {
+    setWorkerRepository(workerRepository: IWorkerRepository): void;
+    setLogger(logger: any): void;
+    setEventService(eventService: any): void;
+    setWorkerCreator(workerCreator: IWorkerCreator): void;
+    runWorker(options: TEventWorkerOptions): Promise<void>;
+}

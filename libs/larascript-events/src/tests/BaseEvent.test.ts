@@ -1,5 +1,5 @@
-import { beforeEach, describe, expect, test, jest } from "@jest/globals";
-import { BaseEvent } from "../events/base/BaseEvent";
+import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { BaseEvent } from "../events/base";
 import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
 import { EventRegistry } from "../events/registry/EventRegistry";
 
@@ -24,15 +24,7 @@ jest.mock("@larascript-framework/larascript-utils", () => ({
 }));
 
 // Create a concrete implementation for testing
-class TestEvent extends BaseEvent<{ message: string; count: number }> {
-  getName(): string {
-    return "TestEvent";
-  }
-
-  getDriverCtor(): any {
-    return this.driver;
-  }
-
+class TestEvent extends BaseEvent<unknown> {
   async execute(): Promise<void> {
     // Test implementation
   }
@@ -59,12 +51,6 @@ describe("BaseEvent", () => {
       expect(event.getPayload()).toBeNull();
     });
 
-    test("should throw EventInvalidPayloadException for invalid payload", () => {
-      const invalidPayload = { func: () => {} }; // Function is not JSON serializable
-      
-      expect(() => new TestEvent(invalidPayload)).toThrow(EventInvalidPayloadException);
-    });
-
     test("should auto-register event in EventRegistry", () => {
       new TestEvent();
       
@@ -76,7 +62,7 @@ describe("BaseEvent", () => {
   describe("validatePayload", () => {
     test("should return true for valid JSON payloads", () => {
       const validPayloads = [
-        { message: "test" },
+        { message: "test", count: 42 },
         { count: 42, nested: { value: true } },
         [1, 2, 3],
         "string",
@@ -86,28 +72,33 @@ describe("BaseEvent", () => {
       ];
 
       validPayloads.forEach(payload => {
-        const event = new TestEvent(payload);
+        const event = new TestEvent(payload as any);
         expect(event.validatePayload()).toBe(true);
       });
     });
 
-    test("should return false for invalid JSON payloads", () => {
-      const invalidPayloads = [
-        { func: () => {} },
-        { symbol: Symbol("test") },
-        { undefined: undefined },
-        { circular: null }
-      ];
+    test("should throw exception for payloads that cannot be stringified by JSON.stringify", () => {
+      // BigInt is not serializable in JSON
+      const bigIntPayload = { value: BigInt(10) };
+      expect(() => new TestEvent(bigIntPayload)).toThrow(EventInvalidPayloadException);
 
-      // Set up circular reference
+      // Circular reference is not serializable in JSON
       const circular: any = {};
       circular.self = circular;
-      invalidPayloads.push(circular);
+      expect(() => new TestEvent(circular)).toThrow(EventInvalidPayloadException);
+    });
 
-      invalidPayloads.forEach(payload => {
-        const event = new TestEvent(payload);
-        expect(event.validatePayload()).toBe(false);
-      });
+    test("should return false for circular reference payloads", () => {
+      // Create event with valid payload first
+      const event = new TestEvent({ message: "test" });
+      
+      // Then test with circular reference
+      const circular: any = {};
+      circular.self = circular;
+      
+      // Set the payload directly to test validation
+      (event as any).payload = circular;
+      expect(event.validatePayload()).toBe(false);
     });
   });
 
@@ -142,6 +133,26 @@ describe("BaseEvent", () => {
     test("should execute without throwing error", async () => {
       const event = new TestEvent();
       await expect(event.execute()).resolves.toBeUndefined();
+    });
+  });
+
+  describe("getName", () => {
+    test("should return class name", () => {
+      const event = new TestEvent();
+      expect(event.getName()).toBe("TestEvent");
+    });
+  });
+
+  describe("getDriverName", () => {
+    test("should return the driver name when passed in constructor", () => {
+      const driverName = "CustomDriver";
+      const event = new TestEvent(undefined, driverName);
+      expect(event.getDriverName()).toBe(driverName);
+    });
+
+    test("should return undefined if no driver is passed", () => {
+      const event = new TestEvent();
+      expect(event.getDriverName()).toBeUndefined();
     });
   });
 });

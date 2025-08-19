@@ -1,16 +1,14 @@
-import { AppSingleton } from "@larascript-framework/larascript-core";
 import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
+import assert from "node:assert";
 import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException";
-import { IBaseEvent, IEventDriver } from "../interfaces";
+import { IBaseEvent } from "../interfaces";
 import { EventRegistry } from "../registry/EventRegistry";
 
 abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBaseEvent<TPayload> {
 
     protected payload: TPayload | null = null;
 
-    protected driver!: TClassConstructor<IEventDriver>;
-
-    protected defaultDriver!: TClassConstructor<IEventDriver>;
+    protected driverName?: string;
 
     protected namespace: string = '';
 
@@ -21,25 +19,24 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
      * @param payload The payload of the event
      * @param driver The class of the event driver
      */
-    constructor(payload: TPayload | null = null, driver?: TClassConstructor<IEventDriver>) {
+    constructor(payload: TPayload | null = null, driverName?: string) {
         super()
+
+        this.payload = payload;
+        this.driverName = driverName;
+
+        // Ensure the payload is valid
+        if (!this.validatePayload()) {
+            throw new EventInvalidPayloadException('Invalid payload. Must be JSON serializable.');
+        }
 
         // Auto-register this event type if not already initialized
         if (!EventRegistry.isInitialized()) {
             EventRegistry.register(this.constructor as TClassConstructor<IBaseEvent>);
         }
 
-        this.payload = payload;
-
-        // Use safeContainer here to avoid errors during registering which runs during boot up.
-        this.defaultDriver = AppSingleton.safeContainer('events')?.getDefaultDriverCtor() as TClassConstructor<IEventDriver>;
-        this.driver = driver ?? this.defaultDriver;
-
-        // Ensure the payload is valid
-        if (!this.validatePayload()) {
-            throw new EventInvalidPayloadException('Invalid payload. Must be JSON serializable.');
-        }
     }
+
 
     /**
      * Declare HasCastableConcern methods.
@@ -65,7 +62,8 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
      */
     validatePayload(): boolean {
         try {
-            JSON.stringify(this.payload);
+            const result = JSON.stringify(this.payload);
+            assert(typeof result === 'string', 'Payload is not serializable');
         }
         // eslint-disable-next-line no-unused-vars
         catch (err) {
@@ -109,8 +107,8 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
     /**
      * @returns The event driver constructor.
      */
-    getDriverCtor(): TClassConstructor<IEventDriver> {
-        return this.driver ?? this.defaultDriver;
+    getDriverName(): string | undefined {
+        return this.driverName;
     }
 
 }

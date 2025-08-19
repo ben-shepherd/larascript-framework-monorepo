@@ -3,7 +3,7 @@ import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { BaseEventListener } from "../base";
 import { EventDispatchException } from "../exceptions/EventDispatchException";
 import { EventNotDispatchedException } from "../exceptions/EventNotDispatchedException";
-import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService, SubscriberConstructor, TEventWorkerOptions, TListenersConfigOption, TMockableEventCallback } from "../interfaces";
+import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService, SubscriberConstructor, TListenersConfigOption, TMockableEventCallback } from "../interfaces";
 import { IEventConfig } from "../interfaces/config.t";
 import EventRegistry from "../registry/EventRegistry";
 
@@ -27,14 +27,17 @@ export class EventService implements IEventService {
     /** The event configuration. */
     protected readonly config: IEventConfig;
 
+    /** Whether the config has been registered. */
+    protected configRegistered!: boolean;
+
     /** The registered events. */
-    protected readonly registeredEvents: Record<string, TClassConstructor<IBaseEvent>> = {};
+    protected registeredEvents: Record<string, TClassConstructor<IBaseEvent>> = {};
 
     /** The registered drivers. */
-    protected readonly registeredDrivers: Record<string, IEventDriversConfigOption> = {};
+    protected registeredDrivers: Record<string, IEventDriversConfigOption> = {};
 
     /** The registered listeners. */
-    protected readonly registeredListeners: Record<string, TListenersConfigOption> = {};
+    protected registeredListeners: Record<string, TListenersConfigOption> = {};
 
     /**
      * Creates a new event service.
@@ -42,9 +45,7 @@ export class EventService implements IEventService {
      */
     constructor(config: IEventConfig) {
         this.config = config
-    }
-    runWorker(options: TEventWorkerOptions): Promise<void> {
-        throw new Error("Method not implemented.");
+        this.registerConfig()
     }
 
     /**
@@ -79,7 +80,11 @@ export class EventService implements IEventService {
      * Dispatch an event using its registered driver.
      * @param event The event to be dispatched.
      */
-    async dispatch(event: IBaseEvent): Promise<void> {
+    async dispatch(event: IBaseEvent, overrideDriverName?: string): Promise<void> {
+
+        if (!this.configRegistered) {
+            throw new EventDispatchException('Event service not registered. Call registerConfig() before dispatching events.')
+        }
 
         if (!this.isRegisteredEvent(event)) {
             throw new EventDispatchException(`Event '${event.getName()}' not registered. The event must be exported and registered with EventRegistry.register(event).`)
@@ -88,8 +93,14 @@ export class EventService implements IEventService {
         // Mock the dispatch before dispatching the event, as any errors thrown during the dispatch will not be caught
         this.mockEventDispatched(event)
 
-        const eventDriverCtor = event.getDriverCtor()
-        const eventDriver = new eventDriverCtor(this)
+        const driverName = overrideDriverName ?? event.getDriverName()
+        const driver = this.getDriverOptionsByName(driverName ?? '')
+
+        if (!driver) {
+            throw new EventDispatchException(`Driver '${driverName}' not registered.`)
+        }
+
+        const eventDriver = new driver.driverCtor(this)
         await eventDriver.dispatch(event)
 
         // Notify all subscribers of the event
@@ -102,6 +113,12 @@ export class EventService implements IEventService {
      * Register the config with the event service
      */
     registerConfig(): void {
+
+        this.configRegistered = false;
+        this.registeredEvents = {} as Record<string, TClassConstructor<IBaseEvent>>;
+        this.registeredDrivers = {} as Record<string, IEventDriversConfigOption>;
+        this.registeredListeners = {} as Record<string, TListenersConfigOption>;
+
         // Register the drivers
         for (const driverKey of Object.keys(this.config.drivers)) {
             this.registeredDrivers[driverKey] = this.config.drivers[driverKey]
@@ -119,6 +136,9 @@ export class EventService implements IEventService {
 
         // Mark the registry as initialized since event service is now available
         EventRegistry.setInitialized();
+
+        // Mark the config as registered
+        this.configRegistered = true;
     }
 
     /**
@@ -194,14 +214,14 @@ export class EventService implements IEventService {
     }
 
     /**
- * Mocks an event to be dispatched.
- * 
- * The mocked event will be added to the {@link mockEvents} array.
- * When the event is dispatched, the {@link mockEventDispatched} method
- * will be called and the event will be added to the {@link mockEventsDispatched} array.
- * 
- * @param event The event to mock.
- */
+     * Mocks an event to be dispatched.
+     * 
+     * The mocked event will be added to the {@link mockEvents} array.
+     * When the event is dispatched, the {@link mockEventDispatched} method
+     * will be called and the event will be added to the {@link mockEventsDispatched} array.
+     * 
+     * @param event The event to mock.
+     */
     mockEvent(event: TClassConstructor<IBaseEvent>): void {
         this.mockEvents.push(event)
         this.removeMockEventDispatched(event)
@@ -259,7 +279,7 @@ export class EventService implements IEventService {
         const dispatchedEvent = this.mockEventsDispatched.find(e => e.getName() === eventCtorName)
 
         if (!dispatchedEvent) {
-            throw new EventNotDispatchedException(`Event ${eventCtorName} was not dispatched`)
+            throw new EventNotDispatchedException(`Event '${eventCtorName}' was not dispatched.`)
         }
 
         if (typeof callback !== 'function') {

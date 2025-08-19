@@ -1,5 +1,4 @@
-import { IHasCastableConcern, TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IEventDriver } from "./driver.t";
+import { IHasCastableConcern } from "@larascript-framework/larascript-utils";
 import { IExecutable, INameable } from "./types.t";
 
 export interface IBaseSubscriber<TPayload = unknown> extends IBaseEvent<TPayload> {
@@ -13,7 +12,7 @@ export interface IBaseListener<TPayload = unknown> extends IBaseEvent<TPayload> 
 export interface IBaseEvent<TPayload = unknown> extends INameable, IExecutable, IHasCastableConcern
 {
     getQueueName(): string;
-    getDriverCtor(): TClassConstructor<IEventDriver>;
+    getDriverName(): string | undefined;
     getPayload(): TPayload;
     setPayload(payload: TPayload): void;
     getName(): string;

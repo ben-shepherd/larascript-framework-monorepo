@@ -1,5 +1,4 @@
-import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IBaseListener, IEventDriver, IEventListener } from "../interfaces";
+import { IBaseListener, IEventListener } from "../interfaces";
 import BaseEvent from "./BaseEvent";
 
 
@@ -15,8 +14,8 @@ class BaseEventListener<TPayload = unknown> extends BaseEvent<TPayload> implemen
      *
      * @param payload The payload of the event to dispatch
      */
-    constructor(payload?: TPayload, driver?: TClassConstructor<IEventDriver>) {
-        super(payload, driver);
+    constructor(payload?: TPayload, driverName?: string) {
+        super(payload, driverName);
     }
 
 }

@@ -42,6 +42,12 @@ class TestEvent extends BaseEvent<{ message: string; count: number }> {
   }
 }
 
+class NotMockedTestEvent extends BaseEvent<{ message: string; count: number }> {
+  async execute(): Promise<void> {
+    // Test implementation
+  }
+}
+
 class TestListenerEvent extends BaseEventListener<{ message: string; count: number }> {
   async execute(): Promise<void> {
     // Test implementation
@@ -62,6 +68,7 @@ describe("EventService", () => {
     EventRegistry.clear();
     EventRegistry.register(TestEvent);
     EventRegistry.register(TestListenerEvent);
+    EventRegistry.register(NotMockedTestEvent);
     jest.clearAllMocks();
 
     // Create event configuration
@@ -124,10 +131,10 @@ describe("EventService", () => {
 
     test("should throw EventDispatchException for unregistered driver", async () => {
       const payload = { message: "test", count: 42 };
-      const event = new TestEvent(payload, "NonExistentDriver");
+      const event = new NotMockedTestEvent(payload, "NonExistentDriver");
 
       // Register the event
-      EventRegistry.register(TestEvent);
+      EventRegistry.register(NotMockedTestEvent);
 
       // Try to dispatch with non-existent driver
       await expect(eventService.dispatch(event)).rejects.toThrow(

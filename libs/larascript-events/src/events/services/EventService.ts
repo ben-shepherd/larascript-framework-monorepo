@@ -91,7 +91,9 @@ export class EventService implements IEventService {
         }
 
         // Mock the dispatch before dispatching the event, as any errors thrown during the dispatch will not be caught
-        this.mockEventDispatched(event)
+        if (this.mockEventDispatched(event)) {
+            return;
+        }
 
         const driverName = overrideDriverName ?? event.getDriverName()
         const driver = this.getDriverOptionsByName(driverName ?? '')
@@ -243,15 +245,16 @@ export class EventService implements IEventService {
      * 
      * @param event - The event that was dispatched.
      */
-    mockEventDispatched(event: IBaseEvent): void {
+    mockEventDispatched(event: IBaseEvent): boolean {
 
         const shouldMock = this.mockEvents.find(eCtor => (new eCtor(null)).getName() === event.getName())
 
         if (!shouldMock) {
-            return
+            return false
         }
 
         this.mockEventsDispatched.push(event)
+        return true
     }
 
     /**

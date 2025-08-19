@@ -1,5 +1,22 @@
-import { BaseDriver, EventDriverException, IBaseEvent, IQueableDriverOptions, IWorkerAttributes } from "@larascript-framework/larascript-events";
+import { BaseDriver, EventDriverException, IBaseEvent, IWorkerAttributes, IWorkerCreatorConstructor } from "@larascript-framework/larascript-events";
 import { z } from "zod";
+
+/**
+ * Options for queueable drivers
+ * TODO: move to the events-worker package (yet to be created)
+ */
+export interface IQueableDriverOptions {
+    [key: string]: unknown;
+    /** Name of the queue to use */
+    queueName: string;
+    /** Number of retry attempts */
+    retries: number;
+    /** Delay in seconds before running */
+    runAfterSeconds: number;
+    /** Constructor for creating workers */
+    workerCreator: IWorkerCreatorConstructor;
+} 
+
 
 class QueueableDriver extends BaseDriver  {
 

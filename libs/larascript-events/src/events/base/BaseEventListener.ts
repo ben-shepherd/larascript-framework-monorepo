@@ -1,18 +1,20 @@
 import { IBaseListener, IEventListener } from "../interfaces";
 import BaseEvent from "./BaseEvent";
 
-
+/**
+ * Base class for event listeners
+ * Provides a foundation for creating event listeners that can handle event payloads
+ * @template TPayload - The type of payload the listener handles
+ */
 class BaseEventListener<TPayload = unknown> extends BaseEvent<TPayload> implements IEventListener<TPayload>, IBaseListener<TPayload> {
 
+    /** Type identifier for listeners */
     type: 'listener' = 'listener';
 
     /**
-     * Constructor
-     *
-     * Creates a new instance of the event listener and dispatches the event to
-     * all subscribers.
-     *
-     * @param payload The payload of the event to dispatch
+     * Creates a new instance of the event listener
+     * @param payload - The payload of the event to dispatch
+     * @param driverName - The name of the driver to use for this event
      */
     constructor(payload?: TPayload, driverName?: string) {
         super(payload, driverName);

@@ -17,22 +17,6 @@ export class WorkerService implements IWorkerService {
 
         protected onCreateFailedWorkerModel!: () => Promise<IWorkerModel>;
 
-        setWorkerRepository(workerRepository: IWorkerRepository): void {
-            this.workerRepository = workerRepository;
-        }
-
-        setLogger(logger: ILoggerService): void {
-            this.logger = logger;
-        }
-
-        setEventService(eventService: IEventService): void {
-            this.eventService = eventService;
-        }
-
-        setWorkerCreator(workerCreator: IWorkerCreator): void {
-            this.workerCreator = workerCreator;
-        }
-
         /**
          *  
          * Run the worker to process queued event items
@@ -59,6 +43,22 @@ export class WorkerService implements IWorkerService {
             for (const workerModel of workerModels) {
                 await this.handleWorkerModel(workerModel, options)
             }
+        }
+
+        setWorkerRepository(workerRepository: IWorkerRepository): void {
+            this.workerRepository = workerRepository;
+        }
+
+        setLogger(logger: ILoggerService): void {
+            this.logger = logger;
+        }
+
+        setEventService(eventService: IEventService): void {
+            this.eventService = eventService;
+        }
+
+        setWorkerCreator(workerCreator: IWorkerCreator): void {
+            this.workerCreator = workerCreator;
         }
 
         /**

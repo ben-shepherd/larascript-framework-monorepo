@@ -1,195 +1,301 @@
-# Larascript Package Template
+# @larascript-framework/larascript-events
 
-This is a template for creating new packages within the Larascript monorepo. Follow the steps below to create your own package.
+A comprehensive event system for the Larascript framework that provides event dispatching, listening, and management capabilities with support for multiple drivers and worker services.
 
-## Creating a New Package
+## Features
 
-### 1. Copy the Template Directory
+- **Event Dispatching**: Dispatch events with payload validation and driver support
+- **Event Listening**: Register and manage event listeners
+- **Multiple Drivers**: Support for different event drivers (sync, async, queue-based)
+- **Worker Services**: Background processing capabilities for long-running events
+- **Event Registry**: Centralized event registration and management
+- **Payload Validation**: Automatic JSON serialization validation
+- **Mock Support**: Built-in mocking for testing
+- **TypeScript Support**: Full TypeScript support with type safety
 
-Copy the template directory to create your new package:
-
-```bash
-# From the monorepo root
-cp -r libs/template libs/your-package-name
-
-# Example:
-cp -r libs/template libs/larascript-my-feature
-```
-
-### 2. Rename and Update Package Configuration
-
-Navigate to your new package directory and update the configuration:
+## Installation
 
 ```bash
-cd libs/your-package-name
+npm install @larascript-framework/larascript-events
 ```
 
-#### Update package.json
+## Quick Start
 
-Edit the `package.json` file and update the following fields:
+### Creating an Event
 
-```json
-{
-  "name": "@larascript-framework/your-package-name",
-  "description": "Your package description here",
-  "version": "0.1.0"
+```typescript
+import { BaseEvent, EventRegistry } from '@larascript-framework/larascript-events';
+
+class UserCreatedEvent extends BaseEvent<{ userId: string; email: string }> {
+  async execute(): Promise<void> {
+    // Event execution logic
+    console.log(`User created: ${this.getPayload().userId}`);
+  }
+
+  getQueueName(): string {
+    return 'user-events';
+  }
 }
+
+// Register the event with EventRegistry
+export default EventRegistry.register(UserCreatedEvent);
 ```
 
-**Required changes:**
-- `name`: Change from "PLACEHOLDER" to your package name (e.g., "@larascript-framework/larascript-my-feature")
-- `description`: Replace "PLACEHOLDER DESCRIPTION" with a meaningful description
-- `version`: Set to "0.1.0" for new packages
+### Dispatching Events
 
-#### Update README.md
+```typescript
+import { EventService, EventConfig } from '@larascript-framework/larascript-events';
 
-Replace the template README content with documentation specific to your package:
-- What the package does
-- How to install and use it
-- Examples and API documentation
-- Contributing guidelines
+// Create event configuration
+const config = EventConfig.create({
+  defaultDriver: SyncDriver,
+  drivers: {
+    'sync': EventConfig.createConfigDriver(SyncDriver),
+    'async': EventConfig.createConfigDriver(AsyncDriver),
+    // Add custom queue driver implementation here if needed
+  },
+  listeners: []
+});
 
-### 3. Add Package to Turbo Pipeline
+// Create event service
+const eventService = new EventService(config);
 
-If your package has build/test/lint scripts, add it to the root `turbo.json` pipeline:
+// Dispatch an event
+const event = new UserCreatedEvent({ userId: '123', email: 'user@example.com' });
+await eventService.dispatch(event);
+```
 
-```json
-{
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": []
-    },
-    "lint": {
-      "outputs": []
-    }
+### Event Registration
+
+**Important**: All events must be registered with the `EventRegistry` to be properly managed by the event system. This is typically done in the event file's exports:
+
+```typescript
+// In your event file (e.g., UserCreatedEvent.ts)
+import { BaseEvent, EventRegistry } from '@larascript-framework/larascript-events';
+
+class UserCreatedEvent extends BaseEvent<{ userId: string; email: string }> {
+  async execute(): Promise<void> {
+    // Event execution logic
+    console.log(`User created: ${this.getPayload().userId}`);
+  }
+
+  getQueueName(): string {
+    return 'user-events';
+  }
+}
+
+// Register the event with EventRegistry
+export default EventRegistry.register(UserCreatedEvent);
+```
+
+This pattern ensures that:
+- Events are automatically registered when imported
+- The event system can discover and manage all events
+- Events work properly with the static registry before the event service is available
+
+### Creating Event Listeners
+
+```typescript
+import { BaseEventListener } from '@larascript-framework/larascript-events';
+
+class UserCreatedListener extends BaseEventListener<{ userId: string; email: string }> {
+  async execute(): Promise<void> {
+    const payload = this.getPayload();
+    
+    // Send welcome email
+    await this.sendWelcomeEmail(payload.email);
+    
+    // Update user count
+    await this.updateUserCount();
+  }
+
+  private async sendWelcomeEmail(email: string): Promise<void> {
+    // Email sending logic
+  }
+
+  private async updateUserCount(): Promise<void> {
+    // Update logic
   }
 }
 ```
 
-### 4. Initialize Your Package
+## Core Components
 
-```bash
-# From the monorepo root, install dependencies
-pnpm install
+### BaseEvent
 
-# Run tests to ensure everything works
-pnpm test
-
-# Build the project
-pnpm build
-```
-
-### 5. Customize Your Package
-
-- Add your package-specific code to `src/index.ts`
-- Update tests in the `src/tests/` directory
-- Modify configuration files as needed (they already extend from the base configs)
-
-## Important Notes
-
-### Export Guidelines
-
-**No Default Exports**: All exports should be named exports. Avoid using `export default`.
-
-**Index Files**: Create an `index.ts` file in every directory you create and export all files from that directory.
-
-**Example Structure:**
-```
-src/
-├── index.ts                 # Main entry point
-├── components/
-│   ├── index.ts            # Export all components
-│   ├── Button.ts
-│   └── Modal.ts
-├── utils/
-│   ├── index.ts            # Export all utilities
-│   ├── helpers.ts
-│   └── validators.ts
-└── types/
-    ├── index.ts            # Export all types
-    └── common.ts
-```
-
-**Example index.ts files:**
+The base class for all events. Provides payload validation, serialization, and basic event functionality.
 
 ```typescript
-// src/components/index.ts
-export * from './Button';
-export * from './Modal';
+class MyEvent extends BaseEvent<MyPayloadType> {
+  async execute(): Promise<void> {
+    // Event logic here
+  }
 
-// src/utils/index.ts
-export * from './helpers';
-export * from './validators';
-
-// src/types/index.ts
-export * from './common';
-
-// src/index.ts (main entry)
-export * from './components';
-export * from './utils';
-export * from './types';
+  getQueueName(): string {
+    return 'my-queue';
+  }
+}
 ```
 
-### Configuration Inheritance
+### EventService
 
-This template is already configured to:
-- Extend `@larascript-framework/tsconfig` in `tsconfig.json`
-- Import and export `@larascript-framework/eslint-config` in `eslint.config.js`
-- Use `@larascript-framework/jest-config` in `jest.config.js`
+The main service for managing and dispatching events.
 
-No additional configuration is needed unless you have package-specific requirements.
+```typescript
+const eventService = new EventService(config);
 
-## Development Workflow
+// Dispatch events
+await eventService.dispatch(event);
 
-This template includes several helpful scripts:
+// Register listeners
+eventService.registerListener(MyEvent, MyListener);
 
-- `pnpm build` - Build the TypeScript code
-- `pnpm test` - Run tests
-- `pnpm lint` - Check code style
-- `pnpm lint:fix` - Fix code style issues
-- `pnpm format` - Format code with Prettier
-
-### Setting up Lefthook
-
-This project uses Lefthook for pre-commit hooks. To set it up:
-
-```bash
-# Install lefthook locally (recommended)
-npx lefthook install
-
-# If the above doesn't work, install lefthook globally and try again
-npm install -g lefthook
-lefthook install
+// Mock events for testing
+eventService.mockEvent(MyEvent);
 ```
 
-Lefthook will automatically run linting, formatting, and tests before each commit to ensure code quality.
+### EventRegistry
 
-## Publishing
+Central registry for managing event registration.
 
-When ready to publish:
+```typescript
+import { EventRegistry } from '@larascript-framework/larascript-events';
 
-1. Update the version in `package.json`
-2. Commit your changes
-3. Create a git tag for the version
-4. Push to the repository
-5. The package will be published to the npm registry
+// Register events
+EventRegistry.register(MyEvent);
 
-## Template Features
+// Get registered events
+const events = EventRegistry.getEvents();
+```
 
-- TypeScript configuration (extends base config)
-- Jest testing setup (extends base config)
-- ESLint and Prettier for code quality (extends base config)
-- Commit message linting with conventional commits
-- GitHub Actions ready
-- Branch name validation
-- Pre-commit hooks with Lefthook
-- Monorepo workspace integration
+### WorkerService
 
-## Support
+Background processing service for handling long-running events.
 
-For questions about this template or Larascript packages in general, please refer to the main Larascript documentation or create an issue in the repository.
+```typescript
+import { WorkerService } from '@larascript-framework/larascript-events';
+
+const workerService = new WorkerService(config);
+
+// Start processing
+await workerService.start();
+
+// Stop processing
+await workerService.stop();
+```
+
+## Configuration
+
+### Event Configuration
+
+```typescript
+import { EventConfig } from '@larascript-framework/larascript-events';
+
+const config = EventConfig.create({
+  defaultDriver: SyncDriver,
+  drivers: {
+    'sync': EventConfig.createConfigDriver(SyncDriver),
+    'async': EventConfig.createConfigDriver(AsyncDriver, {
+      timeout: 5000,
+      retries: 3
+    })
+  },
+  listeners: [
+    {
+      event: UserCreatedEvent,
+      listeners: [UserCreatedListener, EmailListener]
+    }
+  ]
+});
+```
+
+### Driver Configuration
+
+```typescript
+// Create driver configuration
+const driverConfig = EventConfig.createConfigDriver(MyDriver, {
+  timeout: 10000,
+  retries: 5,
+  queue: 'high-priority'
+});
+```
+
+## API Reference
+
+### BaseEvent
+
+#### Methods
+
+- `execute()`: Execute the event logic
+- `getPayload()`: Get the event payload
+- `setPayload(payload)`: Set the event payload
+- `getName()`: Get the event name
+- `getQueueName()`: Get the queue name for the event
+- `getDriverName()`: Get the driver name for the event
+- `validatePayload()`: Validate the event payload
+
+### EventService
+
+#### Methods
+
+- `dispatch(event, overrideDriverName?)`: Dispatch an event
+- `registerListener(event, listener)`: Register an event listener
+- `mockEvent(event)`: Mock an event for testing
+- `getMockedEvents()`: Get mocked events
+- `getConfig()`: Get the event configuration
+
+### EventRegistry
+
+#### Methods
+
+- `register(event)`: Register an event
+- `getEvents()`: Get all registered events
+- `clear()`: Clear all registered events
+- `isInitialized()`: Check if registry is initialized
+
+## Testing
+
+The package includes built-in mocking support for testing:
+
+```typescript
+// Mock events for testing
+eventService.mockEvent(UserCreatedEvent);
+
+// Dispatch events (they won't actually execute)
+await eventService.dispatch(new UserCreatedEvent(payload));
+
+// Check if events were dispatched
+const dispatchedEvents = eventService.getMockedEvents();
+expect(dispatchedEvents).toHaveLength(1);
+```
+
+## Error Handling
+
+The package provides several exception classes:
+
+- `EventInvalidPayloadException`: Thrown when event payload is invalid
+- `EventDispatchException`: Thrown when event dispatch fails
+- `EventNotDispatchedException`: Thrown when event is not dispatched
+
+```typescript
+try {
+  await eventService.dispatch(event);
+} catch (error) {
+  if (error instanceof EventDispatchException) {
+    // Handle dispatch error
+  }
+}
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
+
+## License
+
+ISC License - see the [LICENSE](LICENSE) file for details.

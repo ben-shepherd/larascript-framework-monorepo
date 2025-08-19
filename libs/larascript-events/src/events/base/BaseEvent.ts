@@ -4,20 +4,30 @@ import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadE
 import { IBaseEvent } from "../interfaces";
 import { EventRegistry } from "../registry/EventRegistry";
 
+/**
+ * Abstract base class for all events in the system
+ * Provides common functionality for event handling, payload validation, and casting
+ * @template TPayload - The type of payload the event carries
+ */
 abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBaseEvent<TPayload> {
 
+    /** The payload data for the event */
     protected payload: TPayload | null = null;
 
+    /** The name of the driver that should handle this event */
     protected driverName?: string;
 
+    /** The namespace for the event */
     protected namespace: string = '';
 
+    /** Casting configuration for the event */
     casts: TCasts = {};
 
     /**
-     * Constructor
-     * @param payload The payload of the event
-     * @param driver The class of the event driver
+     * Creates a new BaseEvent instance
+     * @param payload - The payload of the event
+     * @param driverName - The name of the driver to use for this event
+     * @throws {EventInvalidPayloadException} If the payload is not JSON serializable
      */
     constructor(payload: TPayload | null = null, driverName?: string) {
         super()
@@ -37,7 +47,6 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
 
     }
 
-
     /**
      * Declare HasCastableConcern methods.
      */
@@ -52,12 +61,13 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
 
     /**
      * Executes the event.
+     * Override this method in subclasses to provide specific event logic.
      */
     async execute(): Promise<void> {/* Nothing to execute */ }
 
     /**
-     * Validates the payload of the event. Ensures that the payload is an object with types that match:
-     * string, number, boolean, object, array, null.
+     * Validates the payload of the event. Ensures that the payload is JSON serializable.
+     * @returns True if the payload is valid, false otherwise
      * @throws {EventInvalidPayloadException} If the payload is invalid.
      */
     validatePayload(): boolean {
@@ -74,30 +84,33 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
     }
 
     /**
-     * @returns The name of the queue as a string.
+     * Gets the name of the queue this event should be processed on
+     * @returns The name of the queue as a string
      */
     getQueueName(): string {
         return 'default';
     }
 
     /**
-     * @template T The type of the payload to return.
-     * @returns The payload of the event.
+     * Gets the payload of the event with casting applied
+     * @template TPayload - The type of the payload to return
+     * @returns The payload of the event
      */
     getPayload(): TPayload {
         return this.getCastFromObject<TPayload>(this.payload as Record<string, unknown>, this.casts)
     }
 
     /**
-     * Sets the payload of the event.
-     * @param payload The payload of the event to set.
+     * Sets the payload of the event
+     * @param payload - The payload of the event to set
      */
     setPayload(payload: TPayload): void {
         this.payload = payload
     }
 
     /**
-     * @returns The name of the event as a string.
+     * Gets the name of the event
+     * @returns The name of the event as a string, including namespace if set
      */
     getName(): string {
         const prefix = this.namespace === '' ? '' : (this.namespace + '/')
@@ -105,7 +118,8 @@ abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBa
     }
 
     /**
-     * @returns The event driver constructor.
+     * Gets the name of the driver that should handle this event
+     * @returns The event driver name as a string, or undefined if no specific driver
      */
     getDriverName(): string | undefined {
         return this.driverName;

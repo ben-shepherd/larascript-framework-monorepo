@@ -23,7 +23,7 @@ type UpdateProps = Record<string, string>;
 /**
  * Environment variables service
  */
-export default class EnvService implements IEnvService {
+export class EnvService implements IEnvService {
   /**
    * Path to the .env file
    */

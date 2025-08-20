@@ -239,7 +239,7 @@ Subscribers respond to events and handle side effects. They execute **after** li
 
 ```typescript
 import { EventRegistry } from '@larascript-framework/larascript-events';
-import BaseEventSubscriber from '@larascript-framework/larascript-events/dist/events/base/BaseEventSubciber';
+import { BaseEventSubscriber } from '@larascript-framework/larascript-events';
 import SyncDriver from '@src/core/domains/events/drivers/SyncDriver';
 
 class UserCreatedSubscriber extends BaseEventSubscriber<{ userId: string; email: string; name: string }> {

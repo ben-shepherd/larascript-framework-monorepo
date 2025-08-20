@@ -1,5 +1,4 @@
-import { EventRegistry } from "@larascript-framework/larascript-events";
-import { BaseEventSubscriber } from "@larascript-framework/larascript-events/dist/events/base/BaseEventSubciber";
+import { BaseEventSubscriber, EventRegistry } from "@larascript-framework/larascript-events";
 
 class UserCreatedSubscriber extends BaseEventSubscriber {
 

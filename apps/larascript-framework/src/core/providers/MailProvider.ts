@@ -1,8 +1,7 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
+import { IMailConfig, MailService } from "@larascript-framework/larascript-mail";
 import appConfig, { IAppConfig } from "@src/config/app.config";
 import { mailConfig } from "@src/config/mail.config";
-import { IMailConfig } from "@src/core/domains/mail/interfaces/config";
-import MailService from "@src/core/domains/mail/services/MailService";
 import { app } from "@src/core/services/App";
 
 class MailProvider extends BaseProvider {

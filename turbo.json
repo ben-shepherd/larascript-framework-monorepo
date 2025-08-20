@@ -48,6 +48,7 @@
             "dependsOn": ["^check-exports"]
         },
         "dev": {
+            "dependsOn": ["^build"],
             "persistent": true,
             "cache": false
         },

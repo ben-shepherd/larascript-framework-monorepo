@@ -17,7 +17,7 @@ type NodeMailerOptions = {
  * Nodemailer driver for sending emails.
  * Implements the MailAdapter interface.
  */
-class NodeMailDriver extends BaseMailAdapter implements MailAdapter {
+export class NodeMailDriver extends BaseMailAdapter implements MailAdapter {
   protected options!: NodeMailerOptions;
 
   /**

@@ -201,6 +201,9 @@ importers:
       '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:../../libs/larascript-logger
+      '@larascript-framework/larascript-mail':
+        specifier: workspace:*
+        version: link:../../libs/larascript-mail
       '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:../../libs/larascript-observer

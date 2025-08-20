@@ -46,6 +46,28 @@ If you encounter module resolution errors, check:
 - Workspace references using `workspace:*`
 - TypeScript path mappings in `tsconfig.json`
 
+#### Missing Import Errors
+If you're getting "Cannot find module" or "Module not found" errors, you most likely need to:
+
+1. **Add the package to the package.json dependencies:**
+   ```bash
+   pnpm add <package-name>
+   ```
+
+2. **Run the build to ensure the package is properly linked:**
+   ```bash
+   pnpm build
+   ```
+
+3. **For workspace packages, ensure they're properly referenced:**
+   ```json
+   {
+     "dependencies": {
+       "@larascript-framework/package-name": "workspace:*"
+     }
+   }
+   ```
+
 #### Circular Dependencies
 Look for circular imports between packages:
 ```bash

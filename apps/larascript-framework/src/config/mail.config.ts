@@ -1,10 +1,6 @@
+import { BaseMailAdapters, IMailConfig, LocalMailDriver, MailConfig, NodeMailDriver, ResendMailDriver } from "@larascript-framework/larascript-mail";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
-import LocalMailDriver from "@src/core/domains/mail/adapters/LocalMailDriver";
-import NodeMailDriver from "@src/core/domains/mail/adapters/NodeMailerDriver";
-import ResendMailDriver from "@src/core/domains/mail/adapters/ResendMailDriver";
-import { BaseMailAdapters } from "@src/core/domains/mail/interfaces/adapter";
-import { IMailConfig } from "@src/core/domains/mail/interfaces/config";
-import MailConfig from "@src/core/domains/mail/services/MailConfig";
+
 
 /**
  * Provide type hinting when accessing passing names to the getDriver method in app('mail').getDriver(name)
@@ -12,6 +8,7 @@ import MailConfig from "@src/core/domains/mail/services/MailConfig";
 export interface MailAdapters extends BaseMailAdapters {
     local: LocalMailDriver
     nodemailer: NodeMailDriver
+    resend: ResendMailDriver
 }
 
 /**

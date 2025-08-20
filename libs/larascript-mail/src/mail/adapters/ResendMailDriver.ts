@@ -11,7 +11,7 @@ type ResendMailOptions = {
  * Nodemailer driver for sending emails.
  * Implements the MailAdapter interface.
  */
-class ResendMailDriver extends BaseMailAdapter implements MailAdapter {
+export class ResendMailDriver extends BaseMailAdapter implements MailAdapter {
   protected options!: ResendMailOptions;
 
   protected resend!: Resend;
@@ -23,7 +23,9 @@ class ResendMailDriver extends BaseMailAdapter implements MailAdapter {
   constructor(options: ResendMailOptions = {} as ResendMailOptions) {
     super();
     this.options = options;
-    this.resend = new Resend(options.apiKey);
+    if(typeof options.apiKey === 'string' && options.apiKey.length > 0) {
+      this.resend = new Resend(options.apiKey);
+    }
   }
 
   /**

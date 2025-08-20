@@ -25,7 +25,6 @@ import { IRequestContext } from '@src/core/domains/http/interfaces/IRequestConte
 import HttpErrorHandlerProvider from "@src/core/domains/http/providers/HttpErrorHandlerProvider";
 import HttpProvider from "@src/core/domains/http/providers/HttpProvider";
 import { IMailService } from '@src/core/domains/mail/interfaces/services';
-import MailProvider from "@src/core/domains/mail/providers/MailProvider";
 import MakeProvider from "@src/core/domains/make/providers/MakeProvider";
 import MigrationProvider from "@src/core/domains/migrations/providers/MigrationProvider";
 import SetupProvider from "@src/core/domains/setup/providers/SetupProvider";
@@ -39,6 +38,7 @@ import CommandsProvider from '@src/core/providers/CommandsProvider';
 import CryptoProvider from "@src/core/providers/CryptoProvider";
 import EnvServiceProvider from "@src/core/providers/EnvServiceProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
+import MailProvider from "@src/core/providers/MailProvider";
 import PackageJsonProvider from "@src/core/providers/PackageJsonProvider";
 import ViewProvider from "@src/core/providers/ViewProvider";
 import readline from 'node:readline';
@@ -92,8 +92,8 @@ const providers: IProvider[] = [
     new EventProvider(),
     new DatabaseProvider(),
     new EloquentQueryProvider(),
-    new AuthProvider(),
     new ACLProvider(),
+    new AuthProvider(),
     new MigrationProvider(),
     new MakeProvider(),
     new ValidatorProvider(),

@@ -15,7 +15,6 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "dev": "tsc --watch",
     "prepare": "npm run build",
     "test": "jest",
     "test:watch": "jest --watch",

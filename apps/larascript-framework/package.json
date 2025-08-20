@@ -6,7 +6,6 @@
   "scripts": {
     "install:no-scripts": "yarn install --ignore-scripts",
     "build": "tsc --noEmit && webpack --color --bail",
-    "build:watch": "tsc --watch --skipLibCheck",
     "fix-imports": "node fix-imports.js",
     "fix-eslint": "npx eslint --fix src",
     "fix": "yarn run fix-imports && yarn run fix-eslint",
@@ -42,6 +41,7 @@
 		"@larascript-framework/larascript-validator": "workspace:*",
 		"@larascript-framework/larascript-views": "workspace:*",
     "@larascript-framework/larascript-events": "workspace:*",
+    "@larascript-framework/larascript-mail": "workspace:*",
     "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "collect.js": "^4.36.1",

@@ -9,7 +9,7 @@ import { EventRegistry } from "../registry/EventRegistry";
  * Provides common functionality for event handling, payload validation, and casting
  * @template TPayload - The type of payload the event carries
  */
-abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBaseEvent<TPayload> {
+export abstract class BaseEvent<TPayload = unknown> extends BaseCastable implements IBaseEvent<TPayload> {
 
     /** The payload data for the event */
     protected payload: TPayload | null = null;

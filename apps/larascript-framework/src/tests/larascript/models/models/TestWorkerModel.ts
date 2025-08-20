@@ -1,5 +1,4 @@
-import { WorkerModelAttributes } from "@src/core/domains/events/interfaces/IEventWorkerConcern";
-import WorkerModel from "@src/core/domains/events/models/WorkerModel";
+import WorkerModel, { WorkerModelAttributes } from "@src/core/domains/events/models/WorkerModel";
 
 export default class TestWorkerModel extends WorkerModel {
 

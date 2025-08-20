@@ -1,4 +1,5 @@
 import { Collection } from '@larascript-framework/larascript-collection';
+import { EventConstructor } from '@larascript-framework/larascript-events';
 import { IObserver, IObserverEvent, ObserveConstructor } from '@larascript-framework/larascript-observer';
 import { Castable, Str, TCastableType, TClassConstructor } from '@larascript-framework/larascript-utils';
 import { IDatabaseSchema } from '@src/core/domains/database/interfaces/IDatabaseSchema';
@@ -8,7 +9,6 @@ import { IBelongsToOptions, IEloquent, IHasManyOptions, IRelationship, IdGenerat
 import BelongsTo from '@src/core/domains/eloquent/relational/BelongsTo';
 import HasMany from '@src/core/domains/eloquent/relational/HasMany';
 import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import { EventConstructor } from '@src/core/domains/events/interfaces/IEventConstructors';
 import { GetAttributesOptions, IModel, IModelAttributes, IModelEvents, IModelLifeCycleEvent, ModelConstructor, ModelWithAttributes } from "@src/core/domains/models/interfaces/IModel";
 import ModelScopes, { TModelScope } from '@src/core/domains/models/utils/ModelScope';
 import IFactory, { FactoryConstructor } from '@src/core/interfaces/IFactory';

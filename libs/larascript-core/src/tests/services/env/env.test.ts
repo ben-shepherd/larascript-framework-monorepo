@@ -1,4 +1,4 @@
-import EnvService from "@/services/EnvService";
+import { EnvService } from "@/services/EnvService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("Env Service Test Suite", () => {

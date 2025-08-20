@@ -6,7 +6,7 @@ import BaseEvent from "./BaseEvent";
  * Provides a foundation for creating event subscribers that can handle event payloads
  * @template TPayload - The type of payload the subscriber handles
  */
-class BaseEventSubscriber<TPayload = unknown> extends BaseEvent<TPayload> implements IBaseSubscriber<TPayload> {
+export class BaseEventSubscriber<TPayload = unknown> extends BaseEvent<TPayload> implements IBaseSubscriber<TPayload> {
     /** Type identifier for subscribers */
     type: 'subscriber' = 'subscriber';
 }

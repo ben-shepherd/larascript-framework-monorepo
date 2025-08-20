@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { BaseEvent } from "../events/base";
+import { BaseEvent } from "../events/base/BaseEvent";
 import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
 import { EventRegistry } from "../events/registry/EventRegistry";
 

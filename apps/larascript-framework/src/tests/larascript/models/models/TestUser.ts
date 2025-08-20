@@ -1,6 +1,6 @@
 import User, { UserAttributes } from "@src/app/models/auth/User";
 import { IModelEvents } from "@src/core/domains/models/interfaces/IModel";
-import TestUserCreatedListener from "@src/tests/larascript/events/events/auth/TestUserCreatedListener";
+import TestUserCreatedListener from "../../events/TestUserCreatedListener";
 
 
 /**

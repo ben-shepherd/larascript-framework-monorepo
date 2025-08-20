@@ -24,6 +24,6 @@ describe('attempt to run app with normal appConfig', () => {
         /**
          * TODO: List all expected services here
          */
-        expect(Kernel.getInstance().booted()).toBe(true);
+        expect(Kernel.getInstance(null).booted()).toBe(true);
     }, 10000)
 });

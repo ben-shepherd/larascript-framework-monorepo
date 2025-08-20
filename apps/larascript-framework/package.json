@@ -6,6 +6,7 @@
   "scripts": {
     "install:no-scripts": "yarn install --ignore-scripts",
     "build": "tsc --noEmit && webpack --color --bail",
+    "build:watch": "tsc --watch --skipLibCheck",
     "fix-imports": "node fix-imports.js",
     "fix-eslint": "npx eslint --fix src",
     "fix": "yarn run fix-imports && yarn run fix-eslint",

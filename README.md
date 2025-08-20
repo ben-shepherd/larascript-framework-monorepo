@@ -192,6 +192,7 @@ pnpm test:coverage
 ### Root Level Commands
 - `pnpm dev` - Start development environment
 - `pnpm build` - Build all packages
+- `pnpm build:watch` - Build all packages in watch mode
 - `pnpm test` - Run tests across all packages
 - `pnpm lint` - Lint all packages
 - `pnpm check` - Type checking across all packages
@@ -199,6 +200,7 @@ pnpm test:coverage
 ### Framework Application Commands
 - `pnpm start` - Start the framework application
 - `pnpm dev` - Start development server with hot reload
+- `pnpm dev:tinker` - Run the tinker playground script for testing and experimenting with code (`src/tinker.ts`)
 - `pnpm setup` - Run setup scripts
 - `pnpm db:up` - Start database services
 - `pnpm api:up` - Start API with Docker
@@ -233,12 +235,6 @@ ISC License - see individual package.json files for details.
 **Ben Shepherd** - ben.shepherd@gmx.com
 
 - LinkedIn: [Benjamin Shepherd](https://www.linkedin.com/in/benjamin-programmer/)
-
-## 🔗 Links
-
-- **Framework**: [Larascript Framework](./app/larascript-framework/)
-- **Core Package**: [@larascript-framework/larascript-core](./packages/larascript-core/)
-- **Documentation**: [Docs](./docs/)
 
 ---
 

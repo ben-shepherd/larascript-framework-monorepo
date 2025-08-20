@@ -7,11 +7,11 @@ A comprehensive event system for the Larascript framework that provides event di
 - [Features](#features)
 - [Quick Start](#quick-start)
 - [Documentation](#documentation)
-  - [Configuration](./config.md) - Event system configuration and setup
-  - [Event Service](./event-service.md) - Core event service and dispatching
-  - [Drivers](./drivers.md) - Event drivers (sync, async, queue-based)
-  - [Events](./events.md) - Creating events, listeners, and subscribers
-  - [Workers](./workers.md) - Background worker processing
+  - [Configuration](./docs/config.md) - Event system configuration and setup
+  - [Event Service](./docs/event-service.md) - Core event service and dispatching
+  - [Drivers](./docs/drivers.md) - Event drivers (sync, async, queue-based)
+  - [Events](./docs/events.md) - Creating events, listeners, and subscribers
+  - [Workers](./docs/workers.md) - Background worker processing
 - [Installation](#installation)
 - [License](#license)
 

@@ -31,9 +31,10 @@ Larascript is a modern, type-safe Node.js framework designed for building scalab
 ### Development Tools
 - **`packages/eslint-config`** - Shared ESLint configuration
 - **`packages/tsconfig`** - Shared TypeScript configuration
+- **`libs/jest-config`** - Shared Jest configuration
 
 ## Templates
-- **`@larascript-framework/larascript-forkable-bundle`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
+- **`@larascript-framework/template`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
 
 ## 🛠️ Technology Stack
 

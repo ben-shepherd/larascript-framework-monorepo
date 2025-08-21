@@ -64,7 +64,7 @@ export class EventService implements IEventService {
      */
     public static createConfigDriver<T extends IEventDriversConfigOption['options'] = {}>(driverCtor: TClassConstructor<IEventDriver>, options?: T): IEventDriversConfigOption {
         return {
-            driverCtor,
+            driver: driverCtor,
             options
         }
     }
@@ -95,14 +95,19 @@ export class EventService implements IEventService {
             return;
         }
 
-        const driverName = overrideDriverName ?? event.getDriverName()
-        const driver = this.getDriverOptionsByName(driverName ?? '')
+        let driverName = overrideDriverName ?? event.getDriverName();
 
-        if (!driver) {
+        if (!driverName) {
+            driverName = (new (this.getDefaultDriverCtor() as TClassConstructor<IEventDriver>)()).getName();
+        }
+
+        const driverConstructor = this.getDriverOptionsByName(driverName)?.driver;
+
+        if (!driverConstructor) {
             throw new EventDispatchException(`Driver '${driverName}' not registered.`)
         }
 
-        const eventDriver = new driver.driverCtor(this)
+        const eventDriver = new driverConstructor(this)
         await eventDriver.dispatch(event)
 
         // Notify all subscribers of the event

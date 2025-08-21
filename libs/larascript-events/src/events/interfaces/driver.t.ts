@@ -11,7 +11,7 @@ export interface IEventDriver extends INameable, IDispatchable {}
  */
 export interface IEventDriversConfigOption {
     /** The driver constructor */
-    driverCtor: TClassConstructor<IEventDriver>,
+    driver: TClassConstructor<IEventDriver>,
     /** Optional configuration options for the driver */
     options?: Record<string, unknown>;
 }

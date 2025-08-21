@@ -19,7 +19,7 @@ export class EventConfig
          */
         public static createConfigDriver<T extends IEventDriversConfigOption['options'] = {}>(driverCtor: TClassConstructor<IEventDriver>, options?: T): IEventDriversConfigOption {
             return {
-                driverCtor,
+                driver: driverCtor,
                 options
             }
         }

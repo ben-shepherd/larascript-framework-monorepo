@@ -1,21 +1,18 @@
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { EventWorkerException } from "../exceptions/EventWorkerException";
-import { IWorkerAttributes, IWorkerCreator, IWorkerModel, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "../interfaces";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "../interfaces";
 import { IEventService } from "../interfaces/services.t";
 
 export class WorkerService implements IWorkerService {
 
+
         private workerRepository!: IWorkerRepository;
 
-        private logger!: ILoggerService;
+        private workerFactory!: IWorkerModelFactory;
+
+        private logger?: ILoggerService;
 
         private eventService!: IEventService;
-
-        private workerCreator!: IWorkerCreator;
-    
-        protected onCreateWorkerModel!: () => Promise<IWorkerModel>;
-
-        protected onCreateFailedWorkerModel!: () => Promise<IWorkerModel>;
 
         /**
          *  
@@ -33,10 +30,10 @@ export class WorkerService implements IWorkerService {
 
             const workerModels = await this.workerRepository.getWorkers()
 
-            this.logger.console('Queued items: ', workerModels.length)
+            this.logger?.console('Queued items: ', workerModels.length)
 
             if (workerModels.length === 0) {
-                this.logger.console("No queued items");
+                this.logger?.console("No queued items");
                 return;
             }
 
@@ -45,20 +42,27 @@ export class WorkerService implements IWorkerService {
             }
         }
 
+        getRepository(): IWorkerRepository {
+            return this.workerRepository;
+        }
+
         setWorkerRepository(workerRepository: IWorkerRepository): void {
             this.workerRepository = workerRepository;
         }
 
-        setLogger(logger: ILoggerService): void {
+        setWorkerFactory(workerFactory: IWorkerModelFactory): void {
+            this.workerFactory = workerFactory;
+        }
+        getFactory(): IWorkerModelFactory {
+            return this.workerFactory;
+        }
+
+        setLogger(logger?: ILoggerService): void {
             this.logger = logger;
         }
 
         setEventService(eventService: IEventService): void {
             this.eventService = eventService;
-        }
-
-        setWorkerCreator(workerCreator: IWorkerCreator): void {
-            this.workerCreator = workerCreator;
         }
 
         /**
@@ -88,8 +92,8 @@ export class WorkerService implements IWorkerService {
                 await worker.deleteWorkerData();
             }
             catch (err) {
-                this.logger.error(err)
-                await this.handleUpdateWorkerModelAttempts(worker, options)
+                this.logger?.error(err)
+                await this.handleUpdateWorkerModelAttempts(worker, options, (err as Error))
             }
         }
 
@@ -100,7 +104,7 @@ export class WorkerService implements IWorkerService {
          * @param options The options to use when updating the worker model document
          * @private
          */
-        private async handleUpdateWorkerModelAttempts(worker: IWorkerModel, options: TEventWorkerOptions) {
+        private async handleUpdateWorkerModelAttempts(worker: IWorkerModel, options: TEventWorkerOptions, error?: Error) {  
 
             const attempt = worker.getWorkerData()?.attempts ?? 0
             const newAttempt = attempt + 1
@@ -112,7 +116,7 @@ export class WorkerService implements IWorkerService {
             } as IWorkerAttributes)
 
             if (newAttempt >= retries) {
-                await this.handleFailedWorkerModel(worker, options)
+                await this.handleFailedWorkerModel(worker, options, error)
                 return;
             }
 
@@ -129,13 +133,17 @@ export class WorkerService implements IWorkerService {
          * @param options The options to use when handling the failed worker model
          * @private
          */
-        private async handleFailedWorkerModel(worker: IWorkerModel, options: TEventWorkerOptions) {
+        private async handleFailedWorkerModel(worker: IWorkerModel, options: TEventWorkerOptions, error?: Error) {
 
-            const FailedWorkerModel = new options.workerCreator().createFailedWorkerModel({
+            const FailedWorkerModel = this.workerFactory.createFailedWorkerModel({
+                attempts: worker.getWorkerData()?.attempts ?? 0,
+                retries: worker.getWorkerData()?.retries ?? 0,
                 eventName: worker.getWorkerData()?.eventName ?? '',
                 queueName: worker.getWorkerData()?.queueName ?? '',
                 payload: worker.getWorkerData()?.payload ?? '{}',
-                error: '',
+                error: (error?.message ?? '') + '\n' + (error?.stack ?? ''),
+                createdAt: new Date(),
+                updatedAt: new Date(),
                 failedAt: new Date()
             } as IWorkerAttributes)
 

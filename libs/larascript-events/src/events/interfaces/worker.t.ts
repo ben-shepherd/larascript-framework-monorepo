@@ -1,4 +1,6 @@
+import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TSerializableValues } from "./event.t";
+import { IEventService } from "./services.t";
 
 /**
  * Interface for worker repositories that manage worker data
@@ -8,33 +10,39 @@ export interface IWorkerRepository {
      * Gets all workers from the repository
      * @returns Promise that resolves to an array of worker models
      */
-    getWorkers(): Promise<IWorkerModel[]>;
+    getWorkers(options?: Record<string, unknown>): Promise<IWorkerModel[]>;
+
+    /**
+     * Gets all failed workers from the repository
+     * @returns Promise that resolves to an array of failed worker models
+     */
+    getFailedWorkers(options?: Record<string, unknown>): Promise<IWorkerModel[]>;
 }
 
 /**
- * Constructor interface for worker creators
+ * Constructor interface for worker model factories
  */
-export interface IWorkerCreatorConstructor {
-    new (): IWorkerCreator;
+export interface IWorkerModelFactoryConstructor {
+    new (): IWorkerModelFactory;
 }
 
 /**
  * Interface for creating worker models
  */
-export interface IWorkerCreator {
+export interface IWorkerModelFactory {
     /**
      * Creates a new worker model with the given attributes
      * @param data - The worker attributes
      * @returns A new worker model instance
      */
-    createWorkerModel(data: IWorkerAttributes): IWorkerModel;
+    createWorkerModel(data?: Partial<IWorkerAttributes>): IWorkerModel;
     
     /**
      * Creates a new failed worker model with the given attributes
      * @param data - The worker attributes
      * @returns A new failed worker model instance
      */
-    createFailedWorkerModel(data: IWorkerAttributes): IWorkerModel;
+    createFailedWorkerModel(data?: Partial<IWorkerAttributes>): IWorkerModel;
 }
 
 /**
@@ -79,6 +87,8 @@ export interface IWorkerModel  {
  * Interface for worker attributes
  */
 export interface IWorkerAttributes {
+    /** The id of the worker */
+    id?: string;
     /** The payload data for the worker */
     payload: TSerializableValues | null;
     /** Number of attempts made */
@@ -109,12 +119,8 @@ export type TEventWorkerOptions = {
     queueName: string;
     /** Number of retry attempts */
     retries: number;
-    /** Delay in seconds before running */
-    runAfterSeconds: number;
     /** Whether the worker should run only once */
     runOnce?: boolean;
-    /** Constructor for creating workers */
-    workerCreator: IWorkerCreatorConstructor;
 }
 
 /**
@@ -126,24 +132,36 @@ export interface IWorkerService {
      * @param workerRepository - The repository instance
      */
     setWorkerRepository(workerRepository: IWorkerRepository): void;
+
+    /**
+     * Gets the worker repository
+     * @returns The repository instance
+     */
+    getRepository(): IWorkerRepository;
+
+    /**
+     * Sets the worker factory
+     * @param workerFactory - The factory instance
+     */
+    setWorkerFactory(workerFactory: IWorkerModelFactory): void;
+
+    /**
+     * Gets the worker factory
+     * @returns The factory instance
+     */
+    getFactory(): IWorkerModelFactory;
     
     /**
      * Sets the logger instance
      * @param logger - The logger instance
      */
-    setLogger(logger: any): void;
+    setLogger(logger?: ILoggerService): void;
     
     /**
      * Sets the event service instance
      * @param eventService - The event service instance
      */
-    setEventService(eventService: any): void;
-    
-    /**
-     * Sets the worker creator instance
-     * @param workerCreator - The worker creator instance
-     */
-    setWorkerCreator(workerCreator: IWorkerCreator): void;
+    setEventService(eventService: IEventService): void;
     
     /**
      * Runs a worker with the given options

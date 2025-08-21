@@ -97,4 +97,11 @@ export class Kernel<
       this.getInstance().readyProviders.includes(providerName)
     );
   }
+
+  public static reset(): void {
+    this.getInstance().containers.clear();
+    this.getInstance().preparedProviders = [];
+    this.getInstance().readyProviders = [];
+  }
+  
 }

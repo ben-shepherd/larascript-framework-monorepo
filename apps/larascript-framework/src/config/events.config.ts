@@ -3,7 +3,7 @@ import UserCreatedListener from "@src/app/events/listeners/UserCreatedListener";
 import UserCreatedSubscriber from "@src/app/events/subscribers/UserCreatedSubscriber";
 import QueueableDriver, { IQueableDriverOptions } from "@src/core/domains/events/drivers/QueableDriver";
 
-import { WorkerCreator } from "@src/core/domains/events/services/WorkerCreator";
+import { WorkerModelFactory } from "@src/core/domains/events/factory/WorkerModelFactory";
 
 export const EVENT_DRIVERS = {
     SYNC: EventConfig.getDriverName(SyncDriver),
@@ -33,7 +33,7 @@ export const eventConfig: IEventConfig = {
             queueName: 'default',                    // Name of the queue
             retries: 3,                              // Number of retry attempts for failed events
             runAfterSeconds: 10,                     // Delay before processing queued events
-            workerCreator: WorkerCreator             // Constructor for creating worker models
+            workerCreator: WorkerModelFactory             // Constructor for creating worker models
         })
         
     },

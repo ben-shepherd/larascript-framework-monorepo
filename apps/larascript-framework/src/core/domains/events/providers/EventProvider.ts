@@ -3,8 +3,8 @@ import { EventService, IEventConfig, WorkerService } from "@larascript-framework
 import { eventConfig } from "@src/config/events.config";
 import WorkerCommand from "@src/core/domains/events/commands/WorkerCommand";
 import { app } from "@src/core/services/App";
+import { WorkerModelFactory } from "../factory/WorkerModelFactory";
 import { WorkerRepository } from "../repository/WorkerRepository";
-import { WorkerCreator } from "../services/WorkerCreator";
 
 class EventProvider extends BaseProvider {
 
@@ -21,7 +21,7 @@ class EventProvider extends BaseProvider {
         const workerService = new WorkerService();
         workerService.setEventService(eventService);
         workerService.setWorkerRepository(new WorkerRepository());
-        workerService.setWorkerCreator(new WorkerCreator());
+        workerService.setWorkerCreator(new WorkerModelFactory());
         workerService.setLogger(app('logger'));
         this.bind('events.worker', workerService);
 

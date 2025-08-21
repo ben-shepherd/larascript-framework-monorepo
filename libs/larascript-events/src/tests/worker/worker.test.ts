@@ -265,14 +265,6 @@ describe('Worker', () => {
             retries: 3
         })
 
-        // // Assert worker has been updated
-        // workersAfterRun = await repo.getWorkers();
-        // expect(workersAfterRun.length).toBe(1);
-        // expect(workersAfterRun[0].getWorkerData()?.attempts).toBe(3);
-        // expect(workersAfterRun[0].getWorkerData()?.retries).toBe(3);
-        // expect(workersAfterRun[0].getWorkerData()?.error).toContain('Test error');
-        // expect(workersAfterRun[0].getWorkerData()?.failedAt).toBeDefined();
-
         // Assert worker has been deleted
         workersAfterRun = await repo.getWorkers();
         expect(workersAfterRun.length).toBe(0);

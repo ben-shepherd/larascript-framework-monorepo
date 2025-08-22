@@ -4,6 +4,7 @@ import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-a
 import { IEnvService, IPackageJsonService } from '@larascript-framework/larascript-core';
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
 import { ILoggerService } from '@larascript-framework/larascript-logger';
+import { IMailService } from '@larascript-framework/larascript-mail';
 import { IValidatorFn } from '@larascript-framework/larascript-validator';
 import { IViewRenderService, IViewService } from '@larascript-framework/larascript-views';
 import { IAppService } from "@src/app/interfaces/IAppService";
@@ -24,7 +25,6 @@ import IHttpService from '@src/core/domains/http/interfaces/IHttpService';
 import { IRequestContext } from '@src/core/domains/http/interfaces/IRequestContext';
 import HttpErrorHandlerProvider from "@src/core/domains/http/providers/HttpErrorHandlerProvider";
 import HttpProvider from "@src/core/domains/http/providers/HttpProvider";
-import { IMailService } from '@src/core/domains/mail/interfaces/services';
 import MakeProvider from "@src/core/domains/make/providers/MakeProvider";
 import MigrationProvider from "@src/core/domains/migrations/providers/MigrationProvider";
 import SetupProvider from "@src/core/domains/setup/providers/SetupProvider";

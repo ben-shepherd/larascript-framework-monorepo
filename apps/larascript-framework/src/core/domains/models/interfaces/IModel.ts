@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
 import { EventConstructor } from "@larascript-framework/larascript-events";
 import { IHasObserver } from "@larascript-framework/larascript-observer";
+import { IModelFactory } from "@src/core/base/ModelFactory";
 import { IdGeneratorFn } from "@src/core/domains/eloquent/interfaces/IEloquent";
 import { TModelScope } from "@src/core/domains/models/utils/ModelScope";
-import IFactory from "@src/core/interfaces/IFactory";
 
 export type GetAttributesOptions = {excludeGuarded: boolean}
 
@@ -16,7 +16,7 @@ export type ModelConstructor<M extends IModel = IModel> = {
     getConnectionName(): string;
     getScopes(scopes: TModelScope[], additionalScopes?: string[]): string[];
     getFields(): string[];
-    factory(): IFactory<IModel>;
+    factory(): IModelFactory<IModel>;
     getRelationships(): string[];
     isAttributeEncrypted(attribute: string): boolean;
 }
@@ -48,7 +48,7 @@ export interface IModel<Attributes extends IModelAttributes = IModelAttributes> 
     attributes: Attributes | null;
     original: Attributes | null;
     relationships: string[];
-    getFactory(): IFactory<IModel>;
+    getFactory(): IModelFactory<IModel>;
     setConnectionName(connectionName: string): void;
     getConnectionName(): string;
     getIdGeneratorFn(): IdGeneratorFn | undefined;

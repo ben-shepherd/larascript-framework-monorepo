@@ -1,14 +1,11 @@
 import User from "@src/app/models/auth/User";
 import { GROUPS, ROLES } from "@src/config/acl.config";
-import Factory from "@src/core/base/Factory";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { ModelFactory } from "@src/core/base/ModelFactory";
 import { cryptoService } from "@src/core/services/CryptoService";
 
-class UserFactory extends Factory {
+class UserFactory extends ModelFactory<User> {
 
-    protected model = User;
-
-    getDefinition(): IModelAttributes | null {
+    getDefinition(): User['attributes'] | null {
         return {
             email: this.faker.internet.email(),
             hashedPassword: cryptoService().hash(this.faker.internet.password()),

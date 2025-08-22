@@ -1,9 +1,11 @@
-import Factory from "@src/core/base/Factory";
+import { ModelFactory } from "@src/core/base/ModelFactory";
 import { TestMovieModel } from "@src/tests/larascript/models/models/TestMovie";
 
-class TestMovieFactory extends Factory<TestMovieModel> {
+class TestMovieFactory extends ModelFactory<TestMovieModel> {
 
-    protected model = TestMovieModel;
+    constructor() {
+        super(TestMovieModel);
+    }
 
     getDefinition(): TestMovieModel['attributes'] {
         return {

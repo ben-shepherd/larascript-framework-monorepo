@@ -20,5 +20,4 @@ export class TestMovieModel extends Model<TestMovieModelData> {
         'createdAt',
         'updatedAt'
     ]
-
 }

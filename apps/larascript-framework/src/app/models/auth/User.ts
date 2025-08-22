@@ -1,6 +1,8 @@
 import UserFactory from "@src/app/factory/UserFactory";
+import { IModelFactory } from "@src/core/base/ModelFactory";
 import AuthUser, { AuthUserAttributes } from "@src/core/domains/auth/models/AuthUser";
 import UserObserver from "@src/core/domains/auth/observers/UserObserver";
+import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 
 /**
  * User structure
@@ -82,8 +84,8 @@ export default class User extends AuthUser<UserAttributes> {
      * 
      * @returns The factory for the model.
      */
-    getFactory(): UserFactory {
-        return new UserFactory();
+    getFactory(): IModelFactory<User> {
+        return new UserFactory(this.constructor as ModelConstructor<User>);
     }
 
 }

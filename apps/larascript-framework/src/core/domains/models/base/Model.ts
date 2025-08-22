@@ -2,6 +2,7 @@ import { Collection } from '@larascript-framework/larascript-collection';
 import { EventConstructor } from '@larascript-framework/larascript-events';
 import { IObserver, IObserverEvent, ObserveConstructor } from '@larascript-framework/larascript-observer';
 import { Castable, Str, TCastableType, TClassConstructor } from '@larascript-framework/larascript-utils';
+import { IModelFactory, IModelFactoryConstructor } from '@src/core/base/ModelFactory';
 import { IDatabaseSchema } from '@src/core/domains/database/interfaces/IDatabaseSchema';
 import { db } from '@src/core/domains/database/services/Database';
 import BaseRelationshipResolver from '@src/core/domains/eloquent/base/BaseRelationshipResolver';
@@ -11,7 +12,6 @@ import HasMany from '@src/core/domains/eloquent/relational/HasMany';
 import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
 import { GetAttributesOptions, IModel, IModelAttributes, IModelEvents, IModelLifeCycleEvent, ModelConstructor, ModelWithAttributes } from "@src/core/domains/models/interfaces/IModel";
 import ModelScopes, { TModelScope } from '@src/core/domains/models/utils/ModelScope';
-import IFactory, { FactoryConstructor } from '@src/core/interfaces/IFactory';
 import ProxyModelHandler from '@src/core/models/utils/ProxyModelHandler';
 import { app } from '@src/core/services/App';
 import { cryptoService } from '@src/core/services/CryptoService';
@@ -138,7 +138,7 @@ export default abstract class Model<Attributes extends IModelAttributes> impleme
     /**
      * The factory instance for the model.
      */
-    protected factory!: FactoryConstructor<Model<Attributes>>;
+    protected factory!: IModelFactoryConstructor<IModel>;
 
     /**
      * Constructs a new instance of the Model class.
@@ -289,7 +289,7 @@ export default abstract class Model<Attributes extends IModelAttributes> impleme
      * Retrieves the factory instance for the model.
      * @returns The factory instance for the model.
      */
-    static factory(): IFactory<IModel> {
+    static factory(): IModelFactory<IModel> {
         return this.create().getFactory()
     }
 
@@ -321,12 +321,12 @@ export default abstract class Model<Attributes extends IModelAttributes> impleme
      * Retrieves the factory instance for the model.
      * @returns The factory instance for the model.
      */
-    getFactory(): IFactory<IModel> {
+    getFactory(): IModelFactory<IModel> {
         if (!this.factory) {
             throw new Error('Factory not set')
         }
 
-        return new this.factory()
+        return new this.factory(this.constructor as ModelConstructor<IModel>)
     }
 
     /**

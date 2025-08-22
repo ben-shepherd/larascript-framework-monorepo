@@ -1,15 +1,8 @@
-import Factory from '@src/core/base/Factory';
-import { IModel, IModelAttributes, ModelConstructor } from '@src/core/domains/models/interfaces/IModel';
+import { ModelFactory } from '@src/core/base/ModelFactory';
 import TestUser from '@src/tests/larascript/models/models/TestUser';
 
-/**
- * Factory for creating User models.
- *
- * @class UserFactory
- * @extends {Factory<TestUser, IUserData>}
- */
-export default class TestUserFactory extends Factory<TestUser> {
+export default class TestUserFactory extends ModelFactory<TestUser> {
 
-    protected model: ModelConstructor<IModel<IModelAttributes>> = TestUser;
+    protected modelConstructor = TestUser;
     
 }

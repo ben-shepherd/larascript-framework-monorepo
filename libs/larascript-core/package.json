@@ -40,9 +40,10 @@
     "@larascript-framework/larascript-utils": "workspace:*"
   },
   "devDependencies": {
-    "@larascript-framework/tsconfig": "workspace:*",
+    "@faker-js/faker": "^9.0.3",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

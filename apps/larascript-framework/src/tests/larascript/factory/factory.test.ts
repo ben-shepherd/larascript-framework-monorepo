@@ -10,7 +10,7 @@ describe('create a movie model using factories', () => {
     });
 
     test('create a movie', async () => {
-        const movie = TestMovieModel.factory().make();
+        const movie = TestMovieModel.factory().create();
 
         expect(movie).toBeTruthy();
         expect(typeof movie.getAttributeSync('authorId') === 'string').toEqual(true);
@@ -21,7 +21,7 @@ describe('create a movie model using factories', () => {
     });
 
     test('create a movie with data', async () => {
-        const movie = TestMovieModel.factory().make({
+        const movie = TestMovieModel.factory().create({
             authorId: '1',
             name: 'Test Movie',
             yearReleased: 2024,

@@ -458,6 +458,9 @@ importers:
         specifier: workspace:*
         version: link:../larascript-utils
     devDependencies:
+      '@faker-js/faker':
+        specifier: ^9.0.3
+        version: 9.9.0
       '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config

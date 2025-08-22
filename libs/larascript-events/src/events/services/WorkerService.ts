@@ -28,6 +28,10 @@ export class WorkerService implements IWorkerService {
          */
         async runWorker(options: TEventWorkerOptions): Promise<void> {
 
+            if (typeof options.runAfterSeconds === 'number') {
+                await new Promise(resolve => setTimeout(resolve, (options.runAfterSeconds as number) * 1000))
+            }
+
             const workerModels = await this.workerRepository.getWorkers()
 
             this.logger?.console('Queued items: ', workerModels.length)

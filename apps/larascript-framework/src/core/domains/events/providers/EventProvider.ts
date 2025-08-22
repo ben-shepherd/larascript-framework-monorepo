@@ -21,7 +21,7 @@ class EventProvider extends BaseProvider {
         const workerService = new WorkerService();
         workerService.setEventService(eventService);
         workerService.setWorkerRepository(new WorkerRepository());
-        workerService.setWorkerCreator(new WorkerModelFactory());
+        workerService.setWorkerFactory(new WorkerModelFactory());
         workerService.setLogger(app('logger'));
         this.bind('events.worker', workerService);
 

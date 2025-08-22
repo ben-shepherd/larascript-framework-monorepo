@@ -30,7 +30,7 @@ export default class WorkerCommand extends BaseCommand {
         const intervalId = setInterval(async () => {
             await app('events.worker').runWorker(options);
             app('logger').console('Running worker again in ' + options.runAfterSeconds + ' seconds')
-        }, options.runAfterSeconds * 1000)
+        }, 0)
 
         if (options.runOnce) {
             clearInterval(intervalId);

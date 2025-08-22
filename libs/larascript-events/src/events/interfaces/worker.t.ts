@@ -121,6 +121,8 @@ export type TEventWorkerOptions = {
     retries: number;
     /** Whether the worker should run only once */
     runOnce?: boolean;
+    /** Delay in seconds before running */
+    runAfterSeconds?: number;
 }
 
 /**

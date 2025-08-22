@@ -283,4 +283,24 @@ describe('Worker', () => {
         expect(failedWorkers[0].getWorkerData()?.failedAt).toBeDefined();
     })
 
+    test('WorkerService basic run with runAfterSeconds', async () => {
+        const workerService = AppSingleton.container('workerService') as WorkerService;
+        const eventService = AppSingleton.container('events') as EventService;
+        const repo = workerService.getRepository();
+
+        await eventService.dispatch(
+            new TestEvent({ foo: 'bar' })
+        )
+
+        // Run worker
+        const timeStart = Date.now();
+        await workerService.runWorker({
+            queueName: 'testing',
+            runAfterSeconds: 1,
+            retries: 3
+        })
+
+        const timeEnd = Date.now();
+        expect(timeEnd - timeStart).toBeGreaterThan(1000);
+    })
 })

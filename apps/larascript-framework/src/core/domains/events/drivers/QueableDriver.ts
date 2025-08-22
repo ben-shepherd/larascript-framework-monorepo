@@ -1,11 +1,12 @@
-import { BaseDriver, EventDriverException, IBaseEvent, IWorkerAttributes, IWorkerCreatorConstructor } from "@larascript-framework/larascript-events";
+import { BaseDriver, EventDriverException, IBaseEvent, IWorkerAttributes, TEventWorkerOptions } from "@larascript-framework/larascript-events";
 import { z } from "zod";
+import { WorkerModelFactory } from "../factory/WorkerModelFactory";
 
 /**
  * Options for queueable drivers
  * TODO: move to the events-worker package (yet to be created)
  */
-export interface IQueableDriverOptions {
+export interface IQueableDriverOptions extends TEventWorkerOptions {
     [key: string]: unknown;
     /** Name of the queue to use */
     queueName: string;
@@ -13,8 +14,8 @@ export interface IQueableDriverOptions {
     retries: number;
     /** Delay in seconds before running */
     runAfterSeconds: number;
-    /** Constructor for creating workers */
-    workerCreator: IWorkerCreatorConstructor;
+    /** Whether the worker should run only once */
+    runOnce?: boolean;
 } 
 
 
@@ -55,7 +56,7 @@ class QueueableDriver extends BaseDriver  {
      * @throws {EventDriverException} If the options are invalid.
      */
     private async updateWorkerQueueTable(options: IQueableDriverOptions, event: IBaseEvent) {
-        const workerModel = new options.workerCreator().createWorkerModel({
+        const workerModel = new WorkerModelFactory().createWorkerModel({
             queueName: event.getQueueName(),
             eventName: event.getName(),
             retries: options.retries,

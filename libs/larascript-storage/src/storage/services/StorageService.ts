@@ -18,7 +18,7 @@ import FileSystemStorageService from "./FileSystemStorageService";
  * Service class for handling file storage operations
  * Implements various storage adapters and provides methods for file management
  */
-class StorageService
+export class StorageService
   extends BaseAdapter<IStorageAdapters>
   implements IStorageService
 {

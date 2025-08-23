@@ -1,13 +1,12 @@
-import { StorageConfig } from "@src/core/domains/storage/interfaces/StorageConfig";
+import { IStorageConfig } from "@larascript-framework/larascript-storage";
 
 /**
  * Storage configuration object
- * @typedef {Object} StorageConfig
- * @property {('fs'|'s3')} driver - The storage driver to use. Available options:
- *   - 'fs': File system storage driver
- *   - 's3': Amazon S3 storage driver
+ * 
+ * @type {IStorageConfig}
+ * @ref https://github.com/larascript-framework/larascript-storage
  */
-export const config: StorageConfig = {
+export const config: IStorageConfig = {
     driver: process.env.STORAGE_DRIVER ?? 'fs',
     storageDir: 'storage',
     uploadsDir: 'storage/uploads',

@@ -15,7 +15,7 @@ import { createFileSystemStorageFile } from "../utils";
  * Service for handling file system storage operations.
  * Implements the IGenericStorage interface to provide file system-based storage functionality.
  */
-class FileSystemStorageService
+export class FileSystemStorageService
   extends BaseGenericStorage
   implements IGenericStorage
 {

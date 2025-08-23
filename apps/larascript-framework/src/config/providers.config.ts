@@ -5,6 +5,7 @@ import { IEnvService, IPackageJsonService } from '@larascript-framework/larascri
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
 import { ILoggerService } from '@larascript-framework/larascript-logger';
 import { IMailService } from '@larascript-framework/larascript-mail';
+import { IStorageService } from '@larascript-framework/larascript-storage';
 import { IValidatorFn } from '@larascript-framework/larascript-validator';
 import { IViewRenderService, IViewService } from '@larascript-framework/larascript-views';
 import { IAppService } from "@src/app/interfaces/IAppService";
@@ -28,8 +29,6 @@ import HttpProvider from "@src/core/domains/http/providers/HttpProvider";
 import MakeProvider from "@src/core/domains/make/providers/MakeProvider";
 import MigrationProvider from "@src/core/domains/migrations/providers/MigrationProvider";
 import SetupProvider from "@src/core/domains/setup/providers/SetupProvider";
-import { IStorageService } from '@src/core/domains/storage/interfaces/IStorageService';
-import StorageProvider from "@src/core/domains/storage/providers/StorageProvider";
 import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorProvider";
 import { IProvider } from "@src/core/interfaces/IProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
@@ -40,6 +39,7 @@ import EnvServiceProvider from "@src/core/providers/EnvServiceProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
 import MailProvider from "@src/core/providers/MailProvider";
 import PackageJsonProvider from "@src/core/providers/PackageJsonProvider";
+import StorageProvider from "@src/core/providers/StorageProvider";
 import ViewProvider from "@src/core/providers/ViewProvider";
 import readline from 'node:readline';
 

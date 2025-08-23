@@ -207,6 +207,9 @@ importers:
       '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:../../libs/larascript-observer
+      '@larascript-framework/larascript-storage':
+        specifier: workspace:*
+        version: link:../../libs/larascript-storage
       '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../../libs/larascript-utils
@@ -564,10 +567,6 @@ importers:
         version: link:../tsconfig
 
   libs/larascript-storage:
-    dependencies:
-      aws-sdk:
-        specifier: ^2.1692.0
-        version: 2.1692.0
     devDependencies:
       '@larascript-framework/check-exports':
         specifier: workspace:*
@@ -578,6 +577,9 @@ importers:
       '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
+      '@larascript-framework/larascript-core':
+        specifier: workspace:*
+        version: link:../larascript-core
       '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

@@ -1,3 +1,4 @@
+import { IStorageFile } from '@larascript-framework/larascript-storage';
 import { IApiTokenModel } from '@src/core/domains/auth/interfaces/models/IApiTokenModel';
 import { IUserModel } from '@src/core/domains/auth/interfaces/models/IUserModel';
 import HttpContextException from '@src/core/domains/express/exceptions/HttpContextException';
@@ -7,8 +8,7 @@ import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
 import { IHttpContext } from '@src/core/domains/http/interfaces/IHttpContext';
 import { TRouteItem } from '@src/core/domains/http/interfaces/IRouter';
 import { TUploadedFile, TUploadedFileData } from '@src/core/domains/http/interfaces/UploadedFile';
-import { IStorageFile } from '@src/core/domains/storage/interfaces/IStorageFile';
-import { storage } from '@src/core/domains/storage/services/StorageService';
+import { storage } from '@src/core/services/StorageService';
 import { NextFunction, Response } from 'express';
 
 

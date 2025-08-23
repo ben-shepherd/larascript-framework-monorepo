@@ -57,6 +57,94 @@ describe("BaseInMemoryRepository", () => {
         });
     });
 
+    describe("findOne", () => {
+        test("should find a record by id", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findOne("id", "1");
+            
+            expect(result?.getId()).toBe(testModel1.getId());
+        });
+
+        test("should return null if record is not found", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findOne("id", "4");
+
+            expect(result).toBeNull();
+        });
+
+        test("should find a record by name", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findOne("name", "John Doe");
+
+            expect(result?.getId()).toBe(testModel1.getId());
+        });
+
+        test("should find a record by email", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findOne("email", "john@example.com");
+
+            expect(result?.getId()).toBe(testModel1.getId());
+        });
+        
+    });
+
+    describe("findById", () => {
+        test("should find a record by id", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findById("1");
+
+            expect(result?.getId()).toBe(testModel1.getId());
+        });
+
+        test("should return null if record is not found", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findById("4");
+
+            expect(result).toBeNull();
+        });
+    });
+
+    describe("findMany", () => {
+        test("should find multiple records by name", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = await repository.findMany("name", "John Doe");
+            expect(result).toHaveLength(1);
+        });
+    });
+
+    describe("findManySync", () => {
+
+        test("should find multiple records by name", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = repository.findManySync("name", "John Doe");
+
+            expect(result).toHaveLength(1);
+        });
+
+        test("should return empty array if no records are found", async () => {
+            repository.setRecords([testModel1, testModel2, testModel3]);
+            const result = repository.findManySync("name", "NonExistent");
+
+            expect(result).toHaveLength(0);
+        });
+
+        test("should return multiple records when where condition matches multiple records", async () => {
+            const testModel4 = new TestModel({
+                id: "4",
+                name: "John Doe",
+                email: "john2@example.com",
+                age: 30,
+                createdAt: new Date("2023-01-01"),
+                updatedAt: new Date("2023-01-01")
+            });
+
+            repository.setRecords([testModel1, testModel2, testModel3, testModel4]);
+            const result = repository.findManySync("name", "John Doe");
+
+            expect(result).toHaveLength(2);
+        });
+    });
+
     describe("create", () => {
         test("should create a new model instance and add it to records", async () => {
             const attributes: TestModelAttributes = {

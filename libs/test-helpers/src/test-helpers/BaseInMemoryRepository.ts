@@ -1,6 +1,15 @@
 import { IBaseModel, IBaseModelConstructor } from "@/test-helpers/BaseModel";
 
 export interface IBaseInMemoryRepository<T extends IBaseModel> {
+    findOne(where: string, value: unknown): Promise<T | null>;
+    findOneSync(where: string, value: unknown): T | null;
+
+    findById(id: string): Promise<T | null>;
+    findByIdSync(id: string): T | null;
+
+    findMany(where: string, value: unknown): Promise<T[]>;
+    findManySync(where: string, value: unknown): T[];
+
     update(where: string, value: unknown, data: Partial<T['attributes']>): Promise<void>;
     updateSync(where: string, value: unknown, data: Partial<T['attributes']>): void;
 
@@ -24,6 +33,29 @@ export abstract class BaseInMemoryRepository<T extends IBaseModel> implements IB
         protected model: IBaseModelConstructor<T>,
     ) {}
     
+    async findOne(where: string, value: unknown): Promise<T | null> {
+        return this.findOneSync(where, value);
+    }
+    
+    findOneSync(where: string, value: unknown): T | null {
+        return this.records.find(item => item.getAttributes()[where] === value) ?? null;
+    }
+
+    async findById(id: string): Promise<T | null> {
+        return this.findByIdSync(id);
+    }
+    
+    findByIdSync(id: string): T | null {
+        return this.records.find(item => item.getId() === id) ?? null;
+    }
+
+    async findMany(where: string, value: unknown): Promise<T[]> {
+        return this.findManySync(where, value);
+    }
+
+    findManySync(where: string, value: unknown): T[] {
+        return this.records.filter(item => item.getAttributes()[where] === value);
+    }
 
     async create(attributes: T['attributes']): Promise<T> {
         return this.createSync(attributes);

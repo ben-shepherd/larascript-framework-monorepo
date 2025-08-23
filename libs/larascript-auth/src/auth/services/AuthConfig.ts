@@ -1,5 +1,5 @@
-import { IAuthDriverConfig } from "../interfaces";
-import { AuthAdapterConstructor, IAuthAdapter } from "../interfaces/adapter.t";
+import { IBaseDriverConfig } from "../interfaces";
+import { IAuthAdapter } from "../interfaces/adapter.t";
 
 
 /**
@@ -34,12 +34,10 @@ class AuthConfig {
      */
     public static config<Adapter extends IAuthAdapter = IAuthAdapter>(
         name: string,
-        driver: AuthAdapterConstructor<Adapter>,
-        options: ReturnType<Adapter['getConfig']>
-    ): IAuthDriverConfig<Adapter> {
+        options: ReturnType<Adapter['getConfig']>['options']    
+    ): IBaseDriverConfig<Adapter> {
         return {
             name,
-            driver,
             options: options
         }
     }

@@ -5,16 +5,21 @@ export type ApiTokenModelOptions = Record<string, unknown> & {
 }
 
 export interface IApiTokenAttributes {
+    id?: string;
     userId: string;
     token: string;
     scopes: string[];
+    options: Record<string, unknown>;
     revokedAt: Date | null;
     expiresAt: Date | null;
 }
 
 export interface IUserAttributes {
+    id?: string;
     email: string;
     hashedPassword: string;
+    aclRoles: string[];
+    aclGroups: string[];
 }
 
 export interface IApiTokenConstructor<TApiToken extends IApiTokenModel = IApiTokenModel> {
@@ -26,9 +31,9 @@ export interface IUserConstructor<TUser extends IUserModel = IUserModel> {
 }
 
 export interface IApiTokenModel {
+    getId(): string;
     getUserId(): string
     setUserId(userId: string): Promise<void>
-    getUser(): Promise<IUserModel>
     getToken(): string
     setToken(token: string): Promise<void>
     getScopes(): string[]

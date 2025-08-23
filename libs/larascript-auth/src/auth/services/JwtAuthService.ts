@@ -1,12 +1,13 @@
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
-import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
+import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { JsonWebTokenError } from "jsonwebtoken";
 import { DataTypes } from "sequelize";
 import BaseAuthAdapter from "../base/BaseAuthAdapter";
 import { JWTConfigException, JWTSecretException, UnauthorizedException } from "../exceptions";
 import { JwtFactory } from "../factory/JwtFactory";
 import { ApiTokenModelOptions, IApiTokenModel, IApiTokenRepository, IJwtAuthService, IJwtConfig, IOneTimeAuthenticationService, IUserModel, IUserRepository } from "../interfaces";
+import { IApiTokenFactory, IUserFactory } from "../interfaces/factory";
 import { createJwt } from "../utils/createJwt";
 import { decodeJwt } from "../utils/decodeJwt";
 import { generateToken } from "../utils/generateToken";
@@ -41,18 +42,16 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
 
     protected cryptoService!: ICryptoService;
 
-    protected aclService!: IBasicACLService;
-
     constructor(
         config: IJwtConfig, 
-        aclConfig: IAclConfig) {
-        super(config, aclConfig);
+        aclService: IBasicACLService) {
+        super(config, aclService);
+        
         this.userRepository = new this.config.options.repository.user();
         this.apiTokenRepository = new this.config.options.repository.apiToken();
         this.cryptoService = new CryptoService({
             secretKey: config.options.secret,
         });
-        this.aclService = new BasicACLService(aclConfig);
     }
 
     /**
@@ -132,6 +131,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
             userId: user.getId(),
             token: apiToken.getToken(),
             scopes: apiToken.getScopes(),
+            options: apiToken.getOptions() ?? {},
             revokedAt: apiToken.getRevokedAt(),
             expiresAt: apiToken.getExpiresAt()
         })
@@ -230,6 +230,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
             userId: user.getId(),
             token: apiToken.getToken(),
             scopes: apiToken.getScopes(),
+            options: apiToken.getOptions() ?? {},
             revokedAt: apiToken.getRevokedAt(),
             expiresAt: apiToken.getExpiresAt()
         })
@@ -324,8 +325,32 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * Get the user repository
      * @returns The user repository
      */
-    public getUserRepository(): IUserRepository {
+    getUserRepository(): IUserRepository {
         return this.userRepository
+    }
+
+    /**
+     * Get the api token repository
+     * @returns The api token repository
+     */
+    getApiTokenRepository(): IApiTokenRepository {
+        return this.apiTokenRepository
+    }
+
+    /**
+     * Get the user factory
+     * @returns The user factory
+     */
+    getUserFactory(): IUserFactory {
+        return new this.config.options.factory.user()
+    }
+
+    /**
+     * Get the api token factory
+     * @returns The api token factory
+     */
+    getApiTokenFactory(): IApiTokenFactory {
+        return new this.config.options.factory.apiToken()
     }
 
     /**

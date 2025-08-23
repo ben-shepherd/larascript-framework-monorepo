@@ -1,12 +1,31 @@
-import { AuthAdapterConstructor, IApiTokenConstructor, IApiTokenRepositoryConstructor, IJwtAuthService, IUserConstructor, IUserRepositoryConstructor } from ".";
-import { IAuthDriverConfig } from "./config.t";
-import { IApiTokenFactoryConstructor, IUserFactoryConstructor } from "./factory";
+import { ApiTokenModelOptions, IApiTokenModel, IApiTokenRepository, IApiTokenRepositoryConstructor, IAuthAdapter, IOneTimeAuthenticationService, IUserModel, IUserRepository, IUserRepositoryConstructor } from ".";
+import { IBaseDriverConfig } from "./config.t";
+import { IApiTokenFactory, IApiTokenFactoryConstructor, IUserFactory, IUserFactoryConstructor } from "./factory";
 
 export interface IJSonWebToken {
     uid: string;
     token: string;
     iat?: number;
     exp?: number;
+}
+
+export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
+    attemptCredentials(email: string, password: string, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
+    attemptAuthenticateToken(token: string): Promise<IApiTokenModel | null>
+    refreshToken(apiToken: IApiTokenModel): string;
+    revokeToken(apiToken: IApiTokenModel): Promise<void>
+    revokeAllTokens(userId: string | number): Promise<void>
+    getUserRepository(): IUserRepository
+    getApiTokenRepository(): IApiTokenRepository
+    getUserFactory(): IUserFactory
+    getApiTokenFactory(): IApiTokenFactory
+    createJwtFromUser(user: IUserModel, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
+    getCreateUserTableSchema(): Record<string, unknown>
+    getCreateApiTokenTableSchema(): Record<string, unknown>
+    oneTimeService(): IOneTimeAuthenticationService
+    authorizeUser(user: IUserModel): void
+    check(): Promise<boolean>
+    user(): Promise<IUserModel | null>
 }
 
 export interface IJwtConfigOptions extends Record<string, unknown> {
@@ -16,17 +35,13 @@ export interface IJwtConfigOptions extends Record<string, unknown> {
         user: IUserFactoryConstructor;
         apiToken: IApiTokenFactoryConstructor;
     }
-    models: {
-        user?: IUserConstructor;
-        apiToken?: IApiTokenConstructor;
-    },
     repository: {
         user: IUserRepositoryConstructor;
         apiToken: IApiTokenRepositoryConstructor;
     }
 }
-export interface IJwtConfig extends IAuthDriverConfig<IJwtAuthService> {
+
+export interface IJwtConfig extends IBaseDriverConfig<IJwtAuthService> {
     name: 'jwt';
-    driver: AuthAdapterConstructor<IJwtAuthService>;
     options: IJwtConfigOptions
 }

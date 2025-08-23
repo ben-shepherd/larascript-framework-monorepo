@@ -1,6 +1,7 @@
-import { IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
+import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
 import { BaseAdapter } from "@larascript-framework/larascript-core";
-import { BaseAuthAdapterTypes, IAuthConfig, IAuthService, IJwtAuthService, IUserModel, IUserRepository } from "../interfaces";
+import { BaseAuthAdapterTypes, IApiTokenRepository, IAuthConfig, IAuthService, IJwtAuthService, IUserModel, IUserRepository } from "../interfaces";
+import JwtAuthService from "./JwtAuthService";
 
 /**
  * AuthService provides authentication and authorization services,
@@ -28,7 +29,9 @@ import { BaseAuthAdapterTypes, IAuthConfig, IAuthService, IJwtAuthService, IUser
  * @method bootAdapters - Boots all registered adapters.
  */
 
-class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
+class AuthService extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
+
+    public static readonly JWT_ADAPTER_NAME = 'jwt';
 
     protected aclService!: IBasicACLService;
 
@@ -37,6 +40,7 @@ class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
         protected readonly aclConfig: IAclConfig,
     ) {
         super();
+        this.setAclService(new BasicACLService(this.aclConfig));
     }
 
     /**
@@ -52,28 +56,10 @@ class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
      * @returns A promise that resolves when the auth service is booted
      */
     public async boot(): Promise<void> {
+        this.addAdapterOnce(AuthService.JWT_ADAPTER_NAME, new JwtAuthService(this.config.drivers.jwt, this.aclService));
 
-        if(!this.aclService) {
-            throw new Error('ACL service is not set');
-        }
-
-        await this.registerAdapters();
-        await this.bootAdapters();
-    }
-
-    /** 
-     * Registers the adapters
-     */
-    protected registerAdapters(): void {
-        for (const config of this.config.drivers) {
-            const {
-                name,
-                driver: adapterConstructor,
-                options
-            } = config
-
-            const adapterInstance = new adapterConstructor(options);
-            this.addAdapterOnce(name, adapterInstance);
+        for (const adapterInstance of Object.values(this.adapters)) {
+            await adapterInstance.boot();
         }
     }
 
@@ -82,17 +68,9 @@ class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
      * @returns The JWT adapter
      */
     public getJwt(): IJwtAuthService {
-        return this.getAdapter('jwt') as IJwtAuthService;
+        return this.getAdapter(AuthService.JWT_ADAPTER_NAME) as IJwtAuthService;
     }
 
-    /**
-     * Boots the adapters
-     */
-    protected async bootAdapters(): Promise<void> {
-        for (const adapterInstance of Object.values(this.adapters)) {
-            await adapterInstance.boot();
-        }
-    }
 
     /**
      * Get the ACL service
@@ -126,7 +104,14 @@ class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
         return this.getJwt().getUserRepository()
     }
 
+    /**
+     * Get the api token repository
+     * @returns The api token repository
+     */
+    public getApiTokenRepository(): IApiTokenRepository {
+        return this.getJwt().getApiTokenRepository()
+    }
 
 }
 
-export default Auth;
+export default AuthService;

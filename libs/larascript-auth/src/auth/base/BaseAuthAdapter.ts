@@ -1,5 +1,5 @@
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { IAclConfig } from "@larascript-framework/larascript-acl";
+import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { IAuthAdapter, IUserModel } from "../interfaces";
 
 /**
@@ -11,11 +11,14 @@ export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> i
 
     protected asyncSession!: IAsyncSessionService;
 
+    protected aclService!: IBasicACLService;
+
     constructor(
         protected readonly config: Config,
-        protected readonly aclConfig: IAclConfig
+        aclService: IBasicACLService
     ) {
         this.asyncSession = new AsyncSessionService();
+        this.aclService = aclService;
     }
     
     /**

@@ -1,5 +1,5 @@
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
-import { IAuthAdapter, IJwtConfig, IUserRepository } from ".";
+import { IJwtAuthService, IUserRepository } from ".";
 import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t";
 
 export interface IAuthService {
@@ -10,23 +10,6 @@ export interface IAuthService {
     check(): Promise<boolean>
     user(): Promise<IUserModel | null>
     getUserRepository(): IUserRepository
-}
-
-export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
-    attemptCredentials(email: string, password: string, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
-    attemptAuthenticateToken(token: string): Promise<IApiTokenModel | null>
-    refreshToken(apiToken: IApiTokenModel): string;
-    revokeToken(apiToken: IApiTokenModel): Promise<void>
-    revokeAllTokens(userId: string | number): Promise<void>
-    // getRouter(): IRouter
-    getUserRepository(): IUserRepository
-    createJwtFromUser(user: IUserModel, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
-    getCreateUserTableSchema(): Record<string, unknown>
-    getCreateApiTokenTableSchema(): Record<string, unknown>
-    oneTimeService(): IOneTimeAuthenticationService
-    authorizeUser(user: IUserModel): void
-    check(): Promise<boolean>
-    user(): Promise<IUserModel | null>
 }
 
 export type SingleUseTokenOptions = Required<Pick<ApiTokenModelOptions, 'expiresAfterMinutes'>>

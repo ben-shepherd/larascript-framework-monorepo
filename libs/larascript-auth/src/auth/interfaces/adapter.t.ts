@@ -1,13 +1,13 @@
 import { BaseAdapterTypes } from "@larascript-framework/larascript-core";
+import { IJwtAuthService } from "./jwt.t";
 import { IUserModel } from "./models.t";
-import { IJwtAuthService } from "./service.t";
 
 export type BaseAuthAdapterTypes =  BaseAdapterTypes<IAuthAdapter> & {
-    default: IJwtAuthService
+    jwt: IJwtAuthService
 }
 
 export interface AuthAdapterConstructor<T extends IAuthAdapter = IAuthAdapter> {
-    new (config: ReturnType<T['getConfig']>): T;
+    new (config: ReturnType<T['getConfig']>, ...args: unknown[]): T;
 }
 
 export interface IAuthAdapter<Config extends Record<string, unknown> = Record<string, unknown>> {

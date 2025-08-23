@@ -1,11 +1,20 @@
 import { IBaseModel, IBaseModelConstructor } from "@/test-helpers/BaseModel";
 
 export interface IBaseInMemoryRepository<T extends IBaseModel> {
-    update(where: string, value: unknown, data: Partial<T['attributes']>): void;
-    delete(where: string, value: unknown): void;
-    setRecords(data: T[]): void;
-    getRecords(): T[];
-    clearRecords(): void;
+    update(where: string, value: unknown, data: Partial<T['attributes']>): Promise<void>;
+    updateSync(where: string, value: unknown, data: Partial<T['attributes']>): void;
+
+    delete(where: string, value: unknown): Promise<void>;
+    deleteSync(where: string, value: unknown): void;
+
+    setRecords(data: T[]): Promise<void>;
+    setRecordsSync(data: T[]): void;
+
+    getRecords(): Promise<T[]>;
+    getRecordsSync(): T[];
+
+    clearRecords(): Promise<void>;
+    clearRecordsSync(): void;
 }
 
 export abstract class BaseInMemoryRepository<T extends IBaseModel> implements IBaseInMemoryRepository<T> {
@@ -14,14 +23,23 @@ export abstract class BaseInMemoryRepository<T extends IBaseModel> implements IB
     constructor(
         protected model: IBaseModelConstructor<T>,
     ) {}
+    
 
-    create(attributes: T['attributes']): T {
+    async create(attributes: T['attributes']): Promise<T> {
+        return this.createSync(attributes);
+    }
+
+    createSync(attributes: T['attributes']): T {
         const item = new this.model(attributes);
         this.records.push(item);
         return item;
     }
 
-    update(where: string, value: unknown, data: Partial<T['attributes']>): void {
+    async update(where: string, value: unknown, data: Partial<T['attributes']>): Promise<void> {
+        this.updateSync(where, value, data);
+    }
+
+    updateSync(where: string, value: unknown, data: Partial<T['attributes']>): void {
         this.records = this.records.map(item => {
             if (item.getAttributes()[where] === value) {
                 item.setAttributes({ ...item.getAttributes(), ...data });
@@ -30,19 +48,35 @@ export abstract class BaseInMemoryRepository<T extends IBaseModel> implements IB
         });
     }
 
-    delete(where: string, value: unknown): void {
+    async delete(where: string, value: unknown): Promise<void> {
+        this.deleteSync(where, value);
+    }
+
+    deleteSync(where: string, value: unknown): void {
         this.records = this.records.filter(item => item.getAttributes()[where] !== value);
     }
 
-    setRecords(data: T[]): void {
-        this.records = data;
+    async setRecords(data: T[]): Promise<void> {
+        this.setRecordsSync(data);
     }
 
-    getRecords(): T[] {
+    setRecordsSync(data: T[]): void {
+        this.records = data;
+    }
+    
+    async clearRecords(): Promise<void> {
+        this.clearRecordsSync();
+    }
+
+    clearRecordsSync(): void {
+        this.records = [];
+    }
+
+    async getRecords(): Promise<T[]> {
         return this.records;
     }
 
-    clearRecords(): void {
-        this.records = [];
+    getRecordsSync(): T[] {
+        return this.records;
     }
 }

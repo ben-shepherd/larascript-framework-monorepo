@@ -21,8 +21,6 @@ export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
     getUserFactory(): IUserFactory
     getApiTokenFactory(): IApiTokenFactory
     createJwtFromUser(user: IUserModel, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
-    getCreateUserTableSchema(): Record<string, unknown>
-    getCreateApiTokenTableSchema(): Record<string, unknown>
     oneTimeService(): IOneTimeAuthenticationService
     authorizeUser(user: IUserModel): void
     logout(): void

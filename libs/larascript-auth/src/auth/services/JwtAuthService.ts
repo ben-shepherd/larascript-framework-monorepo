@@ -2,7 +2,6 @@ import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { JsonWebTokenError } from "jsonwebtoken";
-import { DataTypes } from "sequelize";
 import BaseAuthAdapter from "../base/BaseAuthAdapter";
 import { JWTConfigException, JWTSecretException, UnauthorizedException } from "../exceptions";
 import { JwtFactory } from "../factory/JwtFactory";
@@ -372,34 +371,6 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      */
     getApiTokenFactory(): IApiTokenFactory {
         return new this.config.options.factory.apiToken()
-    }
-
-    /**
-     * Gets the database schema for creating the users table.
-     * 
-     * @returns Sequelize DataTypes configuration for the users table
-     */
-    public getCreateUserTableSchema() {
-        return {
-            email: DataTypes.STRING,
-            hashedPassword: DataTypes.STRING,
-            groups: DataTypes.ARRAY(DataTypes.STRING),
-            roles: DataTypes.ARRAY(DataTypes.STRING),
-        }
-    }
-
-    /**
-     * Gets the database schema for creating the API tokens table.
-     * 
-     * @returns Sequelize DataTypes configuration for the API tokens table
-     */
-    public getCreateApiTokenTableSchema() {
-        return {
-            userId: DataTypes.STRING,
-            token: DataTypes.STRING,
-            scopes: DataTypes.JSON,
-            revokedAt: DataTypes.DATE
-        }
     }
 
     /**

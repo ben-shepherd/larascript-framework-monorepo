@@ -214,7 +214,7 @@ class AmazonS3StorageService
   async deleteObjectsWithPrefix(prefix: string): Promise<void> {
     return new Promise((resolve, reject) => {
       const s3 = this.getS3();
-      
+
       // First, list all objects with the prefix
       const listParams = {
         Bucket: this.config.bucket,
@@ -236,7 +236,7 @@ class AmazonS3StorageService
         const deleteParams = {
           Bucket: this.config.bucket,
           Delete: {
-            Objects: data.Contents.map(obj => ({ Key: obj.Key! })),
+            Objects: data.Contents.map((obj) => ({ Key: obj.Key! })),
             Quiet: false,
           },
         };

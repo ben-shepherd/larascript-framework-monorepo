@@ -4,8 +4,8 @@ import { FileNotFoundException } from "../exceptions/FileNotFoundException";
 import { InvalidStorageFileException } from "../exceptions/InvalidStorageFileException";
 import { FileSystemMeta, S3Meta } from "../interfaces/meta";
 import {
-    createFileSystemStorageFile,
-    toAbsolutePath,
+  createFileSystemStorageFile,
+  toAbsolutePath,
 } from "../utils/StorageUtils";
 
 class FileSystemStorageFileParser {
@@ -21,7 +21,7 @@ class FileSystemStorageFileParser {
       return new StorageFile({
         key: file,
         source: "s3",
-        meta: {} as S3Meta
+        meta: {} as S3Meta,
       });
     }
 

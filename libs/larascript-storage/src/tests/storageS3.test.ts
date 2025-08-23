@@ -1,5 +1,5 @@
 import { jest } from "@jest/globals";
-import 'dotenv/config';
+import "dotenv/config";
 import fs from "fs";
 import path from "path";
 import { StorageFile } from "../storage/data";
@@ -8,7 +8,7 @@ import AmazonS3StorageService from "../storage/services/AmazonS3StorageService";
 import StorageService from "../storage/services/StorageService";
 
 // Check if AWS tests should run
-const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
+const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== "true";
 
 // Skip all tests if AWS_SKIP_TESTS is set to 'true'
 (shouldRunAWSTests ? describe : describe.skip)("AmazonS3StorageService", () => {
@@ -22,13 +22,13 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
     // Create a temporary test file
     testFileContent = "This is a test file for S3 upload";
     testFilePath = path.join(process.cwd(), "storage", "test-upload.txt");
-    
+
     // Ensure the storage directory exists
     const storageDir = path.dirname(testFilePath);
     if (!fs.existsSync(storageDir)) {
       fs.mkdirSync(storageDir, { recursive: true });
     }
-    
+
     // Write test file
     fs.writeFileSync(testFilePath, testFileContent);
   });
@@ -58,10 +58,10 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
       storageDir: "storage",
       uploadsDir: "uploads",
       s3: {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
-        bucket: process.env.S3_BUCKET ?? '',
-        region: process.env.S3_REGION ?? ''
+        accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? "",
+        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? "",
+        bucket: process.env.S3_BUCKET ?? "",
+        region: process.env.S3_REGION ?? "",
       },
     };
 
@@ -72,27 +72,35 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
   describe("configuration", () => {
     it("should have correct S3 configuration from environment variables", () => {
-      expect(mockConfig.s3.accessKeyId).toBe(process.env.AWS_ACCESS_KEY_ID ?? '');
-      expect(mockConfig.s3.secretAccessKey).toBe(process.env.AWS_SECRET_ACCESS_KEY ?? '');
-      expect(mockConfig.s3.bucket).toBe(process.env.S3_BUCKET ?? '');
-      expect(mockConfig.s3.region).toBe(process.env.S3_REGION ?? '');
+      expect(mockConfig.s3.accessKeyId).toBe(
+        process.env.AWS_ACCESS_KEY_ID ?? "",
+      );
+      expect(mockConfig.s3.secretAccessKey).toBe(
+        process.env.AWS_SECRET_ACCESS_KEY ?? "",
+      );
+      expect(mockConfig.s3.bucket).toBe(process.env.S3_BUCKET ?? "");
+      expect(mockConfig.s3.region).toBe(process.env.S3_REGION ?? "");
     });
 
     it("should create S3 service with correct configuration", () => {
       expect(s3Service).toBeInstanceOf(AmazonS3StorageService);
-      expect(s3Service.config.accessKeyId).toBe(process.env.AWS_ACCESS_KEY_ID ?? '');
-      expect(s3Service.config.secretAccessKey).toBe(process.env.AWS_SECRET_ACCESS_KEY ?? '');
-      expect(s3Service.config.bucket).toBe(process.env.S3_BUCKET ?? '');
-      expect(s3Service.config.region).toBe(process.env.S3_REGION ?? '');
+      expect(s3Service.config.accessKeyId).toBe(
+        process.env.AWS_ACCESS_KEY_ID ?? "",
+      );
+      expect(s3Service.config.secretAccessKey).toBe(
+        process.env.AWS_SECRET_ACCESS_KEY ?? "",
+      );
+      expect(s3Service.config.bucket).toBe(process.env.S3_BUCKET ?? "");
+      expect(s3Service.config.region).toBe(process.env.S3_REGION ?? "");
     });
   });
 
   describe("file upload (put)", () => {
     it("should upload a file to S3 with timestamp-based destination", async () => {
       const storageFile = storageService.toStorageFile(testFilePath);
-      
+
       const result = await s3Service.put(storageFile);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toMatch(/^test-uploads\/\d+\/test-upload\.txt$/);
       expect(result.getMeta()).toBeDefined();
@@ -102,9 +110,9 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
     it("should upload a file to S3 with custom destination", async () => {
       const storageFile = storageService.toStorageFile(testFilePath);
       const customDestination = "test-uploads/custom/path/test-file.txt";
-      
+
       const result = await s3Service.put(storageFile, customDestination);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toBe(customDestination);
       expect(result.getMeta()).toBeDefined();
@@ -113,7 +121,7 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should upload a file using string path", async () => {
       const result = await s3Service.put(testFilePath);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toMatch(/^test-uploads\/\d+\/test-upload\.txt$/);
       expect(result.getMeta()).toBeDefined();
@@ -121,7 +129,7 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should throw error when uploading non-existent file", async () => {
       const nonExistentPath = "/path/to/non-existent/file.txt";
-      
+
       await expect(s3Service.put(nonExistentPath)).rejects.toThrow();
     });
   });
@@ -137,7 +145,7 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should retrieve a file from S3 using StorageFile", async () => {
       const result = await s3Service.get(uploadedFile);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toBe(uploadedFile.getKey());
       expect(result.getMeta()).toBeDefined();
@@ -145,7 +153,7 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should retrieve a file from S3 using string key", async () => {
       const result = await s3Service.get(uploadedFile.getKey());
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toBe(uploadedFile.getKey());
       expect(result.getMeta()).toBeDefined();
@@ -153,14 +161,14 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should retrieve a file with additional parameters", async () => {
       const additionalParams = {
-        Expires: 3600 // 1 hour expiration
+        Expires: 3600, // 1 hour expiration
       };
-      
+
       const result = await s3Service.get(uploadedFile, additionalParams);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getMeta()?.presignedUrl).toBeDefined();
-      expect(result.getMeta()?.presignedUrl).toContain('X-Amz-Expires=3600');
+      expect(result.getMeta()?.presignedUrl).toContain("X-Amz-Expires=3600");
     }, 30000);
   });
 
@@ -175,16 +183,16 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
     it("should delete a file from S3 using StorageFile", async () => {
       await expect(s3Service.delete(uploadedFile)).resolves.not.toThrow();
-      
+
       // Note: S3 delete operations may not immediately reflect in get operations
       // This test may need to be adjusted based on S3 eventual consistency
     }, 30000);
 
     it("should delete a file from S3 using string key", async () => {
       const fileKey = uploadedFile.getKey();
-      
+
       await expect(s3Service.delete(fileKey)).resolves.not.toThrow();
-      
+
       // Note: S3 delete operations may not immediately reflect in get operations
       // This test may need to be adjusted based on S3 eventual consistency
     }, 30000);
@@ -192,13 +200,29 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
     it("should delete multiple files with prefix", async () => {
       // Upload multiple test files
       const storageFile = storageService.toStorageFile(testFilePath);
-      const file1 = await s3Service.put(storageFile, "test-uploads/bulk-delete-test/file1.txt");
-      const file2 = await s3Service.put(storageFile, "test-uploads/bulk-delete-test/file2.txt");
-      const file3 = await s3Service.put(storageFile, "test-uploads/bulk-delete-test/file3.txt");
-      
+
+      const file1 = await s3Service.put(
+        storageFile,
+        "test-uploads/bulk-delete-test/file1.txt",
+      );
+      const file2 = await s3Service.put(
+        storageFile,
+        "test-uploads/bulk-delete-test/file2.txt",
+      );
+      const file3 = await s3Service.put(
+        storageFile,
+        "test-uploads/bulk-delete-test/file3.txt",
+      );
+
+      expect(file1).toBeInstanceOf(StorageFile);
+      expect(file2).toBeInstanceOf(StorageFile);
+      expect(file3).toBeInstanceOf(StorageFile);
+
       // Delete all files with the prefix
-      await expect(s3Service.deleteObjectsWithPrefix("test-uploads/bulk-delete-test/")).resolves.not.toThrow();
-      
+      await expect(
+        s3Service.deleteObjectsWithPrefix("test-uploads/bulk-delete-test/"),
+      ).resolves.not.toThrow();
+
       // Verify files are deleted (with eventual consistency in mind)
       // Note: In a real scenario, you might want to add a small delay here
     }, 30000);
@@ -210,12 +234,12 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
       const options = {
         meta: {
           Key: key,
-          Bucket: mockConfig.s3.bucket
-        }
+          Bucket: mockConfig.s3.bucket,
+        },
       };
-      
+
       const result = s3Service.createStorageFile(key, options);
-      
+
       expect(result).toBeInstanceOf(StorageFile);
       expect(result.getKey()).toBe(key);
       expect(result.getSource()).toBe("s3");
@@ -225,28 +249,30 @@ const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== 'true';
 
   describe("error handling", () => {
     it("should handle invalid file parameter in parseStorageFileOrS3Key", () => {
-      const invalidFile = null as any;
-      
+      const invalidFile = null as unknown as string;
+
       expect(() => {
-        s3Service['parseStorageFileOrS3Key'](invalidFile);
+        s3Service["parseStorageFileOrS3Key"](invalidFile);
       }).toThrow("Cannot read properties of null (reading 'getKey')");
     });
 
     it("should handle missing fullPath in put operation", async () => {
       const storageFile = new StorageFile({
         key: "test.txt",
-        source: "fs"
+        source: "fs",
         // Missing fullPath in meta
       });
-      
-      await expect(s3Service.put(storageFile as StorageFile<FileSystemMeta>)).rejects.toThrow("fullPath not configured");
+
+      await expect(
+        s3Service.put(storageFile as StorageFile<FileSystemMeta>),
+      ).rejects.toThrow("fullPath not configured");
     });
   });
 
   describe("integration with StorageService", () => {
     it("should use S3 driver from StorageService", () => {
       const s3Driver = storageService.driver("s3");
-      
+
       expect(s3Driver).toBeInstanceOf(AmazonS3StorageService);
       expect(s3Driver).toBe(s3Service);
     });

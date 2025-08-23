@@ -14,34 +14,41 @@ import { generateToken } from "../utils/generateToken";
 import OneTimeAuthenticationService from "./OneTimeAuthenticationService";
 
 /**
- * JwtAuthService is an authentication adapter that implements JWT (JSON Web Token) based authentication.
- * It extends BaseAuthAdapter and provides JWT-specific authentication functionality.
+ * JWT-based authentication service that extends BaseAuthAdapter.
  * 
- * This service:
- * - Handles JWT token creation and validation
- * - Manages user authentication via email/password credentials
- * - Provides API token management for machine-to-machine auth
- * - Configures auth-related routes and middleware
- * - Integrates with the application's ACL (Access Control List) system
+ * This service provides JWT token-based authentication functionality including:
+ * - User authentication with credentials
+ * - JWT token generation and validation
+ * - API token management
+ * - Password hashing and verification
+ * - Token revocation and refresh capabilities
  * 
- * The service can be accessed via the 'auth.jwt' helper:
- * ```ts
- * const jwtAuth = authJwt();
- * const token = await jwtAuth.attemptCredentials(email, password);
- * ```
+ * @extends BaseAuthAdapter<IJwtConfig>
+ * @implements IJwtAuthService
  */
 class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthService {
 
+    /** One-time authentication service instance */
     protected _oneTimeService = new OneTimeAuthenticationService()
 
+    /** Async session service for managing user sessions */
     protected asyncSession!: IAsyncSessionService;
 
+    /** Repository for user data operations */
     protected userRepository!: IUserRepository;
 
+    /** Repository for API token data operations */
     protected apiTokenRepository!: IApiTokenRepository;
 
+    /** Crypto service for password hashing and verification */
     protected cryptoService!: ICryptoService;
 
+    /**
+     * Creates a new JwtAuthService instance.
+     * 
+     * @param config - JWT configuration options
+     * @param aclService - Access control list service for role and permission management
+     */
     constructor(
         config: IJwtConfig, 
         aclService: IBasicACLService) {
@@ -55,25 +62,28 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Get the config
-     * @returns 
+     * Gets the current JWT configuration.
+     * 
+     * @returns The JWT configuration object
      */
     public getConfig(): IJwtConfig {
         return this.config
     }
 
     /**
-     * Get the one time authentication service
-     * @returns 
+     * Gets the one-time authentication service instance.
+     * 
+     * @returns The one-time authentication service
      */
     public oneTimeService(): IOneTimeAuthenticationService {
         return this._oneTimeService
     }
 
     /**
-     * Get the JWT secret
+     * Gets the JWT secret key from configuration.
      * 
-     * @returns 
+     * @returns The JWT secret key
+     * @throws {JWTSecretException} When the JWT secret is not configured
      */
     private getJwtSecret(): string {
         if (!this.config.options.secret) {
@@ -83,11 +93,11 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Get the JWT expires in minutes
+     * Gets the JWT expiration time in minutes from configuration.
      * 
-     * @returns 
+     * @returns The JWT expiration time in minutes
+     * @throws {JWTConfigException} When the JWT expiration time is not configured
      */
-
     private getJwtExpiresInMinutes(): number {
         if (!this.config.options.expiresInMinutes) {
             throw new JWTConfigException()
@@ -96,10 +106,20 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Attempt login with credentials
-     * @param email 
-     * @param password 
-     * @returns 
+     * Attempts to authenticate a user with email and password credentials.
+     * 
+     * This method:
+     * 1. Finds the user by email
+     * 2. Verifies the password hash
+     * 3. Creates an API token with specified scopes
+     * 4. Generates and returns a JWT token
+     * 
+     * @param email - User's email address
+     * @param password - User's plain text password
+     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+     * @param options - Optional API token configuration options
+     * @returns A JWT token string for the authenticated user
+     * @throws {UnauthorizedException} When authentication fails (invalid credentials, user not found, etc.)
      */
     async attemptCredentials(email: string, password: string, scopes: string[] = [], options?: ApiTokenModelOptions): Promise<string> {
         const user = await this.userRepository.findByEmail(email);
@@ -141,9 +161,15 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Create a new ApiToken model from the User
-     * @param user 
-     * @returns 
+     * Creates a new API token model for a given user.
+     * 
+     * This method combines the user's role scopes with any additional scopes provided
+     * and creates an API token with the specified options.
+     * 
+     * @param user - The user model to create the token for
+     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+     * @param options - API token configuration options (defaults to empty object)
+     * @returns A new API token model instance
      */
     protected async buildApiTokenByUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<IApiTokenModel> {
         const apiToken = new this.config.options.factory.apiToken().create({
@@ -163,9 +189,11 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Generate a JWT token
-     * @param apiToken 
-     * @returns 
+     * Generates a JWT token from an API token model.
+     * 
+     * @param apiToken - The API token model to generate JWT from
+     * @returns A JWT token string
+     * @throws {Error} When the API token is invalid or missing user ID
      */
     protected generateJwt(apiToken: IApiTokenModel) {
         if (!apiToken?.getUserId()) {
@@ -183,10 +211,16 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Attempt authentication against a JWT
-
-     * @param token 
-     * @returns 
+     * Attempts to authenticate a user using a JWT token.
+     * 
+     * This method:
+     * 1. Decodes and validates the JWT token
+     * 2. Finds the corresponding API token in the database
+     * 3. Verifies the user exists and token hasn't expired
+     * 
+     * @param token - The JWT token to authenticate
+     * @returns The API token model if authentication succeeds, null otherwise
+     * @throws {UnauthorizedException} When authentication fails (invalid token, expired token, user not found, etc.)
      */
     async attemptAuthenticateToken(token: string): Promise<IApiTokenModel | null> {
         try {
@@ -220,12 +254,19 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Create a JWT token from a user
-     * @param user 
-     * @returns 
+     * Creates a JWT token directly from a user model.
+     * 
+     * This method bypasses credential verification and creates a token
+     * for an already authenticated user.
+     * 
+     * @param user - The user model to create the token for
+     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+     * @param options - API token configuration options (defaults to empty object)
+     * @returns A JWT token string
      */
     public async createJwtFromUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<string> {
         const apiToken = await this.buildApiTokenByUser(user, scopes, options)
+
         await this.apiTokenRepository.create({
             userId: user.getId(),
             token: apiToken.getToken(),
@@ -234,25 +275,28 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
             revokedAt: apiToken.getRevokedAt(),
             expiresAt: apiToken.getExpiresAt()
         })
+
         return this.generateJwt(apiToken)
     }
 
     /**
-     * Refresh a token
-     * @param apiToken 
-     * @returns 
+     * Refreshes a JWT token using an existing API token.
+     * 
+     * @param apiToken - The API token model to refresh
+     * @returns A new JWT token string
      */
-
     refreshToken(apiToken: IApiTokenModel): string {
         return this.generateJwt(apiToken)
     }
 
     /**
-     * Revokes a token
-     * @param apiToken 
-     * @returns 
+     * Revokes an API token by setting its revoked timestamp.
+     * 
+     * If the token is already revoked, this method does nothing.
+     * 
+     * @param apiToken - The API token model to revoke
+     * @returns Promise that resolves when the token is revoked
      */
-
     async revokeToken(apiToken: IApiTokenModel): Promise<void> {
         if (apiToken?.getRevokedAt()) {
             return;
@@ -262,100 +306,55 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Revokes all tokens for a user
-     * @param userId 
-     * @returns 
+     * Revokes all API tokens for a specific user.
+     * 
+     * @param userId - The user ID whose tokens should be revoked
+     * @returns Promise that resolves when all tokens are revoked
      */
     async revokeAllTokens(userId: string | number): Promise<void> {
         await this.apiTokenRepository.revokeAllTokens(userId)
     }
 
     /**
-     * Get the router
-     * @returns 
-     */
-    // getRouter(): IRouter {
-    //     if (!this.config.routes.enabled) {
-    //         return new Router();
-    //     }
-
-    //     return Route.group({
-    //         prefix: '/auth',
-    //         controller: AuthController,
-    //         config: {
-    //             adapter: 'jwt'
-    //         }
-    //     }, (router) => {
-
-
-    //         if (this.config.routes.endpoints.login) {
-    //             router.post('/login', 'login');
-    //         }
-
-    //         if (this.config.routes.endpoints.register) {
-    //             router.post('/register', 'register');
-    //         }
-
-    //         router.group({
-    //             middlewares: [AuthorizeMiddleware]
-    //         }, (router) => {
-
-    //             if (this.config.routes.endpoints.login) {
-    //                 router.get('/user', 'user');
-    //             }
-
-    //             if (this.config.routes.endpoints.update) {
-    //                 router.patch('/update', 'update');
-    //             }
-
-    //             if (this.config.routes.endpoints.refresh) {
-    //                 router.post('/refresh', 'refresh');
-    //             }
-
-    //             if (this.config.routes.endpoints.logout) {
-    //                 router.post('/logout', 'logout');
-    //             }
-
-    //         })
-
-    //     })
-    // }
-
-    /**
-     * Get the user repository
-     * @returns The user repository
+     * Gets the user repository instance.
+     * 
+     * @returns The user repository for data operations
      */
     getUserRepository(): IUserRepository {
         return this.userRepository
     }
 
     /**
-     * Get the api token repository
-     * @returns The api token repository
+     * Gets the API token repository instance.
+     * 
+     * @returns The API token repository for data operations
      */
     getApiTokenRepository(): IApiTokenRepository {
         return this.apiTokenRepository
     }
 
     /**
-     * Get the user factory
-     * @returns The user factory
+     * Gets the user factory instance.
+     * 
+     * @returns The user factory for creating user models
      */
     getUserFactory(): IUserFactory {
         return new this.config.options.factory.user()
     }
 
     /**
-     * Get the api token factory
-     * @returns The api token factory
+     * Gets the API token factory instance.
+     * 
+     * @returns The API token factory for creating API token models
      */
     getApiTokenFactory(): IApiTokenFactory {
         return new this.config.options.factory.apiToken()
     }
 
     /**
-     * Get the create user table schema
-     * @returns 
+     * Gets the database schema for creating the users table.
+     * 
+     * @returns Sequelize DataTypes configuration for the users table
      */
     public getCreateUserTableSchema() {
         return {
@@ -367,8 +366,9 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Get the create api token table schema
-     * @returns 
+     * Gets the database schema for creating the API tokens table.
+     * 
+     * @returns Sequelize DataTypes configuration for the API tokens table
      */
     public getCreateApiTokenTableSchema() {
         return {
@@ -380,8 +380,9 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
     }
 
     /**
-     * Get the user
-     * @returns The user
+     * Gets the currently authenticated user from the session.
+     * 
+     * @returns The current user model or null if not authenticated
      */
     async user(): Promise<IUserModel | null> {
         if (!await this.check()) {
@@ -393,6 +394,15 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
         )
     }
 
+    /**
+     * Hashes a plain text password using the crypto service.
+     * 
+     * @param password - The plain text password to hash
+     * @returns A hashed password string
+     */
+    async hashPassword(password: string): Promise<string> {
+        return await this.cryptoService.hash(password)
+    }
 }
 
 

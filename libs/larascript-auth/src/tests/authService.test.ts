@@ -3,7 +3,9 @@ import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { BasicACLService, IAclConfig } from "@larascript-framework/larascript-acl";
 import {
     IAuthAdapter,
-    IAuthConfig
+    IAuthConfig,
+    IJwtAuthService,
+    IUserRepository
 } from "../auth/interfaces";
 import AuthService from "../auth/services/AuthService";
 import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
@@ -65,6 +67,8 @@ const mockAuthConfig: IAuthConfig = {
 
 describe("AuthService", () => {
     let authService: AuthService;
+    let userRepository: IUserRepository;
+    let jwt: IJwtAuthService;
 
     beforeEach(async () => {
         jest.clearAllMocks();
@@ -72,6 +76,9 @@ describe("AuthService", () => {
         authService = new AuthService(mockAuthConfig, mockAclConfig);
         authService.addAdapterOnce('custom', mockCustomAdapter);
         await authService.boot();
+
+        userRepository = authService.getUserRepository();
+        jwt = authService.getJwt();
     });
 
     describe("boot", () => {

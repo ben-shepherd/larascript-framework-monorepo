@@ -26,6 +26,7 @@ export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
     authorizeUser(user: IUserModel): void
     check(): Promise<boolean>
     user(): Promise<IUserModel | null>
+    hashPassword(password: string): Promise<string>
 }
 
 export interface IJwtConfigOptions extends Record<string, unknown> {

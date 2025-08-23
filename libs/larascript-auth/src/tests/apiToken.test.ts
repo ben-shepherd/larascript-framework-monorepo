@@ -334,5 +334,6 @@ describe("TestApiTokenModel", () => {
       expect(apiToken.getScopes()).toEqual([]);
       expect(apiToken.hasScope("anything")).toBe(false);
     });
+    
   });
 });

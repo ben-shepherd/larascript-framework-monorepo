@@ -9,7 +9,13 @@ export class InMemoryApiTokenRepository extends BaseInMemoryRepository<TestApiTo
     }
 
     async findOneActiveToken(token: string): Promise<IApiTokenModel | null> {
-        return this.records.find(apiToken => apiToken.getToken() === token) ?? null;
+        return (
+            this.records.find(apiToken =>
+                apiToken.getToken() === token &&
+                false === apiToken.hasExpired() &&
+                null === apiToken.getRevokedAt()
+            ) ?? null
+        );
     }
 
     async revokeToken(apiToken: IApiTokenModel): Promise<void> {

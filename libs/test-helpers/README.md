@@ -7,7 +7,7 @@ A collection of test helper utilities for the Larascript framework, providing ba
 This package is part of the Larascript monorepo and is available as a workspace dependency:
 
 ```bash
-pnpm add @larascript-framework/test-helpers
+pnpm add larascript-framework/test-helpers
 ```
 
 ## Features
@@ -39,7 +39,7 @@ const user = new User({
 
 ### BaseInMemoryRepository
 
-An abstract base class for creating in-memory repositories for testing purposes.
+An abstract base class for creating in-memory repositories for testing purposes. Provides both synchronous and asynchronous methods for all CRUD operations.
 
 ```typescript
 import { BaseInMemoryRepository, BaseModel } from '@larascript-framework/test-helpers';
@@ -54,8 +54,8 @@ class UserRepository extends BaseInMemoryRepository<User> {
 
 const userRepo = new UserRepository();
 
-// Create a new user
-const user = userRepo.create({
+// Create a new user (async)
+const user = await userRepo.create({
   id: '1',
   name: 'John Doe',
   email: 'john@example.com',
@@ -63,20 +63,62 @@ const user = userRepo.create({
   updatedAt: new Date()
 });
 
-// Update a user
-userRepo.update('id', '1', { name: 'Jane Doe' });
+// Create a new user (sync)
+const userSync = userRepo.createSync({
+  id: '2',
+  name: 'Jane Doe',
+  email: 'jane@example.com',
+  createdAt: new Date(),
+  updatedAt: new Date()
+});
 
-// Delete a user
-userRepo.delete('id', '1');
+// Find by ID (async)
+const foundUser = await userRepo.findById('1');
 
-// Set test data
-userRepo.setRecords([user1, user2, user3]);
+// Find by ID (sync)
+const foundUserSync = userRepo.findByIdSync('1');
 
-// Get all records
-const allUsers = userRepo.getRecords();
+// Find one by field (async)
+const userByName = await userRepo.findOne('name', 'John Doe');
 
-// Clear all records
-userRepo.clearRecords();
+// Find one by field (sync)
+const userByNameSync = userRepo.findOneSync('name', 'John Doe');
+
+// Find many by field (async)
+const usersByEmail = await userRepo.findMany('email', 'john@example.com');
+
+// Find many by field (sync)
+const usersByEmailSync = userRepo.findManySync('email', 'john@example.com');
+
+// Update a user (async)
+await userRepo.update('id', '1', { name: 'John Updated' });
+
+// Update a user (sync)
+userRepo.updateSync('id', '1', { name: 'John Updated' });
+
+// Delete a user (async)
+await userRepo.delete('id', '1');
+
+// Delete a user (sync)
+userRepo.deleteSync('id', '1');
+
+// Set test data (async)
+await userRepo.setRecords([user1, user2, user3]);
+
+// Set test data (sync)
+userRepo.setRecordsSync([user1, user2, user3]);
+
+// Get all records (async)
+const allUsers = await userRepo.getRecords();
+
+// Get all records (sync)
+const allUsersSync = userRepo.getRecordsSync();
+
+// Clear all records (async)
+await userRepo.clearRecords();
+
+// Clear all records (sync)
+userRepo.clearRecordsSync();
 ```
 
 ## API Reference
@@ -104,17 +146,34 @@ Concrete implementation of `IBaseModel` that provides the base functionality.
 ### BaseInMemoryRepository
 
 #### `IBaseInMemoryRepository<T>`
-Interface defining the contract for in-memory repositories:
-- `update(where: string, value: unknown, data: Partial<T['attributes']>): void` - Update records matching criteria
-- `delete(where: string, value: unknown): void` - Delete records matching criteria
-- `setRecords(data: T[]): void` - Set the repository's records
-- `getRecords(): T[]` - Get all records
-- `clearRecords(): void` - Clear all records
+Interface defining the contract for in-memory repositories with both sync and async methods:
+
+**Query Methods:**
+- `findOne(where: string, value: unknown): Promise<T | null>` - Find one record by field value (async)
+- `findOneSync(where: string, value: unknown): T | null` - Find one record by field value (sync)
+- `findById(id: string): Promise<T | null>` - Find record by ID (async)
+- `findByIdSync(id: string): T | null` - Find record by ID (sync)
+- `findMany(where: string, value: unknown): Promise<T[]>` - Find multiple records by field value (async)
+- `findManySync(where: string, value: unknown): T[]` - Find multiple records by field value (sync)
+
+**Mutation Methods:**
+- `create(attributes: T['attributes']): Promise<T>` - Create and store a new record (async)
+- `createSync(attributes: T['attributes']): T` - Create and store a new record (sync)
+- `update(where: string, value: unknown, data: Partial<T['attributes']>): Promise<void>` - Update records matching criteria (async)
+- `updateSync(where: string, value: unknown, data: Partial<T['attributes']>): void` - Update records matching criteria (sync)
+- `delete(where: string, value: unknown): Promise<void>` - Delete records matching criteria (async)
+- `deleteSync(where: string, value: unknown): void` - Delete records matching criteria (sync)
+
+**Data Management Methods:**
+- `setRecords(data: T[]): Promise<void>` - Set the repository's records (async)
+- `setRecordsSync(data: T[]): void` - Set the repository's records (sync)
+- `getRecords(): Promise<T[]>` - Get all records (async)
+- `getRecordsSync(): T[]` - Get all records (sync)
+- `clearRecords(): Promise<void>` - Clear all records (async)
+- `clearRecordsSync(): void` - Clear all records (sync)
 
 #### `BaseInMemoryRepository<T>`
-Abstract base class implementing `IBaseInMemoryRepository` with additional methods:
-- `create(attributes: T['attributes']): T` - Create and store a new record
-- `constructor(model: IBaseModelConstructor<T>)` - Initialize with a model constructor
+Abstract base class implementing `IBaseInMemoryRepository` with complete CRUD functionality.
 
 ## Usage Examples
 
@@ -154,15 +213,19 @@ class ProductRepository extends BaseInMemoryRepository<Product> {
     super(Product);
   }
   
-  findByCategory(category: string): Product[] {
-    return this.getRecords().filter(product => 
-      product.getCategory() === category
-    );
+  // Custom methods using the base functionality
+  async findByCategory(category: string): Promise<Product[]> {
+    return this.findManySync('category', category);
   }
   
-  findByName(name: string): Product | undefined {
-    return this.getRecords().find(product => 
-      product.getName() === name
+  async findByName(name: string): Promise<Product | null> {
+    return this.findOneSync('name', name);
+  }
+  
+  async findByPriceRange(minPrice: number, maxPrice: number): Promise<Product[]> {
+    const allProducts = this.getRecordsSync();
+    return allProducts.filter(product => 
+      product.getPrice() >= minPrice && product.getPrice() <= maxPrice
     );
   }
 }
@@ -174,11 +237,11 @@ class ProductRepository extends BaseInMemoryRepository<Product> {
 describe('ProductRepository', () => {
   let repository: ProductRepository;
   
-  beforeEach(() => {
+  beforeEach(async () => {
     repository = new ProductRepository();
     
-    // Set up test data
-    repository.setRecords([
+    // Set up test data using async methods
+    await repository.setRecords([
       new Product({
         id: '1',
         name: 'Laptop',
@@ -198,14 +261,74 @@ describe('ProductRepository', () => {
     ]);
   });
   
-  afterEach(() => {
-    repository.clearRecords();
+  afterEach(async () => {
+    await repository.clearRecords();
   });
   
-  it('should find products by category', () => {
-    const electronics = repository.findByCategory('Electronics');
+  it('should find products by category', async () => {
+    const electronics = await repository.findByCategory('Electronics');
     expect(electronics).toHaveLength(1);
     expect(electronics[0].getName()).toBe('Laptop');
+  });
+  
+  it('should find product by name', async () => {
+    const laptop = await repository.findByName('Laptop');
+    expect(laptop).not.toBeNull();
+    expect(laptop?.getPrice()).toBe(999.99);
+  });
+  
+  it('should update product price', async () => {
+    await repository.update('id', '1', { price: 899.99 });
+    const updatedLaptop = await repository.findById('1');
+    expect(updatedLaptop?.getPrice()).toBe(899.99);
+  });
+});
+```
+
+### Using Synchronous Methods for Simple Tests
+
+```typescript
+describe('ProductRepository Sync', () => {
+  let repository: ProductRepository;
+  
+  beforeEach(() => {
+    repository = new ProductRepository();
+    
+    // Set up test data using sync methods
+    repository.setRecordsSync([
+      new Product({
+        id: '1',
+        name: 'Laptop',
+        price: 999.99,
+        category: 'Electronics',
+        createdAt: new Date(),
+        updatedAt: new Date()
+      })
+    ]);
+  });
+  
+  afterEach(() => {
+    repository.clearRecordsSync();
+  });
+  
+  it('should find product by ID synchronously', () => {
+    const laptop = repository.findByIdSync('1');
+    expect(laptop).not.toBeNull();
+    expect(laptop?.getName()).toBe('Laptop');
+  });
+  
+  it('should create product synchronously', () => {
+    const newProduct = repository.createSync({
+      id: '2',
+      name: 'Mouse',
+      price: 29.99,
+      category: 'Electronics',
+      createdAt: new Date(),
+      updatedAt: new Date()
+    });
+    
+    expect(newProduct.getName()).toBe('Mouse');
+    expect(repository.getRecordsSync()).toHaveLength(2);
   });
 });
 ```

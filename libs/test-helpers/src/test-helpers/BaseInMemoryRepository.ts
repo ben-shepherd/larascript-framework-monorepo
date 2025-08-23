@@ -1,5 +1,11 @@
 import { IBaseModel, IBaseModelConstructor } from "@/test-helpers/BaseModel";
 
+/**
+ * Interface defining the contract for an in-memory repository that manages base models.
+ * Provides both synchronous and asynchronous methods for CRUD operations.
+ * 
+ * @template T - The type of the base model that extends IBaseModel
+ */
 export interface IBaseInMemoryRepository<T extends IBaseModel> {
     findOne(where: string, value: unknown): Promise<T | null>;
     findOneSync(where: string, value: unknown): T | null;
@@ -26,6 +32,28 @@ export interface IBaseInMemoryRepository<T extends IBaseModel> {
     clearRecordsSync(): void;
 }
 
+/**
+ * Abstract base class for implementing in-memory repositories.
+ * Provides a complete implementation of the IBaseInMemoryRepository interface
+ * with both synchronous and asynchronous methods for CRUD operations.
+ * 
+ * This class is designed for testing purposes and stores all data in memory.
+ * 
+ * @template T - The type of the base model that extends IBaseModel
+ * 
+ * @example
+ * ```typescript
+ * class UserRepository extends BaseInMemoryRepository<User> {
+ *   constructor() {
+ *     super(User);
+ *   }
+ * }
+ * 
+ * const userRepo = new UserRepository();
+ * const user = await userRepo.create({ id: '1', name: 'John', email: 'john@example.com' });
+ * const foundUser = await userRepo.findById('1');
+ * ```
+ */
 export abstract class BaseInMemoryRepository<T extends IBaseModel> implements IBaseInMemoryRepository<T> {
     protected records: T[] = [];
 

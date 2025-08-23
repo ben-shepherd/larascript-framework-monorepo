@@ -9,9 +9,7 @@ interface TestModelAttributes extends BaseModelAttributes {
     age: number;
 }
 
-class TestModel extends BaseModel<TestModelAttributes> {
-
-}
+class TestModel extends BaseModel<TestModelAttributes> {}
 
 // Test repository implementation
 class TestRepository extends BaseInMemoryRepository<TestModel> {
@@ -108,22 +106,13 @@ describe("BaseInMemoryRepository", () => {
         test("should find multiple records by name", async () => {
             repository.setRecords([testModel1, testModel2, testModel3]);
             const result = await repository.findMany("name", "John Doe");
-            expect(result).toHaveLength(1);
-        });
-    });
-
-    describe("findManySync", () => {
-
-        test("should find multiple records by name", async () => {
-            repository.setRecords([testModel1, testModel2, testModel3]);
-            const result = repository.findManySync("name", "John Doe");
 
             expect(result).toHaveLength(1);
         });
 
         test("should return empty array if no records are found", async () => {
             repository.setRecords([testModel1, testModel2, testModel3]);
-            const result = repository.findManySync("name", "NonExistent");
+            const result = await repository.findMany("name", "NonExistent");
 
             expect(result).toHaveLength(0);
         });
@@ -139,7 +128,7 @@ describe("BaseInMemoryRepository", () => {
             });
 
             repository.setRecords([testModel1, testModel2, testModel3, testModel4]);
-            const result = repository.findManySync("name", "John Doe");
+            const result = await repository.findMany("name", "John Doe");
 
             expect(result).toHaveLength(2);
         });

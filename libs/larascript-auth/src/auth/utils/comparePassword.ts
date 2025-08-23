@@ -8,4 +8,4 @@ import bcrypt from 'bcryptjs'
  * @returns true if the password matches the hashed password, false otherwise
  * @deprecated Use cryptoService().verifyHash instead
  */
-export default (password: string, hashedPassword: string): boolean => bcrypt.compareSync(password, hashedPassword)
+export const comparePassword = (password: string, hashedPassword: string): boolean => bcrypt.compareSync(password, hashedPassword)

@@ -1,4 +1,4 @@
-export default class InvalidJwtSettingsException extends Error {
+export class JWTConfigException extends Error {
 
     constructor(message: string = 'Invalid JWT settings') {
         super(message);

@@ -43,6 +43,8 @@
     "@larascript-framework/jest-config": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-acl": "workspace:*",
+    "@larascript-framework/async-session": "workspace:*",
+    "@larascript-framework/crypto-js": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

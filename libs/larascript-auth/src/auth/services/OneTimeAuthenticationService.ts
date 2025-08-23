@@ -1,7 +1,4 @@
-import { ApiTokenModelOptions, IApiTokenModel } from "@src/core/domains/auth/interfaces/models/IApiTokenModel";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { auth } from "@src/core/domains/auth/services/AuthService";
-import { IOneTimeAuthenticationService } from "@src/core/domains/auth/interfaces/service/oneTimeService";
+import { ApiTokenModelOptions, IApiTokenModel, IAuthService, IOneTimeAuthenticationService, IUserModel } from "../interfaces";
 
 type SingleUseTokenOptions = Required<Pick<ApiTokenModelOptions, 'expiresAfterMinutes'>>
 
@@ -11,6 +8,12 @@ type SingleUseTokenOptions = Required<Pick<ApiTokenModelOptions, 'expiresAfterMi
  * that can be used for one-time authentication scenarios.
  */
 class OneTimeAuthenticationService implements IOneTimeAuthenticationService {
+    
+    protected authService!: IAuthService;
+
+    setAuthService(authService: IAuthService): void {
+        this.authService = authService;
+    }
 
     /**
      * Gets the scope identifier for one-time authentication.
@@ -38,7 +41,7 @@ class OneTimeAuthenticationService implements IOneTimeAuthenticationService {
     async createSingleUseToken(user: IUserModel, scopes: string[] = [], options: SingleUseTokenOptions = { expiresAfterMinutes: 15 }): Promise<string> {
         const scope = OneTimeAuthenticationService.getScope()
 
-        return await auth().getJwtAdapter().createJwtFromUser(user, [
+        return await this.authService.getJwt().createJwtFromUser(user, [
             ...scopes,
             scope,
         ], {

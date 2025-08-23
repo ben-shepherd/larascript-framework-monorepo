@@ -6,7 +6,7 @@ import { IJSonWebToken } from "../interfaces/jwt.t"
  *
  * @class JWTTokenFactory
  */
-export default class JwtFactory implements IFactory<IJSonWebToken>   {
+export class JwtFactory implements IFactory<IJSonWebToken>   {
 
     getDefinition(): unknown {
         return {

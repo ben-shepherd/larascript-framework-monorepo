@@ -1,25 +1,21 @@
-import { IAclConfig } from "@src/core/domains/auth/interfaces/acl/IAclConfig";
-import { IAuthAdapter } from "@src/core/domains/auth/interfaces/adapter/IAuthAdapter";
-import { IBaseAuthConfig } from "@src/core/domains/auth/interfaces/config/IAuth";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { IRouter } from "@src/core/domains/http/interfaces/IRouter";
-import Router from "@src/core/domains/http/router/Router";
-import { asyncSession } from "@src/core/services/AsyncSession";
+import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
+import { IAclConfig } from "@larascript-framework/larascript-acl";
+import { IAuthAdapter, IUserModel } from "../interfaces";
 
 /**
  * Base authentication adapter class that implements the IAuthAdapter interface.
  * Provides core functionality for authentication adapters.
  * @template Config - The configuration type that extends IBaseAuthConfig
  */
-abstract class BaseAuthAdapter<Config extends IBaseAuthConfig> implements IAuthAdapter<Config> {
+export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> implements IAuthAdapter<Config> {
 
-    public config!: Config;
+    protected asyncSession!: IAsyncSessionService;
 
-    protected aclConfig!: IAclConfig
-    
-    constructor(config: Config, aclConfig: IAclConfig) {
-        this.config = config;
-        this.aclConfig = aclConfig;
+    constructor(
+        protected readonly config: Config,
+        protected readonly aclConfig: IAclConfig
+    ) {
+        this.asyncSession = new AsyncSessionService();
     }
     
     /**
@@ -40,7 +36,6 @@ abstract class BaseAuthAdapter<Config extends IBaseAuthConfig> implements IAuthA
         return Promise.resolve();
     }
 
-
     /**
      * Retrieves the current configuration
      * @returns The current configuration object
@@ -51,27 +46,11 @@ abstract class BaseAuthAdapter<Config extends IBaseAuthConfig> implements IAuthA
     }
 
     /**
-     * Updates the configuration
-     * @param config - The new configuration object to set
-     */
-    setConfig(config: Config): void {
-        this.config = config;
-    }
-
-    /**
-     * Creates and returns a new router instance
-     * @returns A new IRouter instance
-     */
-    getRouter(): IRouter {
-        return new Router();
-    }
-
-    /**
      * Authorize a user
      * @param user 
      */
     authorizeUser(user: IUserModel) {
-        asyncSession().setSessionData({ userId: user.getId() })
+        this.asyncSession.setSessionData({ userId: user.getId() })
     }
 
     /**
@@ -79,7 +58,7 @@ abstract class BaseAuthAdapter<Config extends IBaseAuthConfig> implements IAuthA
      * @returns True if the user is authenticated, false otherwise
      */
     async check(): Promise<boolean> {
-        return !!asyncSession().getSessionData().userId
+        return !!this.asyncSession.getSessionData().userId
     }
 
 

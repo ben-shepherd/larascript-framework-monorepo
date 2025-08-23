@@ -1,3 +1,4 @@
+import { IAuthDriverConfig } from "../interfaces";
 import { AuthAdapterConstructor, IAuthAdapter } from "../interfaces/adapter.t";
 
 
@@ -27,15 +28,20 @@ class AuthConfig {
 
     /**
      * Create a new auth adapter config
-     * @param adapter - The auth adapter constructor
-     * @param config - The config for the adapter
+     * @param driver - The auth adapter constructor
+     * @param options - The config for the adapter
      * @returns The adapter config
      */
-    public static config<Adapter extends IAuthAdapter>(adapter: AuthAdapterConstructor<Adapter>, config: Omit<Adapter['config'], 'adapter'>): Adapter['config'] {
+    public static config<Adapter extends IAuthAdapter = IAuthAdapter>(
+        name: string,
+        driver: AuthAdapterConstructor<Adapter>,
+        options: ReturnType<Adapter['getConfig']>
+    ): IAuthDriverConfig<Adapter> {
         return {
-            adapter: adapter,
-            ...config
-        }  as unknown as Adapter['config'];
+            name,
+            driver,
+            options: options
+        }
     }
 
 

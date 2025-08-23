@@ -65,9 +65,15 @@ class Auth extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
      * Registers the adapters
      */
     protected registerAdapters(): void {
-        for (const adapter of this.config.drivers) {
-            const adapterInstance = new adapter.driver(adapter.options);
-            this.addAdapterOnce(adapter.name, adapterInstance);
+        for (const config of this.config.drivers) {
+            const {
+                name,
+                driver: adapterConstructor,
+                options
+            } = config
+
+            const adapterInstance = new adapterConstructor(options);
+            this.addAdapterOnce(name, adapterInstance);
         }
     }
 

@@ -1,36 +1,16 @@
-import BaseAuthAdapter from "@src/core/domains/auth/base/BaseAuthAdapter";
-import AuthController from "@src/core/domains/auth/controllers/AuthController";
-import InvalidSecretException from "@src/core/domains/auth/exceptions/InvalidJwtSettings";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
-import JwtFactory from "@src/core/domains/auth/factory/JwtFactory";
-import { IAclConfig } from "@src/core/domains/auth/interfaces/acl/IAclConfig";
-import { IJwtAuthService } from "@src/core/domains/auth/interfaces/jwt/IJwtAuthService";
-import { IJwtConfig } from "@src/core/domains/auth/interfaces/jwt/IJwtConfig";
-import { ApiTokenModelOptions, IApiTokenModel } from "@src/core/domains/auth/interfaces/models/IApiTokenModel";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { IApiTokenRepository } from "@src/core/domains/auth/interfaces/repository/IApiTokenRepository";
-import { IUserRepository } from "@src/core/domains/auth/interfaces/repository/IUserRepository";
-import { IOneTimeAuthenticationService } from "@src/core/domains/auth/interfaces/service/oneTimeService";
-import AuthorizeMiddleware from "@src/core/domains/auth/middleware/AuthorizeMiddleware";
-import ApiToken from "@src/core/domains/auth/models/ApiToken";
-import ApiTokenRepository from "@src/core/domains/auth/repository/ApiTokenRepitory";
-import UserRepository from "@src/core/domains/auth/repository/UserRepository";
-import OneTimeAuthenticationService from "@src/core/domains/auth/services/OneTimeAuthenticationService";
-import createJwt from "@src/core/domains/auth/utils/createJwt";
-import decodeJwt from "@src/core/domains/auth/utils/decodeJwt";
-import generateToken from "@src/core/domains/auth/utils/generateToken";
-import { IRouter } from "@src/core/domains/http/interfaces/IRouter";
-import Route from "@src/core/domains/http/router/Route";
-import Router from "@src/core/domains/http/router/Router";
-import { app } from "@src/core/services/App";
-import { cryptoService } from "@src/core/services/CryptoService";
+import { IAsyncSessionService } from "@larascript-framework/async-session";
+import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
+import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
 import { JsonWebTokenError } from "jsonwebtoken";
 import { DataTypes } from "sequelize";
-
-/**
- * Short hand for app('auth.jwt')
- */
-export const authJwt = () => app('auth.jwt')
+import BaseAuthAdapter from "../base/BaseAuthAdapter";
+import { JWTConfigException, JWTSecretException, UnauthorizedException } from "../exceptions";
+import { JwtFactory } from "../factory/JwtFactory";
+import { ApiTokenModelOptions, IApiTokenModel, IApiTokenRepository, IJwtAuthService, IJwtConfig, IOneTimeAuthenticationService, IUserModel, IUserRepository } from "../interfaces";
+import { createJwt } from "../utils/createJwt";
+import { decodeJwt } from "../utils/decodeJwt";
+import { generateToken } from "../utils/generateToken";
+import OneTimeAuthenticationService from "./OneTimeAuthenticationService";
 
 /**
  * JwtAuthService is an authentication adapter that implements JWT (JSON Web Token) based authentication.
@@ -51,18 +31,42 @@ export const authJwt = () => app('auth.jwt')
  */
 class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthService {
 
-    private apiTokenRepository!: IApiTokenRepository
-
-    private userRepository!: IUserRepository
-
     protected _oneTimeService = new OneTimeAuthenticationService()
 
-    constructor(config: IJwtConfig, aclConfig: IAclConfig) {
+    protected asyncSession!: IAsyncSessionService;
+
+    protected userRepository!: IUserRepository;
+
+    protected apiTokenRepository!: IApiTokenRepository;
+
+    protected cryptoService!: ICryptoService;
+
+    protected aclService!: IBasicACLService;
+
+    constructor(
+        config: IJwtConfig, 
+        aclConfig: IAclConfig) {
         super(config, aclConfig);
-        this.apiTokenRepository = new ApiTokenRepository(config.models?.apiToken)
-        this.userRepository = new UserRepository(config.models?.user)
+        this.userRepository = new this.config.options.repository.user();
+        this.apiTokenRepository = new this.config.options.repository.apiToken();
+        this.cryptoService = new CryptoService({
+            secretKey: config.options.secret,
+        });
+        this.aclService = new BasicACLService(aclConfig);
     }
 
+    /**
+     * Get the config
+     * @returns 
+     */
+    public getConfig(): IJwtConfig {
+        return this.config
+    }
+
+    /**
+     * Get the one time authentication service
+     * @returns 
+     */
     public oneTimeService(): IOneTimeAuthenticationService {
         return this._oneTimeService
     }
@@ -73,10 +77,10 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * @returns 
      */
     private getJwtSecret(): string {
-        if (!this.config.settings.secret) {
-            throw new InvalidSecretException()
+        if (!this.config.options.secret) {
+            throw new JWTSecretException()
         }
-        return this.config.settings.secret
+        return this.config.options.secret
     }
 
     /**
@@ -86,10 +90,10 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      */
 
     private getJwtExpiresInMinutes(): number {
-        if (!this.config.settings.expiresInMinutes) {
-            throw new InvalidSecretException()
+        if (!this.config.options.expiresInMinutes) {
+            throw new JWTConfigException()
         }
-        return this.config.settings.expiresInMinutes
+        return this.config.options.expiresInMinutes
     }
 
     /**
@@ -102,17 +106,17 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
         const user = await this.userRepository.findByEmail(email);
 
         if (!user) {
-            throw new UnauthorizedError()
+            throw new UnauthorizedException()
         }
 
-        const hashedPassword = user.getAttributeSync('hashedPassword') as string | null
+        const hashedPassword = user.getHashedPassword()
 
         if (!hashedPassword) {
-            throw new UnauthorizedError()
+            throw new UnauthorizedException()
         }
 
-        if (!cryptoService().verifyHash(password, hashedPassword)) {
-            throw new UnauthorizedError()
+        if (!this.cryptoService.verifyHash(password, hashedPassword)) {
+            throw new UnauthorizedException()
         }
 
         // Generate the api token
@@ -120,11 +124,17 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
 
         if (typeof options?.expiresAfterMinutes === 'number') {
             const expiresAt = new Date(Date.now() + options.expiresAfterMinutes * 60 * 1000)
-            await apiToken.setAttribute(ApiToken.EXPIRES_AT, expiresAt)
+            await apiToken.setRevokedAt(expiresAt)
         }
 
         // Save
-        await apiToken.save()
+        await this.apiTokenRepository.create({
+            userId: user.getId(),
+            token: apiToken.getToken(),
+            scopes: apiToken.getScopes(),
+            revokedAt: apiToken.getRevokedAt(),
+            expiresAt: apiToken.getExpiresAt()
+        })
 
         // Generate the JWT token
         return this.generateJwt(apiToken)
@@ -136,16 +146,17 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * @returns 
      */
     protected async buildApiTokenByUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<IApiTokenModel> {
-        const apiToken = ApiToken.create<IApiTokenModel>()
-        await apiToken.setUserId(user.id as string)
-        await apiToken.setToken(generateToken())
-        await apiToken.setScopes([...app('acl.basic').getRoleScopesFromUser(user), ...scopes])
-        await apiToken.setRevokedAt(null)
-        await apiToken.setAttribute(ApiToken.OPTIONS, options)
+        const apiToken = new this.config.options.factory.apiToken().create({
+            userId: user.getId(),
+            token: generateToken(),
+            scopes: [...this.aclService.getRoleScopesFromUser(user), ...scopes],
+            revokedAt: null,
+            options: options
+        })
 
         if (options?.expiresAfterMinutes) {
             const expiresAt = new Date(Date.now() + options.expiresAfterMinutes * 60 * 1000)
-            await apiToken.setAttribute(ApiToken.EXPIRES_AT, expiresAt)
+            await apiToken.setExpiresAt(expiresAt)
         }
 
         return apiToken
@@ -157,7 +168,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * @returns 
      */
     protected generateJwt(apiToken: IApiTokenModel) {
-        if (!apiToken?.userId) {
+        if (!apiToken?.getUserId()) {
             throw new Error('Invalid token');
         }
 
@@ -184,24 +195,24 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
             const apiToken = await this.apiTokenRepository.findOneActiveToken(decodedToken)
 
             if (!apiToken) {
-                throw new UnauthorizedError()
+                throw new UnauthorizedException()
             }
 
             const user = await this.userRepository.findById(decodedUserId)
 
             if (!user) {
-                throw new UnauthorizedError()
+                throw new UnauthorizedException()
             }
 
             if (apiToken.hasExpired()) {
-                throw new UnauthorizedError()
+                throw new UnauthorizedException()
             }
 
             return apiToken
         }
         catch (err) {
             if (err instanceof JsonWebTokenError) {
-                throw new UnauthorizedError()
+                throw new UnauthorizedException()
             }
         }
 
@@ -215,7 +226,13 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      */
     public async createJwtFromUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<string> {
         const apiToken = await this.buildApiTokenByUser(user, scopes, options)
-        await apiToken.save()
+        await this.apiTokenRepository.create({
+            userId: user.getId(),
+            token: apiToken.getToken(),
+            scopes: apiToken.getScopes(),
+            revokedAt: apiToken.getRevokedAt(),
+            expiresAt: apiToken.getExpiresAt()
+        })
         return this.generateJwt(apiToken)
     }
 
@@ -236,7 +253,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      */
 
     async revokeToken(apiToken: IApiTokenModel): Promise<void> {
-        if (apiToken?.revokedAt) {
+        if (apiToken?.getRevokedAt()) {
             return;
         }
 
@@ -256,59 +273,59 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * Get the router
      * @returns 
      */
-    getRouter(): IRouter {
-        if (!this.config.routes.enabled) {
-            return new Router();
-        }
+    // getRouter(): IRouter {
+    //     if (!this.config.routes.enabled) {
+    //         return new Router();
+    //     }
 
-        return Route.group({
-            prefix: '/auth',
-            controller: AuthController,
-            config: {
-                adapter: 'jwt'
-            }
-        }, (router) => {
+    //     return Route.group({
+    //         prefix: '/auth',
+    //         controller: AuthController,
+    //         config: {
+    //             adapter: 'jwt'
+    //         }
+    //     }, (router) => {
 
 
-            if (this.config.routes.endpoints.login) {
-                router.post('/login', 'login');
-            }
+    //         if (this.config.routes.endpoints.login) {
+    //             router.post('/login', 'login');
+    //         }
 
-            if (this.config.routes.endpoints.register) {
-                router.post('/register', 'register');
-            }
+    //         if (this.config.routes.endpoints.register) {
+    //             router.post('/register', 'register');
+    //         }
 
-            router.group({
-                middlewares: [AuthorizeMiddleware]
-            }, (router) => {
+    //         router.group({
+    //             middlewares: [AuthorizeMiddleware]
+    //         }, (router) => {
 
-                if (this.config.routes.endpoints.login) {
-                    router.get('/user', 'user');
-                }
+    //             if (this.config.routes.endpoints.login) {
+    //                 router.get('/user', 'user');
+    //             }
 
-                if (this.config.routes.endpoints.update) {
-                    router.patch('/update', 'update');
-                }
+    //             if (this.config.routes.endpoints.update) {
+    //                 router.patch('/update', 'update');
+    //             }
 
-                if (this.config.routes.endpoints.refresh) {
-                    router.post('/refresh', 'refresh');
-                }
+    //             if (this.config.routes.endpoints.refresh) {
+    //                 router.post('/refresh', 'refresh');
+    //             }
 
-                if (this.config.routes.endpoints.logout) {
-                    router.post('/logout', 'logout');
-                }
+    //             if (this.config.routes.endpoints.logout) {
+    //                 router.post('/logout', 'logout');
+    //             }
 
-            })
+    //         })
 
-        })
-    }
+    //     })
+    // }
 
     /**
      * Get the user repository
      * @returns The user repository
      */
     public getUserRepository(): IUserRepository {
-        return new UserRepository(this.config.models?.user);
+        return this.userRepository
     }
 
     /**
@@ -347,7 +364,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
         }
 
         return await this.userRepository.findById(
-            app('asyncSession').getSessionData().userId as string
+            this.asyncSession.getSessionData().userId as string
         )
     }
 

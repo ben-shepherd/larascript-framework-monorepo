@@ -1,3 +1,5 @@
+import { IAccessControlEntity } from "@larascript-framework/larascript-acl";
+
 export type ApiTokenModelOptions = Record<string, unknown> & {
     expiresAfterMinutes?: number
 }
@@ -7,6 +9,7 @@ export interface IApiTokenAttributes {
     token: string;
     scopes: string[];
     revokedAt: Date | null;
+    expiresAt: Date | null;
 }
 
 export interface IUserAttributes {
@@ -35,11 +38,14 @@ export interface IApiTokenModel {
     setRevokedAt(revokedAt: Date | null): Promise<void>
     setOptions(options: Record<string, unknown>): Promise<void>;
     getOptions<T extends ApiTokenModelOptions>(): T | null
+    setExpiresAt(expiresAt: Date): Promise<void>
+    getExpiresAt(): Date | null
     hasExpired(): boolean;
 
 }
 
-export interface IUserModel {
+export interface IUserModel extends IAccessControlEntity{
+    getId(): string;
     getEmail(): string | null;
     setEmail(email: string): Promise<void>;
     getHashedPassword(): string | null;

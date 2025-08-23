@@ -1,11 +1,10 @@
 import { CustomValidatorConstructor } from "@larascript-framework/larascript-validator";
-import { IAuthAdapter } from "./adapter.t";
-import { IApiTokenConstructor, IUserConstructor } from "./models.t";
+import { AuthAdapterConstructor, IAuthAdapter } from "./adapter.t";
 
-export interface IAuthDriverConfig<Options extends Record<string, unknown> = Record<string, unknown>> {
+export interface IAuthDriverConfig<Adapter extends IAuthAdapter = IAuthAdapter> extends Record<string, unknown>{
     name: string;
-    driver: new (options?: Options) => IAuthAdapter<Options>;
-    options: Options
+    driver: AuthAdapterConstructor<Adapter>
+    options: Record<string, unknown>
 }
 
 export interface IAuthConfig {
@@ -23,9 +22,5 @@ export interface IAuthConfig {
             updateUser?: CustomValidatorConstructor;
         };
     }
-    models?: {
-        user?: IUserConstructor;
-        apiToken?: IApiTokenConstructor;
-    },
     drivers:  IAuthDriverConfig[]
 }

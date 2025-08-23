@@ -1,5 +1,5 @@
-import jwt from 'jsonwebtoken'
-import { IJSonWebToken } from '@src/core/domains/auth/interfaces/jwt/IJsonWebToken'
+import jwt from 'jsonwebtoken';
+import { IJSonWebToken } from "../interfaces/jwt.t";
 
 /**
  * Decodes a JWT token using the provided secret.
@@ -8,6 +8,6 @@ import { IJSonWebToken } from '@src/core/domains/auth/interfaces/jwt/IJsonWebTok
  * @param {string} token - The JWT token to decode.
  * @returns {IJSonWebToken} The decoded token.
  */
-export default (secret: string, token: string): IJSonWebToken => {
+export const decodeJwt = (secret: string, token: string): IJSonWebToken => {
     return jwt.verify(token, secret) as IJSonWebToken
 }

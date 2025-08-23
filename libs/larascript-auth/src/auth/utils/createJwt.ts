@@ -7,6 +7,6 @@ import jwt, { SignOptions } from 'jsonwebtoken'
  * @param expiresIn The time until the token expires (default is 1 hour)
  * @returns The created JWT token as a string
  */
-export default (secret: string, data: object, expiresIn: string = '1h'): string => {
+export const createJwt = (secret: string, data: object, expiresIn: string = '1h'): string => {
     return jwt.sign(data, secret, { expiresIn } as SignOptions)
 }

@@ -114,7 +114,7 @@ class AmazonS3StorageService
   /**
    * Uploads a file to S3 storage
    * @param file - StorageFile object containing the file to upload
-   * @param destination - Optional custom destination path in S3 bucket. If not provided, generates a timestamp-based path
+   * @param destination - Optional custom destination path in S3 bucket. If not provided, generates a timestamp-based path with test prefix
    * @returns Promise resolving to the uploaded StorageFile with S3 metadata
    * @throws {FileNotFoundException} When the source file does not exist
    */
@@ -128,7 +128,7 @@ class AmazonS3StorageService
     );
 
     if (!destination) {
-      destination = `${new Date().getTime().toString()}/${path.basename(parsedFile.getKey())}`;
+      destination = `test-uploads/${new Date().getTime().toString()}/${path.basename(parsedFile.getKey())}`;
     }
 
     return new Promise((resolve, reject) => {
@@ -202,6 +202,54 @@ class AmazonS3StorageService
         }
 
         resolve();
+      });
+    });
+  }
+
+  /**
+   * Deletes all objects with a specific prefix from S3 storage
+   * @param prefix - The prefix to match objects for deletion
+   * @returns Promise that resolves when deletion is complete
+   */
+  async deleteObjectsWithPrefix(prefix: string): Promise<void> {
+    return new Promise((resolve, reject) => {
+      const s3 = this.getS3();
+      
+      // First, list all objects with the prefix
+      const listParams = {
+        Bucket: this.config.bucket,
+        Prefix: prefix,
+      };
+
+      s3.listObjectsV2(listParams, (err, data) => {
+        if (err) {
+          reject(err);
+          return;
+        }
+
+        if (!data.Contents || data.Contents.length === 0) {
+          resolve();
+          return;
+        }
+
+        // Prepare objects for deletion
+        const deleteParams = {
+          Bucket: this.config.bucket,
+          Delete: {
+            Objects: data.Contents.map(obj => ({ Key: obj.Key! })),
+            Quiet: false,
+          },
+        };
+
+        // Delete all objects
+        s3.deleteObjects(deleteParams, (deleteErr) => {
+          if (deleteErr) {
+            reject(deleteErr);
+            return;
+          }
+
+          resolve();
+        });
       });
     });
   }

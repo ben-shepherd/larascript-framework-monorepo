@@ -4,6 +4,7 @@ export type S3Meta = {
   Key?: string;
   Location?: string;
   ServerSideEncryption?: string;
+  presignedUrl?: string;
 };
 
 export type FileSystemMeta = {

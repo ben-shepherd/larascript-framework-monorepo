@@ -4,8 +4,8 @@ import { FileNotFoundException } from "../exceptions/FileNotFoundException";
 import { InvalidStorageFileException } from "../exceptions/InvalidStorageFileException";
 import { FileSystemMeta, S3Meta } from "../interfaces/meta";
 import {
-  createFileSystemStorageFile,
-  toAbsolutePath,
+    createFileSystemStorageFile,
+    toAbsolutePath,
 } from "../utils/StorageUtils";
 
 class FileSystemStorageFileParser {
@@ -17,10 +17,12 @@ class FileSystemStorageFileParser {
     }
 
     if (typeof file === "string") {
-      // TODO: This needs to be properly implemented with a storage instance
-      throw new InvalidStorageFileException(
-        "S3 storage not implemented in parser",
-      );
+      // For S3 operations, treat string as S3 key
+      return new StorageFile({
+        key: file,
+        source: "s3",
+        meta: {} as S3Meta
+      });
     }
 
     throw new InvalidStorageFileException(

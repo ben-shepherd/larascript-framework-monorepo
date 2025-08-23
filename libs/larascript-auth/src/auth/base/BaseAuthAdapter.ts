@@ -57,6 +57,13 @@ export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> i
     }
 
     /**
+     * Logout the user
+     */
+    logout(): void {
+        this.asyncSession.setSessionData({ userId: undefined })
+    }
+
+    /**
      * Check if the user is authenticated
      * @returns True if the user is authenticated, false otherwise
      */

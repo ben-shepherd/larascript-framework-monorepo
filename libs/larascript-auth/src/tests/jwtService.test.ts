@@ -1,6 +1,7 @@
 import { UnauthorizedException } from "@/auth/exceptions/UnauthorizedException";
 import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/factory";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import {
     IApiTokenRepository,
@@ -284,7 +285,7 @@ describe("AuthService", () => {
             });
 
             const refreshedJwtToken = jwt.refreshToken(apiToken as TestApiTokenModel);
-            
+
             expect(refreshedJwtToken).toBeDefined();
             expect(refreshedJwtToken.length).toBeGreaterThan(0);
             expect(refreshedJwtToken).not.toBe(jwtToken);
@@ -334,11 +335,90 @@ describe("AuthService", () => {
 
             await jwt.revokeAllTokens(apiToken?.getUserId() as string);
 
-            const refreshedApiToken = await (apiTokenRepository as InMemoryApiTokenRepository).findById(apiTokenId as string); 
+            const refreshedApiToken = await (apiTokenRepository as InMemoryApiTokenRepository).findById(apiTokenId as string);
             const refreshedApiToken2 = await (apiTokenRepository as InMemoryApiTokenRepository).findById(apiToken2Id as string);
 
             expect(refreshedApiToken?.getRevokedAt()).toBeDefined();
             expect(refreshedApiToken2?.getRevokedAt()).toBeDefined();
+        });
+    });
+
+    describe("authorizeUser", () => {
+
+        test("should error if no session is started", async () => {
+            const user = await userRepository.create({
+                id: '1',
+                email: 'test@test.com',
+                hashedPassword: await jwt.hashPassword('password'),
+                aclRoles: [],
+                aclGroups: [],
+            });
+
+            expect(() => jwt.authorizeUser(user)).toThrow('No session found in current context');
+        });
+        
+        test("should authorize a user and set the session data", async () => {
+            const asyncSession = new AsyncSessionService();
+            jwt.setAsyncSession(asyncSession);
+
+            await asyncSession.runWithSession(async () => {
+
+                const user = await userRepository.create({
+                    id: '1',
+                    email: 'test@test.com',
+                    hashedPassword: await jwt.hashPassword('password'),
+                    aclRoles: [],
+                    aclGroups: [],
+                });
+
+                jwt.authorizeUser(user);
+
+                const check = await jwt.check();
+                const foundUser = await jwt.user();
+
+                expect(foundUser).toBeDefined();
+                expect(foundUser?.getId()).toBe(user.getId());
+                expect(check).toBe(true);
+                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId() });
+
+            });
+            
+        });
+
+        test("should logout a user and clear the session data", async () => {
+            const asyncSession = new AsyncSessionService();
+            jwt.setAsyncSession(asyncSession);
+
+            await asyncSession.runWithSession(async () => {
+
+                const user = await userRepository.create({
+                    id: '1',
+                    email: 'test@test.com',
+                    hashedPassword: await jwt.hashPassword('password'),
+                    aclRoles: [],
+                    aclGroups: [],
+                });
+
+                jwt.authorizeUser(user);
+
+                const check = await jwt.check();
+                const foundUser = await jwt.user();
+
+                expect(foundUser).toBeDefined();
+                expect(foundUser?.getId()).toBe(user.getId());
+                expect(check).toBe(true);
+                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId() });
+
+                jwt.logout();
+
+                const check2 = await jwt.check();
+                const foundUser2 = await jwt.user();
+
+                expect(check2).toBe(false);
+                expect(foundUser2).toBeNull();
+                expect(asyncSession.getSessionData()).toEqual({ userId: undefined });
+            });
+            
         });
     });
 });

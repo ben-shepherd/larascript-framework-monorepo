@@ -61,6 +61,29 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
         });
     }
 
+
+    /**
+     * Sets the async session service.
+     * 
+     * @param asyncSession - The async session service
+     */
+    setAsyncSession(asyncSession: IAsyncSessionService): void {
+        this.asyncSession = asyncSession;
+    }
+
+    /**
+     * Gets the async session service.
+     * 
+     * @returns The async session service
+     */
+    getAsyncSession(): IAsyncSessionService {
+        if (!this.asyncSession) {
+            throw new Error('asyncSession is not set');
+        }
+
+        return this.asyncSession;
+    }
+
     /**
      * Gets the current JWT configuration.
      * 

@@ -1,3 +1,4 @@
+import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { ApiTokenModelOptions, IApiTokenModel, IApiTokenRepository, IApiTokenRepositoryConstructor, IAuthAdapter, IOneTimeAuthenticationService, IUserModel, IUserRepository, IUserRepositoryConstructor } from ".";
 import { IBaseDriverConfig } from "./config.t";
 import { IApiTokenFactory, IApiTokenFactoryConstructor, IUserFactory, IUserFactoryConstructor } from "./factory";
@@ -24,9 +25,12 @@ export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
     getCreateApiTokenTableSchema(): Record<string, unknown>
     oneTimeService(): IOneTimeAuthenticationService
     authorizeUser(user: IUserModel): void
+    logout(): void
     check(): Promise<boolean>
     user(): Promise<IUserModel | null>
     hashPassword(password: string): Promise<string>
+    setAsyncSession(asyncSession: IAsyncSessionService): void
+    getAsyncSession(): IAsyncSessionService
 }
 
 export interface IJwtConfigOptions extends Record<string, unknown> {

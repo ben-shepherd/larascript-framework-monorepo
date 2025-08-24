@@ -1,8 +1,7 @@
-import ForbiddenResourceError from '@src/core/domains/auth/exceptions/ForbiddenResourceError';
-import UnauthorizedError from '@src/core/domains/auth/exceptions/UnauthorizedError';
-import { authJwt } from '@src/core/domains/auth/services/JwtAuthService';
+import { UnauthorizedException } from '@larascript-framework/larascript-auth';
 import Middleware from '@src/core/domains/http/base/Middleware';
 import HttpContext from '@src/core/domains/http/context/HttpContext';
+import { ForbiddenResourceError } from '@src/core/domains/http/exceptions/ForbiddenResourceError';
 import responseError from '@src/core/domains/http/handlers/responseError';
 import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
 import { auth } from '@src/core/services/AuthService';
@@ -60,7 +59,7 @@ class AuthorizeMiddleware extends Middleware<{ allowedScopes: string[] }> {
             this.next();
         }
         catch (error) {
-            if (error instanceof UnauthorizedError) {
+            if (error instanceof UnauthorizedException) {
                 responseError(context.getRequest(), context.getResponse(), error, 401)
             }
             else if (error instanceof ForbiddenResourceError) {
@@ -84,12 +83,16 @@ class AuthorizeMiddleware extends Middleware<{ allowedScopes: string[] }> {
     public async attemptAuthorizeRequest(req: TBaseRequest): Promise<TBaseRequest> {
         const authorization = (req.headers.authorization ?? '').replace('Bearer ', '');
 
-        const apiToken = await auth().getJwtAdapter().attemptAuthenticateToken(authorization)
+        const apiToken = await auth().getJwt().attemptAuthenticateToken(authorization)
 
-        const user = await apiToken?.getUser()
+        if(!apiToken) {
+            throw new UnauthorizedException();
+        }
 
-        if (!user || !apiToken) {
-            throw new UnauthorizedError();
+        const user = await auth().getUserRepository().findByIdOrFail(apiToken.getUserId())
+
+        if (!user) {
+            throw new UnauthorizedException();
         }
 
         // Set the user and apiToken in the request
@@ -97,7 +100,7 @@ class AuthorizeMiddleware extends Middleware<{ allowedScopes: string[] }> {
         req.apiToken = apiToken
 
         // Set the user id in the request context
-        authJwt().authorizeUser(user)
+        auth().getJwt().authorizeUser(user)
 
         return req;
     }

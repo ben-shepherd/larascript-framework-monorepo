@@ -1,14 +1,14 @@
-import ForbiddenResourceError from "@src/core/domains/auth/exceptions/ForbiddenResourceError";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import Controller from "@src/core/domains/http/base/Controller";
+import HttpContext from "@src/core/domains/http/context/HttpContext";
+import responseError from "@src/core/domains/http/handlers/responseError";
+import AbastractBaseResourceService from "@src/core/domains/http/resources/abstract/AbastractBaseResourceService";
 import ResourceCreateService from "@src/core/domains/http/resources/services/ResourceCreateService";
 import ResourceDeleteService from "@src/core/domains/http/resources/services/ResourceDeleteService";
 import ResourceIndexService from "@src/core/domains/http/resources/services/ResourceIndexService";
 import ResourceShowService from "@src/core/domains/http/resources/services/ResourceShowService";
 import ResourceUpdateService from "@src/core/domains/http/resources/services/ResourceUpdateService";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import AbastractBaseResourceService from "@src/core/domains/http/resources/abstract/AbastractBaseResourceService";
+import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
 
 /**
  * ResourceController handles CRUD operations for resources (database models)
@@ -101,7 +101,7 @@ class ResourceController  extends Controller {
         }
 
         catch(error) {
-            if(error instanceof UnauthorizedError) {
+            if(error instanceof UnauthorizedException) {
                 responseError(context.getRequest(), context.getResponse(), error, 401)
                 return;
             }

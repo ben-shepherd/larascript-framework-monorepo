@@ -1,6 +1,5 @@
 import { IApiTokenAttributes } from "@larascript-framework/larascript-auth";
 import { Observer } from "@larascript-framework/larascript-observer";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import { auth } from "@src/core/services/AuthService";
 import UserRepository from "../repositories/UserRepository";
 
@@ -27,7 +26,7 @@ export default class ApiTokenObserver extends Observer<IApiTokenObserverData> {
      */
 
     async addGroupScopes(data: IApiTokenObserverData): Promise<IApiTokenObserverData> {
-        const user = await authJwt().getUserRepository().findByIdOrFail(data.userId)
+        const user = await auth().getUserRepository().findByIdOrFail(data.userId)
 
         if(!user) {
             return data

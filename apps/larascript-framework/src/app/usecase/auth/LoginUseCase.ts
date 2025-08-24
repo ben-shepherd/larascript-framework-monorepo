@@ -1,14 +1,14 @@
 
+import { IUserAttributes, UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { minExecTime } from "@larascript-framework/larascript-utils";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
+import { IModel } from "@src/core/domains/models/interfaces/IModel";
+import { auth } from "@src/core/services/AuthService";
 
 export type LoginUseCaseResponse = ApiResponse<{
     token: string;
-    user: IUserModel['attributes']
+    user: IUserAttributes
 } | {
     message: string
 }>
@@ -43,7 +43,7 @@ class LoginUseCase {
 
             const { email = '', password = '' } = context.getBody();
 
-            const user = await authJwt().getUserRepository().findByEmail(email);
+            const user = await auth().getUserRepository().findByEmail(email);
 
             if (!user) {
                 return this.unauthorized('Email or password is incorrect') as LoginUseCaseResponse;
@@ -52,17 +52,17 @@ class LoginUseCase {
             let jwtToken!: string;
 
             try {
-                jwtToken = await authJwt().attemptCredentials(email, password);
+                jwtToken = await auth().getJwt().attemptCredentials(email, password);
             }
 
             catch (error) {
-                if (error instanceof UnauthorizedError) {
+                if (error instanceof UnauthorizedException) {
                     return this.unauthorized('Email or password is incorrect') as LoginUseCaseResponse;
                 }
                 throw error;
             }
 
-            const userAttributes = await user.toObject({ excludeGuarded: true });
+            const userAttributes = await (user as unknown as IModel).toObject({ excludeGuarded: true });
 
             return apiResponse.setData({
                 token: jwtToken,

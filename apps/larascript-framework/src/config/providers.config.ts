@@ -1,6 +1,7 @@
 import { IAsyncSessionService } from '@larascript-framework/async-session';
 import { ICryptoService } from '@larascript-framework/crypto-js';
 import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-acl';
+import { IAuthService, IJwtAuthService } from '@larascript-framework/larascript-auth';
 import { IEnvService, IPackageJsonService } from '@larascript-framework/larascript-core';
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
 import { ILoggerService } from '@larascript-framework/larascript-logger';
@@ -12,8 +13,6 @@ import { IAppService } from "@src/app/interfaces/IAppService";
 import AppServiceProvider from "@src/app/providers/AppServiceProvider";
 import RoutesProvider from "@src/app/providers/RoutesProvider";
 import { IAppConfig } from "@src/config/app.config";
-import { IJwtAuthService } from '@src/core/domains/auth/interfaces/jwt/IJwtAuthService';
-import { IAuthService } from '@src/core/domains/auth/interfaces/service/IAuthService';
 import ICommandService from '@src/core/domains/console/interfaces/ICommandService';
 import ConsoleProvider from "@src/core/domains/console/providers/ConsoleProvider";
 import { IDatabaseService } from '@src/core/domains/database/interfaces/IDatabaseService';

@@ -1,8 +1,9 @@
 
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
+import { IModel } from "@src/core/domains/models/interfaces/IModel";
+import { auth } from "@src/core/services/AuthService";
 
 /**
  * UserUseCase handles retrieving the authenticated user's profile
@@ -25,16 +26,16 @@ class UserUseCase {
         const userId = context.getUser()?.getId();
 
         if(!userId) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedException();
         }
 
-        const user = await authJwt().getUserRepository().findById(userId);
+        const user = await auth().getUserRepository().findById(userId);
 
         if(!user) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedException();
         }
 
-        const userAttributes = await user.toObject({ excludeGuarded: true });
+        const userAttributes = await (user as unknown as IModel).toObject({ excludeGuarded: true });
 
         return new ApiResponse().setData(userAttributes);
     }

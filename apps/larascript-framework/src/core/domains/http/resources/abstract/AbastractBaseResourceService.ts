@@ -1,7 +1,6 @@
 
+import { IUserModel } from "@larascript-framework/larascript-auth";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import { db } from "@src/core/domains/database/services/Database";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
@@ -270,7 +269,7 @@ abstract class AbastractBaseResourceService {
      * @returns {Promise<IUserModel | null>} - The user or null if not found
      */
     getUser(): Promise<IUserModel | null> {
-        return authJwt().user()
+        return auth().user()
     }
 
 }

@@ -1,8 +1,8 @@
 
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
+import { auth } from "@src/core/services/AuthService";
 
 /**
  * RefreshUseCase handles JWT token refresh requests
@@ -26,10 +26,10 @@ class RefreshUseCase {
         const apiToken = context.getApiToken();
 
         if(!apiToken) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedException();
         }
 
-        const refreshedToken = authJwt().refreshToken(apiToken);
+        const refreshedToken = auth().getJwt().refreshToken(apiToken);
 
         return new ApiResponse().setData({
             token: refreshedToken

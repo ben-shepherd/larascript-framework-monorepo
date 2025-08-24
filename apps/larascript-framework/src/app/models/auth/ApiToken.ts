@@ -1,10 +1,8 @@
 import { BasicACLScope } from '@larascript-framework/larascript-acl';
-import { IApiTokenAttributes, IApiTokenModel } from '@larascript-framework/larascript-auth';
+import { IApiTokenAttributes, IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { TCastableType } from '@larascript-framework/larascript-utils';
 import User from '@src/app/models/auth/User';
 import ApiTokenObserver from '@src/app/observers/ApiTokenObserver';
-import { ApiTokenModelOptions } from '@src/core/domains/auth/interfaces/models/IApiTokenModel';
-import { IUserModel } from '@src/core/domains/auth/interfaces/models/IUserModel';
 import BelongsTo from '@src/core/domains/eloquent/relational/BelongsTo';
 import Model from '@src/core/domains/models/base/Model';
 import { IModelAttributes } from '@src/core/domains/models/interfaces/IModel';
@@ -205,7 +203,7 @@ class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenModel {
      * @param {Record<string, unknown>} options - The options to set for this token
      * @returns {Promise<void>} A promise that resolves when the options are set
      */
-    async setOptions(options: ApiTokenModelOptions): Promise<void> {
+    async setOptions(options: Record<string, unknown>): Promise<void> {
         await this.setAttribute(ApiToken.OPTIONS, options)
     }
 
@@ -214,7 +212,7 @@ class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenModel {
      * @template T - The type of the options object
      * @returns {T | null} The options for this token, or null if no options are set
      */
-    getOptions<T extends ApiTokenModelOptions>(): T | null {
+    getOptions<T extends Record<string, unknown>>(): T | null {
         return (this.getAttributeSync('options') ?? null) as T | null
     }
 
@@ -223,7 +221,7 @@ class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenModel {
      * @returns {boolean} True if the token has expired, false otherwise
      */
     hasExpired(): boolean {
-        const expiresAt = (this.getAttributeSync('expiresAt') ?? null) as Date | null
+        const expiresAt = (this.getAttributeSync(ApiToken.EXPIRES_AT) ?? null) as Date | null
 
         if (!(expiresAt instanceof Date)) {
             return false

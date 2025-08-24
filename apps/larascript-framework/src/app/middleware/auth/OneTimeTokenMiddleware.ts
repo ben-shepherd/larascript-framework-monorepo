@@ -1,5 +1,4 @@
-import UnauthorizedError from '@src/core/domains/auth/exceptions/UnauthorizedError';
-import { authJwt } from '@src/core/domains/auth/services/JwtAuthService';
+import { UnauthorizedException } from '@larascript-framework/larascript-auth';
 import Middleware from '@src/core/domains/http/base/Middleware';
 import HttpContext from '@src/core/domains/http/context/HttpContext';
 import responseError from '@src/core/domains/http/handlers/responseError';
@@ -16,19 +15,19 @@ class OneTimeTokenMiddleware extends Middleware<OneTimeTokenMiddlewareOptions> {
             const apiToken = context.getApiToken()
 
             if (!apiToken) {
-                throw new UnauthorizedError()
+                throw new UnauthorizedException()
             }
 
-            if (this.config?.validateContainsOneTimeScope && !authJwt().oneTimeService().validateSingleUseToken(apiToken)) {
-                throw new UnauthorizedError()
+            if (this.config?.validateContainsOneTimeScope && !auth().getJwt().oneTimeService().validateSingleUseToken(apiToken)) {
+                throw new UnauthorizedException()
             }
 
-            await auth().getJwtAdapter().revokeToken(apiToken)
+            await auth().getJwt().revokeToken(apiToken)
 
             this.next();
         }
         catch (error) {
-            if (error instanceof UnauthorizedError) {
+            if (error instanceof UnauthorizedException) {
                 responseError(context.getRequest(), context.getResponse(), error, 401)
             }
         }

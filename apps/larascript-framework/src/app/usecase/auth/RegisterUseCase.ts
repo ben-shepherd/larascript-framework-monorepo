@@ -1,10 +1,10 @@
+import { IUserAttributes, IUserModel } from "@larascript-framework/larascript-auth";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
 import { UserAttributes } from "@src/app/models/auth/User";
-import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
+import CreateUserValidator from "@src/app/validators/user/CreateUserValidator";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { IModel, IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
 import { app } from "@src/core/services/App";
 import { auth } from "@src/core/services/AuthService";
 import { cryptoService } from "@src/core/services/CryptoService";
@@ -44,7 +44,7 @@ class RegisterUseCase {
         }
 
         const createdUser = await this.createUser(context);
-        const userAttributes = await createdUser.toObject({ excludeGuarded: true });
+        const userAttributes = await (createdUser as unknown as IModel).toObject({ excludeGuarded: true });
 
         return apiResponse.setData(userAttributes).setCode(201) as RegisterUseCaseResponse;
     }
@@ -59,7 +59,7 @@ class RegisterUseCase {
         const basicAclService = app('acl.basic')
         const groups = [basicAclService.getDefaultGroup().name]
         const roles = basicAclService.getGroupRoles(basicAclService.getDefaultGroup()).map(role => role.name)
-        const allowedFields = auth().getUserRepository().create().getFields()
+        const allowedFields = (auth().getUserRepository().create({} as IUserAttributes) as unknown as IModel).getFields()
 
         const userAttributes = {
             email: context.getBody().email,
@@ -73,8 +73,8 @@ class RegisterUseCase {
         const userAttributesReduced = this.reduceAttributesOnlyAllowed(userAttributes, allowedFields)
 
         // Create and save the user
-        const user = authJwt().getUserRepository().create(userAttributesReduced as IUserModel);
-        await user.save();
+        const user = auth().getUserRepository().create(userAttributesReduced as unknown as IUserAttributes);
+        await (user as unknown as IModel).save();
 
         return user;
     }
@@ -126,7 +126,8 @@ class RegisterUseCase {
      */
 
     async validate(context: HttpContext): Promise<IValidatorResult<any>> {
-        const validatorConstructor = auth().getJwtAdapter().config?.validators?.createUser
+        // TODO: this should be provided abstractly
+        const validatorConstructor = CreateUserValidator
 
         if(!validatorConstructor) {
             return ValidatorResult.passes();

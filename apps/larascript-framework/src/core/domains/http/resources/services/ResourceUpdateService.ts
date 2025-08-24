@@ -1,5 +1,4 @@
-import ForbiddenResourceError from "@src/core/domains/auth/exceptions/ForbiddenResourceError";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
@@ -9,6 +8,7 @@ import ApiResponse from "@src/core/domains/http/response/ApiResponse";
 import { RouteResourceTypes } from "@src/core/domains/http/router/RouterResource";
 import stripGuardedResourceProperties from "@src/core/domains/http/utils/stripGuardedResourceProperties";
 import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
 
 /**
  * Service class that handles updating existing resources through HTTP requests
@@ -43,7 +43,7 @@ class ResourceUpdateService extends AbastractBaseResourceService {
 
         // Check if the authorization security applies to this route and it is valid
         if (!await this.validateAuthorized()) {
-            throw new UnauthorizedError()
+            throw new UnauthorizedException()
         }
 
         const routeOptions = context.getRouteItem()

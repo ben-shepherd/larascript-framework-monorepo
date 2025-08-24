@@ -1,4 +1,3 @@
-import RateLimitedExceededError from "@src/core/domains/auth/exceptions/RateLimitedExceededError";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import { requestContext } from "@src/core/domains/http/context/RequestContext";
 import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
@@ -6,6 +5,7 @@ import { TBaseRequest } from "@src/core/domains/http/interfaces/BaseRequest";
 import { IPDatesArrayTTL } from "@src/core/domains/http/interfaces/IRequestContext";
 import AbstractSecurityRule from "@src/core/domains/http/security/abstract/AbstractSecurityRule";
 import { Request } from "express";
+import { RateLimitedExceededError } from "../../exceptions/RateLimitedExceededError";
 
 type TRateLimitedRuleOptions = {
     limit: number;

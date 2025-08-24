@@ -1,6 +1,5 @@
+import { IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { IStorageFile } from '@larascript-framework/larascript-storage';
-import { IApiTokenModel } from '@src/core/domains/auth/interfaces/models/IApiTokenModel';
-import { IUserModel } from '@src/core/domains/auth/interfaces/models/IUserModel';
 import HttpContextException from '@src/core/domains/express/exceptions/HttpContextException';
 import { requestContext } from '@src/core/domains/http/context/RequestContext';
 import UploadedFile from '@src/core/domains/http/data/UploadedFile';

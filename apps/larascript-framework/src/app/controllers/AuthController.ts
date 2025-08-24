@@ -1,3 +1,4 @@
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { ValidatorException } from "@larascript-framework/larascript-validator";
 import LoginUseCase from "@src/app/usecase/auth/LoginUseCase";
 import LogoutUseCase from "@src/app/usecase/auth/LogoutUseCase";
@@ -5,10 +6,9 @@ import RefreshUseCase from "@src/app/usecase/auth/RefreshUseCase";
 import RegisterUseCase from "@src/app/usecase/auth/RegisterUseCase";
 import UpdateUseCase from "@src/app/usecase/auth/UpdateUseCase";
 import UserUseCase from "@src/app/usecase/auth/UserUseCase";
-import ForbiddenResourceError from "@src/core/domains/auth/exceptions/ForbiddenResourceError";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
 import Controller from "@src/core/domains/http/base/Controller";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
+import { ForbiddenResourceError } from "@src/core/domains/http/exceptions/ForbiddenResourceError";
 import responseError from "@src/core/domains/http/handlers/responseError";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
 
@@ -125,7 +125,7 @@ class AuthController extends Controller {
             )
         }
         catch (error) {
-            if(error instanceof UnauthorizedError) {
+            if(error instanceof UnauthorizedException) {
                 responseError(context.getRequest(), context.getResponse(), error as Error, 401)
                 return;
             }

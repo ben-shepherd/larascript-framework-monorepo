@@ -1,14 +1,14 @@
-import ForbiddenResourceError from "@src/core/domains/auth/exceptions/ForbiddenResourceError";
-import RateLimitedExceededError from "@src/core/domains/auth/exceptions/RateLimitedExceededError";
 import SecurityException from "@src/core/domains/express/exceptions/SecurityException";
 import Middleware from "@src/core/domains/http/base/Middleware";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
 import responseError from "@src/core/domains/http/handlers/responseError";
-import SecurityReader from "@src/core/domains/http/security/services/SecurityReader";
 import HasRoleRule from "@src/core/domains/http/security/rules/HasRoleRule";
 import RateLimitedRule from "@src/core/domains/http/security/rules/RateLimitedRule";
 import ScopeRule from "@src/core/domains/http/security/rules/ScopeRule";
+import SecurityReader from "@src/core/domains/http/security/services/SecurityReader";
+import { ForbiddenResourceError } from "../exceptions/ForbiddenResourceError";
+import { RateLimitedExceededError } from "../exceptions/RateLimitedExceededError";
 
 /**
  * SecurityMiddleware handles security rule validation for HTTP routes.

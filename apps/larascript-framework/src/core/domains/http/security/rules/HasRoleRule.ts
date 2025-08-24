@@ -31,7 +31,7 @@ class HasRoleRule extends AbstractSecurityRule<THasRoleRuleOptions> {
             throw new SecurityException('No roles provided');
         }
 
-        return user.hasRole(rolesArr);
+        return user.getAclRoles()?.some(role => rolesArr.includes(role)) ?? false;
     }
 
 }

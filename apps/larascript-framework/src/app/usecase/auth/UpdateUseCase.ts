@@ -1,8 +1,10 @@
 
+import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
-import UnauthorizedError from "@src/core/domains/auth/exceptions/UnauthorizedError";
+import UpdateUserValidator from "@src/app/validators/user/UpdateUserValidator";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
+import { IModel } from "@src/core/domains/models/interfaces/IModel";
 import { auth } from "@src/core/services/AuthService";
 
 /**
@@ -28,7 +30,7 @@ class UpdateUseCase {
         const userId = context.getUser()?.getId();
 
         if(!userId) {
-            throw new UnauthorizedError();
+            throw new UnauthorizedException();
         }
 
         const validationResult = await this.validate(context);
@@ -39,15 +41,15 @@ class UpdateUseCase {
             })
         }
 
-        const user = await auth().getJwtAdapter().getUserRepository().findByIdOrFail(userId);
+        const user = await auth().getUserRepository().findByIdOrFail(userId);
 
         // Update the user and save
-        user.fill(context.getBody());
-        await user.save();
+        (user as unknown as IModel).fill(context.getBody());
+        await (user as unknown as IModel).save();
 
 
         // Get the user attributes
-        const userAttributes = await user.toObject({ excludeGuarded: true})
+        const userAttributes = await (user as unknown as IModel).toObject({ excludeGuarded: true})
 
         return new ApiResponse().setData({
             user: userAttributes
@@ -60,7 +62,8 @@ class UpdateUseCase {
      * @returns The validation result
      */
     async validate(context: HttpContext): Promise<IValidatorResult<any>> {
-        const validatorConstructor = auth().getJwtAdapter().config?.validators?.updateUser
+        // TODO: this should be provided abstractly
+        const validatorConstructor = UpdateUserValidator;
 
         if(!validatorConstructor) {
             return ValidatorResult.passes();

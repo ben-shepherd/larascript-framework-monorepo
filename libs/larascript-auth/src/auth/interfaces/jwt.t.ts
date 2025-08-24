@@ -22,13 +22,14 @@ export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
     getApiTokenFactory(): IApiTokenFactory
     createJwtFromUser(user: IUserModel, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>
     oneTimeService(): IOneTimeAuthenticationService
-    authorizeUser(user: IUserModel): void
+    authorizeUser(user: IUserModel, scopes?: string[]): void
     logout(): void
     check(): Promise<boolean>
     user(): Promise<IUserModel | null>
     hashPassword(password: string): Promise<string>
     setAsyncSession(asyncSession: IAsyncSessionService): void
     getAsyncSession(): IAsyncSessionService
+    buildApiTokenByUser(user: IUserModel, scopes?: string[], options?: ApiTokenModelOptions): Promise<IApiTokenModel>
 }
 
 export interface IJwtConfigOptions extends Record<string, unknown> {

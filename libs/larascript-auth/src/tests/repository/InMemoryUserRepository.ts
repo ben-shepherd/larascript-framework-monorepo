@@ -8,12 +8,12 @@ export class InMemoryUserRepository extends BaseInMemoryRepository<TestUserModel
         super(TestUserModel);
     }
     
-    async findById(id: string | number): Promise<IUserModel | null> {
+    async _findById(id: string | number): Promise<IUserModel | null> {
         return this.records.find(user => user.getId() === id) ?? null;
     }
 
     async findByIdOrFail(id: string | number): Promise<IUserModel> {
-        const user = await this.findById(id);
+        const user = await this._findById(id);
         if (!user) {
             throw new Error("User not found");
         }

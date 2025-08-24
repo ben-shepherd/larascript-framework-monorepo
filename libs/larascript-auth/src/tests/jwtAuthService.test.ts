@@ -18,9 +18,35 @@ import { InMemoryUserRepository } from "./repository/InMemoryUserRepository";
 
 
 const mockAclConfig: IAclConfig = {
-    roles: [],
-    groups: [],
-    defaultGroup: 'default'
+    roles: [
+        {
+            name: 'guest',
+            scopes: []
+        },
+        {
+            name: 'admin',
+            scopes: ['admin:read', 'admin:write']
+        },
+        {
+            name: 'user',
+            scopes: ['user:read', 'user:write']
+        }
+    ],
+    groups: [
+        {
+            name: 'admin',
+            roles: ['admin']
+        },
+        {
+            name: 'user',
+            roles: ['user']
+        },
+        {
+            name: 'guest',
+            roles: ['guest']
+        }
+    ],
+    defaultGroup: 'user'
 };
 
 const mockAuthConfig: IAuthConfig = {
@@ -379,10 +405,36 @@ describe("AuthService", () => {
                 expect(foundUser).toBeDefined();
                 expect(foundUser?.getId()).toBe(user.getId());
                 expect(check).toBe(true);
-                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId() });
+                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId(), scopes: [] });
 
             });
-            
+        });
+
+        test("should authorize a user and set the session data with scopes", async () => {
+            const asyncSession = new AsyncSessionService();
+            jwt.setAsyncSession(asyncSession);
+
+            await asyncSession.runWithSession(async () => {
+
+                const user = await userRepository.create({
+                    id: '1',
+                    email: 'test@test.com',
+                    hashedPassword: await jwt.hashPassword('password'),
+                    aclRoles: [],
+                    aclGroups: [],
+                });
+
+                jwt.authorizeUser(user, ['user:read', 'user:write']);
+
+                const check = await jwt.check();
+                const foundUser = await jwt.user();
+
+                expect(foundUser).toBeDefined();
+                expect(foundUser?.getId()).toBe(user.getId());
+                expect(check).toBe(true);
+                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId(), scopes: ['user:read', 'user:write'] });
+
+            });
         });
 
         test("should logout a user and clear the session data", async () => {
@@ -407,7 +459,7 @@ describe("AuthService", () => {
                 expect(foundUser).toBeDefined();
                 expect(foundUser?.getId()).toBe(user.getId());
                 expect(check).toBe(true);
-                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId() });
+                expect(asyncSession.getSessionData()).toEqual({ userId: user.getId(), scopes: [] });
 
                 jwt.logout();
 
@@ -416,9 +468,58 @@ describe("AuthService", () => {
 
                 expect(check2).toBe(false);
                 expect(foundUser2).toBeNull();
-                expect(asyncSession.getSessionData()).toEqual({ userId: undefined });
+                expect(asyncSession.getSessionData()).toEqual({ userId: undefined, scopes: undefined });
             });
             
         });
     });
+
+    describe("buildApiTokenByUser", () => {
+        test("should create api token with role scopes", async () => {
+            const user = await userRepository.create({
+                id: '1',
+                email: 'test@test.com',
+                hashedPassword: await jwt.hashPassword('password'),
+                aclRoles: ['user'],
+                aclGroups: ['user'],
+            });
+
+            const apiToken = await jwt.buildApiTokenByUser(user);
+
+            expect(apiToken).toBeDefined();
+            expect(apiToken?.getScopes()).toEqual(['user:read', 'user:write']);
+        });
+
+        test("should create api token with role scopes and custom scopes", async () => {
+            const user = await userRepository.create({
+                id: '1',
+                email: 'test@test.com',
+                hashedPassword: await jwt.hashPassword('password'),
+                aclRoles: ['user'],
+                aclGroups: ['user'],
+            });
+
+            const apiToken = await jwt.buildApiTokenByUser(user, ['custom:scope']);
+
+            expect(apiToken).toBeDefined();
+            expect(apiToken?.getScopes()).toEqual(['user:read', 'user:write', 'custom:scope']);
+        });
+
+        test("should create api token with role scopes and custom scopes and options", async () => {
+            const user = await userRepository.create({
+                id: '1',
+                email: 'test@test.com',
+                hashedPassword: await jwt.hashPassword('password'),
+                aclRoles: ['user'],
+                aclGroups: ['user'],
+            });
+
+            const apiToken = await jwt.buildApiTokenByUser(user, ['custom:scope'], { customOption: 10 });
+
+            expect(apiToken).toBeDefined();
+            expect(apiToken?.getScopes()).toEqual(['user:read', 'user:write', 'custom:scope']);
+            expect(apiToken?.getOptions()).toEqual({ customOption: 10 });
+        });
+    });
+
 });

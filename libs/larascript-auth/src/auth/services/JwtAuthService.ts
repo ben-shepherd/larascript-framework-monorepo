@@ -193,7 +193,7 @@ class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthServ
      * @param options - API token configuration options (defaults to empty object)
      * @returns A new API token model instance
      */
-    protected async buildApiTokenByUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<IApiTokenModel> {
+    async buildApiTokenByUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<IApiTokenModel> {
         const apiToken = new this.config.options.factory.apiToken().create({
             userId: user.getId(),
             token: generateToken(),

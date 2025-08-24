@@ -52,15 +52,15 @@ export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> i
      * Authorize a user
      * @param user 
      */
-    authorizeUser(user: IUserModel) {
-        this.asyncSession.setSessionData({ userId: user.getId() })
+    authorizeUser(user: IUserModel, scopes: string[] = []) {
+        this.asyncSession.setSessionData({ userId: user.getId(), scopes })
     }
 
     /**
      * Logout the user
      */
     logout(): void {
-        this.asyncSession.setSessionData({ userId: undefined })
+        this.asyncSession.setSessionData({ userId: undefined, scopes: undefined })
     }
 
     /**

@@ -169,7 +169,7 @@ describe("AuthService", () => {
     });
 
     describe("attemptCredentials", () => {
-        test("should return a user", async () => {
+        test("should hash password and attempt credentials successfully", async () => {
             await userRepository.create(
                 {
                     id: '1',
@@ -202,7 +202,7 @@ describe("AuthService", () => {
     });
 
     describe("attemptAuthenticateToken", () => {
-        test("should return a user", async () => {
+        test("should authorize a user and attempt authenticate token successfully", async () => {
             await userRepository.create(
                 {
                     id: '1',
@@ -218,6 +218,48 @@ describe("AuthService", () => {
             expect(apiToken).toBeDefined();
             expect(apiToken?.getUserId()).toBe('1');
             expect(apiToken?.getScopes()).toEqual([]);
+            expect(apiToken?.getOptions()).toEqual({});
+        });
+
+        test("should authorize a user and attempt authenticate token successfully with scopes", async () => {
+            await userRepository.create(
+                {
+                    id: '1',
+                    email: 'test@test.com',
+                    hashedPassword: await jwt.hashPassword('password'),
+                    aclRoles: ['user'],
+                    aclGroups: ['user'],
+                }
+            )
+            const jwtToken = await jwt.attemptCredentials('test@test.com', 'password', ['user:read', 'user:write']);
+            const apiToken = await jwt.attemptAuthenticateToken(jwtToken);
+
+            expect(apiToken).toBeDefined();
+            expect(apiToken?.getUserId()).toBe('1');
+            expect(apiToken?.hasScope('user:read')).toBe(true);
+            expect(apiToken?.hasScope('user:write')).toBe(true);
+            expect(apiToken?.getOptions()).toEqual({});
+        });
+
+        test("should authorize a user and attempt authenticate token successfully with scopes with group scopes", async () => {
+            await userRepository.create(
+                {
+                    id: '1',
+                    email: 'test@test.com',
+                    hashedPassword: await jwt.hashPassword('password'),
+                    aclRoles: ['admin'],
+                    aclGroups: ['admin'],
+                }
+            )
+            const jwtToken = await jwt.attemptCredentials('test@test.com', 'password', ['user:read', 'user:write']);
+            const apiToken = await jwt.attemptAuthenticateToken(jwtToken);
+
+            expect(apiToken).toBeDefined();
+            expect(apiToken?.getUserId()).toBe('1');
+            expect(apiToken?.hasScope('admin:read', true)).toBe(true);
+            expect(apiToken?.hasScope('admin:write', true)).toBe(true);
+            expect(apiToken?.hasScope('user:read', true)).toBe(true);
+            expect(apiToken?.hasScope('user:write', true)).toBe(true);
             expect(apiToken?.getOptions()).toEqual({});
         });
 

@@ -1,3 +1,4 @@
+import { BasicACLScope } from "@larascript-framework/larascript-acl";
 import { BaseModel, BaseModelAttributes } from "@larascript-framework/test-helpers";
 import { ApiTokenModelOptions, IApiTokenModel } from "../../auth";
 
@@ -38,7 +39,10 @@ export class TestApiTokenModel extends BaseModel<ITestApiTokenAttributes> implem
     }
 
     hasScope(scopes: string | string[], exactMatch?: boolean): boolean {
-        return this.attributes.scopes.includes(scopes as string);
+        if(exactMatch) {
+            return BasicACLScope.exactMatch(this.attributes.scopes, scopes);
+        }
+        return BasicACLScope.partialMatch(this.attributes.scopes, scopes);
     }
 
     getRevokedAt(): Date | null {

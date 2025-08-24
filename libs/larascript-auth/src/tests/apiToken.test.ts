@@ -122,6 +122,29 @@ describe("TestApiTokenModel", () => {
       await apiToken.setScopes([]);
       expect(apiToken.getScopes()).toEqual([]);
     });
+
+    test("should handle exactMatch parameter and pass with all scopes", () => {
+      expect(apiToken.hasScope(mockScopes, true)).toBe(true);
+    });
+
+    test("should handle exactMatch parameter and fail with missing scope", () => {
+      expect(apiToken.hasScope(mockScopes, true)).toBe(true);
+      expect(apiToken.hasScope([...mockScopes, "delete"], true)).toBe(false);
+    });
+
+    test("should handle exactMatch parameter and fail with missing scope", () => {
+      expect(apiToken.hasScope(mockScopes, true)).toBe(true);
+      expect(apiToken.hasScope([...mockScopes, "delete"], true)).toBe(false);
+    });
+
+    test("should handle partialMatch parameter and pass with all scopes", () => {
+      expect(apiToken.hasScope(mockScopes, false)).toBe(true);
+    });
+
+    test("should handle partialMatch parameter and fail with missing scope", () => {
+      expect(apiToken.hasScope(["delete"], false)).toBe(false);
+    });
+
   });
 
   describe("hasScope", () => {
@@ -134,19 +157,6 @@ describe("TestApiTokenModel", () => {
     test("should return false for non-existing single scope", () => {
       expect(apiToken.hasScope("delete")).toBe(false);
       expect(apiToken.hasScope("nonexistent")).toBe(false);
-    });
-
-    test("should handle array input (current implementation limitation)", () => {
-      // Note: Current implementation has a bug - it doesn't properly handle array inputs
-      // It treats the array as a string, which will always return false
-      expect(apiToken.hasScope(["read", "write"])).toBe(false);
-      expect(apiToken.hasScope(["admin"])).toBe(false);
-    });
-
-    test("should ignore exactMatch parameter (current implementation limitation)", () => {
-      // Note: Current implementation ignores the exactMatch parameter
-      expect(apiToken.hasScope("read", true)).toBe(true);
-      expect(apiToken.hasScope("read", false)).toBe(true);
     });
 
     test("should work with updated scopes", async () => {

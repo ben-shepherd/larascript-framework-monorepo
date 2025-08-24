@@ -1,7 +1,6 @@
 
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 import { IUserModel } from "@src/core/domains/auth/interfaces/models/IUserModel";
-import { auth } from "@src/core/domains/auth/services/AuthService";
 import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import { db } from "@src/core/domains/database/services/Database";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
@@ -14,6 +13,7 @@ import ResourceOwnerRule from "@src/core/domains/http/security/rules/ResourceOwn
 import SecurityReader from "@src/core/domains/http/security/services/SecurityReader";
 import Paginate from "@src/core/domains/http/utils/Paginate";
 import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
+import { auth } from "@src/core/services/AuthService";
 
 type TResponseOptions = {
     showPagination: boolean;

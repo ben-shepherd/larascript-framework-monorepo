@@ -1,4 +1,4 @@
-import ApiToken from "@src/core/domains/auth/models/ApiToken";
+import ApiToken from "@src/app/models/auth/ApiToken";
 import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
 

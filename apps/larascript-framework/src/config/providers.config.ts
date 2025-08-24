@@ -14,7 +14,6 @@ import RoutesProvider from "@src/app/providers/RoutesProvider";
 import { IAppConfig } from "@src/config/app.config";
 import { IJwtAuthService } from '@src/core/domains/auth/interfaces/jwt/IJwtAuthService';
 import { IAuthService } from '@src/core/domains/auth/interfaces/service/IAuthService';
-import AuthProvider from "@src/core/domains/auth/providers/AuthProvider";
 import ICommandService from '@src/core/domains/console/interfaces/ICommandService';
 import ConsoleProvider from "@src/core/domains/console/providers/ConsoleProvider";
 import { IDatabaseService } from '@src/core/domains/database/interfaces/IDatabaseService';
@@ -33,6 +32,7 @@ import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorPr
 import { IProvider } from "@src/core/interfaces/IProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
 import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
+import AuthProvider from "@src/core/providers/AuthProvider";
 import CommandsProvider from '@src/core/providers/CommandsProvider';
 import CryptoProvider from "@src/core/providers/CryptoProvider";
 import EnvServiceProvider from "@src/core/providers/EnvServiceProvider";

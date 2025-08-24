@@ -1,4 +1,4 @@
-import { IAclConfig } from "@src/core/domains/auth/interfaces/acl/IAclConfig";
+import { IAclConfig } from "@larascript-framework/larascript-acl"
 
 // Define available groups
 export const GROUPS = {

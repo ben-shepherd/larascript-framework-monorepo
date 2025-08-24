@@ -41,7 +41,7 @@ import JwtAuthService from "./JwtAuthService";
  * @method bootAdapters - Boots all registered adapters.
  */
 
-class AuthService
+export class AuthService
   extends BaseAdapter<BaseAuthAdapterTypes>
   implements IAuthService
 {

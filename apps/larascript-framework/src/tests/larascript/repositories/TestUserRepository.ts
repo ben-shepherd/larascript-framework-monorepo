@@ -1,4 +1,4 @@
-import UserRepository from "@src/app/repositories/auth/UserRepository";
+import UserRepository from "@src/app/repositories/UserRepository";
 import TestUser from "@src/tests/larascript/models/models/TestUser";
 
 

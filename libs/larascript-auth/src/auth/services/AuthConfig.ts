@@ -23,7 +23,7 @@ import { IAuthAdapter } from "../interfaces/adapter.t";
  * ]);
  * ```
  */
-class AuthConfig {
+export class AuthConfig {
   /**
    * Create a new auth adapter config
    * @param driver - The auth adapter constructor

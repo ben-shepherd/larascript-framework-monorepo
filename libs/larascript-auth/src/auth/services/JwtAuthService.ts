@@ -38,7 +38,7 @@ import OneTimeAuthenticationService from "./OneTimeAuthenticationService";
  * @extends BaseAuthAdapter<IJwtConfig>
  * @implements IJwtAuthService
  */
-class JwtAuthService
+export class JwtAuthService
   extends BaseAuthAdapter<IJwtConfig>
   implements IJwtAuthService
 {

@@ -1,11 +1,7 @@
-import { ModelFactory } from "@src/core/base/ModelFactory";
+import { BaseFactory } from "@larascript-framework/larascript-core";
 import { TestMovieModel } from "@src/tests/larascript/models/models/TestMovie";
 
-class TestMovieFactory extends ModelFactory<TestMovieModel> {
-
-    constructor() {
-        super(TestMovieModel);
-    }
+class TestMovieFactory extends BaseFactory<TestMovieModel> {
 
     getDefinition(): TestMovieModel['attributes'] {
         return {

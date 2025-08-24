@@ -1,18 +1,22 @@
 import UserFactory from "@src/app/factory/UserFactory";
+import AuthenticableUser, { AuthenticableUserAttributes } from "@src/app/models/auth/AuthenticableUser";
+import UserObserver from "@src/app/observers/UserObserver";
 import { IModelFactory } from "@src/core/base/ModelFactory";
-import AuthUser, { AuthUserAttributes } from "@src/core/domains/auth/models/AuthUser";
-import UserObserver from "@src/core/domains/auth/observers/UserObserver";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 
 /**
  * User structure
  */
-export interface UserAttributes extends AuthUserAttributes {
+export interface UserAttributes extends AuthenticableUserAttributes {
+
+    // AuthenticableUser attributes
+    id: string;
     email: string;
-    password?: string;
     hashedPassword: string;
     roles: string[];
     groups: string[];
+
+    // Additional fields
+    password?: string;
     firstName?: string;
     lastName?: string;
     createdAt?: Date;
@@ -24,7 +28,7 @@ export interface UserAttributes extends AuthUserAttributes {
  *
  * Represents a user in the database.
  */
-export default class User extends AuthUser<UserAttributes> {
+export default class User extends AuthenticableUser {
 
     /**
      * Table name
@@ -39,7 +43,6 @@ export default class User extends AuthUser<UserAttributes> {
         super(data);
         this.setObserverConstructor(UserObserver);
     }
-
 
     /**
      * Guarded fields
@@ -85,7 +88,7 @@ export default class User extends AuthUser<UserAttributes> {
      * @returns The factory for the model.
      */
     getFactory(): IModelFactory<User> {
-        return new UserFactory(this.constructor as ModelConstructor<User>);
+        return new UserFactory();
     }
 
 }

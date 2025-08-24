@@ -15,7 +15,7 @@ type SingleUseTokenOptions = Required<
  * This service provides functionality for creating and validating single-use tokens
  * that can be used for one-time authentication scenarios.
  */
-class OneTimeAuthenticationService implements IOneTimeAuthenticationService {
+export class OneTimeAuthenticationService implements IOneTimeAuthenticationService {
   protected authService!: IAuthService;
 
   setAuthService(authService: IAuthService): void {

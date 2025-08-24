@@ -1,12 +1,9 @@
-import ApiTokenRepository from "@src/core/domains/auth/repository/ApiTokenRepitory";
-import TestApiTokenModel from "@src/tests/larascript/models/models/TestApiTokenModel";
+
+import ApiTokenRepository from "@src/app/repositories/auth/ApiTokenRepository";
 
 
 export default class TestApiTokenRepository extends ApiTokenRepository {
-
     constructor() {
         super()
-        this.setModelCtor(TestApiTokenModel)
     }
-
 }

@@ -1,8 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
+import { AuthService, JwtAuthService } from '@larascript-framework/larascript-auth';
 import { Kernel } from '@larascript-framework/larascript-core';
 import { EventService } from '@larascript-framework/larascript-events';
-import AuthService from '@src/core/domains/auth/services/AuthService';
-import JwtAuthService from '@src/core/domains/auth/services/JwtAuthService';
 import ConsoleService from '@src/core/domains/console/service/ConsoleService';
 import Database from '@src/core/domains/database/services/Database';
 import { app } from '@src/core/services/App';

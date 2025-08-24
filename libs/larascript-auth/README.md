@@ -1,195 +1,304 @@
-# Larascript Package Template
+# Larascript Auth
 
-This is a template for creating new packages within the Larascript monorepo. Follow the steps below to create your own package.
+A comprehensive authentication package for the Larascript Framework, providing JWT authentication, user management, API token handling, and ACL integration.
 
-## Creating a New Package
+## Features
 
-### 1. Copy the Template Directory
+- **JWT Authentication**: Secure token-based authentication with configurable expiration
+- **User Management**: User model with repository pattern for flexible data storage
+- **API Token Support**: Single-use and reusable API tokens with scope-based permissions
+- **ACL Integration**: Built-in integration with Larascript ACL for role-based access control
+- **One-Time Authentication**: Secure single-use token generation for temporary access
+- **Extensible Architecture**: Adapter-based design for easy customization and extension
 
-Copy the template directory to create your new package:
-
-```bash
-# From the monorepo root
-cp -r libs/template libs/your-package-name
-
-# Example:
-cp -r libs/template libs/larascript-my-feature
-```
-
-### 2. Rename and Update Package Configuration
-
-Navigate to your new package directory and update the configuration:
+## Installation
 
 ```bash
-cd libs/your-package-name
+npm install @larascript-framework/larascript-auth
 ```
 
-#### Update package.json
+## Quick Start
 
-Edit the `package.json` file and update the following fields:
-
-```json
-{
-  "name": "@larascript-framework/your-package-name",
-  "description": "Your package description here",
-  "version": "0.1.0"
-}
-```
-
-**Required changes:**
-- `name`: Change from "PLACEHOLDER" to your package name (e.g., "@larascript-framework/larascript-my-feature")
-- `description`: Replace "PLACEHOLDER DESCRIPTION" with a meaningful description
-- `version`: Set to "0.1.0" for new packages
-
-#### Update README.md
-
-Replace the template README content with documentation specific to your package:
-- What the package does
-- How to install and use it
-- Examples and API documentation
-- Contributing guidelines
-
-### 3. Add Package to Turbo Pipeline
-
-If your package has build/test/lint scripts, add it to the root `turbo.json` pipeline:
-
-```json
-{
-  "pipeline": {
-    "build": {
-      "dependsOn": ["^build"],
-      "outputs": ["dist/**"]
-    },
-    "test": {
-      "dependsOn": ["^build"],
-      "outputs": []
-    },
-    "lint": {
-      "outputs": []
-    }
-  }
-}
-```
-
-### 4. Initialize Your Package
-
-```bash
-# From the monorepo root, install dependencies
-pnpm install
-
-# Run tests to ensure everything works
-pnpm test
-
-# Build the project
-pnpm build
-```
-
-### 5. Customize Your Package
-
-- Add your package-specific code to `src/index.ts`
-- Update tests in the `src/tests/` directory
-- Modify configuration files as needed (they already extend from the base configs)
-
-## Important Notes
-
-### Export Guidelines
-
-**No Default Exports**: All exports should be named exports. Avoid using `export default`.
-
-**Index Files**: Create an `index.ts` file in every directory you create and export all files from that directory.
-
-**Example Structure:**
-```
-src/
-├── index.ts                 # Main entry point
-├── components/
-│   ├── index.ts            # Export all components
-│   ├── Button.ts
-│   └── Modal.ts
-├── utils/
-│   ├── index.ts            # Export all utilities
-│   ├── helpers.ts
-│   └── validators.ts
-└── types/
-    ├── index.ts            # Export all types
-    └── common.ts
-```
-
-**Example index.ts files:**
+### Basic Setup
 
 ```typescript
-// src/components/index.ts
-export * from './Button';
-export * from './Modal';
+import { AuthService, AuthConfig } from '@larascript-framework/larascript-auth';
+import { TestUserFactory, TestApiTokenFactory } from './tests/factory';
+import { InMemoryUserRepository, InMemoryApiTokenRepository } from './tests/repository';
 
-// src/utils/index.ts
-export * from './helpers';
-export * from './validators';
+// Configure authentication
+const authConfig: AuthConfig = {
+  drivers: {
+    jwt: {
+      name: 'jwt',
+      options: {
+        secret: 'your-jwt-secret',
+        expiresInMinutes: 60,
+        factory: {
+          user: TestUserFactory,
+          apiToken: TestApiTokenFactory
+        },
+        repository: {
+          user: InMemoryUserRepository,
+          apiToken: InMemoryApiTokenRepository
+        }
+      }
+    }
+  }
+};
 
-// src/types/index.ts
-export * from './common';
-
-// src/index.ts (main entry)
-export * from './components';
-export * from './utils';
-export * from './types';
+// Initialize auth service
+const authService = new AuthService(authConfig, aclConfig);
+await authService.boot();
 ```
 
-### Configuration Inheritance
+### User Authentication
 
-This template is already configured to:
-- Extend `@larascript-framework/tsconfig` in `tsconfig.json`
-- Import and export `@larascript-framework/eslint-config` in `eslint.config.js`
-- Use `@larascript-framework/jest-config` in `jest.config.js`
+```typescript
+import { AsyncSessionService } from '@larascript-framework/async-session';
 
-No additional configuration is needed unless you have package-specific requirements.
+// Get JWT service
+const jwtService = authService.getJwt();
 
-## Development Workflow
+// Set up async session service
+const asyncSession = new AsyncSessionService();
+jwtService.setAsyncSession(asyncSession);
 
-This template includes several helpful scripts:
+// Login with credentials (returns JWT token)
+const token = await jwtService.attemptCredentials('user@example.com', 'password');
 
-- `pnpm build` - Build the TypeScript code
-- `pnpm test` - Run tests
-- `pnpm lint` - Check code style
-- `pnpm lint:fix` - Fix code style issues
-- `pnpm format` - Format code with Prettier
+// Authenticate with token (returns API token)
+const apiToken = await jwtService.attemptAuthenticateToken(token);
 
-### Setting up Lefthook
+// Authorize user within async session context
+await asyncSession.runWithSession(async () => {
+  // Authorize user in current session
+  jwtService.authorizeUser(user, ['user:read', 'user:write']);
+  
+  // Check authentication status
+  const isAuthenticated = await jwtService.check();
+  const currentUser = await jwtService.user();
+  
+  // Logout user
+  jwtService.logout();
+});
+```
 
-This project uses Lefthook for pre-commit hooks. To set it up:
+**Important**: The `authorizeUser()`, `check()`, and `logout()` methods only work within an async session context. The session maintains the current user's authentication state across async operations.
+
+### One-Time Token Authentication
+
+```typescript
+import { OneTimeAuthenticationService } from '@larascript-framework/larascript-auth';
+
+const oneTimeService = new OneTimeAuthenticationService();
+oneTimeService.setAuthService(authService);
+
+// Create single-use token
+const token = await oneTimeService.createSingleUseToken(user);
+
+// Validate token
+const apiToken = await jwtService.attemptAuthenticateToken(token);
+const isValid = oneTimeService.validateSingleUseToken(apiToken);
+```
+
+## Core Components
+
+### AuthService
+
+The main authentication service that orchestrates all authentication operations:
+
+```typescript
+interface IAuthService {
+  boot(): Promise<void>;
+  check(): Promise<boolean>;
+  user(): Promise<IUserModel | null>;
+  getJwt(): IJwtAuthService;
+  acl(): IBasicACLService;
+  getUserRepository(): IUserRepository;
+  getApiTokenRepository(): IApiTokenRepository;
+}
+```
+
+### JWT Authentication Service
+
+Handles JWT token generation, validation, and user authentication:
+
+```typescript
+interface IJwtAuthService {
+  attemptCredentials(email: string, password: string, scopes?: string[], options?: ApiTokenModelOptions): Promise<string>;
+  attemptAuthenticateToken(token: string): Promise<IApiTokenModel | null>;
+  refreshToken(apiToken: IApiTokenModel): string;
+  revokeToken(apiToken: IApiTokenModel): Promise<void>;
+  revokeAllTokens(userId: string | number): Promise<void>;
+  logout(): void;
+  check(): Promise<boolean>;
+  user(): Promise<IUserModel | null>;
+  hashPassword(password: string): Promise<string>;
+  getUserRepository(): IUserRepository;
+  getApiTokenRepository(): IApiTokenRepository;
+  getUserFactory(): IUserFactory;
+  getApiTokenFactory(): IApiTokenFactory;
+}
+```
+
+### User Management
+
+Flexible user model with repository pattern:
+
+```typescript
+interface IUserModel {
+  getId(): string;
+  getEmail(): string;
+  getHashedPassword(): string;
+  getAclRoles(): string[];
+  getAclGroups(): string[];
+  // ... other user methods
+}
+
+interface IUserRepository {
+  findById(id: string): Promise<IUserModel | null>;
+  findByEmail(email: string): Promise<IUserModel | null>;
+  create(userData: Partial<IUserModel>): Promise<IUserModel>;
+  update(id: string, userData: Partial<IUserModel>): Promise<IUserModel>;
+  delete(id: string): Promise<void>;
+}
+```
+
+### API Token Management
+
+```typescript
+interface IApiTokenModel {
+  getId(): string;
+  getUserId(): string;
+  getToken(): string;
+  getScopes(): string[];
+  getOptions(): Record<string, unknown>;
+  hasScope(scope: string, includeGroupScopes?: boolean): boolean;
+  isRevoked(): boolean;
+  isExpired(): boolean;
+}
+
+interface IApiTokenRepository {
+  findOneActiveToken(token: string): Promise<IApiTokenModel | null>;
+  create(tokenData: Partial<IApiTokenModel>): Promise<IApiTokenModel>;
+  revokeToken(token: IApiTokenModel): Promise<void>;
+  // ... other repository methods
+}
+```
+
+## Configuration
+
+### AuthConfig
+
+```typescript
+interface AuthConfig {
+  drivers: {
+    jwt: {
+      name: 'jwt';
+      options: {
+        secret: string;
+        expiresInMinutes: number;
+        factory: {
+          user: IUserFactoryConstructor;
+          apiToken: IApiTokenFactoryConstructor;
+        };
+        repository: {
+          user: IUserRepositoryConstructor;
+          apiToken: IApiTokenRepositoryConstructor;
+        };
+      };
+    };
+  };
+}
+```
+
+### ACL Integration
+
+The auth service automatically integrates with Larascript ACL:
+
+```typescript
+// Access ACL service
+const aclService = authService.acl();
+
+// Check permissions
+const canRead = await aclService.can(user, 'read', 'posts');
+const canWrite = await aclService.can(user, 'write', 'posts');
+```
+
+## Advanced Usage
+
+### Custom User Repository
+
+Implement your own user repository for custom data sources:
+
+```typescript
+class CustomUserRepository implements IUserRepository {
+  async findById(id: string): Promise<IUserModel | null> {
+    // Custom implementation
+  }
+  
+  // ... implement other methods
+}
+```
+
+### Token Management
+
+```typescript
+// Create API token for user
+const apiToken = await jwtService.buildApiTokenByUser(user, ['read:posts']);
+
+// Refresh token
+const newToken = jwtService.refreshToken(apiToken);
+
+// Revoke specific token
+await jwtService.revokeToken(apiToken);
+
+// Revoke all user tokens
+await jwtService.revokeAllTokens(userId);
+```
+
+### Factory Pattern
+
+The package uses factory pattern for creating users and API tokens:
+
+```typescript
+const userFactory = jwtService.getUserFactory();
+const apiTokenFactory = jwtService.getApiTokenFactory();
+
+const user = userFactory.create({
+  email: 'user@example.com',
+  hashedPassword: await jwtService.hashPassword('password'),
+  aclRoles: ['user'],
+  aclGroups: ['user']
+});
+
+const apiToken = apiTokenFactory.create({
+  token: 'generated-token',
+  scopes: ['read:posts'],
+  options: {}
+});
+```
+
+## Testing
+
+Run the test suite:
 
 ```bash
-# Install lefthook locally (recommended)
-npx lefthook install
-
-# If the above doesn't work, install lefthook globally and try again
-npm install -g lefthook
-lefthook install
+npm test
+npm run test:watch
+npm run test:coverage
 ```
 
-Lefthook will automatically run linting, formatting, and tests before each commit to ensure code quality.
+## Contributing
 
-## Publishing
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests for new functionality
+5. Ensure all tests pass
+6. Submit a pull request
 
-When ready to publish:
+## License
 
-1. Update the version in `package.json`
-2. Commit your changes
-3. Create a git tag for the version
-4. Push to the repository
-5. The package will be published to the npm registry
-
-## Template Features
-
-- TypeScript configuration (extends base config)
-- Jest testing setup (extends base config)
-- ESLint and Prettier for code quality (extends base config)
-- Commit message linting with conventional commits
-- GitHub Actions ready
-- Branch name validation
-- Pre-commit hooks with Lefthook
-- Monorepo workspace integration
-
-## Support
-
-For questions about this template or Larascript packages in general, please refer to the main Larascript documentation or create an issue in the repository.
+ISC

@@ -16,6 +16,14 @@ class AuthProvider extends BaseProvider {
 
     async register() {
 
+        if(typeof app('asyncSession') === 'undefined'){
+            throw new Error('asyncSession service is not ready');
+        }
+
+        // Important: 
+        // It's important to use the shared asyncSession service bound to the app container
+        // because it will be used by the auth service and other services that need to access the session
+        // If you don't do this, the auth service will not be able to access the session
         const authService = new AuthService(this.config, this.aclConfig, app('asyncSession'))
         await authService.boot();
         

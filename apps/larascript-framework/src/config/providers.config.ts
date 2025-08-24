@@ -85,6 +85,7 @@ const providers: IProvider[] = [
 
     // Include the core providers
     new LoggerProvider(),
+    new AsyncSessionProvider(),
     new EnvServiceProvider(),
     new PackageJsonProvider(),
     new ConsoleProvider(),
@@ -99,7 +100,6 @@ const providers: IProvider[] = [
     new CryptoProvider(),
     new SetupProvider(),
     new CommandsProvider(),
-    new AsyncSessionProvider(),
     new StorageProvider(),
     new ViewProvider(),
     new MailProvider(),

@@ -16,7 +16,7 @@ class AuthProvider extends BaseProvider {
 
     async register() {
 
-        const authService = new AuthService(this.config, this.aclConfig)
+        const authService = new AuthService(this.config, this.aclConfig, app('asyncSession'))
         await authService.boot();
         
         // Bind services

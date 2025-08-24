@@ -17,7 +17,7 @@ describe("TestUserModel", () => {
       aclRoles: mockAclRoles,
       aclGroups: mockAclGroups,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   });
 
@@ -47,7 +47,7 @@ describe("TestUserModel", () => {
         aclRoles: [],
         aclGroups: [],
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(partialUser.getId()).toBe("user-456");
       expect(partialUser.getEmail()).toBe("partial@example.com");
@@ -64,7 +64,7 @@ describe("TestUserModel", () => {
         aclRoles: [],
         aclGroups: [],
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(emptyArraysUser.getAclRoles()).toEqual([]);
       expect(emptyArraysUser.getAclGroups()).toEqual([]);
@@ -81,7 +81,7 @@ describe("TestUserModel", () => {
     test("should update email multiple times", async () => {
       await userModel.setEmail("email1@example.com");
       expect(userModel.getEmail()).toBe("email1@example.com");
-      
+
       await userModel.setEmail("email2@example.com");
       expect(userModel.getEmail()).toBe("email2@example.com");
     });
@@ -108,7 +108,7 @@ describe("TestUserModel", () => {
     test("should update hashed password multiple times", async () => {
       await userModel.setHashedPassword("password1");
       expect(userModel.getHashedPassword()).toBe("password1");
-      
+
       await userModel.setHashedPassword("password2");
       expect(userModel.getHashedPassword()).toBe("password2");
     });
@@ -135,7 +135,7 @@ describe("TestUserModel", () => {
     test("should update ACL roles multiple times", async () => {
       await userModel.setAclRoles(["role1"]);
       expect(userModel.getAclRoles()).toEqual(["role1"]);
-      
+
       await userModel.setAclRoles(["role2", "role3"]);
       expect(userModel.getAclRoles()).toEqual(["role2", "role3"]);
     });
@@ -156,7 +156,11 @@ describe("TestUserModel", () => {
     });
 
     test("should handle special characters in role names", async () => {
-      const specialRoles = ["role-with-dash", "role_with_underscore", "role.with.dot"];
+      const specialRoles = [
+        "role-with-dash",
+        "role_with_underscore",
+        "role.with.dot",
+      ];
       await userModel.setAclRoles(specialRoles);
       expect(userModel.getAclRoles()).toEqual(specialRoles);
     });
@@ -172,7 +176,7 @@ describe("TestUserModel", () => {
     test("should update ACL groups multiple times", async () => {
       await userModel.setAclGroups(["group1"]);
       expect(userModel.getAclGroups()).toEqual(["group1"]);
-      
+
       await userModel.setAclGroups(["group2", "group3"]);
       expect(userModel.getAclGroups()).toEqual(["group2", "group3"]);
     });
@@ -189,11 +193,19 @@ describe("TestUserModel", () => {
 
     test("should handle duplicate groups", async () => {
       await userModel.setAclGroups(["developers", "developers", "testers"]);
-      expect(userModel.getAclGroups()).toEqual(["developers", "developers", "testers"]);
+      expect(userModel.getAclGroups()).toEqual([
+        "developers",
+        "developers",
+        "testers",
+      ]);
     });
 
     test("should handle special characters in group names", async () => {
-      const specialGroups = ["group-with-dash", "group_with_underscore", "group.with.dot"];
+      const specialGroups = [
+        "group-with-dash",
+        "group_with_underscore",
+        "group.with.dot",
+      ];
       await userModel.setAclGroups(specialGroups);
       expect(userModel.getAclGroups()).toEqual(specialGroups);
     });
@@ -310,7 +322,7 @@ describe("TestUserModel", () => {
         userModel.setEmail("email1@example.com"),
         userModel.setHashedPassword("password1"),
         userModel.setAclRoles(["role1"]),
-        userModel.setAclGroups(["group1"])
+        userModel.setAclGroups(["group1"]),
       ];
 
       await Promise.all(promises);
@@ -342,10 +354,10 @@ describe("TestUserModel", () => {
       // Note: The current implementation has some interface compliance issues:
       // 1. setAclRoles and setAclGroups return Promise<void> but IAccessControlEntity expects void
       // 2. The interface allows null returns but implementation returns empty strings/arrays
-      
+
       expect(userModel.setAclRoles).toBeInstanceOf(Function);
       expect(userModel.setAclGroups).toBeInstanceOf(Function);
-      
+
       // These methods should be synchronous according to IAccessControlEntity interface
       // but they are currently async in the implementation
     });

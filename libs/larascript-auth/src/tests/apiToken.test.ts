@@ -12,7 +12,7 @@ describe("TestApiTokenModel", () => {
   const mockScopes = ["read", "write", "admin"];
   const mockOptions: ApiTokenModelOptions = {
     expiresAfterMinutes: 60,
-    customField: "test-value"
+    customField: "test-value",
   };
 
   beforeEach(() => {
@@ -25,7 +25,7 @@ describe("TestApiTokenModel", () => {
       expiresAt: mockExpiresAt,
       revokedAt: mockRevokedAt,
       createdAt: new Date(),
-      updatedAt: new Date()
+      updatedAt: new Date(),
     });
   });
 
@@ -50,7 +50,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: mockExpiresAt,
         revokedAt: null,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(tokenWithoutRevoke.getRevokedAt()).toBeNull();
     });
@@ -65,7 +65,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: mockExpiresAt,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(tokenWithoutOptions.getOptions()).toEqual({});
     });
@@ -144,7 +144,6 @@ describe("TestApiTokenModel", () => {
     test("should handle partialMatch parameter and fail with missing scope", () => {
       expect(apiToken.hasScope(["delete"], false)).toBe(false);
     });
-
   });
 
   describe("hasScope", () => {
@@ -196,7 +195,7 @@ describe("TestApiTokenModel", () => {
       const newOptions: ApiTokenModelOptions = {
         expiresAfterMinutes: 120,
         customField: "updated-value",
-        additionalField: "new-field"
+        additionalField: "new-field",
       };
       await apiToken.setOptions(newOptions);
       expect(apiToken.getOptions()).toEqual(newOptions);
@@ -253,7 +252,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: null,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(tokenWithoutExpiry.hasExpired()).toBe(false);
     });
@@ -269,7 +268,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: expiredDate,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(expiredToken.hasExpired()).toBe(true);
     });
@@ -285,7 +284,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: futureDate,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       expect(futureToken.hasExpired()).toBe(false);
     });
@@ -301,7 +300,7 @@ describe("TestApiTokenModel", () => {
         expiresAt: now,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
-        updatedAt: new Date()
+        updatedAt: new Date(),
       });
       // Small delay to ensure the token has expired
       setTimeout(() => {
@@ -344,6 +343,5 @@ describe("TestApiTokenModel", () => {
       expect(apiToken.getScopes()).toEqual([]);
       expect(apiToken.hasScope("anything")).toBe(false);
     });
-    
   });
 });

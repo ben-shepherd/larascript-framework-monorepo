@@ -1,4 +1,4 @@
-import jwt from 'jsonwebtoken';
+import jwt from "jsonwebtoken";
 import { IJSonWebToken } from "../interfaces/jwt.t";
 
 /**
@@ -9,5 +9,5 @@ import { IJSonWebToken } from "../interfaces/jwt.t";
  * @returns {IJSonWebToken} The decoded token.
  */
 export const decodeJwt = (secret: string, token: string): IJSonWebToken => {
-    return jwt.verify(token, secret) as IJSonWebToken
-}
+  return jwt.verify(token, secret) as IJSonWebToken;
+};

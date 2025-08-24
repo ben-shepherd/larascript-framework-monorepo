@@ -1,2 +1,1 @@
-export * from './BaseAuthAdapter';
-
+export * from "./BaseAuthAdapter";

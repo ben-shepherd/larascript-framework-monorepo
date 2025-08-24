@@ -1,1 +1,1 @@
-export type Scope = 'read' | 'write' | 'create' | 'delete' | 'all';
+export type Scope = "read" | "write" | "create" | "delete" | "all";

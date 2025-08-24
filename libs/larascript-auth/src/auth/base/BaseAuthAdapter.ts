@@ -1,4 +1,7 @@
-import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
+import {
+  AsyncSessionService,
+  IAsyncSessionService,
+} from "@larascript-framework/async-session";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { IAuthAdapter, IUserModel } from "../interfaces";
 
@@ -7,27 +10,28 @@ import { IAuthAdapter, IUserModel } from "../interfaces";
  * Provides core functionality for authentication adapters.
  * @template Config - The configuration type that extends IBaseAuthConfig
  */
-export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> implements IAuthAdapter<Config> {
+export abstract class BaseAuthAdapter<Config extends Record<string, unknown>>
+  implements IAuthAdapter<Config>
+{
+  protected asyncSession!: IAsyncSessionService;
 
-    protected asyncSession!: IAsyncSessionService;
+  protected aclService!: IBasicACLService;
 
-    protected aclService!: IBasicACLService;
+  constructor(
+    protected readonly config: Config,
+    aclService: IBasicACLService,
+  ) {
+    this.asyncSession = new AsyncSessionService();
+    this.aclService = aclService;
+  }
 
-    constructor(
-        protected readonly config: Config,
-        aclService: IBasicACLService
-    ) {
-        this.asyncSession = new AsyncSessionService();
-        this.aclService = aclService;
-    }
-    
-    /**
-     * Get the user
-     * @returns The user
-     */
-    abstract user(): Promise<IUserModel | null>;
+  /**
+   * Get the user
+   * @returns The user
+   */
+  abstract user(): Promise<IUserModel | null>;
 
-    /**
+  /**
      * Check if the user is authenticated
     abstract check(): Promise<boolean>;
 
@@ -35,44 +39,41 @@ export  abstract class BaseAuthAdapter<Config extends Record<string, unknown>> i
      * Boots the adapter
      * @returns A promise that resolves when the adapter is booted
      */
-    public async boot(): Promise<void> {
-        return Promise.resolve();
-    }
+  public async boot(): Promise<void> {
+    return Promise.resolve();
+  }
 
-    /**
-     * Retrieves the current configuration
-     * @returns The current configuration object
-     */
+  /**
+   * Retrieves the current configuration
+   * @returns The current configuration object
+   */
 
-    getConfig(): Config {
-        return this.config;
-    }
+  getConfig(): Config {
+    return this.config;
+  }
 
-    /**
-     * Authorize a user
-     * @param user 
-     */
-    authorizeUser(user: IUserModel, scopes: string[] = []) {
-        this.asyncSession.setSessionData({ userId: user.getId(), scopes })
-    }
+  /**
+   * Authorize a user
+   * @param user
+   */
+  authorizeUser(user: IUserModel, scopes: string[] = []) {
+    this.asyncSession.setSessionData({ userId: user.getId(), scopes });
+  }
 
-    /**
-     * Logout the user
-     */
-    logout(): void {
-        this.asyncSession.setSessionData({ userId: undefined, scopes: undefined })
-    }
+  /**
+   * Logout the user
+   */
+  logout(): void {
+    this.asyncSession.setSessionData({ userId: undefined, scopes: undefined });
+  }
 
-    /**
-     * Check if the user is authenticated
-     * @returns True if the user is authenticated, false otherwise
-     */
-    async check(): Promise<boolean> {
-        return !!this.asyncSession.getSessionData().userId
-    }
-
-
+  /**
+   * Check if the user is authenticated
+   * @returns True if the user is authenticated, false otherwise
+   */
+  async check(): Promise<boolean> {
+    return !!this.asyncSession.getSessionData().userId;
+  }
 }
 
 export default BaseAuthAdapter;
-

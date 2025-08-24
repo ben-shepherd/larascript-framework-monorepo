@@ -3,9 +3,22 @@ import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { JsonWebTokenError } from "jsonwebtoken";
 import BaseAuthAdapter from "../base/BaseAuthAdapter";
-import { JWTConfigException, JWTSecretException, UnauthorizedException } from "../exceptions";
+import {
+  JWTConfigException,
+  JWTSecretException,
+  UnauthorizedException,
+} from "../exceptions";
 import { JwtFactory } from "../factory/JwtFactory";
-import { ApiTokenModelOptions, IApiTokenModel, IApiTokenRepository, IJwtAuthService, IJwtConfig, IOneTimeAuthenticationService, IUserModel, IUserRepository } from "../interfaces";
+import {
+  ApiTokenModelOptions,
+  IApiTokenModel,
+  IApiTokenRepository,
+  IJwtAuthService,
+  IJwtConfig,
+  IOneTimeAuthenticationService,
+  IUserModel,
+  IUserRepository,
+} from "../interfaces";
 import { IApiTokenFactory, IUserFactory } from "../interfaces/factory";
 import { createJwt } from "../utils/createJwt";
 import { decodeJwt } from "../utils/decodeJwt";
@@ -14,390 +27,417 @@ import OneTimeAuthenticationService from "./OneTimeAuthenticationService";
 
 /**
  * JWT-based authentication service that extends BaseAuthAdapter.
- * 
+ *
  * This service provides JWT token-based authentication functionality including:
  * - User authentication with credentials
  * - JWT token generation and validation
  * - API token management
  * - Password hashing and verification
  * - Token revocation and refresh capabilities
- * 
+ *
  * @extends BaseAuthAdapter<IJwtConfig>
  * @implements IJwtAuthService
  */
-class JwtAuthService extends BaseAuthAdapter<IJwtConfig> implements IJwtAuthService {
+class JwtAuthService
+  extends BaseAuthAdapter<IJwtConfig>
+  implements IJwtAuthService
+{
+  /** One-time authentication service instance */
+  protected _oneTimeService = new OneTimeAuthenticationService();
 
-    /** One-time authentication service instance */
-    protected _oneTimeService = new OneTimeAuthenticationService()
+  /** Async session service for managing user sessions */
+  protected asyncSession!: IAsyncSessionService;
 
-    /** Async session service for managing user sessions */
-    protected asyncSession!: IAsyncSessionService;
+  /** Repository for user data operations */
+  protected userRepository!: IUserRepository;
 
-    /** Repository for user data operations */
-    protected userRepository!: IUserRepository;
+  /** Repository for API token data operations */
+  protected apiTokenRepository!: IApiTokenRepository;
 
-    /** Repository for API token data operations */
-    protected apiTokenRepository!: IApiTokenRepository;
+  /** Crypto service for password hashing and verification */
+  protected cryptoService!: ICryptoService;
 
-    /** Crypto service for password hashing and verification */
-    protected cryptoService!: ICryptoService;
+  /**
+   * Creates a new JwtAuthService instance.
+   *
+   * @param config - JWT configuration options
+   * @param aclService - Access control list service for role and permission management
+   */
+  constructor(config: IJwtConfig, aclService: IBasicACLService) {
+    super(config, aclService);
 
-    /**
-     * Creates a new JwtAuthService instance.
-     * 
-     * @param config - JWT configuration options
-     * @param aclService - Access control list service for role and permission management
-     */
-    constructor(
-        config: IJwtConfig, 
-        aclService: IBasicACLService) {
-        super(config, aclService);
-        
-        this.userRepository = new this.config.options.repository.user();
-        this.apiTokenRepository = new this.config.options.repository.apiToken();
-        this.cryptoService = new CryptoService({
-            secretKey: config.options.secret,
-        });
+    this.userRepository = new this.config.options.repository.user();
+    this.apiTokenRepository = new this.config.options.repository.apiToken();
+    this.cryptoService = new CryptoService({
+      secretKey: config.options.secret,
+    });
+  }
+
+  /**
+   * Sets the async session service.
+   *
+   * @param asyncSession - The async session service
+   */
+  setAsyncSession(asyncSession: IAsyncSessionService): void {
+    this.asyncSession = asyncSession;
+  }
+
+  /**
+   * Gets the async session service.
+   *
+   * @returns The async session service
+   */
+  getAsyncSession(): IAsyncSessionService {
+    if (!this.asyncSession) {
+      throw new Error("asyncSession is not set");
     }
 
+    return this.asyncSession;
+  }
 
-    /**
-     * Sets the async session service.
-     * 
-     * @param asyncSession - The async session service
-     */
-    setAsyncSession(asyncSession: IAsyncSessionService): void {
-        this.asyncSession = asyncSession;
+  /**
+   * Gets the current JWT configuration.
+   *
+   * @returns The JWT configuration object
+   */
+  public getConfig(): IJwtConfig {
+    return this.config;
+  }
+
+  /**
+   * Gets the one-time authentication service instance.
+   *
+   * @returns The one-time authentication service
+   */
+  public oneTimeService(): IOneTimeAuthenticationService {
+    return this._oneTimeService;
+  }
+
+  /**
+   * Gets the JWT secret key from configuration.
+   *
+   * @returns The JWT secret key
+   * @throws {JWTSecretException} When the JWT secret is not configured
+   */
+  private getJwtSecret(): string {
+    if (!this.config.options.secret) {
+      throw new JWTSecretException();
+    }
+    return this.config.options.secret;
+  }
+
+  /**
+   * Gets the JWT expiration time in minutes from configuration.
+   *
+   * @returns The JWT expiration time in minutes
+   * @throws {JWTConfigException} When the JWT expiration time is not configured
+   */
+  private getJwtExpiresInMinutes(): number {
+    if (!this.config.options.expiresInMinutes) {
+      throw new JWTConfigException();
+    }
+    return this.config.options.expiresInMinutes;
+  }
+
+  /**
+   * Attempts to authenticate a user with email and password credentials.
+   *
+   * This method:
+   * 1. Finds the user by email
+   * 2. Verifies the password hash
+   * 3. Creates an API token with specified scopes
+   * 4. Generates and returns a JWT token
+   *
+   * @param email - User's email address
+   * @param password - User's plain text password
+   * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+   * @param options - Optional API token configuration options
+   * @returns A JWT token string for the authenticated user
+   * @throws {UnauthorizedException} When authentication fails (invalid credentials, user not found, etc.)
+   */
+  async attemptCredentials(
+    email: string,
+    password: string,
+    scopes: string[] = [],
+    options?: ApiTokenModelOptions,
+  ): Promise<string> {
+    const user = await this.userRepository.findByEmail(email);
+
+    if (!user) {
+      throw new UnauthorizedException();
     }
 
-    /**
-     * Gets the async session service.
-     * 
-     * @returns The async session service
-     */
-    getAsyncSession(): IAsyncSessionService {
-        if (!this.asyncSession) {
-            throw new Error('asyncSession is not set');
-        }
+    const hashedPassword = user.getHashedPassword();
 
-        return this.asyncSession;
+    if (!hashedPassword) {
+      throw new UnauthorizedException();
     }
 
-    /**
-     * Gets the current JWT configuration.
-     * 
-     * @returns The JWT configuration object
-     */
-    public getConfig(): IJwtConfig {
-        return this.config
+    if (!this.cryptoService.verifyHash(password, hashedPassword)) {
+      throw new UnauthorizedException();
     }
 
-    /**
-     * Gets the one-time authentication service instance.
-     * 
-     * @returns The one-time authentication service
-     */
-    public oneTimeService(): IOneTimeAuthenticationService {
-        return this._oneTimeService
+    // Generate the api token
+    const apiToken = await this.buildApiTokenByUser(
+      user,
+      scopes,
+      options ?? {},
+    );
+
+    if (typeof options?.expiresAfterMinutes === "number") {
+      const expiresAt = new Date(
+        Date.now() + options.expiresAfterMinutes * 60 * 1000,
+      );
+      await apiToken.setRevokedAt(expiresAt);
     }
 
-    /**
-     * Gets the JWT secret key from configuration.
-     * 
-     * @returns The JWT secret key
-     * @throws {JWTSecretException} When the JWT secret is not configured
-     */
-    private getJwtSecret(): string {
-        if (!this.config.options.secret) {
-            throw new JWTSecretException()
-        }
-        return this.config.options.secret
+    // Save
+    await this.apiTokenRepository.create({
+      userId: user.getId(),
+      token: apiToken.getToken(),
+      scopes: apiToken.getScopes(),
+      options: apiToken.getOptions() ?? {},
+      revokedAt: apiToken.getRevokedAt(),
+      expiresAt: apiToken.getExpiresAt(),
+    });
+
+    // Generate the JWT token
+    return this.generateJwt(apiToken);
+  }
+
+  /**
+   * Creates a new API token model for a given user.
+   *
+   * This method combines the user's role scopes with any additional scopes provided
+   * and creates an API token with the specified options.
+   *
+   * @param user - The user model to create the token for
+   * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+   * @param options - API token configuration options (defaults to empty object)
+   * @returns A new API token model instance
+   */
+  async buildApiTokenByUser(
+    user: IUserModel,
+    scopes: string[] = [],
+    options: ApiTokenModelOptions = {},
+  ): Promise<IApiTokenModel> {
+    const apiToken = new this.config.options.factory.apiToken().create({
+      userId: user.getId(),
+      token: generateToken(),
+      scopes: [...this.aclService.getRoleScopesFromUser(user), ...scopes],
+      revokedAt: null,
+      options: options,
+    });
+
+    if (options?.expiresAfterMinutes) {
+      const expiresAt = new Date(
+        Date.now() + options.expiresAfterMinutes * 60 * 1000,
+      );
+      await apiToken.setExpiresAt(expiresAt);
     }
 
-    /**
-     * Gets the JWT expiration time in minutes from configuration.
-     * 
-     * @returns The JWT expiration time in minutes
-     * @throws {JWTConfigException} When the JWT expiration time is not configured
-     */
-    private getJwtExpiresInMinutes(): number {
-        if (!this.config.options.expiresInMinutes) {
-            throw new JWTConfigException()
-        }
-        return this.config.options.expiresInMinutes
+    return apiToken;
+  }
+
+  /**
+   * Generates a JWT token from an API token model.
+   *
+   * @param apiToken - The API token model to generate JWT from
+   * @returns A JWT token string
+   * @throws {Error} When the API token is invalid or missing user ID
+   */
+  protected generateJwt(apiToken: IApiTokenModel) {
+    if (!apiToken?.getUserId()) {
+      throw new Error("Invalid token");
     }
 
-    /**
-     * Attempts to authenticate a user with email and password credentials.
-     * 
-     * This method:
-     * 1. Finds the user by email
-     * 2. Verifies the password hash
-     * 3. Creates an API token with specified scopes
-     * 4. Generates and returns a JWT token
-     * 
-     * @param email - User's email address
-     * @param password - User's plain text password
-     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
-     * @param options - Optional API token configuration options
-     * @returns A JWT token string for the authenticated user
-     * @throws {UnauthorizedException} When authentication fails (invalid credentials, user not found, etc.)
-     */
-    async attemptCredentials(email: string, password: string, scopes: string[] = [], options?: ApiTokenModelOptions): Promise<string> {
-        const user = await this.userRepository.findByEmail(email);
+    // Create the payload
+    const payload = JwtFactory.createUserIdAndPayload(
+      apiToken.getUserId(),
+      apiToken.getToken(),
+    );
 
-        if (!user) {
-            throw new UnauthorizedException()
-        }
+    // Get the expires in minutes. Example: 1m
+    const expiresIn = `${this.getJwtExpiresInMinutes()}m`;
 
-        const hashedPassword = user.getHashedPassword()
+    // Create the JWT token
+    return createJwt(this.getJwtSecret(), payload, expiresIn);
+  }
 
-        if (!hashedPassword) {
-            throw new UnauthorizedException()
-        }
+  /**
+   * Attempts to authenticate a user using a JWT token.
+   *
+   * This method:
+   * 1. Decodes and validates the JWT token
+   * 2. Finds the corresponding API token in the database
+   * 3. Verifies the user exists and token hasn't expired
+   *
+   * @param token - The JWT token to authenticate
+   * @returns The API token model if authentication succeeds, null otherwise
+   * @throws {UnauthorizedException} When authentication fails (invalid token, expired token, user not found, etc.)
+   */
+  async attemptAuthenticateToken(
+    token: string,
+  ): Promise<IApiTokenModel | null> {
+    try {
+      const { token: decodedToken, uid: decodedUserId } = decodeJwt(
+        this.getJwtSecret(),
+        token,
+      );
 
-        if (!this.cryptoService.verifyHash(password, hashedPassword)) {
-            throw new UnauthorizedException()
-        }
+      const apiToken =
+        await this.apiTokenRepository.findOneActiveToken(decodedToken);
 
-        // Generate the api token
-        const apiToken = await this.buildApiTokenByUser(user, scopes, options ?? {})
+      if (!apiToken) {
+        throw new UnauthorizedException();
+      }
 
-        if (typeof options?.expiresAfterMinutes === 'number') {
-            const expiresAt = new Date(Date.now() + options.expiresAfterMinutes * 60 * 1000)
-            await apiToken.setRevokedAt(expiresAt)
-        }
+      const user = await this.userRepository.findById(decodedUserId);
 
-        // Save
-        await this.apiTokenRepository.create({
-            userId: user.getId(),
-            token: apiToken.getToken(),
-            scopes: apiToken.getScopes(),
-            options: apiToken.getOptions() ?? {},
-            revokedAt: apiToken.getRevokedAt(),
-            expiresAt: apiToken.getExpiresAt()
-        })
+      if (!user) {
+        throw new UnauthorizedException();
+      }
 
-        // Generate the JWT token
-        return this.generateJwt(apiToken)
+      if (apiToken.hasExpired()) {
+        throw new UnauthorizedException();
+      }
+
+      return apiToken;
+    } catch (err) {
+      if (err instanceof JsonWebTokenError) {
+        throw new UnauthorizedException();
+      }
     }
 
-    /**
-     * Creates a new API token model for a given user.
-     * 
-     * This method combines the user's role scopes with any additional scopes provided
-     * and creates an API token with the specified options.
-     * 
-     * @param user - The user model to create the token for
-     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
-     * @param options - API token configuration options (defaults to empty object)
-     * @returns A new API token model instance
-     */
-    async buildApiTokenByUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<IApiTokenModel> {
-        const apiToken = new this.config.options.factory.apiToken().create({
-            userId: user.getId(),
-            token: generateToken(),
-            scopes: [...this.aclService.getRoleScopesFromUser(user), ...scopes],
-            revokedAt: null,
-            options: options
-        })
+    return null;
+  }
 
-        if (options?.expiresAfterMinutes) {
-            const expiresAt = new Date(Date.now() + options.expiresAfterMinutes * 60 * 1000)
-            await apiToken.setExpiresAt(expiresAt)
-        }
+  /**
+   * Creates a JWT token directly from a user model.
+   *
+   * This method bypasses credential verification and creates a token
+   * for an already authenticated user.
+   *
+   * @param user - The user model to create the token for
+   * @param scopes - Additional scopes to assign to the token (defaults to empty array)
+   * @param options - API token configuration options (defaults to empty object)
+   * @returns A JWT token string
+   */
+  public async createJwtFromUser(
+    user: IUserModel,
+    scopes: string[] = [],
+    options: ApiTokenModelOptions = {},
+  ): Promise<string> {
+    const apiToken = await this.buildApiTokenByUser(user, scopes, options);
 
-        return apiToken
+    await this.apiTokenRepository.create({
+      userId: user.getId(),
+      token: apiToken.getToken(),
+      scopes: apiToken.getScopes(),
+      options: apiToken.getOptions() ?? {},
+      revokedAt: apiToken.getRevokedAt(),
+      expiresAt: apiToken.getExpiresAt(),
+    });
+
+    return this.generateJwt(apiToken);
+  }
+
+  /**
+   * Refreshes a JWT token using an existing API token.
+   *
+   * @param apiToken - The API token model to refresh
+   * @returns A new JWT token string
+   */
+  refreshToken(apiToken: IApiTokenModel): string {
+    return this.generateJwt(apiToken);
+  }
+
+  /**
+   * Revokes an API token by setting its revoked timestamp.
+   *
+   * If the token is already revoked, this method does nothing.
+   *
+   * @param apiToken - The API token model to revoke
+   * @returns Promise that resolves when the token is revoked
+   */
+  async revokeToken(apiToken: IApiTokenModel): Promise<void> {
+    if (apiToken?.getRevokedAt()) {
+      return;
     }
 
-    /**
-     * Generates a JWT token from an API token model.
-     * 
-     * @param apiToken - The API token model to generate JWT from
-     * @returns A JWT token string
-     * @throws {Error} When the API token is invalid or missing user ID
-     */
-    protected generateJwt(apiToken: IApiTokenModel) {
-        if (!apiToken?.getUserId()) {
-            throw new Error('Invalid token');
-        }
+    await this.apiTokenRepository.revokeToken(apiToken);
+  }
 
-        // Create the payload
-        const payload = JwtFactory.createUserIdAndPayload(apiToken.getUserId(), apiToken.getToken());
+  /**
+   * Revokes all API tokens for a specific user.
+   *
+   * @param userId - The user ID whose tokens should be revoked
+   * @returns Promise that resolves when all tokens are revoked
+   */
+  async revokeAllTokens(userId: string | number): Promise<void> {
+    await this.apiTokenRepository.revokeAllTokens(userId);
+  }
 
-        // Get the expires in minutes. Example: 1m
-        const expiresIn = `${this.getJwtExpiresInMinutes()}m`
+  /**
+   * Gets the user repository instance.
+   *
+   * @returns The user repository for data operations
+   */
+  getUserRepository(): IUserRepository {
+    return this.userRepository;
+  }
 
-        // Create the JWT token
-        return createJwt(this.getJwtSecret(), payload, expiresIn)
+  /**
+   * Gets the API token repository instance.
+   *
+   * @returns The API token repository for data operations
+   */
+  getApiTokenRepository(): IApiTokenRepository {
+    return this.apiTokenRepository;
+  }
+
+  /**
+   * Gets the user factory instance.
+   *
+   * @returns The user factory for creating user models
+   */
+  getUserFactory(): IUserFactory {
+    return new this.config.options.factory.user();
+  }
+
+  /**
+   * Gets the API token factory instance.
+   *
+   * @returns The API token factory for creating API token models
+   */
+  getApiTokenFactory(): IApiTokenFactory {
+    return new this.config.options.factory.apiToken();
+  }
+
+  /**
+   * Gets the currently authenticated user from the session.
+   *
+   * @returns The current user model or null if not authenticated
+   */
+  async user(): Promise<IUserModel | null> {
+    if (!(await this.check())) {
+      return null;
     }
 
-    /**
-     * Attempts to authenticate a user using a JWT token.
-     * 
-     * This method:
-     * 1. Decodes and validates the JWT token
-     * 2. Finds the corresponding API token in the database
-     * 3. Verifies the user exists and token hasn't expired
-     * 
-     * @param token - The JWT token to authenticate
-     * @returns The API token model if authentication succeeds, null otherwise
-     * @throws {UnauthorizedException} When authentication fails (invalid token, expired token, user not found, etc.)
-     */
-    async attemptAuthenticateToken(token: string): Promise<IApiTokenModel | null> {
-        try {
-            const { token: decodedToken, uid: decodedUserId } = decodeJwt(this.getJwtSecret(), token);
+    return await this.userRepository.findById(
+      this.asyncSession.getSessionData().userId as string,
+    );
+  }
 
-            const apiToken = await this.apiTokenRepository.findOneActiveToken(decodedToken)
-
-            if (!apiToken) {
-                throw new UnauthorizedException()
-            }
-
-            const user = await this.userRepository.findById(decodedUserId)
-
-            if (!user) {
-                throw new UnauthorizedException()
-            }
-
-            if (apiToken.hasExpired()) {
-                throw new UnauthorizedException()
-            }
-
-            return apiToken
-        }
-        catch (err) {
-            if (err instanceof JsonWebTokenError) {
-                throw new UnauthorizedException()
-            }
-        }
-
-        return null
-    }
-
-    /**
-     * Creates a JWT token directly from a user model.
-     * 
-     * This method bypasses credential verification and creates a token
-     * for an already authenticated user.
-     * 
-     * @param user - The user model to create the token for
-     * @param scopes - Additional scopes to assign to the token (defaults to empty array)
-     * @param options - API token configuration options (defaults to empty object)
-     * @returns A JWT token string
-     */
-    public async createJwtFromUser(user: IUserModel, scopes: string[] = [], options: ApiTokenModelOptions = {}): Promise<string> {
-        const apiToken = await this.buildApiTokenByUser(user, scopes, options)
-
-        await this.apiTokenRepository.create({
-            userId: user.getId(),
-            token: apiToken.getToken(),
-            scopes: apiToken.getScopes(),
-            options: apiToken.getOptions() ?? {},
-            revokedAt: apiToken.getRevokedAt(),
-            expiresAt: apiToken.getExpiresAt()
-        })
-
-        return this.generateJwt(apiToken)
-    }
-
-    /**
-     * Refreshes a JWT token using an existing API token.
-     * 
-     * @param apiToken - The API token model to refresh
-     * @returns A new JWT token string
-     */
-    refreshToken(apiToken: IApiTokenModel): string {
-        return this.generateJwt(apiToken)
-    }
-
-    /**
-     * Revokes an API token by setting its revoked timestamp.
-     * 
-     * If the token is already revoked, this method does nothing.
-     * 
-     * @param apiToken - The API token model to revoke
-     * @returns Promise that resolves when the token is revoked
-     */
-    async revokeToken(apiToken: IApiTokenModel): Promise<void> {
-        if (apiToken?.getRevokedAt()) {
-            return;
-        }
-
-        await this.apiTokenRepository.revokeToken(apiToken)
-    }
-
-    /**
-     * Revokes all API tokens for a specific user.
-     * 
-     * @param userId - The user ID whose tokens should be revoked
-     * @returns Promise that resolves when all tokens are revoked
-     */
-    async revokeAllTokens(userId: string | number): Promise<void> {
-        await this.apiTokenRepository.revokeAllTokens(userId)
-    }
-
-    /**
-     * Gets the user repository instance.
-     * 
-     * @returns The user repository for data operations
-     */
-    getUserRepository(): IUserRepository {
-        return this.userRepository
-    }
-
-    /**
-     * Gets the API token repository instance.
-     * 
-     * @returns The API token repository for data operations
-     */
-    getApiTokenRepository(): IApiTokenRepository {
-        return this.apiTokenRepository
-    }
-
-    /**
-     * Gets the user factory instance.
-     * 
-     * @returns The user factory for creating user models
-     */
-    getUserFactory(): IUserFactory {
-        return new this.config.options.factory.user()
-    }
-
-    /**
-     * Gets the API token factory instance.
-     * 
-     * @returns The API token factory for creating API token models
-     */
-    getApiTokenFactory(): IApiTokenFactory {
-        return new this.config.options.factory.apiToken()
-    }
-
-    /**
-     * Gets the currently authenticated user from the session.
-     * 
-     * @returns The current user model or null if not authenticated
-     */
-    async user(): Promise<IUserModel | null> {
-        if (!await this.check()) {
-            return null
-        }
-
-        return await this.userRepository.findById(
-            this.asyncSession.getSessionData().userId as string
-        )
-    }
-
-    /**
-     * Hashes a plain text password using the crypto service.
-     * 
-     * @param password - The plain text password to hash
-     * @returns A hashed password string
-     */
-    async hashPassword(password: string): Promise<string> {
-        return await this.cryptoService.hash(password)
-    }
+  /**
+   * Hashes a plain text password using the crypto service.
+   *
+   * @param password - The plain text password to hash
+   * @returns A hashed password string
+   */
+  async hashPassword(password: string): Promise<string> {
+    return await this.cryptoService.hash(password);
+  }
 }
-
 
 export default JwtAuthService;

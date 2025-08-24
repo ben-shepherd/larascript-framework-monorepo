@@ -1,21 +1,33 @@
-import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
+import {
+  BasicACLService,
+  IAclConfig,
+  IBasicACLService,
+} from "@larascript-framework/larascript-acl";
 import { BaseAdapter } from "@larascript-framework/larascript-core";
-import { BaseAuthAdapterTypes, IApiTokenRepository, IAuthConfig, IAuthService, IJwtAuthService, IUserModel, IUserRepository } from "../interfaces";
+import {
+  BaseAuthAdapterTypes,
+  IApiTokenRepository,
+  IAuthConfig,
+  IAuthService,
+  IJwtAuthService,
+  IUserModel,
+  IUserRepository,
+} from "../interfaces";
 import JwtAuthService from "./JwtAuthService";
 
 /**
  * AuthService provides authentication and authorization services,
  * including management of authentication adapters and integration with ACL.
- * 
+ *
  * @class Auth
  * @extends BaseAdapter<BaseAuthAdapterTypes>
  * @implements IAuthService
- * 
+ *
  * @param {IAuthConfig} config - The authentication configuration, including available drivers.
  * @param {IAclConfig} aclConfig - The ACL configuration.
- * 
+ *
  * @property {IBasicACLService} aclService - The ACL service instance.
- * 
+ *
  * @method setAclService - Sets the ACL service instance.
  * @method acl - Returns the current ACL service instance.
  * @method boot - Boots the authentication service and its adapters.
@@ -23,95 +35,98 @@ import JwtAuthService from "./JwtAuthService";
  * @method check - Checks if the current user is authenticated.
  * @method user - Returns the currently authenticated user, if any.
  * @method getUserRepository - Returns the user repository.
- * 
+ *
  * @protected
  * @method registerAdapters - Registers authentication adapters from the config.
  * @method bootAdapters - Boots all registered adapters.
  */
 
-class AuthService extends BaseAdapter<BaseAuthAdapterTypes> implements IAuthService {
+class AuthService
+  extends BaseAdapter<BaseAuthAdapterTypes>
+  implements IAuthService
+{
+  public static readonly JWT_ADAPTER_NAME = "jwt";
 
-    public static readonly JWT_ADAPTER_NAME = 'jwt';
+  protected aclService!: IBasicACLService;
 
-    protected aclService!: IBasicACLService;
+  constructor(
+    protected readonly config: IAuthConfig,
+    protected readonly aclConfig: IAclConfig,
+  ) {
+    super();
+    this.setAclService(new BasicACLService(this.aclConfig));
+  }
 
-    constructor(
-        protected readonly config: IAuthConfig,
-        protected readonly aclConfig: IAclConfig,
-    ) {
-        super();
-        this.setAclService(new BasicACLService(this.aclConfig));
+  /**
+   * Sets the ACL service
+   * @param aclService - The ACL service
+   */
+  setAclService(aclService: IBasicACLService): void {
+    this.aclService = aclService;
+  }
+
+  /**
+   * Boots the auth service
+   * @returns A promise that resolves when the auth service is booted
+   */
+  public async boot(): Promise<void> {
+    this.addAdapterOnce(
+      AuthService.JWT_ADAPTER_NAME,
+      new JwtAuthService(this.config.drivers.jwt, this.aclService),
+    );
+
+    for (const adapterInstance of Object.values(this.adapters)) {
+      await adapterInstance.boot();
     }
+  }
 
-    /**
-     * Sets the ACL service
-     * @param aclService - The ACL service
-     */
-    setAclService(aclService: IBasicACLService): void {
-        this.aclService = aclService;
-    }
+  /**
+   * Get the JWT adapter
+   * @returns The JWT adapter
+   */
+  public getJwt(): IJwtAuthService {
+    return this.getAdapter(AuthService.JWT_ADAPTER_NAME) as IJwtAuthService;
+  }
 
-    /**
-     * Boots the auth service
-     * @returns A promise that resolves when the auth service is booted
-     */
-    public async boot(): Promise<void> {
-        this.addAdapterOnce(AuthService.JWT_ADAPTER_NAME, new JwtAuthService(this.config.drivers.jwt, this.aclService));
+  /**
+   * Get the ACL service
+   * @returns The ACL service
+   */
+  public acl(): IBasicACLService {
+    return this.aclService;
+  }
 
-        for (const adapterInstance of Object.values(this.adapters)) {
-            await adapterInstance.boot();
-        }
-    }
+  /**
+   * Check if the user is authenticated
+   * @returns True if the user is authenticated, false otherwise
+   */
+  public async check(): Promise<boolean> {
+    return await this.getJwt().check();
+  }
 
-    /**
-     * Get the JWT adapter
-     * @returns The JWT adapter
-     */
-    public getJwt(): IJwtAuthService {
-        return this.getAdapter(AuthService.JWT_ADAPTER_NAME) as IJwtAuthService;
-    }
+  /**
+   * Get the user
+   * @returns The user
+   */
+  public async user(): Promise<IUserModel | null> {
+    return await this.getJwt().user();
+  }
 
+  /**
+   * Get the user repository
+   * @returns The user repository
+   */
+  public getUserRepository(): IUserRepository {
+    return this.getJwt().getUserRepository();
+  }
 
-    /**
-     * Get the ACL service
-     * @returns The ACL service
-     */
-    public acl(): IBasicACLService {
-        return this.aclService;
-    }
-
-    /**
-     * Check if the user is authenticated
-     * @returns True if the user is authenticated, false otherwise
-     */
-    public async check(): Promise<boolean> {
-        return await this.getJwt().check();
-    }
-
-    /**
-     * Get the user
-     * @returns The user
-     */
-    public async user(): Promise<IUserModel | null> {
-        return await this.getJwt().user();
-    }
-
-    /**
-     * Get the user repository
-     * @returns The user repository
-     */
-    public getUserRepository(): IUserRepository {
-        return this.getJwt().getUserRepository()
-    }
-
-    /**
-     * Get the api token repository
-     * @returns The api token repository
-     */
-    public getApiTokenRepository(): IApiTokenRepository {
-        return this.getJwt().getApiTokenRepository()
-    }
-
+  /**
+   * Get the api token repository
+   * @returns The api token repository
+   */
+  public getApiTokenRepository(): IApiTokenRepository {
+    return this.getJwt().getApiTokenRepository();
+  }
 }
 
 export default AuthService;

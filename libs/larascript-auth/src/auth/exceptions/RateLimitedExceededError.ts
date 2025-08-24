@@ -1,8 +1,6 @@
 export class RateLimitedExceededError extends Error {
-
-    constructor(message: string = 'Too many requests. Try again later.') {
-        super(message);
-        this.name = 'RateLimitedExceededError';
-    }
-
+  constructor(message: string = "Too many requests. Try again later.") {
+    super(message);
+    this.name = "RateLimitedExceededError";
+  }
 }

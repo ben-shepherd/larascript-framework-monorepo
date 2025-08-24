@@ -1,5 +1,6 @@
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
-import { IJwtAuthService, IUserRepository } from ".";
+import { IApiTokenRepository, IJwtAuthService, IUserRepository } from ".";
+import { IApiTokenFactory, IUserFactory } from "./factory";
 import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t";
 
 export interface IAuthService {
@@ -10,6 +11,9 @@ export interface IAuthService {
   check(): Promise<boolean>;
   user(): Promise<IUserModel | null>;
   getUserRepository(): IUserRepository;
+  getUserFactory(): IUserFactory;
+  getApiTokenRepository(): IApiTokenRepository;
+  getApiTokenFactory(): IApiTokenFactory;
 }
 
 export type SingleUseTokenOptions = Required<

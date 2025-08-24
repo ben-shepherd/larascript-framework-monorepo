@@ -12,15 +12,13 @@ export default (config: IExtendedAuthConfig): IRouter => {
     }
 
     return Route.group(router => {
-    
-        return Route.group({
+        return router.group({
             prefix: '/auth',
             controller: AuthController,
             config: {
                 adapter: 'jwt'
             }
         }, (router) => {
-    
     
             if (config.http.routes.endpoints.login) {
                 router.post('/login', 'login');

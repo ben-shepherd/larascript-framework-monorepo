@@ -44,10 +44,11 @@ export default class UserObserver extends Observer<UserAttributes> {
      */
     async updateRoles(data: UserAttributes): Promise<UserAttributes> {
         let updatedRoles: string[] = [];
+        const groups = data?.groups ?? []
 
         const basicAclService = app('acl.basic')
         
-        for(const group of data.groups) {
+        for(const group of groups) {
             const relatedRoles = basicAclService.getGroupRoles(group)
             const relatedRolesNames = relatedRoles.map(role => role.name)
 
@@ -58,7 +59,6 @@ export default class UserObserver extends Observer<UserAttributes> {
         }
 
         data.roles = updatedRoles
-
 
         return data
     }

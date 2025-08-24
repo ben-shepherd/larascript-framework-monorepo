@@ -59,7 +59,7 @@ class RegisterUseCase {
         const basicAclService = app('acl.basic')
         const groups = [basicAclService.getDefaultGroup().name]
         const roles = basicAclService.getGroupRoles(basicAclService.getDefaultGroup()).map(role => role.name)
-        const allowedFields = (auth().getUserRepository().create({} as IUserAttributes) as unknown as IModel).getFields()
+        const allowedFields = (auth().getUserFactory().create({} as IUserAttributes) as unknown as IModel).getFields()
 
         const userAttributes = {
             email: context.getBody().email,
@@ -73,7 +73,9 @@ class RegisterUseCase {
         const userAttributesReduced = this.reduceAttributesOnlyAllowed(userAttributes, allowedFields)
 
         // Create and save the user
-        const user = auth().getUserRepository().create(userAttributesReduced as unknown as IUserAttributes);
+        const user = auth()
+            .getUserFactory()
+            .create(userAttributesReduced as unknown as IUserAttributes);
         await (user as unknown as IModel).save();
 
         return user;

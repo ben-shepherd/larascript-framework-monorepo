@@ -13,6 +13,7 @@ import {
   IUserModel,
   IUserRepository,
 } from "../interfaces";
+import { IApiTokenFactory, IUserFactory } from "../interfaces/factory";
 import JwtAuthService from "./JwtAuthService";
 
 /**
@@ -56,6 +57,10 @@ export class AuthService
     super();
     this.setAclService(new BasicACLService(this.aclConfig));
   }
+  getApiTokenFactory(): IApiTokenFactory {
+    throw new Error("Method not implemented.");
+  }
+
 
   /**
    * Sets the ACL service
@@ -126,6 +131,14 @@ export class AuthService
    */
   public getApiTokenRepository(): IApiTokenRepository {
     return this.getJwt().getApiTokenRepository();
+  }
+
+  /**
+   * Get the user factory
+   * @returns The user factory
+   */
+  public getUserFactory(): IUserFactory {
+    return this.getJwt().getUserFactory();
   }
 }
 

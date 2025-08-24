@@ -1,7 +1,8 @@
+import { TCastableType } from "@larascript-framework/larascript-utils";
 import UserFactory from "@src/app/factory/UserFactory";
 import AuthenticableUser, { AuthenticableUserAttributes } from "@src/app/models/auth/AuthenticableUser";
 import UserObserver from "@src/app/observers/UserObserver";
-import { IModelFactory } from "@src/core/base/ModelFactory";
+import { IModelFactory } from "@src/core/interfaces/factory.t";
 
 /**
  * User structure
@@ -30,6 +31,16 @@ export interface UserAttributes extends AuthenticableUserAttributes {
  */
 export default class User extends AuthenticableUser {
 
+    public static PASSWORD = 'password';
+
+    public static FIRST_NAME = 'firstName';
+
+    public static LAST_NAME = 'lastName';
+
+    public static CREATED_AT = 'createdAt';
+
+    public static UPDATED_AT = 'updatedAt';
+
     /**
      * Table name
      */
@@ -43,6 +54,13 @@ export default class User extends AuthenticableUser {
         super(data);
         this.setObserverConstructor(UserObserver);
     }
+    
+    protected casts?: Record<string, TCastableType> | undefined = {
+        [User.ROLES]: 'array',
+        [User.GROUPS]: 'array',
+        [User.CREATED_AT]: 'date',
+        [User.UPDATED_AT]: 'date',
+    }
 
     /**
      * Guarded fields
@@ -50,10 +68,10 @@ export default class User extends AuthenticableUser {
      * These fields cannot be set directly.
      */
     guarded: string[] = [
-        'hashedPassword',
-        'password',
-        'roles',
-        'groups',
+        User.HASHED_PASSWORD,
+        User.PASSWORD,
+        User.ROLES,
+        User.GROUPS,
     ];
 
     /**
@@ -62,14 +80,19 @@ export default class User extends AuthenticableUser {
      * These fields can be set directly on the model.
      */
     fields: string[] = [
-        'email',
-        'password',
-        'hashedPassword',
-        'roles',
-        'firstName',
-        'lastName',
-        'createdAt',
-        'updatedAt',
+        
+        // fields required by AuthenticableUser
+        User.EMAIL,
+        User.HASHED_PASSWORD,
+        User.ROLES,
+        User.GROUPS,
+        
+        // fields required by User
+        User.PASSWORD, // temporary field
+        User.FIRST_NAME,
+        User.LAST_NAME,
+        User.CREATED_AT,
+        User.UPDATED_AT,
     ]
 
     /**

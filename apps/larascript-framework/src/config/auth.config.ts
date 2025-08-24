@@ -1,7 +1,7 @@
 import { IAuthConfig } from '@larascript-framework/larascript-auth';
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
 import ApiTokenFactory from '@src/app/factory/ApiTokenFactory';
-import AuthenticableUserFactory from '@src/app/factory/AuthenticableUserFactory';
+import UserFactory from '@src/app/factory/UserFactory';
 import ApiTokenRepository from '@src/app/repositories/auth/ApiTokenRepository';
 import UserRepository from '@src/app/repositories/UserRepository';
 
@@ -28,7 +28,7 @@ export const authConfig: IExtendedAuthConfig = {
                 secret: process.env.JWT_SECRET as string ?? '',
                 expiresInMinutes: process.env.JWT_EXPIRES_IN_MINUTES ? parseInt(process.env.JWT_EXPIRES_IN_MINUTES) : 60,
                 factory: {
-                    user: AuthenticableUserFactory,
+                    user: UserFactory,
                     apiToken: ApiTokenFactory
                 },
                 repository: {

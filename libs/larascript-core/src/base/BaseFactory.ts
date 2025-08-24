@@ -20,9 +20,7 @@ export abstract class BaseFactory<Data> implements IFactory<Data> {
      * 
      * @returns The definition of the model.
      */
-    getDefinition(): unknown {
-        return undefined
-    }
+    abstract getDefinition(): unknown;
 
     /**
      * Creates a new instance of the model.
@@ -32,7 +30,12 @@ export abstract class BaseFactory<Data> implements IFactory<Data> {
 
      */
     create(data?: Data): Data {
-        return (data ?? this.getDefinition()) as Data;
+        const definition = this.getDefinition()
+
+        return {
+            ...(typeof definition === 'object' ? definition : {}),
+            ...(data ?? {})
+        } as Data;
     }
 
 }

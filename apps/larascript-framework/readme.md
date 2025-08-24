@@ -377,15 +377,23 @@ class AuthProvider extends BaseProvider{
     protected aclConfig = aclConfig
 
     async register() {
-        const authService = new Auth(this.config, this.aclConfig);
+
+        if(typeof app('asyncSession') === 'undefined'){
+            throw new Error('asyncSession service is not ready');
+        }
+
+        // Important: 
+        // It's important to use the shared asyncSession service bound to the app container
+        // because it will be used by the auth service and other services that need to access the session
+        // If you don't do this, the auth service will not be able to access the session
+        const authService = new AuthService(this.config, this.aclConfig, app('asyncSession'))
         await authService.boot();
         
         // Bind services
         this.bind('auth', authService);
-        this.bind('auth.jwt', (() => authService.getDefaultAdapter())())
 
         // Register commands
-        app('console').register().register(GenerateJwtSecret)
+        app('console').register(GenerateJwtSecret)
     }
 
 }

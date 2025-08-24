@@ -1,5 +1,5 @@
 import { describe, expect, test } from '@jest/globals';
-import { AuthService, JwtAuthService } from '@larascript-framework/larascript-auth';
+import { AuthService } from '@larascript-framework/larascript-auth';
 import { Kernel } from '@larascript-framework/larascript-core';
 import { EventService } from '@larascript-framework/larascript-events';
 import ConsoleService from '@src/core/domains/console/service/ConsoleService';
@@ -19,7 +19,6 @@ describe('attempt to run app with normal appConfig', () => {
         expect(app('db')).toBeInstanceOf(Database);
         expect(app('console')).toBeInstanceOf(ConsoleService);
         expect(app('auth')).toBeInstanceOf(AuthService);
-        expect(app('auth.jwt')).toBeInstanceOf(JwtAuthService);
         /**
          * TODO: List all expected services here
          */

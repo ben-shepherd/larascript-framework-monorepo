@@ -29,7 +29,6 @@ class AuthProvider extends BaseProvider {
         
         // Bind services
         this.bind('auth', authService);
-        this.bind('auth.jwt', (() => authService.getJwt())())
 
         // Register commands
         app('console').register(GenerateJwtSecret)

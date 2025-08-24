@@ -1,4 +1,4 @@
-import { BaseProvider } from "@larascript-framework/larascript-core";
+import { AppSingleton, BaseProvider } from "@larascript-framework/larascript-core";
 import { IMailConfig, MailService } from "@larascript-framework/larascript-mail";
 import appConfig, { IAppConfig } from "@src/config/app.config";
 import { mailConfig } from "@src/config/mail.config";
@@ -11,7 +11,9 @@ class MailProvider extends BaseProvider {
     appConfig: IAppConfig = appConfig
     
     async register(): Promise<void> {
-        this.bind('mail', new MailService(this.config, this.appConfig))
+        const mailService = new MailService(this.config, this.appConfig)
+        mailService.setDependencyLoader(AppSingleton.container)
+        this.bind('mail', mailService)
     }
 
     async boot(): Promise<void> {

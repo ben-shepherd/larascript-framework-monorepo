@@ -516,6 +516,39 @@ importers:
         specifier: ^1.8.16
         version: 1.8.16
 
+  libs/larascript-database:
+    devDependencies:
+      '@larascript-framework/check-exports':
+        specifier: workspace:*
+        version: link:../check-exports
+      '@larascript-framework/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@larascript-framework/jest-config':
+        specifier: workspace:*
+        version: link:../jest-config
+      '@larascript-framework/larascript-collection':
+        specifier: workspace:*
+        version: link:../larascript-collection
+      '@larascript-framework/larascript-core':
+        specifier: workspace:*
+        version: link:../larascript-core
+      '@larascript-framework/larascript-events':
+        specifier: workspace:*
+        version: link:../larascript-events
+      '@larascript-framework/larascript-observer':
+        specifier: workspace:*
+        version: link:../larascript-observer
+      '@larascript-framework/larascript-utils':
+        specifier: workspace:*
+        version: link:../larascript-utils
+      '@larascript-framework/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsc-alias:
+        specifier: ^1.8.16
+        version: 1.8.16
+
   libs/larascript-events:
     devDependencies:
       '@larascript-framework/check-exports':

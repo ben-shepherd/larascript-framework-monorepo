@@ -1,5 +1,4 @@
 import User from "@src/app/models/auth/User";
-import { authJwt } from "@src/core/domains/auth/services/JwtAuthService";
 import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
 import DataTypes from "@src/core/domains/migrations/schema/DataTypes";
 
@@ -16,8 +15,11 @@ export class CreateUserModelMigration extends BaseMigration {
 
         await this.schema.createTable(User.getTable(), {
 
-            // Include auth fields (email, hashedPassword, groups, roles)
-            ...authJwt().getCreateUserTableSchema(),
+            // Include required fields for authentication
+            email: DataTypes.STRING,
+            hashedPassword: DataTypes.STRING,
+            groups: DataTypes.JSON,
+            roles: DataTypes.JSON,
 
             // User fields
             firstName: stringNullable,

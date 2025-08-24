@@ -1,3 +1,4 @@
+import { IAsyncSessionService } from "@larascript-framework/async-session";
 import {
   BasicACLService,
   IAclConfig,
@@ -53,6 +54,7 @@ export class AuthService
   constructor(
     protected readonly config: IAuthConfig,
     protected readonly aclConfig: IAclConfig,
+    protected readonly asyncSession: IAsyncSessionService,
   ) {
     super();
     this.setAclService(new BasicACLService(this.aclConfig));
@@ -60,7 +62,6 @@ export class AuthService
   getApiTokenFactory(): IApiTokenFactory {
     throw new Error("Method not implemented.");
   }
-
 
   /**
    * Sets the ACL service
@@ -77,7 +78,11 @@ export class AuthService
   public async boot(): Promise<void> {
     this.addAdapterOnce(
       AuthService.JWT_ADAPTER_NAME,
-      new JwtAuthService(this.config.drivers.jwt, this.aclService),
+      new JwtAuthService(
+        this.config.drivers.jwt,
+        this.aclService,
+        this.asyncSession,
+      ),
     );
 
     for (const adapterInstance of Object.values(this.adapters)) {

@@ -1,5 +1,6 @@
 import JwtAuthService from "@/auth/services/JwtAuthService";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { AsyncSessionService } from "@larascript-framework/async-session";
 import {
   BasicACLService,
   IAclConfig,
@@ -69,7 +70,9 @@ describe("AuthService", () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    authService = new AuthService(mockAuthConfig, mockAclConfig);
+    const asyncSession = new AsyncSessionService();
+
+    authService = new AuthService(mockAuthConfig, mockAclConfig, asyncSession);
     authService.addAdapterOnce("custom", mockCustomAdapter);
     await authService.boot();
   });

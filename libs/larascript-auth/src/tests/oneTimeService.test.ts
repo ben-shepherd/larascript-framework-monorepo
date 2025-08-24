@@ -7,6 +7,7 @@ import {
 } from "@/auth";
 import AuthService from "@/auth/services/AuthService";
 import OneTimeAuthenticationService from "@/auth/services/OneTimeAuthenticationService";
+import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
 import { TestUserFactory } from "./factory/TestUserFactory";
@@ -66,6 +67,7 @@ const mockAuthConfig: IAuthConfig = {
 };
 
 describe("OneTimeAuthenticationService", () => {
+  let asyncSession: AsyncSessionService;
   let authService: AuthService;
   let oneTimeService: OneTimeAuthenticationService;
   let userRepository: IUserRepository;
@@ -75,7 +77,9 @@ describe("OneTimeAuthenticationService", () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    authService = new AuthService(mockAuthConfig, mockAclConfig);
+    asyncSession = new AsyncSessionService();
+
+    authService = new AuthService(mockAuthConfig, mockAclConfig, asyncSession);
     await authService.boot();
 
     oneTimeService = new OneTimeAuthenticationService();

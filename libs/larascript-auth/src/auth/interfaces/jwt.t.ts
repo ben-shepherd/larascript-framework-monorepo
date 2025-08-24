@@ -51,7 +51,6 @@ export interface IJwtAuthService extends IAuthAdapter<IJwtConfig> {
   check(): Promise<boolean>;
   user(): Promise<IUserModel | null>;
   hashPassword(password: string): Promise<string>;
-  setAsyncSession(asyncSession: IAsyncSessionService): void;
   getAsyncSession(): IAsyncSessionService;
   buildApiTokenByUser(
     user: IUserModel,

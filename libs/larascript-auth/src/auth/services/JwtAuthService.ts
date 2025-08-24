@@ -45,9 +45,6 @@ export class JwtAuthService
   /** One-time authentication service instance */
   protected _oneTimeService = new OneTimeAuthenticationService();
 
-  /** Async session service for managing user sessions */
-  protected asyncSession!: IAsyncSessionService;
-
   /** Repository for user data operations */
   protected userRepository!: IUserRepository;
 
@@ -57,13 +54,20 @@ export class JwtAuthService
   /** Crypto service for password hashing and verification */
   protected cryptoService!: ICryptoService;
 
+  /** Async session service for session management */
+  protected asyncSession!: IAsyncSessionService;
+
   /**
    * Creates a new JwtAuthService instance.
    *
    * @param config - JWT configuration options
    * @param aclService - Access control list service for role and permission management
    */
-  constructor(config: IJwtConfig, aclService: IBasicACLService) {
+  constructor(
+    config: IJwtConfig,
+    aclService: IBasicACLService,
+    asyncSession: IAsyncSessionService,
+  ) {
     super(config, aclService);
 
     this.userRepository = new this.config.options.repository.user();
@@ -71,14 +75,6 @@ export class JwtAuthService
     this.cryptoService = new CryptoService({
       secretKey: config.options.secret,
     });
-  }
-
-  /**
-   * Sets the async session service.
-   *
-   * @param asyncSession - The async session service
-   */
-  setAsyncSession(asyncSession: IAsyncSessionService): void {
     this.asyncSession = asyncSession;
   }
 

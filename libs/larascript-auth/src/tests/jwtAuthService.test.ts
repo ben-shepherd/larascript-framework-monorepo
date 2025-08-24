@@ -75,11 +75,14 @@ describe("AuthService", () => {
   let userFactory: IUserFactory;
   let apiTokenFactory: IApiTokenFactory;
   let jwt: IJwtAuthService;
+  let asyncSession: AsyncSessionService;
 
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    authService = new AuthService(mockAuthConfig, mockAclConfig);
+    asyncSession = new AsyncSessionService();
+
+    authService = new AuthService(mockAuthConfig, mockAclConfig, asyncSession);
     await authService.boot();
 
     jwt = authService.getJwt();
@@ -463,9 +466,6 @@ describe("AuthService", () => {
     });
 
     test("should authorize a user and set the session data", async () => {
-      const asyncSession = new AsyncSessionService();
-      jwt.setAsyncSession(asyncSession);
-
       await asyncSession.runWithSession(async () => {
         const user = await userRepository.create({
           id: "1",
@@ -491,9 +491,6 @@ describe("AuthService", () => {
     });
 
     test("should authorize a user and set the session data with scopes", async () => {
-      const asyncSession = new AsyncSessionService();
-      jwt.setAsyncSession(asyncSession);
-
       await asyncSession.runWithSession(async () => {
         const user = await userRepository.create({
           id: "1",
@@ -519,9 +516,6 @@ describe("AuthService", () => {
     });
 
     test("should logout a user and clear the session data", async () => {
-      const asyncSession = new AsyncSessionService();
-      jwt.setAsyncSession(asyncSession);
-
       await asyncSession.runWithSession(async () => {
         const user = await userRepository.create({
           id: "1",

@@ -1,4 +1,4 @@
-import { IDatabaseAdapter } from "@/database/interfaces/adapter.t";
+import BaseDatabaseAdapter from "@/database/base/BaseDatabaseAdapter";
 import { IPrepareOptions } from "@/database/interfaces/options.t";
 import { IDatabaseSchema } from "@/database/interfaces/schema.t";
 import { IEloquent } from "@/eloquent/interfaces/eloquent.t";
@@ -18,22 +18,17 @@ const MockSchema: IDatabaseSchema = {
     dropAllTables: async () => {},
 };
 
-// Mock relationship resolver
-const MockRelationshipResolver: IRelationshipResolver = {
+export const MockRelationshipResolver: IRelationshipResolver = {
     resolveData: async () => [],
     attachEloquentRelationship: () => ({} as IEloquent),
 };
 
-export const MockSQLConfig = {
+export const MockSQLConfig: ReturnType<MockSQLAdapter['getConfig']> = {
     connectionString: 'sql://user:pass@localhost:3306/db'
 }
 
-export class MockSQLAdapter implements IDatabaseAdapter {
-
-    getConfig(): typeof MockSQLConfig {
-        return MockSQLConfig;
-    }
-
+export class MockSQLAdapter extends BaseDatabaseAdapter<{ connectionString: string }> {
+    
     // Column normalization
     normalizeColumn(col: string): string {
         return col.toLowerCase();
@@ -70,7 +65,7 @@ export class MockSQLAdapter implements IDatabaseAdapter {
         return (class MockEloquent {} as any);
     }
     
-    getRelationshipResolver(connection: string): IRelationshipResolver {
+    getRelationshipResolver(): IRelationshipResolver {
         return MockRelationshipResolver;
     }
     
@@ -81,6 +76,63 @@ export class MockSQLAdapter implements IDatabaseAdapter {
     
     getDefaultCredentials(): string | null {
         return 'sql://user:pass@localhost:3306/db';
+    }
+    
+    // Document preparation
+    prepareDocument<T extends object = object>(document: T, prepareOptions?: IPrepareOptions): T {
+        return document;
+    }
+}
+
+export class MockMongoDBAdapter extends BaseDatabaseAdapter<{ uri: string }> {
+    
+    // Column normalization
+    normalizeColumn(col: string): string {
+        return col.toLowerCase();
+    }
+    
+    // Connection management
+    setConnectionName(...args: any[]): void {}
+    
+    getConnectionName(...args: any[]): string {
+        return 'sql';
+    }
+    
+    async connectDefault(): Promise<unknown> {
+        return true;
+    }
+    
+    async isConnected(): Promise<boolean> {
+        return true;
+    }
+    
+    async close(): Promise<void> {}
+    
+    // Schema operations
+    getSchema(): IDatabaseSchema {
+        return MockSchema;
+    }
+    
+    async createMigrationSchema(...args: any[]): Promise<unknown> {
+        return undefined;
+    }
+    
+    // Eloquent and relationships
+    getEloquentConstructor<Model extends IModel = IModel>(): TClassConstructor<IEloquent<Model>> {
+        return (class MockEloquent {} as any);
+    }
+    
+    getRelationshipResolver(): IRelationshipResolver {
+        return MockRelationshipResolver;
+    }
+    
+    // Configuration
+    getDockerComposeFileName(): string {
+        return 'docker-compose.mongodb.yml';
+    }
+    
+    getDefaultCredentials(): string | null {
+        return 'mongodb://user:pass@localhost:27017/testdb';
     }
     
     // Document preparation

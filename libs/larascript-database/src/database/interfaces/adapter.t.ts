@@ -36,7 +36,7 @@ export interface IDatabaseAdapter {
 
     getEloquentConstructor<Model extends IModel = IModel>(): TClassConstructor<IEloquent<Model>>;
 
-    getRelationshipResolver(connection: string): IRelationshipResolver;
+    getRelationshipResolver(connection?: string): IRelationshipResolver;
 
     getDockerComposeFileName(): string;
 

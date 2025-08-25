@@ -46,6 +46,7 @@
     "@larascript-framework/larascript-events": "workspace:*",
     "@larascript-framework/larascript-observer": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/crypto-js": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

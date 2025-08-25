@@ -134,11 +134,27 @@ class Database implements IDatabaseService, RequiresDependency {
         }
     }
 
+    register() {
+        for(const connectionConfig of this.config.connections) {
+            const {
+                connectionName,
+                adapter,
+                options
+            } = connectionConfig
+
+            this.addConnection(connectionName, adapter, options)
+        }
+    }
+
     addConnection<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(
         connectionName: string,
         adapter: IDatabaseAdapterConstructor<Adapter>,
         connectionConfig: ReturnType<Adapter['getConfig']>
     ) {
+        if(this.connectionsConfig[connectionName]) {
+            throw new Error('Connection \'' + connectionName + '\' already defined')
+        }
+
         this.connectionsConfig[connectionName] = connectionConfig as Record<string, unknown>
         this.adapters[connectionName] = new adapter(connectionName, connectionConfig)
     }
@@ -206,11 +222,11 @@ class Database implements IDatabaseService, RequiresDependency {
      * @throws {Error} If the connection or adapter is not registered.
      */
     getAdapterConstructor<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName: string = this.getDefaultConnectionName()): IDatabaseAdapterConstructor<Adapter> {
-        if(!this.connectionsConfig[connectionName]) {
+        if(!this.adapters[connectionName]) {
             throw new Error('Connection not found: ' + connectionName)
         }
 
-        return this.connectionsConfig[connectionName].adapter as IDatabaseAdapterConstructor<Adapter>
+        return this.adapters[connectionName].constructor as IDatabaseAdapterConstructor<Adapter>
     }
 
     /**

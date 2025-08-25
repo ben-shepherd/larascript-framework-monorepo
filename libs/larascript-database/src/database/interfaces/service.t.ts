@@ -1,5 +1,6 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IDatabaseAdapter } from "./adapter.t";
+import { IDatabaseSchema } from "./schema.t";
 
 export interface IConnectionTypes extends Record<string, IDatabaseAdapter> {}
 
@@ -11,11 +12,11 @@ export interface IDatabaseService
 
     // showLogs(): boolean
     
-    // getDefaultConnectionName(): string;
+    getDefaultConnectionName(): string;
 
     // setDefaultConnectionName(connectionName: string): void;
 
-    // getAdapter<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): Adapter;
+    getAdapter<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): Adapter;
 
     // getAdapterConstructor<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): IDatabaseAdapterConstructor<Adapter>
 
@@ -25,7 +26,7 @@ export interface IDatabaseService
 
     // getDefaultCredentials(adapterName: string): string | null;
 
-    // schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(connectionName?: string): TSchema;
+    schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(connectionName?: string): TSchema;
 
     // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
 }

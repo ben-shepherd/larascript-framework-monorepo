@@ -1,29 +1,28 @@
 
 
 
-import { IDatabaseConfig, IDatabaseGenericConnectionConfig } from "@src/core/domains/database/interfaces/IDatabaseConfig";
+import { IDatabaseAdapter, IDatabaseAdapterConstructor } from "../interfaces/adapter.t";
+import { IDatabaseGenericConnectionConfig } from "../interfaces/config.t";
 
 class DatabaseConfig {
 
     /**
-     * Creates a connections array for the database config.
-     * @param connectionsConfigArray The array of connection configurations
-     * @returns The connections array
-     */
-    public static createConnections(connectionsConfigArray: IDatabaseGenericConnectionConfig[]): IDatabaseConfig['connections'] {
-        return connectionsConfigArray;
-    }
-
-    /**
-     * Creates a database configuration object from a connection configuration object.
+     * DatabaseConfig provides static helpers for constructing database connection configurations.
      * 
-     * This method simply returns the given connection configuration object as is, without performing any changes.
-     * 
-     * @param config - The connection configuration object implementing IDatabaseGenericConnectionConfig interface.
-     * @returns The given connection configuration object as an IDatabaseGenericConnectionConfig.
+     * @class DatabaseConfig
+     * @example
+     * const config = DatabaseConfig.connection("default", MyAdapter, { ...options });
      */
-    public static createConfig(config: IDatabaseGenericConnectionConfig): IDatabaseGenericConnectionConfig {
-        return config
+    public static connection<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(
+        connectionName: string,
+        adapter: IDatabaseAdapterConstructor<Adapter>,
+        options: ReturnType<Adapter['getConfig']>
+    ): IDatabaseGenericConnectionConfig {
+        return {
+            connectionName,
+            adapter,
+            options
+        }
     }
     
 }

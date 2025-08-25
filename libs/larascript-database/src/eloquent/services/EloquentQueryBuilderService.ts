@@ -1,14 +1,6 @@
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { IEloquentQueryBuilderService } from "@src/core/domains/eloquent/interfaces/IEloquentQueryBuilderService";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
-import { app } from "@src/core/services/App";
-
-/**
- * Shorthand function to create a new query builder instance for the model.
- * @param modelCtor 
- * @returns 
- */
-export const queryBuilder = <Model extends IModel>(modelCtor: ModelConstructor<Model>, connectionName?: string): IEloquent<Model> => app('query').builder(modelCtor, connectionName);
+import DB from "@/database/services/DB";
+import { IModel, ModelConstructor } from "@/model";
+import { IEloquent, IEloquentQueryBuilderService } from "..";
 
 /**
  * Eloquent query service
@@ -26,7 +18,8 @@ class EloquentQueryBuilderService implements IEloquentQueryBuilderService {
         const tableName = modelCtor.getTable()
         const connection = connectionName ?? modelCtor.getConnectionName()
         
-        const eloquentConstructor = app('db')
+        const eloquentConstructor = DB.getInstance()
+            .databaseService()
             .getAdapter(connection)
             .getEloquentConstructor<Model>()
 

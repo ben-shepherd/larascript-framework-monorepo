@@ -521,6 +521,9 @@ importers:
       '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports
+      '@larascript-framework/crypto-js':
+        specifier: workspace:*
+        version: link:../crypto-js
       '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config

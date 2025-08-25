@@ -1,8 +1,9 @@
 import DatabaseConnectionException from "@/database/exceptions/DatabaseConnectionException";
 import { IDatabaseConfig } from "@/database/interfaces/config.t";
+import DatabaseConfig from "@/database/services/DatabaseConfig";
 import DatabaseService from "@/database/services/DatabaseService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MockSQLAdapter } from "./database/mocks/MockSQLAdapter";
+import { MockSQLAdapter, MockSQLConfig } from "./database/mocks/MockSQLAdapter";
 
 process.on('unhandledRejection', (reason) => {
     console.log(reason); // log the reason including the stack trace
@@ -10,15 +11,14 @@ process.on('unhandledRejection', (reason) => {
 });
 
 describe("Database Service", () => {
-    const DEFAULT_CONNECTION = 'default'
-    const MOCK_SQL_OPTIONS: ReturnType<MockSQLAdapter['getConfig']> = {
-        connectionString: 'sql://user:pass@localhost:3306/db'
-    }
-
+    const DEFAULT_CONNECTION = 'sql'
     let databaseService: DatabaseService
     let defaultConfig: IDatabaseConfig = {
         defaultConnectionName: DEFAULT_CONNECTION,
         keepAliveConnections: '',
+        connections: [
+            DatabaseConfig.connection("sql", MockSQLAdapter, MockSQLConfig)
+        ]
     }
 
     beforeEach(() => {
@@ -37,11 +37,47 @@ describe("Database Service", () => {
 
     describe("connectionConfig", () => {
         test("should add a connection", () => {
-            databaseService.addConnection('sql', MockSQLAdapter, MOCK_SQL_OPTIONS)
+            databaseService.register()
 
             expect(databaseService.getConnectionConfig('sql')).toBeDefined()
             expect(databaseService.getConnectionConfig('sql').connectionString).toBe('sql://user:pass@localhost:3306/db')
             expect(databaseService.getAdapter('sql')).toBeInstanceOf(MockSQLAdapter)
+        })
+
+        test("should throw error if multiple conncetion names detected", async () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: '',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+
+            expect(() => databaseService.register()).toThrow('Connection \'sql-1\' already defined')
+        })
+
+        test("should create multiple connections with the same adapter", async () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: '',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-2", MockSQLAdapter, {
+                        connectionString: 'sql://user:pass@localhost:3307/db'
+                    }),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+        
+            expect(databaseService.getAdapter('sql-1')).toBeInstanceOf(MockSQLAdapter)
+            expect(databaseService.getAdapter<MockSQLAdapter>('sql-1').getConfig().connectionString).toBe(MockSQLConfig.connectionString)
+            expect(databaseService.getAdapter('sql-2')).toBeInstanceOf(MockSQLAdapter)
+            expect(databaseService.getAdapter<MockSQLAdapter>('sql-2').getConfig().connectionString).toBe('sql://user:pass@localhost:3307/db')
         })
 
         test("should return default connection", () => {
@@ -57,7 +93,7 @@ describe("Database Service", () => {
 
     describe("adapters", () => {
         test("should return expected adapter", () => {
-            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MOCK_SQL_OPTIONS)
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
 
             const adapter = databaseService.getAdapter(DEFAULT_CONNECTION)
 
@@ -65,10 +101,16 @@ describe("Database Service", () => {
         })
 
         test("should throw an error for adapter that doesn't exist", () => {
-            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MOCK_SQL_OPTIONS)
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
 
             expect(() => databaseService.getAdapter('bad-adapter')).toThrow('Adapter not found: bad-adapter')
         })
+
+        test("should return true if an adapter is registered", () => {
+            databaseService.register()
+
+            expect(databaseService.isRegisteredAdapter(MockSQLAdapter)).toBeTruthy()
+        }) 
     })
 
     describe("boot", () => {

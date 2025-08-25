@@ -1,8 +1,7 @@
-
-import { IRelationship, TWhereClauseValue } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import GenericRelationship from "@src/core/domains/eloquent/relational/GenericRelationship";
-import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
-import { IModel, IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import DB from "@/database/services/DB";
+import { IModel, IModelAttributes } from "@/model";
+import { IRelationship, TWhereClauseValue } from "../interfaces";
+import GenericRelationship from "./GenericRelationship";
 
 class BelongsTo extends GenericRelationship {
 
@@ -16,7 +15,7 @@ class BelongsTo extends GenericRelationship {
     static async fetchData<Attributes extends IModelAttributes = IModelAttributes, K extends keyof Attributes = keyof Attributes>(model: IModel, relationship: IRelationship, connection?: string): Promise<Attributes[K] | null> {
         const localValue = model.getAttributeSync(relationship.getLocalKey()) as TWhereClauseValue;
 
-        return await queryBuilder(relationship.getForeignModelCtor(), connection)
+        return await DB.getInstance().queryBuilder(relationship.getForeignModelCtor(), connection)
             .where(relationship.getForeignKey(), '=', localValue)
             .first() as Attributes[K]
     }

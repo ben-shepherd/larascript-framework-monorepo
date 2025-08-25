@@ -2,29 +2,26 @@
 import { IEloquent, IRelationshipResolver } from "@/eloquent";
 import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
 import { IModel } from "@/model";
-import { BaseConfig } from "@larascript-framework/larascript-core";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IDatabaseAdapter } from "../interfaces/adapter.t";
-import { IDatabaseGenericConnectionConfig } from "../interfaces/config.t";
 import { IPrepareOptions } from "../interfaces/options.t";
 import { IDatabaseSchema } from "../interfaces/schema.t";
 
-export abstract class BaseDatabaseAdapter<TConfig extends object = object> extends BaseConfig implements IDatabaseAdapter {
-
-    /**
-     * Database config
-     */
-    protected config!: IDatabaseGenericConnectionConfig<TConfig>;
-
-    /**
-     * Database connection name
-     */
-    protected connectionName!: string;
+export abstract class BaseDatabaseAdapter<Config extends Record<string, unknown>> implements IDatabaseAdapter {
 
     /**
      * Docker compose file name
      */
     protected dockerComposeFileName!: string;
+
+    constructor(
+        protected connectionName: string,
+        protected connectionConfig: Config
+    ) {}
+
+    getConfig(): Config {
+        return this.connectionConfig
+    }
 
     /**
      * Set the connection name

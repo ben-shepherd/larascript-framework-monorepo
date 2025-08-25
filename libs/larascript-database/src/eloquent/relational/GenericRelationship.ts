@@ -1,5 +1,5 @@
-import { IBelongsToOptions, IRelationship } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
+import { IModel, ModelConstructor } from "@/model";
+import { IBelongsToOptions, IRelationship } from "..";
 
 class GenericRelationship implements IRelationship {
 

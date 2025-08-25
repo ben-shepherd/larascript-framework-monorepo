@@ -1,9 +1,8 @@
 import { IDatabaseAdapter, IDatabaseAdapterConstructor } from "./adapter.t";
 
 export interface IDatabaseGenericConnectionConfig<Adapter extends IDatabaseAdapter = IDatabaseAdapter> {
-    adapter: IDatabaseAdapterConstructor<Adapter>;
     connectionName: string;
-    uri: string,
+    adapter: IDatabaseAdapterConstructor<Adapter>;
     options: ReturnType<Adapter['getConfig']>;
 }
 
@@ -12,5 +11,6 @@ export interface IDatabaseConfig {
     onBootConnect?: boolean;
     defaultConnectionName: string;
     keepAliveConnections: string;
+    connections: IDatabaseGenericConnectionConfig[];
 }
 

@@ -1,3 +1,4 @@
+import DB from "@/database/services/DB";
 import { IModel, IModelAttributes, ModelConstructor } from "@/model";
 import { Collection } from "@larascript-framework/larascript-collection";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
@@ -5,7 +6,6 @@ import { IEloquent, IRelationship, IRelationshipResolver, TWhereClauseValue } fr
 import EloquentRelationshipException from "../exceptions/EloquentRelationshipException";
 import BelongsTo from "../relational/BelongsTo";
 import HasMany from "../relational/HasMany";
-import { queryBuilder } from "../services/EloquentQueryBuilderService";
 
 class BaseRelationshipResolver implements IRelationshipResolver {
 
@@ -83,7 +83,7 @@ class BaseRelationshipResolver implements IRelationshipResolver {
         const foreignModelCtor = this.getForeignModelCtor(relationship)
         const foreignKey = this.getForeignKey(relationship)
 
-        return await queryBuilder(foreignModelCtor, connection)
+        return await DB.getInstance().queryBuilder(foreignModelCtor, connection)
             .where(foreignKey, '=', localValue)
             .first() as Attributes[K]
     }
@@ -108,7 +108,7 @@ class BaseRelationshipResolver implements IRelationshipResolver {
         const foreignModelCtor = this.getForeignModelCtor(relationship)
         const foreignKey = this.getForeignKey(relationship)
 
-        return await queryBuilder(foreignModelCtor, connection)
+        return await DB.getInstance().queryBuilder(foreignModelCtor, connection)
             .where(foreignKey, '=', localValue)
             .get() as unknown as Collection<Attributes[K]>
     }

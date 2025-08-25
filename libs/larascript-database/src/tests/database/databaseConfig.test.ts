@@ -1,6 +1,6 @@
 import DatabaseConfig from "@/database/services/DatabaseConfig";
 import { describe, expect, test } from "@jest/globals";
-import { MockSQLAdapter } from "./database/mocks/MockSQLAdapter";
+import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
 
 describe("Database Config", () => {
 

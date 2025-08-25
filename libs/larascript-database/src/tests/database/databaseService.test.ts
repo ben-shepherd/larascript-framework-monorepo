@@ -3,7 +3,7 @@ import { IDatabaseConfig } from "@/database/interfaces/config.t";
 import DatabaseConfig from "@/database/services/DatabaseConfig";
 import DatabaseService from "@/database/services/DatabaseService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MockSQLAdapter, MockSQLConfig } from "./database/mocks/MockSQLAdapter";
+import { MockSQLAdapter, MockSQLConfig } from "./mocks/MockSQLAdapter";
 
 process.on('unhandledRejection', (reason) => {
     console.log(reason); // log the reason including the stack trace

@@ -3,7 +3,7 @@ import { IDatabaseConfig } from "@/database/interfaces/config.t";
 import DatabaseConfig from "@/database/services/DatabaseConfig";
 import DatabaseService from "@/database/services/DatabaseService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MockSQLAdapter, MockSQLConfig } from "./mocks/MockSQLAdapter";
+import { MockMongoDBAdapter, MockSQLAdapter, MockSQLConfig } from "./mocks/MockSQLAdapter";
 
 process.on('unhandledRejection', (reason) => {
     console.log(reason); // log the reason including the stack trace
@@ -167,6 +167,293 @@ describe("Database Service", () => {
             jest.spyOn(databaseService, 'connectDefault').mockImplementation(() => Promise.resolve())
 
             await expect(databaseService.boot()).rejects.toThrow(DatabaseConnectionException)
+        })
+    })
+
+    describe("setDependencyLoader", () => {
+        test("should set logger dependency", () => {
+            const mockLogger = { info: jest.fn() }
+            const mockLoader = jest.fn().mockReturnValue(mockLogger)
+
+            databaseService.setDependencyLoader(mockLoader)
+
+            expect(mockLoader).toHaveBeenCalledWith("logger")
+        })
+    })
+
+    describe("connectDefault", () => {
+        test("should connect to default connection successfully", async () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+            const connectSpy = jest.spyOn(databaseService.getAdapter(DEFAULT_CONNECTION), 'connectDefault')
+
+            await databaseService.connectDefault()
+
+            expect(connectSpy).toHaveBeenCalled()
+        })
+
+        test("should throw error when default connection not found", async () => {
+            await expect(databaseService.connectDefault()).rejects.toThrow(DatabaseConnectionException)
+        })
+    })
+
+    describe("connectKeepAlive", () => {
+        test("should connect to multiple keep alive connections", async () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: 'sql-2,sql-3',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-3", MockSQLAdapter, MockSQLConfig),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+
+            const connectSpy = jest.spyOn(databaseService, 'connectAdapter')
+
+            await databaseService.connectKeepAlive()
+
+            expect(connectSpy).toHaveBeenCalledWith('sql-2')
+            expect(connectSpy).toHaveBeenCalledWith('sql-3')
+        })
+
+        test("should skip empty connection names", async () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: 'sql-2,,sql-3',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-3", MockSQLAdapter, MockSQLConfig),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+
+            const connectSpy = jest.spyOn(databaseService, 'connectAdapter')
+
+            await databaseService.connectKeepAlive()
+
+            expect(connectSpy).toHaveBeenCalledWith('sql-2')
+            expect(connectSpy).toHaveBeenCalledWith('sql-3')
+            expect(connectSpy).toHaveBeenCalledTimes(2)
+        })
+
+        test("should skip default connection in keep alive", async () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: 'sql-1,sql-2',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+
+            const connectSpy = jest.spyOn(databaseService, 'connectAdapter')
+
+            await databaseService.connectKeepAlive()
+
+            expect(connectSpy).toHaveBeenCalledWith('sql-2')
+            expect(connectSpy).not.toHaveBeenCalledWith('sql-1')
+        })
+    })
+
+    describe("connectAdapter", () => {
+        test("should connect to specific adapter", async () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+            const connectSpy = jest.spyOn(databaseService.getAdapter(DEFAULT_CONNECTION), 'connectDefault')
+
+            await databaseService.connectAdapter(DEFAULT_CONNECTION)
+
+            expect(connectSpy).toHaveBeenCalled()
+        })
+
+        test("should throw error when adapter not found", async () => {
+            await expect(databaseService.connectAdapter('non-existent')).rejects.toThrow(DatabaseConnectionException)
+        })
+
+        test("should use default connection when no connection name provided", async () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+            const connectSpy = jest.spyOn(databaseService.getAdapter(DEFAULT_CONNECTION), 'connectDefault')
+
+            await databaseService.connectAdapter()
+
+            expect(connectSpy).toHaveBeenCalled()
+        })
+    })
+
+    describe("getAdapterConstructor", () => {
+        test("should return adapter constructor", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            const constructor = databaseService.getAdapterConstructor(DEFAULT_CONNECTION)
+
+            expect(constructor).toBe(MockSQLAdapter)
+        })
+
+        test("should throw error when connection not found", () => {
+            expect(() => databaseService.getAdapterConstructor('non-existent')).toThrow('Connection not found: non-existent')
+        })
+
+        test("should use default connection when no connection name provided", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            const constructor = databaseService.getAdapterConstructor()
+
+            expect(constructor).toBe(MockSQLAdapter)
+        })
+    })
+
+    describe("getAllAdapterConstructors", () => {
+        test("should return all unique adapter constructors", () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: '',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+
+            const constructors = databaseService.getAllAdapterConstructors()
+
+            expect(constructors).toHaveLength(1)
+            expect(constructors[0]).toBe(MockSQLAdapter)
+        })
+
+        test("should return multiple different adapter constructors", () => {
+            const config: IDatabaseConfig = {
+                defaultConnectionName: 'sql-1',
+                keepAliveConnections: '',
+                connections: [
+                    DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+                    DatabaseConfig.connection("mongo-1", MockMongoDBAdapter, { uri: 'mongodb://localhost:27017/test' }),
+                ]
+            }
+
+            databaseService = new DatabaseService(config)
+            databaseService.register()
+
+            const constructors = databaseService.getAllAdapterConstructors()
+
+            expect(constructors).toHaveLength(2)
+            expect(constructors).toContain(MockSQLAdapter)
+            expect(constructors).toContain(MockMongoDBAdapter)
+        })
+    })
+
+    describe("getDefaultCredentials", () => {
+        test("should return default credentials for adapter", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            const credentials = databaseService.getDefaultCredentials(DEFAULT_CONNECTION)
+
+            expect(credentials).toBe('sql://user:pass@localhost:3306/db')
+        })
+
+        test("should return null when adapter not found", () => {
+            expect(() => databaseService.getDefaultCredentials('non-existent')).toThrow('Connection not found: non-existent')
+        })
+    })
+
+    describe("schema", () => {
+        test("should return schema from adapter", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            const schema = databaseService.schema(DEFAULT_CONNECTION)
+
+            expect(schema).toBeDefined()
+            expect(schema.createDatabase).toBeDefined()
+            expect(schema.tableExists).toBeDefined()
+        })
+
+        test("should use default connection when no connection name provided", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            const schema = databaseService.schema()
+
+            expect(schema).toBeDefined()
+        })
+
+        test("should throw error when adapter not found", () => {
+            expect(() => databaseService.schema('non-existent')).toThrow('Adapter not found: non-existent')
+        })
+    })
+
+    describe("createMigrationSchema", () => {
+        test("should create migration schema", async () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+            const createSchemaSpy = jest.spyOn(databaseService.getAdapter(DEFAULT_CONNECTION), 'createMigrationSchema')
+
+            await databaseService.createMigrationSchema('migrations')
+
+            expect(createSchemaSpy).toHaveBeenCalledWith('migrations')
+        })
+
+        test("should use default connection when no connection name provided", async () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+            const createSchemaSpy = jest.spyOn(databaseService.getAdapter(DEFAULT_CONNECTION), 'createMigrationSchema')
+
+            await databaseService.createMigrationSchema('migrations')
+
+            expect(createSchemaSpy).toHaveBeenCalledWith('migrations')
+        })
+
+        test("should throw error when adapter not found", async () => {
+            await expect(databaseService.createMigrationSchema('migrations', 'non-existent')).rejects.toThrow('Adapter not found: non-existent')
+        })
+    })
+
+    describe("showLogs", () => {
+        test("should return true when enableLogging is true", () => {
+            const config: IDatabaseConfig = {
+                ...defaultConfig,
+                enableLogging: true
+            }
+            databaseService = new DatabaseService(config)
+
+            expect(databaseService.showLogs()).toBe(true)
+        })
+
+        test("should return false when enableLogging is false", () => {
+            const config: IDatabaseConfig = {
+                ...defaultConfig,
+                enableLogging: false
+            }
+            databaseService = new DatabaseService(config)
+
+            expect(databaseService.showLogs()).toBe(false)
+        })
+
+        test("should return false when enableLogging is undefined", () => {
+            expect(databaseService.showLogs()).toBe(false)
+        })
+    })
+
+    describe("isRegisteredAdapter", () => {
+        test("should return false when no adapters are registered", () => {
+            expect(databaseService.isRegisteredAdapter(MockSQLAdapter)).toBe(false)
+        })
+
+        test("should return true when adapter is registered with different connection name", () => {
+            databaseService.addConnection('different-connection', MockSQLAdapter, MockSQLConfig)
+
+            expect(databaseService.isRegisteredAdapter(MockSQLAdapter)).toBe(true)
+        })
+
+        test("should return false when adapter type is not registered", () => {
+            databaseService.addConnection(DEFAULT_CONNECTION, MockSQLAdapter, MockSQLConfig)
+
+            expect(databaseService.isRegisteredAdapter(MockMongoDBAdapter)).toBe(false)
         })
     })
 

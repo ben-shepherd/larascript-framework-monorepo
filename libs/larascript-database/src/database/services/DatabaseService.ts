@@ -252,7 +252,7 @@ class Database implements IDatabaseService, RequiresDependency {
     getAllAdapterConstructors(): TClassConstructor<IDatabaseAdapter>[] {
         const adaptersObject =  Object.keys(this.connectionsConfig).reduce((acc, connectionName) => {
             const adapter = this.adapters[connectionName as string]
-            acc[DatabaseAdapter.getName(adapter.constructor as TClassConstructor<IDatabaseAdapter>)] = adapter
+            acc[DatabaseAdapter.getName(adapter.constructor as TClassConstructor<IDatabaseAdapter>)] = adapter.constructor
             return acc
         }, {})
 

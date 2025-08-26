@@ -38,9 +38,9 @@
   },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {
@@ -48,5 +48,8 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "@jest/test-sequencer": "^30.0.5"
   }
 }

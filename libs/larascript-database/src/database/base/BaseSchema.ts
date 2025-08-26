@@ -1,6 +1,8 @@
+import { IDatabaseAdapter } from "../interfaces/adapter.t";
 import { IDatabaseSchema } from "../interfaces/schema.t";
+import DB from "../services/DB";
 
-abstract class BaseSchema implements IDatabaseSchema {
+abstract class BaseSchema<Adapter extends IDatabaseAdapter = IDatabaseAdapter> implements IDatabaseSchema {
 
     /**
      * The name of the connection
@@ -12,6 +14,15 @@ abstract class BaseSchema implements IDatabaseSchema {
      */
     constructor(connectionName: string) {
         this.connectionName = connectionName;
+    }
+
+    /**
+     * Gets the adapter for the given connection name.
+     * @returns The adapter instance for the given connection.
+     * @throws {Error} If the connection or adapter is not registered.
+     */
+    protected getAdapter(): Adapter {
+        return DB.getInstance().databaseService().getAdapter(this.connectionName) as unknown as Adapter;
     }
 
     /**

@@ -1,3 +1,4 @@
+import { IPostgresAdapter } from "@/postgres/interfaces/postgres.t";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IDatabaseAdapter } from "./adapter.t";
 import { IDatabaseSchema } from "./schema.t";
@@ -10,7 +11,7 @@ export interface IDatabaseService
     
     // registerConnections(): void
 
-    // showLogs(): boolean
+    showLogs(): boolean
     
     getDefaultConnectionName(): string;
 
@@ -29,4 +30,6 @@ export interface IDatabaseService
     schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(connectionName?: string): TSchema;
 
     // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
+
+    postgres(connectionName?: string): IPostgresAdapter
 }

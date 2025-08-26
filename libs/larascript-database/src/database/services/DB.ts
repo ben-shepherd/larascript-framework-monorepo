@@ -3,6 +3,7 @@ import { IModel, ModelConstructor } from "@/model";
 import { ICryptoService } from '@larascript-framework/crypto-js';
 import { BaseSingleton, CreateDependencyLoader, DependencyLoader, RequiresDependency } from "@larascript-framework/larascript-core";
 import { IEventService } from "@larascript-framework/larascript-events";
+import { ILoggerService } from "../../../../larascript-logger/dist";
 import { IDatabaseService } from "../interfaces/service.t";
 
 
@@ -11,6 +12,7 @@ export type InitTypes = {
     eloquentQueryBuilder: IEloquentQueryBuilderService;
     cryptoService: ICryptoService;
     eventsService: IEventService;
+    logger: ILoggerService;
 }
 
 class DB extends BaseSingleton implements RequiresDependency {
@@ -23,13 +25,16 @@ class DB extends BaseSingleton implements RequiresDependency {
 
     protected _eventsService!: IEventService;
 
-    public static init({ databaseService, eloquentQueryBuilder, cryptoService, eventsService }: InitTypes) {
+    protected _logger!: ILoggerService;
+
+    public static init({ databaseService, eloquentQueryBuilder, cryptoService, eventsService, logger }: InitTypes) {
         DB.getInstance().setDependencyLoader(
             CreateDependencyLoader.create({
                 databaseService,
                 eloquentQueryBuilder,
                 cryptoService,
-                eventsService
+                eventsService,
+                logger
             })
         )
     }
@@ -87,6 +92,14 @@ class DB extends BaseSingleton implements RequiresDependency {
         }
 
         return this._eventsService
+    }
+
+    logger(): ILoggerService | undefined {
+        if(!this._logger) {
+            return undefined
+        }
+
+        return this._logger
     }
 }
 

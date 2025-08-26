@@ -3,12 +3,7 @@ import { IDatabaseConfig } from "@/database/interfaces/config.t";
 import DatabaseConfig from "@/database/services/DatabaseConfig";
 import DatabaseService from "@/database/services/DatabaseService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MockMongoDBAdapter, MockSQLAdapter, MockSQLConfig } from "./mocks/MockSQLAdapter";
-
-process.on('unhandledRejection', (reason) => {
-    console.log(reason); // log the reason including the stack trace
-    throw reason;
-});
+import { MockMongoDBAdapter, MockPostgresAdapter, MockSQLAdapter, MockSQLConfig } from "./mocks/MockSQLAdapter";
 
 describe("Database Service", () => {
     const DEFAULT_CONNECTION = 'sql'
@@ -457,4 +452,44 @@ describe("Database Service", () => {
         })
     })
 
+    describe("postgres", () => {
+
+        test("should return postgres adapter by default connection name", () => {
+            const databaseService = new DatabaseService({
+                ...defaultConfig,
+                defaultConnectionName: 'postgres-1',
+                connections: [
+                    DatabaseConfig.connection("postgres-1", MockPostgresAdapter, {
+                        uri: 'postgres://user:pass@localhost:5432/db'
+                    })
+                ]
+            })
+            databaseService.register()
+
+            const postgres = databaseService.postgres()
+
+            expect(postgres._adapter_type_).toBe('postgres')
+        })
+
+        test("should return postgres adapter by connection name", () => {
+            const databaseService = new DatabaseService({
+                ...defaultConfig,
+                defaultConnectionName: 'postgres-1',
+                connections: [
+                    DatabaseConfig.connection("postgres-1", MockPostgresAdapter, {
+                        uri: 'postgres://user:pass@localhost:5433/db'
+                    }),
+                    DatabaseConfig.connection("postgres-2", MockPostgresAdapter, {
+                        uri: 'postgres://user:pass@localhost:5432/db'
+                    })
+                ]
+            })
+            databaseService.register()
+
+            const postgres = databaseService.postgres('postgres-2')
+
+            expect(postgres._adapter_type_).toBe('postgres')
+            expect(postgres.getConfig().uri).toBe('postgres://user:pass@localhost:5432/db')
+        })
+    })
 });

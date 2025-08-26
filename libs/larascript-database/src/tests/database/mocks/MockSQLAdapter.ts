@@ -29,6 +29,8 @@ export const MockSQLConfig: ReturnType<MockSQLAdapter['getConfig']> = {
 
 export class MockSQLAdapter extends BaseDatabaseAdapter<{ connectionString: string }> {
     
+    _adapter_type_ = 'sql';
+
     // Column normalization
     normalizeColumn(col: string): string {
         return col.toLowerCase();
@@ -85,6 +87,8 @@ export class MockSQLAdapter extends BaseDatabaseAdapter<{ connectionString: stri
 }
 
 export class MockMongoDBAdapter extends BaseDatabaseAdapter<{ uri: string }> {
+
+    _adapter_type_ = 'mongodb';
     
     // Column normalization
     normalizeColumn(col: string): string {
@@ -133,6 +137,65 @@ export class MockMongoDBAdapter extends BaseDatabaseAdapter<{ uri: string }> {
     
     getDefaultCredentials(): string | null {
         return 'mongodb://user:pass@localhost:27017/testdb';
+    }
+    
+    // Document preparation
+    prepareDocument<T extends object = object>(document: T, prepareOptions?: IPrepareOptions): T {
+        return document;
+    }
+}
+
+export class MockPostgresAdapter extends BaseDatabaseAdapter<{ uri: string }> {
+    
+    _adapter_type_ = 'postgres';
+
+    // Column normalization
+    normalizeColumn(col: string): string {
+        return col.toLowerCase();
+    }
+    
+    // Connection management
+    setConnectionName(...args: any[]): void {}
+    
+    getConnectionName(...args: any[]): string {
+        return 'sql';
+    }
+    
+    async connectDefault(): Promise<unknown> {
+        return true;
+    }
+    
+    async isConnected(): Promise<boolean> {
+        return true;
+    }
+    
+    async close(): Promise<void> {}
+    
+    // Schema operations
+    getSchema(): IDatabaseSchema {
+        return MockSchema;
+    }
+    
+    async createMigrationSchema(...args: any[]): Promise<unknown> {
+        return undefined;
+    }
+    
+    // Eloquent and relationships
+    getEloquentConstructor<Model extends IModel = IModel>(): TClassConstructor<IEloquent<Model>> {
+        return (class MockEloquent {} as any);
+    }
+    
+    getRelationshipResolver(): IRelationshipResolver {
+        return MockRelationshipResolver;
+    }
+    
+    // Configuration
+    getDockerComposeFileName(): string {
+        return 'docker-compose.postgres.yml';
+    }
+    
+    getDefaultCredentials(): string | null {
+        return 'postgres://user:pass@localhost:5432/testdb';
     }
     
     // Document preparation

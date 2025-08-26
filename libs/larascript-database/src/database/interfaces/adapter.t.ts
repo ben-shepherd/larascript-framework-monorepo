@@ -20,6 +20,8 @@ export interface IDatabaseAdapters {
 
 export interface IDatabaseAdapter {
 
+    _adapter_type_: string;
+
     getConfig(): object;
 
     normalizeColumn(col: string): string

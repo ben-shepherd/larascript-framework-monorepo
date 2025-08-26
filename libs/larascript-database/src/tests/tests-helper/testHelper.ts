@@ -65,13 +65,6 @@ class TestPostgresProvider extends BaseProvider
 
 export const testHelper = {
     testBootApp: async () => {
-        await testHelper.beforeAll()
-        await testHelper.testBootPostgres()
-        // todo: add other connections (mongodb)
-    },
-    
-    testBootPostgres: async () => {
-
         await Kernel.boot({
             environment: EnvironmentTesting,
             providers: [
@@ -81,9 +74,11 @@ export const testHelper = {
         }, {})
     },
 
+
     getTestConnectionNames: () => ['postgres'],
 
     beforeAll: async () => {
+        await postgresDown()
         await postgresUp()
     },
 
@@ -92,6 +87,6 @@ export const testHelper = {
     }
 }
 
-export const queryBuilder = (model: ModelConstructor<IModel>, connection?: string) => {
+export const queryBuilder = <Model extends IModel>(model: ModelConstructor<Model>, connection?: string) => {
     return DB.getInstance().queryBuilder(model, connection)
 }

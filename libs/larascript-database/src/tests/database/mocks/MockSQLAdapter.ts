@@ -19,7 +19,7 @@ const MockSchema: IDatabaseSchema = {
 };
 
 export const MockRelationshipResolver: IRelationshipResolver = {
-    resolveData: async () => [],
+    resolveData: async () => [] as any,
     attachEloquentRelationship: () => ({} as IEloquent),
 };
 

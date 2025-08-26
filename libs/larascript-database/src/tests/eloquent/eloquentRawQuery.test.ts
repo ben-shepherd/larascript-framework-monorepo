@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
+import { ModelWithAttributes } from '@/model/interfaces/model.t';
 import { describe } from '@jest/globals';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import { ModelWithAttributes } from '@src/core/domains/models/interfaces/IModel';
-import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
 import pg from 'pg';
+import { forEveryConnection } from '../tests-helper/forEveryConnection';
+import { queryBuilder, testHelper } from '../tests-helper/testHelper';
+import TestPeopleModel, { resetPeopleTable } from './models/TestPeopleModel';
 
 describe('eloquent', () => {
 

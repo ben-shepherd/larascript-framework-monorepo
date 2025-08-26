@@ -37,6 +37,7 @@
 	"devDependencies": {
 		"@faker-js/faker": "^9.0.3",
 		"@jest/globals": "^30.0.5",
+		"@jest/test-sequencer": "^30.0.5",
 		"@larascript-framework/eslint-config": "workspace:*",
 		"@larascript-framework/jest-config": "workspace:*",
 		"@larascript-framework/tsconfig": "workspace:*",

@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
+import { IEloquent } from '@/eloquent/interfaces/eloquent.t';
 import { describe } from '@jest/globals';
-import { IEloquent } from '@src/core/domains/eloquent/interfaces/IEloquent';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
+import { forEveryConnection } from '../tests-helper/forEveryConnection';
+import { queryBuilder, testHelper } from '../tests-helper/testHelper';
+import TestPeopleModel, { resetPeopleTable } from './models/TestPeopleModel';
 
 const resetAndRepoulateTable = async () => {
     await resetPeopleTable()
@@ -38,8 +38,8 @@ const resetAndRepoulateTable = async () => {
     })
 }
 
-const getTestPeopleModelQueryBuilder = (connectionName: string) => {
-    return queryBuilder(TestPeopleModel, connectionName).orderBy('name', 'asc');
+const getTestPeopleModelQueryBuilder = (connectionName: string): IEloquent<TestPeopleModel> => {
+    return queryBuilder(TestPeopleModel, connectionName).orderBy('name', 'asc') as unknown as IEloquent<TestPeopleModel>;
 }
 
 describe('eloquent', () => {

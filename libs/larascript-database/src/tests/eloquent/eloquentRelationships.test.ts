@@ -1,9 +1,9 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import TestDepartmentModel, { resetTableDepartmentModel } from '@src/tests/larascript/eloquent/models/TestDepartmentModel';
-import TestEmployeeModel, { resetTableEmployeeModel } from '@src/tests/larascript/eloquent/models/TestEmployeeModel';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
+import { forEveryConnection } from '../tests-helper/forEveryConnection';
+import { queryBuilder, testHelper } from '../tests-helper/testHelper';
+import TestDepartmentModel, { resetTableDepartmentModel } from './models/TestDepartmentModel';
+import TestEmployeeModel, { resetTableEmployeeModel } from './models/TestEmployeeModel';
 
 const resetAndRepopulate = async () => {
     await resetTableEmployeeModel();

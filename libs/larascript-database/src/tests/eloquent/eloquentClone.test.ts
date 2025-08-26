@@ -1,8 +1,9 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
+import { forEveryConnection } from '../tests-helper/forEveryConnection';
+import { queryBuilder, testHelper } from '../tests-helper/testHelper';
+import TestPeopleModel, { resetPeopleTable } from './models/TestPeopleModel';
+
 
 describe('eloquent', () => {
 

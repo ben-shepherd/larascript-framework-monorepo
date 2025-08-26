@@ -1,2 +1,5 @@
-export { jestConfig as default } from "@larascript-framework/jest-config";
+import { jestConfig } from "@larascript-framework/jest-config";
 
+export default {
+    ...jestConfig,
+}

@@ -1,11 +1,13 @@
 /* eslint-disable no-undef */
+import ModelNotFound from '@/eloquent/exceptions/ModelNotFound';
 import { describe } from '@jest/globals';
 import { generateUuidV4 } from '@larascript-framework/larascript-utils';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import ModelNotFound from '@src/core/exceptions/ModelNotFound';
-import { ITestEmployeeModelData } from '@src/tests/larascript/eloquent/models/TestEmployeeModel';
-import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
+import { forEveryConnection } from '../tests-helper/forEveryConnection';
+import { queryBuilder, testHelper } from '../tests-helper/testHelper';
+import { ITestEmployeeModelData } from './models/TestEmployeeModel';
+import TestPeopleModel, { resetPeopleTable } from './models/TestPeopleModel';
+
+
 
 describe('eloquent', () => {
 

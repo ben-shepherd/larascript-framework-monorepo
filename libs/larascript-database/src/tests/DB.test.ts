@@ -5,6 +5,8 @@ import { IModel, IModelAttributes, ModelConstructor } from "@/model/interfaces/m
 import { beforeEach, describe, test } from "@jest/globals";
 import { ICryptoService } from "@larascript-framework/crypto-js";
 import { IEventService } from "@larascript-framework/larascript-events";
+import { LoggerService } from "@larascript-framework/larascript-logger";
+import path from "path";
 
 describe("Example Test Suite", () => {
   let mockModel: ModelConstructor<IModel<IModelAttributes>>;
@@ -36,12 +38,17 @@ describe("Example Test Suite", () => {
                 })
             } as unknown as IEloquentQueryBuilderService
         });
+        
+        const logger = new LoggerService({
+            logPath: path.join(process.cwd(), 'storage/logs')
+        })
 
         DB.init({
             databaseService: databaseServiceMock(),
             eloquentQueryBuilder: eloquentQueryBuilderMock(),
             cryptoService: cryptoServiceMock(),
-            eventsService: eventServiceMock()
+            eventsService: eventServiceMock(),
+            logger: logger
         })
     })
 
@@ -50,6 +57,7 @@ describe("Example Test Suite", () => {
         expect(DB.getInstance().queryBuilder(mockModel, 'test')).toBeDefined()
         expect(DB.getInstance().cryptoService()).toBeDefined()
         expect(DB.getInstance().eventsService()).toBeDefined()
+        expect(DB.getInstance().logger()).toBeDefined()
     })
   });
 });

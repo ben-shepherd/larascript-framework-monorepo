@@ -491,5 +491,11 @@ describe("Database Service", () => {
             expect(postgres._adapter_type_).toBe('postgres')
             expect(postgres.getConfig().uri).toBe('postgres://user:pass@localhost:5432/db')
         })
+
+        test("should throw error when adapter is not a postgres adapter", () => {
+            databaseService.register()
+
+            expect(() => databaseService.postgres()).toThrow('Adapter is not a PostgresAdapter: sql')
+        })
     })
 });

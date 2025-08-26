@@ -1,10 +1,10 @@
-import BelongsTo from "@src/core/domains/eloquent/relational/BelongsTo";
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
-import { app } from "@src/core/services/App";
-import TestDepartmentModel from "@src/tests/larascript/eloquent/models/TestDepartmentModel";
-import testHelper from "@src/tests/testHelper";
+import DB from "@/database/services/DB";
+import BelongsTo from "@/eloquent/relational/BelongsTo";
+import { IModelAttributes } from "@/model";
+import Model from "@/model/base/Model";
+import { testHelper } from "@/tests/tests-helper/testHelper";
 import { DataTypes } from "sequelize";
+import TestDepartmentModel from "./TestDepartmentModel";
 
 const tableName = Model.formatTableName('testsEmployees')
 
@@ -20,7 +20,7 @@ export interface ITestEmployeeModelData extends IModelAttributes {
 
 export const resetTableEmployeeModel = async (connections: string[] = testHelper.getTestConnectionNames()) => {
     for (const connectionName of connections) {
-        const schema = app('db').schema(connectionName);
+        const schema = DB.getInstance().databaseService().getAdapter(connectionName).getSchema();
 
         if (await schema.tableExists(tableName)) {
             await schema.dropTable(tableName);

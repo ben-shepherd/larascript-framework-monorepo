@@ -12,7 +12,7 @@ export type InitTypes = {
     eloquentQueryBuilder: IEloquentQueryBuilderService;
     cryptoService: ICryptoService;
     eventsService: IEventService;
-    logger: ILoggerService;
+    logger?: ILoggerService;
 }
 
 class DB extends BaseSingleton implements RequiresDependency {
@@ -25,7 +25,7 @@ class DB extends BaseSingleton implements RequiresDependency {
 
     protected _eventsService!: IEventService;
 
-    protected _logger!: ILoggerService;
+    protected _logger?: ILoggerService;
 
     public static init({ databaseService, eloquentQueryBuilder, cryptoService, eventsService, logger }: InitTypes) {
         DB.getInstance().setDependencyLoader(

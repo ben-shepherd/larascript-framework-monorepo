@@ -1,23 +1,18 @@
 /* eslint-disable no-unused-vars */
+import { IDatabaseAdapter } from "@/database/interfaces/adapter.t";
+import DB from "@/database/services/DB";
+import { IModel, ModelConstructor } from "@/model";
 import { Collection } from "@larascript-framework/larascript-collection";
-import { deepClone } from "@larascript-framework/larascript-utils";
-import { IConnectionTypeHelpers } from "@src/core/domains/database/interfaces/IConnectionTypeHelpers";
-import { IDatabaseAdapter } from "@src/core/domains/database/interfaces/IDatabaseAdapter";
-import { db } from "@src/core/domains/database/services/Database";
-import Direction from "@src/core/domains/eloquent/enums/Direction";
-import EloquentException from "@src/core/domains/eloquent/exceptions/EloquentExpression";
-import ExpressionException from "@src/core/domains/eloquent/exceptions/ExpressionException";
-import InvalidMethodException from "@src/core/domains/eloquent/exceptions/InvalidMethodException";
-import MissingTableException from "@src/core/domains/eloquent/exceptions/MissingTableException";
-import QueryBuilderException from "@src/core/domains/eloquent/exceptions/QueryBuilderException";
-import { IEloquent, IdGeneratorFn, LogicalOperators, OperatorArray, SetModelColumnsOptions, TColumnOption, TFormatterFn, TGroupBy, TLogicalOperator, TOperator, TWhereClauseValue, TransactionFn } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import IEloquentExpression from "@src/core/domains/eloquent/interfaces/IEloquentExpression";
-import { TDirection } from "@src/core/domains/eloquent/interfaces/TEnums";
-import With from "@src/core/domains/eloquent/relational/With";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
-import { TClassConstructor } from "@src/core/interfaces/ClassConstructor.t";
-import { app } from "@src/core/services/App";
-
+import { deepClone, TClassConstructor } from "@larascript-framework/larascript-utils";
+import Direction from "./enums/Direction";
+import EloquentException from "./exceptions/EloquentExpression";
+import ExpressionException from "./exceptions/ExpressionException";
+import InvalidMethodException from "./exceptions/InvalidMethodException";
+import MissingTableException from "./exceptions/MissingTableException";
+import QueryBuilderException from "./exceptions/QueryBuilderException";
+import { IdGeneratorFn, IEloquent, LogicalOperators, OperatorArray, SetModelColumnsOptions, TColumnOption, TDirection, TFormatterFn, TGroupBy, TLogicalOperator, TOperator, TransactionFn, TWhereClauseValue } from "./interfaces";
+import IEloquentExpression from "./interfaces/expressions.t";
+import With from "./relational/With";
 
 /**
  * Base class for Eloquent query builder.
@@ -96,7 +91,7 @@ abstract class Eloquent<
      * @returns {IDatabaseAdapter} The database adapter.
      */
     protected getDatabaseAdapter<T extends IDatabaseAdapter = Adapter>(): T {
-        return db().getAdapter(this.getConnectionName() as keyof IConnectionTypeHelpers) as unknown as T
+        return DB.getInstance().databaseService().getAdapter(this.getConnectionName()) as unknown as T
     }
 
     /**
@@ -123,7 +118,7 @@ abstract class Eloquent<
      * @param {string} message The message to log
      */
     protected log(message: string, ...args: any[]) {
-        app('logger').error(`[Eloquent] (Connection: ${this.connectionName}): ${message}`, ...args);
+        DB.getInstance().logger()?.error(`[Eloquent] (Connection: ${this.connectionName}): ${message}`, ...args);
     }
 
     /**

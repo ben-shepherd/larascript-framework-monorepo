@@ -1,7 +1,7 @@
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
-import { app } from "@src/core/services/App";
-import { forEveryConnection } from "@src/tests/testHelper";
+import DB from "@/database/services/DB";
+import { IModelAttributes } from "@/model";
+import Model from "@/model/base/Model";
+import { forEveryConnection } from "@/tests/tests-helper/forEveryConnection";
 import { DataTypes } from "sequelize";
 
 const tableName = Model.formatTableName('testsPeople')
@@ -19,7 +19,7 @@ export interface ITestPeopleModelData extends IModelAttributes {
 
 export const resetPeopleTable = async () => {
     await forEveryConnection(async connectionName => {
-        const schema = app('db').schema(connectionName);
+        const schema = DB.getInstance().databaseService().getAdapter(connectionName).getSchema();
 
         if (await schema.tableExists(tableName)) {
             await schema.dropTable(tableName);

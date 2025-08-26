@@ -1,5 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { TColumnOption, TGroupBy, TJoin, TLogicalOperator, TOffsetLimit, TOperator, TOrderBy, TWhereClause, TWhereClauseValue, TWith } from "@src/core/domains/eloquent/interfaces/IEloquent";
+
+import { TColumnOption, TGroupBy, TJoin, TLogicalOperator, TOffsetLimit, TOperator, TOrderBy, TWhereClause, TWhereClauseValue, TWith } from "./eloquent.t";
 
 interface IEloquentExpression<BindingsUtility = unknown> {
 

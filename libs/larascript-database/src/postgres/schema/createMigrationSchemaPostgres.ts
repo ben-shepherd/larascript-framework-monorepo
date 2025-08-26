@@ -1,4 +1,4 @@
-import PostgresAdapter from "@src/core/domains/postgres/adapters/PostgresAdapter";
+import PostgresAdapter from "@/postgres/adapters/PostgresAdapter";
 import { DataTypes } from "sequelize";
 
 

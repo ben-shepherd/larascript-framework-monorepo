@@ -1,10 +1,9 @@
-import { app } from "@src/core/services/App"
 import fs from "fs"
 import path from "path"
 
 export const extractDefaultPostgresCredentials = () => {
     try {
-        const dockerComposePath = path.resolve('@src/../', 'docker/docker-compose.postgres.yml')
+        const dockerComposePath = path.resolve(process.cwd(), 'docker/docker-compose.postgres.yml')
         const contents = fs.readFileSync(dockerComposePath, 'utf8')
 
         const pattern = /LARASCRIPT_DEFAULT_CREDENTIALS:\s?(.+)/
@@ -15,7 +14,7 @@ export const extractDefaultPostgresCredentials = () => {
         }
     }
     catch (err) {
-        app('logger').error(err)
+        console.error(err)
     }
 
     return null;

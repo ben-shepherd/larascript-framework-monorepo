@@ -1,8 +1,8 @@
-import { db } from "@src/core/domains/database/services/Database";
-import BaseRelationshipResolver from "@src/core/domains/eloquent/base/BaseRelationshipResolver";
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { IModel } from "@src/core/domains/models/interfaces/IModel";
-import { TClassConstructor } from "@src/core/interfaces/ClassConstructor.t";
+import DB from "@/database/services/DB";
+import { IEloquent } from "@/eloquent/interfaces/eloquent.t";
+import { IModel } from "@/model";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import BaseRelationshipResolver from "../base/BaseRelationshipResolver";
 
 class With {
 
@@ -25,7 +25,7 @@ class With {
 
         const eloquent = this.eloquent.clone()
 
-        const resolver = db().getAdapter().getRelationshipResolver()
+        const resolver = DB.getInstance().databaseService().getAdapter().getRelationshipResolver()
 
         const relationshipInterface = BaseRelationshipResolver.resolveRelationshipInterfaceByModelRelationshipName(eloquent.getModelCtor() as TClassConstructor<IModel>, this.relationshipName)
 

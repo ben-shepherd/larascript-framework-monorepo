@@ -15,6 +15,10 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
+    "db:postgres:up": "cd ./docker && docker-compose -f docker-compose.postgres.yml up --build -d postgres",
+    "db:postgres:down": "cd ./docker && docker-compose -f docker-compose.postgres.yml down",
+    "db:mongodb:up": "cd ./docker && docker-compose -f docker-compose.mongodb.yml up --build -d mongodb",
+    "db:mongodb:down": "cd ./docker && docker-compose -f docker-compose.mongodb.yml down",
     "prepare": "npm run build",
     "test": "jest --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",

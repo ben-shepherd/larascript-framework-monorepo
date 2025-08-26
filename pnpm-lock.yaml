@@ -517,6 +517,10 @@ importers:
         version: 1.8.16
 
   libs/larascript-database:
+    dependencies:
+      lodash:
+        specifier: ^4.17.21
+        version: 4.17.21
     devDependencies:
       '@larascript-framework/check-exports':
         specifier: workspace:*

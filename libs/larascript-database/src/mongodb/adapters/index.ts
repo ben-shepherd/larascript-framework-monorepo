@@ -1,1 +1,1 @@
-export { default as MongoDbAdapter } from './MongoDbAdapter';
+export { default as MongoDbAdapter } from "./MongoDbAdapter";

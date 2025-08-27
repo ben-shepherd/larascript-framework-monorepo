@@ -6,33 +6,36 @@ import { IDatabaseSchema } from "./schema.t";
 
 export interface IConnectionTypes extends Record<string, IDatabaseAdapter> {}
 
-export interface IDatabaseService
-{   
-    // boot(): Promise<void>;
-    
-    // registerConnections(): void
+export interface IDatabaseService {
+  // boot(): Promise<void>;
 
-    showLogs(): boolean
-    
-    getDefaultConnectionName(): string;
+  // registerConnections(): void
 
-    // setDefaultConnectionName(connectionName: string): void;
+  showLogs(): boolean;
 
-    getAdapter<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): Adapter;
+  getDefaultConnectionName(): string;
 
-    // getAdapterConstructor<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): IDatabaseAdapterConstructor<Adapter>
+  // setDefaultConnectionName(connectionName: string): void;
 
-    getAllAdapterConstructors(): TClassConstructor<IDatabaseAdapter>[]
+  getAdapter<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(
+    connectionName?: string,
+  ): Adapter;
 
-    // isRegisteredAdapter(adapter: TClassConstructor<IDatabaseAdapter>, connectionName?: string): boolean
+  // getAdapterConstructor<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): IDatabaseAdapterConstructor<Adapter>
 
-    // getDefaultCredentials(adapterName: string): string | null;
+  getAllAdapterConstructors(): TClassConstructor<IDatabaseAdapter>[];
 
-    schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(connectionName?: string): TSchema;
+  // isRegisteredAdapter(adapter: TClassConstructor<IDatabaseAdapter>, connectionName?: string): boolean
 
-    // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
+  // getDefaultCredentials(adapterName: string): string | null;
 
-    postgres(connectionName?: string): IPostgresAdapter
+  schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(
+    connectionName?: string,
+  ): TSchema;
 
-    mongodb(connectionName?: string): IMongoDbAdapter
+  // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
+
+  postgres(connectionName?: string): IPostgresAdapter;
+
+  mongodb(connectionName?: string): IMongoDbAdapter;
 }

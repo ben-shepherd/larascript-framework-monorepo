@@ -2,37 +2,35 @@ import { IRelationship } from "@/eloquent";
 import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
 
 class MongoRelationshipResolver extends BaseRelationshipResolver {
+  /**
+   * Gets the local key for the relationship.
+   * @param relationship - The relationship to get the local key for.
+   * @returns The local key for the relationship.
+   */
+  protected getLocalKey(relationship: IRelationship): string {
+    const localKey = relationship.getLocalKey();
 
-    /**
-     * Gets the local key for the relationship.
-     * @param relationship - The relationship to get the local key for.
-     * @returns The local key for the relationship.
-     */
-    protected getLocalKey(relationship: IRelationship): string {
-        const localKey = relationship.getLocalKey()
-
-        if(localKey === 'id') {
-            return '_id'
-        }
-
-        return localKey
+    if (localKey === "id") {
+      return "_id";
     }
 
-    /**
-     * Gets the foreign key for the relationship.
-     * @param relationship - The relationship to get the foreign key for.
-     * @returns The foreign key for the relationship.
-     */
-    protected getForeignKey(relationship: IRelationship): string {
-        const foreignKey = relationship.getForeignKey()
+    return localKey;
+  }
 
-        if(foreignKey === 'id') {
-            return '_id'
-        }
+  /**
+   * Gets the foreign key for the relationship.
+   * @param relationship - The relationship to get the foreign key for.
+   * @returns The foreign key for the relationship.
+   */
+  protected getForeignKey(relationship: IRelationship): string {
+    const foreignKey = relationship.getForeignKey();
 
-        return foreignKey
+    if (foreignKey === "id") {
+      return "_id";
     }
 
+    return foreignKey;
+  }
 }
 
-export default MongoRelationshipResolver
+export default MongoRelationshipResolver;

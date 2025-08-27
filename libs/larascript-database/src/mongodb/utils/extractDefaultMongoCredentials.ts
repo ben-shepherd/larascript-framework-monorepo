@@ -6,20 +6,22 @@ import path from "path";
  * Extracts the default MongoDB credentials from the `docker-compose.mongodb.yml` file.
  */
 export const extractDefaultMongoCredentials = () => {
-    try {
-        const dockerComposePath = path.resolve(process.cwd(), 'docker/docker-compose.mongodb.yml')
-        const contents = fs.readFileSync(dockerComposePath, 'utf8')
+  try {
+    const dockerComposePath = path.resolve(
+      process.cwd(),
+      "docker/docker-compose.mongodb.yml",
+    );
+    const contents = fs.readFileSync(dockerComposePath, "utf8");
 
-        const pattern = /LARASCRIPT_DEFAULT_CREDENTIALS:\s?(.+)/
-        const match = pattern.exec(contents)
+    const pattern = /LARASCRIPT_DEFAULT_CREDENTIALS:\s?(.+)/;
+    const match = pattern.exec(contents);
 
-        if (match?.[1]) {
-            return match?.[1]
-        }
+    if (match?.[1]) {
+      return match?.[1];
     }
-    catch (err) {
-        DB.getInstance().logger()?.error(err)
-    }
+  } catch (err) {
+    DB.getInstance().logger()?.error(err);
+  }
 
-    return null;
-}
+  return null;
+};

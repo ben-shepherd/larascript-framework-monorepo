@@ -6,47 +6,53 @@ import { IPrepareOptions } from "./options.t";
 import { IDatabaseSchema } from "./schema.t";
 
 export interface IAdapterComposerFileName {
-    fullName: string,
-    shortName: string
+  fullName: string;
+  shortName: string;
 }
 
-export interface IDatabaseAdapterConstructor<T extends IDatabaseAdapter = IDatabaseAdapter> extends TClassConstructor<T> {
-    new (...args: any[]): T;
+export interface IDatabaseAdapterConstructor<
+  T extends IDatabaseAdapter = IDatabaseAdapter,
+> extends TClassConstructor<T> {
+  new (...args: any[]): T;
 }
 
 export interface IDatabaseAdapters {
-    [key: string]: IDatabaseAdapter
+  [key: string]: IDatabaseAdapter;
 }
 
 export interface IDatabaseAdapter<Config = unknown> {
+  _adapter_type_: string;
 
-    _adapter_type_: string;
+  getConfig(): Config;
 
-    getConfig(): Config;
+  normalizeColumn(col: string): string;
 
-    normalizeColumn(col: string): string
+  setConnectionName(...args: any[]): void;
 
-    setConnectionName(...args: any[]): void;
+  getConnectionName(...args: any[]): string;
 
-    getConnectionName(...args: any[]): string;
+  connectDefault(): Promise<unknown>;
 
-    connectDefault(): Promise<unknown>;
+  isConnected(): Promise<boolean>;
 
-    isConnected(): Promise<boolean>;
+  getSchema(): IDatabaseSchema;
 
-    getSchema(): IDatabaseSchema;
+  getEloquentConstructor<Model extends IModel = IModel>(): TClassConstructor<
+    IEloquent<Model>
+  >;
 
-    getEloquentConstructor<Model extends IModel = IModel>(): TClassConstructor<IEloquent<Model>>;
+  getRelationshipResolver(connection?: string): IRelationshipResolver;
 
-    getRelationshipResolver(connection?: string): IRelationshipResolver;
+  getDockerComposeFileName(): string;
 
-    getDockerComposeFileName(): string;
+  getDefaultCredentials(): string | null;
 
-    getDefaultCredentials(): string | null;
+  createMigrationSchema(...args: any[]): Promise<unknown>;
 
-    createMigrationSchema(...args: any[]): Promise<unknown>;
+  prepareDocument<T extends object = object>(
+    document: T,
+    prepareOptions?: IPrepareOptions,
+  ): T;
 
-    prepareDocument<T extends object = object>(document: T, prepareOptions?: IPrepareOptions): T;
-
-    close(): Promise<void>;
+  close(): Promise<void>;
 }

@@ -5,14 +5,21 @@ import { MongoDbAdapter } from "../adapters";
  *
  * @returns {Promise<void>}
  */
-const createMigrationSchemaMongo = async (adapter: MongoDbAdapter, tableName: string = 'migrations') => {
-    const db = adapter.getDb();
+const createMigrationSchemaMongo = async (
+  adapter: MongoDbAdapter,
+  tableName: string = "migrations",
+) => {
+  const db = adapter.getDb();
 
-    if ((await db.listCollections().toArray()).map(c => c.name).includes(tableName)) {
-        return;
-    }
+  if (
+    (await db.listCollections().toArray())
+      .map((c) => c.name)
+      .includes(tableName)
+  ) {
+    return;
+  }
 
-    await db.createCollection(tableName);
-}
+  await db.createCollection(tableName);
+};
 
-export default createMigrationSchemaMongo
+export default createMigrationSchemaMongo;

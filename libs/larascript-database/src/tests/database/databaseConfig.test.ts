@@ -3,18 +3,21 @@ import { describe, expect, test } from "@jest/globals";
 import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
 
 describe("Database Config", () => {
-
   describe("Database Config", () => {
     test("should perform expected behavior", () => {
       const expected = {
-        connectionName: 'test',
+        connectionName: "test",
         adapter: MockSQLAdapter,
         options: {
-            connectionString: 'sql://user:pass@localhost:3306/db'
-        }
-      }
+          connectionString: "sql://user:pass@localhost:3306/db",
+        },
+      };
 
-      expect(DatabaseConfig.connection("test", MockSQLAdapter, { connectionString: 'sql://user:pass@localhost:3306/db' })).toEqual(expected)
-    })
+      expect(
+        DatabaseConfig.connection("test", MockSQLAdapter, {
+          connectionString: "sql://user:pass@localhost:3306/db",
+        }),
+      ).toEqual(expected);
+    });
   });
 });

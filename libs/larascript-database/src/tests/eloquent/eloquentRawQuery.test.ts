@@ -1,94 +1,93 @@
-/* eslint-disable no-undef */
-import { ModelWithAttributes } from '@/model/interfaces/model.t';
-import { describe } from '@jest/globals';
-import pg from 'pg';
-import { forEveryConnection } from '../tests-helper/forEveryConnection';
-import { queryBuilder, testHelper } from '../tests-helper/testHelper';
-import TestPeopleModel, { resetPeopleTable } from './models/TestPeopleModel';
+import { ModelWithAttributes } from "@/model/interfaces/model.t";
+import { describe } from "@jest/globals";
+import pg from "pg";
+import { forEveryConnection } from "../tests-helper/forEveryConnection";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper";
+import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel";
 
-describe('eloquent', () => {
+describe("eloquent", () => {
+  const resetAndRepopulateTable = async () => {
+    await resetPeopleTable();
 
-    const resetAndRepopulateTable = async () => {
-        await resetPeopleTable()
-
-        await forEveryConnection(async connection => {
-            await queryBuilder(TestPeopleModel, connection).clone().insert([
-                {
-                    name: 'John',
-                    age: 25,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                },
-                {
-                    name: 'Jane',
-                    age: 30,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                },
-                {
-                    name: 'Bob',
-                    age: 35,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                },
-                {
-                    name: 'Alice',
-                    age: 40,
-                    createdAt: new Date(),
-                    updatedAt: new Date()
-                }
-            ])
-        })
-    }
-
-    beforeAll(async () => {
-        await testHelper.testBootApp()
+    await forEveryConnection(async (connection) => {
+      await queryBuilder(TestPeopleModel, connection)
+        .clone()
+        .insert([
+          {
+            name: "John",
+            age: 25,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            name: "Jane",
+            age: 30,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            name: "Bob",
+            age: 35,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+          {
+            name: "Alice",
+            age: 40,
+            createdAt: new Date(),
+            updatedAt: new Date(),
+          },
+        ]);
     });
+  };
 
-    test('raw query (postgres)', async () => {
+  beforeAll(async () => {
+    await testHelper.testBootApp();
+  });
 
-        await resetAndRepopulateTable()
+  test("raw query (postgres)", async () => {
+    await resetAndRepopulateTable();
 
-        await forEveryConnection(async connection => {
+    await forEveryConnection(async (connection) => {
+      if (connection !== "postgres") return;
+      const query = queryBuilder(TestPeopleModel, connection);
+      const sql = `SELECT * FROM ${query.useTable()} WHERE name = $1 OR name = $2 ORDER BY name DESC LIMIT 2`;
+      const bindings = ["Alice", "Bob"];
 
-            if(connection !== 'postgres') return;
-            const query = queryBuilder(TestPeopleModel, connection)
-            const sql = `SELECT * FROM ${query.useTable()} WHERE name = $1 OR name = $2 ORDER BY name DESC LIMIT 2`;
-            const bindings = ['Alice', 'Bob'];
-
-            const results = await query.clone().raw<pg.QueryResult<NonNullable<TestPeopleModel['attributes']>>>(sql, bindings);
-            expect(results.rows.length).toBe(2);
-            expect(results.rows[0].name).toBe('Bob');
-            expect(results.rows[1].name).toBe('Alice');
-        })
-
+      const results = await query
+        .clone()
+        .raw<
+          pg.QueryResult<NonNullable<TestPeopleModel["attributes"]>>
+        >(sql, bindings);
+      expect(results.rows.length).toBe(2);
+      expect(results.rows[0].name).toBe("Bob");
+      expect(results.rows[1].name).toBe("Alice");
     });
+  });
 
-    test('raw query (mongo) ', async () => {
+  test("raw query (mongo) ", async () => {
+    await resetAndRepopulateTable();
 
-        await resetAndRepopulateTable()
+    await forEveryConnection(async (connection) => {
+      if (connection !== "mongodb") return;
 
-        await forEveryConnection(async connection => {
-            if(connection !== 'mongodb') return;
+      const query = queryBuilder(TestPeopleModel, connection);
 
-            const query = queryBuilder(TestPeopleModel, connection)
+      const aggregate: object[] = [
+        {
+          $match: {
+            name: {
+              $in: ["Alice", "Bob"],
+            },
+          },
+        },
+      ];
 
-            const aggregate: object[] = [
-                {
-                    $match: {   
-                        name: {
-                            $in: ['Alice', 'Bob']
-                        }
-                    }
-                }
-            ]
+      const results = await query
+        .clone()
+        .raw<ModelWithAttributes<TestPeopleModel>[]>(aggregate);
 
-            const results = await query.clone().raw<ModelWithAttributes<TestPeopleModel>[]>(aggregate)
-
-            expect(results.length).toBe(2)
-
-        })
-
+      expect(results.length).toBe(2);
     });
-
+  });
 });

@@ -1,4 +1,4 @@
 export interface IPrepareOptions {
-    jsonStringify?: string[];
-    jsonParse?: string[];
+  jsonStringify?: string[];
+  jsonParse?: string[];
 }

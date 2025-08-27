@@ -15,13 +15,6 @@ services:
       LARASCRIPT_DEFAULT_CREDENTIALS: postgres://root:example@localhost:5432/app
     volumes:
       - postgres_data:/var/lib/postgresql/data
-    networks:
-      - app-network
 
 volumes:
   postgres_data:
-
-networks:
-  app-network:
-    external: true
-    name: larascript

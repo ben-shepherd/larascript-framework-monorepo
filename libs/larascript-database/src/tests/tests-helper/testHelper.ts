@@ -90,7 +90,7 @@ export const testHelper = {
     },
 
 
-    getTestConnectionNames: () => ['mongodb'],
+    getTestConnectionNames: () => ['mongodb', 'postgres'],
 
     afterAll: async () => {
         await postgresDown()

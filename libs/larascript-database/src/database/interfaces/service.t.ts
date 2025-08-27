@@ -1,3 +1,4 @@
+import { IMongoDbAdapter } from "@/mongodb/interfaces/mongodb.t";
 import { IPostgresAdapter } from "@/postgres/interfaces/postgres.t";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IDatabaseAdapter } from "./adapter.t";
@@ -32,4 +33,6 @@ export interface IDatabaseService
     // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
 
     postgres(connectionName?: string): IPostgresAdapter
+
+    mongodb(connectionName?: string): IMongoDbAdapter
 }

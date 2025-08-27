@@ -1,3 +1,4 @@
+import { IMongoDbAdapter } from "@/mongodb/interfaces/mongodb.t";
 import { IPostgresAdapter } from "@/postgres/interfaces/postgres.t";
 import { DependencyLoader, RequiresDependency } from "@larascript-framework/larascript-core";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
@@ -304,15 +305,15 @@ class Database implements IDatabaseService, RequiresDependency {
         return adapter as unknown as IPostgresAdapter
     }
 
-    // mongodb(connectionName?: string): MongoDBAdapter {
-    //     const adapter = this.getAdapter(connectionName)
+    mongodb(connectionName?: string): IMongoDbAdapter {
+        const adapter = this.getAdapter(connectionName)
 
-    //     if(adapter instanceof MongoDBAdapter === false) {
-    //         throw new Error('Adapter is not a MongoDBAdapter: ' + connectionName)
-    //     }
+        if(adapter._adapter_type_ !== 'mongodb') {
+            throw new Error('Adapter is not a MongoDBAdapter: ' + connectionName)
+        }
 
-    //     return adapter as PostgresAdapter
-    // }
+        return adapter as unknown as IMongoDbAdapter
+    }
 }
 
 export default Database

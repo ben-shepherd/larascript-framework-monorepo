@@ -497,5 +497,32 @@ describe("Database Service", () => {
 
             expect(() => databaseService.postgres()).toThrow('Adapter is not a PostgresAdapter: sql')
         })
+
+        test("should return mongodb adapter by connection name", () => {
+            const databaseService = new DatabaseService({
+                ...defaultConfig,
+                defaultConnectionName: 'mongodb-1',
+                connections: [
+                    DatabaseConfig.connection("mongodb-1", MockMongoDBAdapter, {
+                        uri: 'mongodb://user:pass@localhost:27017/db'
+                    }),
+                    DatabaseConfig.connection("mongodb-2", MockMongoDBAdapter, {
+                        uri: 'mongodb://user:pass@localhost:27018/db'
+                    })
+                ]
+            })
+            databaseService.register()
+
+            const mongodb = databaseService.mongodb('mongodb-2')
+
+            expect(mongodb._adapter_type_).toBe('mongodb')
+            expect(mongodb.getConfig().uri).toBe('mongodb://user:pass@localhost:27018/db')
+        })
+
+        test("should throw error when adapter is not a mongodb adapter", () => {
+            databaseService.register()
+
+            expect(() => databaseService.mongodb()).toThrow('Adapter is not a MongoDBAdapter: sql')
+        })
     })
 });

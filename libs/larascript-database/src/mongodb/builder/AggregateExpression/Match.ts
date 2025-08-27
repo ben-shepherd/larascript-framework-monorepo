@@ -1,9 +1,9 @@
-import ExpressionException from "@src/core/domains/eloquent/exceptions/ExpressionException";
-import { LogicalOperators, TLogicalOperator, TWhereClause, TWhereClauseValue } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { MongoRaw } from "@src/core/domains/mongodb/builder/AggregateExpression";
+import { LogicalOperators, TLogicalOperator, TWhereClause, TWhereClauseValue } from "@/eloquent";
+import ExpressionException from "@/eloquent/exceptions/ExpressionException";
+import { MongoRaw } from "@/mongodb/builder/AggregateExpression";
+import { normalizeColumn } from "@/mongodb/utils/normalizeColumn";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
-import { normalizeColumn } from "@src/core/domains/mongodb/utils/normalizeColumn";
 
 /**
  * Match class handles building MongoDB $match pipeline stages from SQL-style where clauses.

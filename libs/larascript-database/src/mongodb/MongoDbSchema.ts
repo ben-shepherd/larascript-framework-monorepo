@@ -1,9 +1,8 @@
+import BaseSchema from "@/database/base/BaseSchema";
+import CreateDatabaseException from "@/database/exceptions/CreateDatabaseException";
+import DB from "@/database/services/DB";
 import { captureError } from "@larascript-framework/larascript-utils";
-import BaseSchema from "@src/core/domains/database/base/BaseSchema";
-import CreateDatabaseException from "@src/core/domains/database/exceptions/CreateDatabaseException";
-import MongoDbAdapter from "@src/core/domains/mongodb/adapters/MongoDbAdapter";
-import { app } from "@src/core/services/App";
-import { logger } from "@src/core/services/Logger";
+import MongoDbAdapter from "./adapters/MongoDbAdapter";
 
 class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
 
@@ -31,7 +30,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             }
         }
         catch (err) {
-            logger().error('Error creating database: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error creating database: ' + (err as Error).message);
             throw err;
         }
         finally {
@@ -53,7 +52,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             return dbList.databases.some(db => db.name === name);
         }
         catch (err) {
-            logger().error('Error checking if database exists: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error checking if database exists: ' + (err as Error).message);
             throw err;
         }
         finally {
@@ -75,7 +74,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             await client.db(name).dropDatabase();
         }
         catch (err) {
-            logger().error('Error dropping database: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error dropping database: ' + (err as Error).message);
             throw err;
         }
         finally {
@@ -102,7 +101,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             });
         }
         catch (err) {
-            logger().error('Error creating table: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error creating table: ' + (err as Error).message);
             throw err;
         }
     }
@@ -118,7 +117,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             await this.getAdapter().getDb().dropCollection(tableName);
         }
         catch (err) {
-            logger().error('Error dropping table: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error dropping table: ' + (err as Error).message);
             throw err;
         }
     }
@@ -157,7 +156,7 @@ class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
             for(const collection of collections) {
                 await db.dropCollection(collection.name);
             }
-        }, (...args) => app('logger').info(...args))
+        }, (...args) => DB.getInstance().logger()?.info(...args))
     }
 
 }

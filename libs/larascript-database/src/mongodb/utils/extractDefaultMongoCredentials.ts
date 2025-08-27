@@ -1,6 +1,6 @@
-import { app } from "@src/core/services/App"
-import fs from "fs"
-import path from "path"
+import DB from "@/database/services/DB";
+import fs from "fs";
+import path from "path";
 
 /**
  * Extracts the default MongoDB credentials from the `docker-compose.mongodb.yml` file.
@@ -18,7 +18,7 @@ export const extractDefaultMongoCredentials = () => {
         }
     }
     catch (err) {
-        app('logger').error(err)
+        DB.getInstance().logger()?.error(err)
     }
 
     return null;

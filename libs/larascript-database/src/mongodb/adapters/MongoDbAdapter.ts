@@ -1,22 +1,23 @@
-import BaseDatabaseAdapter from "@src/core/domains/database/base/BaseDatabaseAdapter";
-import CreateDatabaseException from "@src/core/domains/database/exceptions/CreateDatabaseException";
-import { IDatabaseSchema } from "@src/core/domains/database/interfaces/IDatabaseSchema";
-import { db } from "@src/core/domains/database/services/Database";
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { IRelationshipResolver } from "@src/core/domains/eloquent/interfaces/IEqloeuntRelationship";
-import { IModel } from "@src/core/domains/models/interfaces/IModel";
-import MongoDbEloquent from "@src/core/domains/mongodb/eloquent/MongoDbEloquent";
-import ParseMongoDBConnectionString from "@src/core/domains/mongodb/helper/ParseMongoDBConnectionUrl";
-import { IMongoConfig } from "@src/core/domains/mongodb/interfaces/IMongoConfig";
-import MongoDbSchema from "@src/core/domains/mongodb/MongoDbSchema";
-import MongoRelationshipResolver from "@src/core/domains/mongodb/relationship/MongoRelationshipResolver";
-import createMigrationSchemaMongo from "@src/core/domains/mongodb/schema/createMigrationSchemaMongo";
-import { extractDefaultMongoCredentials } from "@src/core/domains/mongodb/utils/extractDefaultMongoCredentials";
-import { TClassConstructor } from "@src/core/interfaces/ClassConstructor.t";
-import { app } from "@src/core/services/App";
+import BaseDatabaseAdapter from "@/database/base/BaseDatabaseAdapter";
+import CreateDatabaseException from "@/database/exceptions/CreateDatabaseException";
+import { IDatabaseSchema } from "@/database/interfaces/schema.t";
+import DB from "@/database/services/DB";
+import { IEloquent, IRelationshipResolver } from "@/eloquent";
+import { IModel } from "@/model";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient, MongoClientOptions, MongoServerError } from "mongodb";
+import MongoDbEloquent from "../eloquent/MongoDbEloquent";
+import ParseMongoDBConnectionString from "../helper/ParseMongoDBConnectionUrl";
+import { IMongoConfig } from "../interfaces/IMongoConfig";
+import { IMongoDbAdapter } from "../interfaces/mongodb.t";
+import MongoDbSchema from "../MongoDbSchema";
+import MongoRelationshipResolver from "../relationship/MongoRelationshipResolver";
+import createMigrationSchemaMongo from "../schema/createMigrationSchemaMongo";
+import { extractDefaultMongoCredentials } from "../utils/extractDefaultMongoCredentials";
 
-class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
+class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> implements IMongoDbAdapter {
+
+    _adapter_type_ = 'mongodb';
 
     /**
     * The MongoDB database instance
@@ -33,9 +34,7 @@ class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
      * @param config The configuration object containing the uri and options for the PostgreSQL connection
      */
     constructor(connectionName: string, config: IMongoConfig) {
-        super()
-        this.setConnectionName(connectionName);
-        this.setConfig(config);
+        super(connectionName, config)
     }
 
     /**
@@ -107,7 +106,7 @@ class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
 
         await this.createDefaultDatabase()
 
-        const { uri, options } = this.config
+        const { uri, options } = this.getConfig()
 
         this.client = new MongoClient(uri, options as MongoClientOptions);
         this.db = this.client.db();
@@ -121,7 +120,7 @@ class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
      * @returns {Promise<MongoClient>} A promise that resolves with a new instance of PostgreSQL client.
      */
     async getMongoClientWithDatabase(database: string = 'app', options: object = {}): Promise<MongoClient> {
-        const { host, port, username, password, options: mongoOptions } = ParseMongoDBConnectionString.parse(this.config.uri);
+        const { host, port, username, password, options: mongoOptions } = ParseMongoDBConnectionString.parse(this.getConfig().uri);
 
         const newCredentials = new ParseMongoDBConnectionString({
             host,
@@ -140,7 +139,7 @@ class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
             await client.connect();
         }
         catch (err) {
-            app('logger').error('Error connecting to database: ' + (err as Error).message);
+            DB.getInstance().logger()?.error('Error connecting to database: ' + (err as Error).message);
 
             if (err instanceof MongoServerError === false) {
                 throw err
@@ -158,16 +157,16 @@ class MongoDbAdapter extends BaseDatabaseAdapter<IMongoConfig> {
      */
     private async createDefaultDatabase(): Promise<void> {
         try {
-            const { database } = ParseMongoDBConnectionString.parse(this.config.uri);
+            const { database } = ParseMongoDBConnectionString.parse(this.getConfig().uri);
 
             if (!database) {
                 throw new CreateDatabaseException('Database name not found in connection string');
             }
 
-            await db().schema().createDatabase(database);
+            await this.getSchema().createDatabase(database);
         }
         catch (err) {
-            app('logger').error(err);
+            DB.getInstance().logger()?.error(err);
         }
     }
 

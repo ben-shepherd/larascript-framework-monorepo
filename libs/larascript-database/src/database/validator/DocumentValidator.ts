@@ -1,7 +1,7 @@
 import { returnOrThrow } from "@larascript-framework/larascript-utils";
 import { z } from "zod";
 import InvalidDocument from "../exceptions/UnidentifiableDocument";
-import { IDatabaseDocument, IDocumentValidator } from "../interfaces/validator";
+import { IDatabaseDocument, IDocumentValidator } from "../interfaces/validator.t";
 
 
 class DocumentValidator implements IDocumentValidator {

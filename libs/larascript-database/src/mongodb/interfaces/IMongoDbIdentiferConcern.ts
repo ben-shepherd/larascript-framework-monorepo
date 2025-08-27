@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { IDatabaseDocument } from "@src/core/domains/database/interfaces/IDocumentManager";
+import { IDatabaseDocument } from "@/database/interfaces/validator.t";
 import { ObjectId } from "mongodb";
 
 export interface IMongoDbIdentiferConcern {

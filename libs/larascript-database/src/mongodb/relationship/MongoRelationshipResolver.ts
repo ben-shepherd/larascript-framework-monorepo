@@ -1,6 +1,5 @@
-
-import BaseRelationshipResolver from "@src/core/domains/eloquent/base/BaseRelationshipResolver";
-import { IRelationship } from "@src/core/domains/eloquent/interfaces/IEloquent";
+import { IRelationship } from "@/eloquent";
+import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
 
 class MongoRelationshipResolver extends BaseRelationshipResolver {
 

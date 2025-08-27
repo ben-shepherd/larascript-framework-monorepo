@@ -7,7 +7,7 @@ import { IDatabaseAdapter } from "../interfaces/adapter.t";
 import { IPrepareOptions } from "../interfaces/options.t";
 import { IDatabaseSchema } from "../interfaces/schema.t";
 
-export abstract class BaseDatabaseAdapter<Config extends Record<string, unknown>> implements IDatabaseAdapter {
+export abstract class BaseDatabaseAdapter<Config> implements IDatabaseAdapter {
 
     abstract _adapter_type_: string;
 

@@ -1,4 +1,4 @@
-import MongoDbAdapter from "@src/core/domains/mongodb/adapters/MongoDbAdapter";
+import { MongoDbAdapter } from "../adapters";
 
 /**
  * Creates the migrations schema for MongoDB

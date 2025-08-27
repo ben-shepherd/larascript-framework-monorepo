@@ -1,17 +1,15 @@
+import DB from "@/database/services/DB";
+import { IEloquent } from "@/eloquent";
+import Eloquent from "@/eloquent/Eloquent";
+import EloquentException from "@/eloquent/exceptions/EloquentExpression";
+import ModelNotFound from "@/eloquent/exceptions/ModelNotFound";
+import IEloquentExpression from "@/eloquent/interfaces/expressions.t";
+import { IModel, ModelConstructor } from "@/model";
 import { Collection, collect } from "@larascript-framework/larascript-collection";
 import { MoveObjectToProperty, captureError } from "@larascript-framework/larascript-utils";
-import { db } from "@src/core/domains/database/services/Database";
-import Eloquent from "@src/core/domains/eloquent/Eloquent";
-import EloquentException from "@src/core/domains/eloquent/exceptions/EloquentExpression";
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import IEloquentExpression from "@src/core/domains/eloquent/interfaces/IEloquentExpression";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
-import MongoDbAdapter from "@src/core/domains/mongodb/adapters/MongoDbAdapter";
-import AggregateExpression from "@src/core/domains/mongodb/builder/AggregateExpression";
-import ModelNotFound from "@src/core/exceptions/ModelNotFound";
-import { app } from "@src/core/services/App";
-import { logger } from "@src/core/services/Logger";
 import { Document, Collection as MongoCollection, ObjectId } from "mongodb";
+import { MongoDbAdapter } from "../adapters";
+import AggregateExpression from "../builder/AggregateExpression";
 
 /**
  * Represents a MongoDB document with an ObjectId _id field and model attributes.
@@ -340,8 +338,8 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
                 aggregationPipeline = this.expression.build()
             }
 
-            if (db().showLogs()) {
-                logger().console('[MongoDbEloquent.raw] aggregation (Collection: ' + (this.modelCtor?.getTable() ?? 'Unknown') + ')', JSON.stringify(aggregationPipeline))
+            if (DB.getInstance().databaseService().showLogs()) {
+                DB.getInstance().logger()?.info('[MongoDbEloquent.raw] aggregation (Collection: ' + (this.modelCtor?.getTable() ?? 'Unknown') + ')', JSON.stringify(aggregationPipeline))
             }
 
             // Get the collection
@@ -349,7 +347,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
 
             // Get the results
             return await collection.aggregate(aggregationPipeline).toArray() as T;
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -381,7 +379,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return this.formatResultsAsModels(documents) as T
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -400,7 +398,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             const results = await collection.find(filter).toArray()
 
             return results as T
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -432,7 +430,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             }
 
             return this.formatResultsAsModels([document])[0]
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -477,7 +475,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             }
 
             return documents[0]
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -519,7 +517,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             }
 
             return documents.last()
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -562,7 +560,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return collect<Model>(results)
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -631,7 +629,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             return collect<Model>(
                 this.formatResultsAsModels(documents)
             )
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -663,7 +661,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             return collect<Model>(
                 this.formatResultsAsModels(results)
             )
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -726,7 +724,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             return collect<Model>(
                 this.formatResultsAsModels(postUpdateResults)
             )
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -770,7 +768,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             return collect<Model>(
                 this.formatResultsAsModels(postUpdateResults)
             )
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -802,7 +800,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             // Restore the previous expression
             this.setExpression(previousExpression)
 
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
 
         return this as unknown as IEloquent<Model, AggregateExpression>
     }
@@ -848,7 +846,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return count
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -893,7 +891,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return min
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -938,7 +936,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return max
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -983,7 +981,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return sum
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**
@@ -1028,7 +1026,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             this.setExpression(previousExpression)
 
             return avg
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
 
@@ -1057,7 +1055,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<Model, AggregateExp
             }
 
             return aggregateResult
-        }, (...args) => app('logger').error(...args))
+        }, (...args) => DB.getInstance().logger()?.error(...args))
     }
 
     /**

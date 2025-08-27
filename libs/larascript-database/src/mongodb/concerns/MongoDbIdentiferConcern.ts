@@ -1,5 +1,5 @@
-import InvalidObjectId from "@src/core/domains/database/exceptions/InvalidObjectId";
-import { IDatabaseDocument } from "@src/core/domains/database/interfaces/IDocumentManager";
+import InvalidObjectId from "@/database/exceptions/InvalidObjectId";
+import { IDatabaseDocument } from "@/database/interfaces/validator.t";
 import { ObjectId } from "mongodb";
 
 class MongoDbIdentiferConcern {

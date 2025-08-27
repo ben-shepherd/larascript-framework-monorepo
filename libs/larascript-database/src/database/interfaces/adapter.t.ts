@@ -18,11 +18,11 @@ export interface IDatabaseAdapters {
     [key: string]: IDatabaseAdapter
 }
 
-export interface IDatabaseAdapter {
+export interface IDatabaseAdapter<Config = unknown> {
 
     _adapter_type_: string;
 
-    getConfig(): object;
+    getConfig(): Config;
 
     normalizeColumn(col: string): string
 

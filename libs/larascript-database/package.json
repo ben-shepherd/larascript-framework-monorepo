@@ -15,16 +15,12 @@
     "registry": "https://npm.pkg.github.com"
   },
   "scripts": {
-    "db:postgres:restart": "npm run db:postgres:down && npm run db:postgres:up",
-    "db:postgres:up": "cd ./docker && docker-compose -f docker-compose.postgres.yml up --build -d postgres",
-    "db:postgres:down": "cd ./docker && docker-compose -f docker-compose.postgres.yml down -v",
-    "db:mongodb:up": "cd ./docker && docker-compose -f docker-compose.mongodb.yml up --build -d mongodb",
-    "db:mongodb:down": "cd ./docker && docker-compose -f docker-compose.mongodb.yml down",
-    "db:mongodb:restart": "npm run db:mongodb:down && npm run db:mongodb:up",
+    "db:restart": "npm run db:postgres:restart && npm run db:mongodb:restart",
+    "db:up": "npm run db:postgres:up && npm run db:mongodb:up",
     "prepare": "npm run build",
-    "test": "npm run db:postgres:restart && jest --runInBand --passWithNoTests && npm run db:postgres:down",
-    "test:watch": "npm run db:postgres:restart && jest --runInBand --watch --passWithNoTests && npm run db:postgres:down",
-    "test:coverage": "npm run db:postgres:restart && jest --runInBand --coverage --passWithNoTests && npm run db:postgres:down",
+    "test": "npm run db:restart && jest --runInBand --passWithNoTests && npm run db:down",
+    "test:watch": "npm run db:restart && jest --runInBand --watch --passWithNoTests && npm run db:down",
+    "test:coverage": "npm run db:restart && jest --runInBand --coverage --passWithNoTests && npm run db:down",
     "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -40,7 +36,11 @@
     "upstream:fetch": "git fetch upstream",
     "upstream:merge": "git fetch upstream && git merge upstream/main",
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
-    "depcheck": "depcheck"
+    "depcheck": "depcheck",
+    "db:postgres:restart": "npm run db:postgres:down && npm run db:postgres:up",
+    "db:postgres:down": "cd ./docker && docker-compose -f docker-compose.postgres.yml down -v",
+    "db:mongodb:restart": "npm run db:mongodb:down && npm run db:mongodb:up",
+    "db:mongodb:down": "cd ./docker && docker-compose -f docker-compose.mongodb.yml down"
   },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",

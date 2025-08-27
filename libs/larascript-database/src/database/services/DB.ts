@@ -60,6 +60,8 @@ class DB extends BaseSingleton implements RequiresDependency {
         this._eloquentQueryBuilderService = loader("eloquentQueryBuilder")
         this._cryptoService = loader("cryptoService")
         this._eventsService = loader("eventsService")
+        this._logger = loader("logger")
+
     }
 
     databaseService(): IDatabaseService {

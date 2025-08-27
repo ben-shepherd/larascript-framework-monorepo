@@ -7,7 +7,7 @@ import path from "path";
  */
 export const extractDefaultMongoCredentials = () => {
     try {
-        const dockerComposePath = path.resolve('@src/../', 'docker/docker-compose.mongodb.yml')
+        const dockerComposePath = path.resolve(process.cwd(), 'docker/docker-compose.mongodb.yml')
         const contents = fs.readFileSync(dockerComposePath, 'utf8')
 
         const pattern = /LARASCRIPT_DEFAULT_CREDENTIALS:\s?(.+)/

@@ -305,7 +305,7 @@ class Database implements IDatabaseService, RequiresDependency {
         return adapter as unknown as IPostgresAdapter
     }
 
-    mongodb(connectionName?: string): IMongoDbAdapter {
+    mongodb(connectionName: string = this.getDefaultConnectionName()): IMongoDbAdapter {
         const adapter = this.getAdapter(connectionName)
 
         if(adapter._adapter_type_ !== 'mongodb') {

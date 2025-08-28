@@ -2,7 +2,7 @@ import DB from "@/database/services/DB";
 import { IEloquent } from "@/eloquent";
 import Eloquent from "@/eloquent/Eloquent";
 import EloquentException from "@/eloquent/exceptions/EloquentExpression";
-import ModelNotFound from "@/eloquent/exceptions/ModelNotFound";
+import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
 import IEloquentExpression from "@/eloquent/interfaces/expressions.t";
 import { IModel, ModelConstructor } from "@/model";
 import {
@@ -529,7 +529,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<
     const document = await this.find(id);
 
     if (!document) {
-      throw new ModelNotFound("Document not found");
+      throw new ModelNotFoundException("Document not found");
     }
 
     return document;
@@ -577,7 +577,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<
     const document = await this.first();
 
     if (!document) {
-      throw new ModelNotFound("Document not found");
+      throw new ModelNotFoundException("Document not found");
     }
 
     return document;
@@ -624,7 +624,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<
     const document = await this.last();
 
     if (!document) {
-      throw new ModelNotFound("Document not found");
+      throw new ModelNotFoundException("Document not found");
     }
 
     return document;

@@ -7,7 +7,7 @@ import {
 } from "@/eloquent";
 import Eloquent from "@/eloquent/Eloquent";
 import EloquentException from "@/eloquent/exceptions/EloquentExpression";
-import ModelNotFound from "@/eloquent/exceptions/ModelNotFound";
+import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
 import UpdateException from "@/eloquent/exceptions/UpdateException";
 import IEloquentExpression from "@/eloquent/interfaces/expressions.t";
 import { IModel, ModelConstructor } from "@/model";
@@ -440,7 +440,7 @@ class PostgresEloquent<Model extends IModel> extends Eloquent<
     const result = await this.find(id);
 
     if (!result) {
-      throw new ModelNotFound();
+      throw new ModelNotFoundException();
     }
 
     return result;
@@ -458,7 +458,7 @@ class PostgresEloquent<Model extends IModel> extends Eloquent<
     const result = await this.first();
 
     if (!result) {
-      throw new ModelNotFound();
+      throw new ModelNotFoundException();
     }
 
     return result;
@@ -508,7 +508,7 @@ class PostgresEloquent<Model extends IModel> extends Eloquent<
     const result = await this.last();
 
     if (!result) {
-      throw new ModelNotFound();
+      throw new ModelNotFoundException();
     }
 
     return result;

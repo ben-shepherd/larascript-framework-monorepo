@@ -1,4 +1,4 @@
-import ModelNotFound from "@/eloquent/exceptions/ModelNotFound";
+import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
 import { describe } from "@jest/globals";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
 import { forEveryConnection } from "../tests-helper/forEveryConnection";
@@ -105,14 +105,14 @@ describe("eloquent", () => {
         await query.clone().where("id", "=", generateUuidV4()).firstOrFail();
         expect(false).toBeTruthy();
       } catch (err) {
-        expect(err).toBeInstanceOf(ModelNotFound);
+        expect(err).toBeInstanceOf(ModelNotFoundException);
       }
 
       try {
         await query.clone().where("name", "=", "Invalid Name").lastOrFail();
         expect(false).toBeTruthy();
       } catch (err) {
-        expect(err).toBeInstanceOf(ModelNotFound);
+        expect(err).toBeInstanceOf(ModelNotFoundException);
       }
     });
   });

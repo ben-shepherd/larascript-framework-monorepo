@@ -33,10 +33,9 @@ import {
   IModelLifeCycleEvent,
   ModelConstructor,
   ModelWithAttributes,
-  TModelScope,
 } from "..";
 import ProxyModelHandler from "../proxy/ProxyModelHandler";
-import ModelScopes from "../utils/ModelScope";
+import { ModelScopes, TModelScope } from "../utils";
 
 /**
  * Abstract base class for database models.

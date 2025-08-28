@@ -1,6 +1,6 @@
 import { returnOrThrow } from "@larascript-framework/larascript-utils";
 import { z } from "zod";
-import InvalidDocument from "../exceptions/UnidentifiableDocument";
+import UnidentifiableDocumentException from "../exceptions/UnidentifiableDocumentException";
 import {
   IDatabaseDocument,
   IDocumentValidator,
@@ -31,7 +31,7 @@ class DocumentValidator implements IDocumentValidator {
     if (!schema.safeParse(document).success) {
       return returnOrThrow<boolean>({
         shouldThrow: this.throwExceptions,
-        throwable: new InvalidDocument(
+        throwable: new UnidentifiableDocumentException(
           "Expected a single document, but another type was found",
         ),
         returns: false,
@@ -52,7 +52,7 @@ class DocumentValidator implements IDocumentValidator {
     if (!schema.safeParse(documents).success) {
       return returnOrThrow<boolean>({
         shouldThrow: this.throwExceptions,
-        throwable: new InvalidDocument(
+        throwable: new UnidentifiableDocumentException(
           "Expected an array of documents, but another type was found",
         ),
         returns: false,
@@ -84,7 +84,7 @@ class DocumentValidator implements IDocumentValidator {
       if (!schema.safeParse(document).success) {
         const response = returnOrThrow<boolean>({
           shouldThrow: this.throwExceptions,
-          throwable: new InvalidDocument(
+          throwable: new UnidentifiableDocumentException(
             `An id property was expected but not found at index ${i}`,
           ),
           returns: false,
@@ -117,7 +117,7 @@ class DocumentValidator implements IDocumentValidator {
       if (document.id) {
         const response = returnOrThrow<boolean>({
           shouldThrow: this.throwExceptions,
-          throwable: new InvalidDocument(
+          throwable: new UnidentifiableDocumentException(
             `An id property was NOT expected but found at index ${i}`,
           ),
           returns: false,

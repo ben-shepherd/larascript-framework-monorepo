@@ -14,7 +14,7 @@ import { IModel } from "@/model";
  *
  * @implements {ProxyHandler<any>}
  */
-class ProxyModelHandler implements ProxyHandler<any> {
+export class ProxyModelHandler implements ProxyHandler<any> {
   /**
    * Retrieves a property from the target model. If the property is a numeric
    * string, it attempts to access the corresponding index in the model's items.

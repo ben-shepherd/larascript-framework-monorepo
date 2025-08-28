@@ -1,4 +1,4 @@
-class ParseMongoDBConnectionString {
+export class ParseMongoDBConnectionString {
   host: string;
 
   port: number;

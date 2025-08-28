@@ -1,7 +1,7 @@
 import { IRelationship } from "@/eloquent";
 import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
 
-class MongoRelationshipResolver extends BaseRelationshipResolver {
+export class MongoRelationshipResolver extends BaseRelationshipResolver {
   /**
    * Gets the local key for the relationship.
    * @param relationship - The relationship to get the local key for.

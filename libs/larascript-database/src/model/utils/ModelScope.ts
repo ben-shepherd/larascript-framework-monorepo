@@ -24,7 +24,7 @@ export type TModelScope = "read" | "write" | "create" | "delete" | "all";
  * (read, write, create, and delete) for the specified model.
  */
 
-class ModelScopes {
+export class ModelScopes {
   /**
    * Generates an array of scope strings for a given model and scope types.
    */

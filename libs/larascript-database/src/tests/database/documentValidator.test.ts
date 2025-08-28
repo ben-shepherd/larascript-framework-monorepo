@@ -1,4 +1,4 @@
-import InvalidDocument from "@/database/exceptions/UnidentifiableDocument";
+import UnidentifiableDocumentException from "@/database/exceptions/UnidentifiableDocumentException";
 import DocumentValidator from "@/database/validator/DocumentValidator";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
@@ -14,7 +14,7 @@ describe("Document Validator", () => {
       const document = { id: 1, name: "Test" };
 
       expect(() => validator.validateSingleDocument(document)).not.toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
 
@@ -25,7 +25,7 @@ describe("Document Validator", () => {
       ];
 
       expect(() => validator.validateSingleDocument(document)).toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
   });
@@ -44,7 +44,7 @@ describe("Document Validator", () => {
       const document = { id: 1, name: "Test" };
 
       expect(() => validator.validateMultipleDocuments(document)).toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
   });
@@ -69,7 +69,7 @@ describe("Document Validator", () => {
       const document = { name: "Test" };
 
       expect(() => validator.validateContainsId(document)).toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
   });
@@ -79,7 +79,7 @@ describe("Document Validator", () => {
       const document = { name: "Test" };
 
       expect(() => validator.validateWithoutId(document)).not.toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
 
@@ -87,7 +87,7 @@ describe("Document Validator", () => {
       const document = { id: 1, name: "Test" };
 
       expect(() => validator.validateWithoutId(document)).toThrow(
-        InvalidDocument,
+        UnidentifiableDocumentException,
       );
     });
   });

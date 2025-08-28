@@ -17,7 +17,7 @@ describe("Database Service", () => {
     defaultConnectionName: DEFAULT_CONNECTION,
     keepAliveConnections: "",
     connections: [
-      DatabaseConfig.connection("sql", MockSQLAdapter, MockSQLConfig),
+      DatabaseConfig.connection(MockSQLAdapter, "sql", MockSQLConfig),
     ],
   };
 
@@ -51,8 +51,8 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
         ],
       };
 
@@ -68,8 +68,8 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-2", MockSQLAdapter, {
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-2", {
             connectionString: "sql://user:pass@localhost:3307/db",
           }),
         ],
@@ -250,9 +250,9 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "sql-2,sql-3",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-3", MockSQLAdapter, MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-2", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-3", MockSQLConfig),
         ],
       };
 
@@ -272,9 +272,9 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "sql-2,,sql-3",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-3", MockSQLAdapter, MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-2", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-3", MockSQLConfig),
         ],
       };
 
@@ -295,8 +295,8 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "sql-1,sql-2",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-2", MockSQLConfig),
         ],
       };
 
@@ -391,8 +391,8 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("sql-2", MockSQLAdapter, MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockSQLAdapter, "sql-2", MockSQLConfig),
         ],
       };
 
@@ -410,8 +410,8 @@ describe("Database Service", () => {
         defaultConnectionName: "sql-1",
         keepAliveConnections: "",
         connections: [
-          DatabaseConfig.connection("sql-1", MockSQLAdapter, MockSQLConfig),
-          DatabaseConfig.connection("mongo-1", MockMongoDBAdapter, {
+          DatabaseConfig.connection(MockSQLAdapter, "sql-1", MockSQLConfig),
+          DatabaseConfig.connection(MockMongoDBAdapter, "mongo-1", {
             uri: "mongodb://localhost:27017/test",
           }),
         ],
@@ -583,7 +583,7 @@ describe("Database Service", () => {
         ...defaultConfig,
         defaultConnectionName: "postgres-1",
         connections: [
-          DatabaseConfig.connection("postgres-1", MockPostgresAdapter, {
+          DatabaseConfig.connection(MockPostgresAdapter, "postgres-1", {
             uri: "postgres://user:pass@localhost:5432/db",
           }),
         ],
@@ -600,10 +600,10 @@ describe("Database Service", () => {
         ...defaultConfig,
         defaultConnectionName: "postgres-1",
         connections: [
-          DatabaseConfig.connection("postgres-1", MockPostgresAdapter, {
+          DatabaseConfig.connection(MockPostgresAdapter, "postgres-1", {
             uri: "postgres://user:pass@localhost:5433/db",
           }),
-          DatabaseConfig.connection("postgres-2", MockPostgresAdapter, {
+          DatabaseConfig.connection(MockPostgresAdapter, "postgres-2", {
             uri: "postgres://user:pass@localhost:5432/db",
           }),
         ],
@@ -631,10 +631,10 @@ describe("Database Service", () => {
         ...defaultConfig,
         defaultConnectionName: "mongodb-1",
         connections: [
-          DatabaseConfig.connection("mongodb-1", MockMongoDBAdapter, {
+          DatabaseConfig.connection(MockMongoDBAdapter, "mongodb-1", {
             uri: "mongodb://user:pass@localhost:27017/db",
           }),
-          DatabaseConfig.connection("mongodb-2", MockMongoDBAdapter, {
+          DatabaseConfig.connection(MockMongoDBAdapter, "mongodb-2", {
             uri: "mongodb://user:pass@localhost:27018/db",
           }),
         ],

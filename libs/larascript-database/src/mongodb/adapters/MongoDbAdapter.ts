@@ -10,9 +10,9 @@ import MongoDbEloquent from "../eloquent/MongoDbEloquent";
 import ParseMongoDBConnectionString from "../helper/ParseMongoDBConnectionUrl";
 import { IMongoConfig } from "../interfaces/IMongoConfig";
 import { IMongoDbAdapter } from "../interfaces/mongodb.t";
-import MongoDbSchema from "../MongoDbSchema";
 import MongoRelationshipResolver from "../relationship/MongoRelationshipResolver";
 import createMigrationSchemaMongo from "../schema/createMigrationSchemaMongo";
+import MongoDbSchema from "../schema/MongoDbSchema";
 import { extractDefaultMongoCredentials } from "../utils/extractDefaultMongoCredentials";
 
 class MongoDbAdapter

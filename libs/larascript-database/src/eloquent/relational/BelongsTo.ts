@@ -3,7 +3,7 @@ import { IModel, IModelAttributes } from "@/model";
 import { IRelationship, TWhereClauseValue } from "../interfaces";
 import GenericRelationship from "./GenericRelationship";
 
-class BelongsTo extends GenericRelationship {
+export class BelongsTo extends GenericRelationship {
   /**
    * Fetches data for a "belongs to" relationship.
    * @param model - The source model.

@@ -4,7 +4,7 @@ import { Collection } from "collect.js";
 import { IRelationship, TWhereClauseValue } from "../interfaces";
 import GenericRelationship from "./GenericRelationship";
 
-class HasMany extends GenericRelationship {
+export class HasMany extends GenericRelationship {
   /**
    * Fetches data for a "has many" relationship.
    * @param model - The source model.

@@ -30,11 +30,11 @@ class TestDatabaseProvider extends BaseProvider {
       defaultConnectionName: "postgres",
       keepAliveConnections: "mongodb",
       connections: [
-        DatabaseConfig.connection("postgres", PostgresAdapter, {
+        DatabaseConfig.connection(PostgresAdapter, "postgres", {
           uri: extractDefaultPostgresCredentials() as string,
           options: {},
         }),
-        DatabaseConfig.connection("mongodb", MongoDbAdapter, {
+        DatabaseConfig.connection(MongoDbAdapter, "mongodb", {
           uri: extractDefaultMongoCredentials() as string,
           options: {},
         }),

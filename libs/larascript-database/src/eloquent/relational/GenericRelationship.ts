@@ -1,7 +1,7 @@
 import { IModel, ModelConstructor } from "@/model";
 import { IBelongsToOptions, IRelationship } from "..";
 
-class GenericRelationship implements IRelationship {
+export class GenericRelationship implements IRelationship {
   _relationshipInterface = true;
 
   constructor(

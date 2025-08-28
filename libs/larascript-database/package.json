@@ -19,6 +19,7 @@
     "db:restart": "npm run db:postgres:restart && npm run db:mongodb:restart",
     "db:up": "npm run db:postgres:up && npm run db:mongodb:up",
     "prepare": "npm run build",
+    "test:nodb": "jest --runInBand --passWithNoTests",
     "test": "npm run db:restart && jest --runInBand --passWithNoTests && npm run db:down",
     "test:watch": "npm run db:restart && jest --runInBand --watch --passWithNoTests && npm run db:down",
     "test:coverage": "npm run db:restart && jest --runInBand --coverage --passWithNoTests && npm run db:down",

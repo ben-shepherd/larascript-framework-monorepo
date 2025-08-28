@@ -1,1 +1,1 @@
-export * from './DocumentValidator';
+export * from "./DocumentValidator";

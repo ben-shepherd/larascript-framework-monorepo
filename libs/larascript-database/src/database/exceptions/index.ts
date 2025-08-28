@@ -7,4 +7,3 @@ export { default as InvalidObjectId } from "./InvalidObjectIdException";
 export { default as InvalidSequelize } from "./InvalidSequelizeException";
 export { default as InvalidTable } from "./MissingTableException";
 export { default as UnidentifiableDocument } from "./UnidentifiableDocumentException";
-

@@ -1,64 +1,66 @@
-/* eslint-disable no-undef */
-
 import Model from "@/model/base/Model";
 import { testHelper } from "../tests-helper/testHelper";
-import TestEncryptionModel, { resetEncryptionTable, TestEncryptionModelAttributes } from "./models/TestEncryptionModel";
+import TestEncryptionModel, {
+  resetEncryptionTable,
+  TestEncryptionModelAttributes,
+} from "./models/TestEncryptionModel";
 
+describe("test model encryption", () => {
+  beforeAll(async () => {
+    await testHelper.testBootApp();
+  });
 
-describe('test model encryption', () => {
-    beforeAll(async () => {
-        await testHelper.testBootApp()
-    })
+  beforeEach(async () => {
+    await resetEncryptionTable();
+  });
 
-    beforeEach(async () => {
-        await resetEncryptionTable()
-    })
+  test("encrypt and decrypt field when saving and retrieving", async () => {
+    // Create a model with a secret value
+    const secretValue = "my-super-secret-value";
+    const created = await TestEncryptionModel.create<TestEncryptionModel>({
+      secret: secretValue,
+    });
+    await created.save();
 
-    test('encrypt and decrypt field when saving and retrieving', async () => {
-        // Create a model with a secret value
-        const secretValue = 'my-super-secret-value'
-        const created = await TestEncryptionModel.create<TestEncryptionModel>({
-            secret: secretValue
-        })
-        await created.save()
+    // Verify the stored value is encrypted (different from original)
+    const mockEncryptedAttributes = (
+      created as Model<TestEncryptionModelAttributes>
+    ).encryptAttributes({
+      secret: secretValue,
+    } as TestEncryptionModelAttributes);
+    expect(mockEncryptedAttributes?.secret).not.toBe(secretValue);
 
-        // Verify the stored value is encrypted (different from original)
-        const mockEncryptedAttributes = (created as Model<TestEncryptionModelAttributes>).encryptAttributes({
-            secret: secretValue
-            } as TestEncryptionModelAttributes)
-            expect(mockEncryptedAttributes?.secret).not.toBe(secretValue)
+    // Retrieve the model from database
+    const retrieved = await TestEncryptionModel.query().find(created.id);
 
-        // Retrieve the model from database
-        const retrieved = await TestEncryptionModel.query().find(created.id)
-        
-        // Verify the decrypted value matches original
-        expect(retrieved?.secret).toBe(secretValue)
-    })
+    // Verify the decrypted value matches original
+    expect(retrieved?.secret).toBe(secretValue);
+  });
 
-    test('updates encrypted field correctly', async () => {
-        // Create initial model
-        const created = await TestEncryptionModel.create<TestEncryptionModel>({
-            secret: 'initial-secret'
-        })
-        await created.save()
+  test("updates encrypted field correctly", async () => {
+    // Create initial model
+    const created = await TestEncryptionModel.create<TestEncryptionModel>({
+      secret: "initial-secret",
+    });
+    await created.save();
 
-        // Update the secret
-        const newSecret = 'updated-secret'
-        await created.setAttribute('secret', newSecret)
-        await created.save()
+    // Update the secret
+    const newSecret = "updated-secret";
+    await created.setAttribute("secret", newSecret);
+    await created.save();
 
-        // Retrieve and verify updated value
-        const retrieved = await TestEncryptionModel.query().find(created.id)
-        expect(retrieved?.secret).toBe(newSecret)
-    })
+    // Retrieve and verify updated value
+    const retrieved = await TestEncryptionModel.query().find(created.id);
+    expect(retrieved?.secret).toBe(newSecret);
+  });
 
-    test('handles null values in encrypted fields', async () => {
-        const created = await TestEncryptionModel.create<TestEncryptionModel>({
-            secret: null
-        })
-        await created.save()
+  test("handles null values in encrypted fields", async () => {
+    const created = await TestEncryptionModel.create<TestEncryptionModel>({
+      secret: null,
+    });
+    await created.save();
 
-        const retrieved = await TestEncryptionModel.query().find(created.id)
-        expect(retrieved?.secret).toBeNull()
-    })
+    const retrieved = await TestEncryptionModel.query().find(created.id);
+    expect(retrieved?.secret).toBeNull();
+  });
 });

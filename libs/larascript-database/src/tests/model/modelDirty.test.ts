@@ -1,111 +1,140 @@
-/* eslint-disable no-undef */
-import DB from '@/database/services/DB';
-import { forEveryConnection } from '../tests-helper/forEveryConnection';
-import { queryBuilder, testHelper } from '../tests-helper/testHelper';
-import TestDirtyModel, { resetDirtyTable } from './models/TestDirtyModel';
+import DB from "@/database/services/DB";
+import { forEveryConnection } from "../tests-helper/forEveryConnection";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper";
+import TestDirtyModel, { resetDirtyTable } from "./models/TestDirtyModel";
 
 const resetAndPopulateDirtyTable = async () => {
-    await resetDirtyTable()
-    
-    await forEveryConnection(async connectionName => {
-        await queryBuilder(TestDirtyModel, connectionName).insert([
-            {
-                name: 'John',
-                array: ['a', 'b'],
-                object: {
-                    a: 1,
-                    b: 1
-                },
-            },
-        ])
-    })
-}
+  await resetDirtyTable();
 
-describe('model dirty', () => {
+  await forEveryConnection(async (connectionName) => {
+    await queryBuilder(TestDirtyModel, connectionName).insert([
+      {
+        name: "John",
+        array: ["a", "b"],
+        object: {
+          a: 1,
+          b: 1,
+        },
+      },
+    ]);
+  });
+};
 
-    beforeAll(async () => {
-        await testHelper.testBootApp()
-    })
-    
-    test('model dirty', async () => {
+describe("model dirty", () => {
+  beforeAll(async () => {
+    await testHelper.testBootApp();
+  });
 
-        await forEveryConnection(async connectionName => {
-            DB.getInstance().logger()?.console('[Connection]', connectionName)
-            await resetAndPopulateDirtyTable()
+  test("model dirty", async () => {
+    await forEveryConnection(async (connectionName) => {
+      DB.getInstance().logger()?.console("[Connection]", connectionName);
+      await resetAndPopulateDirtyTable();
 
-            const modelOne = await queryBuilder(TestDirtyModel, connectionName).where('name', 'John').firstOrFail()
-            expect(modelOne.isDirty()).toBeFalsy();
+      const modelOne = await queryBuilder(TestDirtyModel, connectionName)
+        .where("name", "John")
+        .firstOrFail();
+      expect(modelOne.isDirty()).toBeFalsy();
 
-            modelOne.attr('name', 'Jane')
-            expect(modelOne.isDirty()).toBeTruthy();
-            expect(Object.keys(modelOne.getDirty() ?? {}).includes('name')).toBeTruthy()
-            expect(modelOne.getOriginal('name') === 'John')
+      modelOne.attr("name", "Jane");
+      expect(modelOne.isDirty()).toBeTruthy();
+      expect(
+        Object.keys(modelOne.getDirty() ?? {}).includes("name"),
+      ).toBeTruthy();
+      expect(modelOne.getOriginal("name") === "John");
 
-            modelOne.attr('array', ['a', 'b', 'c'])
-            expect(modelOne.isDirty()).toBeTruthy();
-            const containsDirtyArray = Object.keys(modelOne.getDirty() ?? {}).includes('array')
-            expect(containsDirtyArray).toBeTruthy()
-            expect((modelOne.getOriginal('array') as string[])?.length).toEqual(2)
+      modelOne.attr("array", ["a", "b", "c"]);
+      expect(modelOne.isDirty()).toBeTruthy();
+      const containsDirtyArray = Object.keys(
+        modelOne.getDirty() ?? {},
+      ).includes("array");
+      expect(containsDirtyArray).toBeTruthy();
+      expect((modelOne.getOriginal("array") as string[])?.length).toEqual(2);
 
-            modelOne.attr('object', {
-                a: 2,
-                b: 2
-            })
-            expect(modelOne.isDirty()).toBeTruthy();
-            const containsDirtyObject = Object.keys(modelOne.getDirty() ?? {}).includes('object')
-            expect(containsDirtyObject).toBeTruthy()
-            expect((modelOne.getOriginal('object') as {a: number, b: number})?.a).toEqual(1)
-            expect((modelOne.getOriginal('object') as {a: number, b: number})?.b).toEqual(1)
+      modelOne.attr("object", {
+        a: 2,
+        b: 2,
+      });
+      expect(modelOne.isDirty()).toBeTruthy();
+      const containsDirtyObject = Object.keys(
+        modelOne.getDirty() ?? {},
+      ).includes("object");
+      expect(containsDirtyObject).toBeTruthy();
+      expect(
+        (modelOne.getOriginal("object") as { a: number; b: number })?.a,
+      ).toEqual(1);
+      expect(
+        (modelOne.getOriginal("object") as { a: number; b: number })?.b,
+      ).toEqual(1);
 
-            await modelOne.save();
-            expect(modelOne.isDirty()).toBeFalsy();
+      await modelOne.save();
+      expect(modelOne.isDirty()).toBeFalsy();
 
-            modelOne.attr('name', 'Bob')
-            expect(modelOne.isDirty()).toBeTruthy()
-            const containsDirtyName = Object.keys(modelOne.getDirty() ?? {}).includes('name')
-            expect(containsDirtyName).toBeTruthy()
-            expect(modelOne.getOriginal('name') === 'Jane')
+      modelOne.attr("name", "Bob");
+      expect(modelOne.isDirty()).toBeTruthy();
+      const containsDirtyName = Object.keys(modelOne.getDirty() ?? {}).includes(
+        "name",
+      );
+      expect(containsDirtyName).toBeTruthy();
+      expect(modelOne.getOriginal("name") === "Jane");
 
-            await modelOne.delete();
-            expect(modelOne.isDirty()).toBeFalsy();
+      await modelOne.delete();
+      expect(modelOne.isDirty()).toBeFalsy();
 
-            await queryBuilder(TestDirtyModel, connectionName).insert({
-                name: 'John',
-                array: ['a', 'b'],
-                object: {
-                    a: 1,
-                    b: 1
-                }
-            })
+      await queryBuilder(TestDirtyModel, connectionName).insert({
+        name: "John",
+        array: ["a", "b"],
+        object: {
+          a: 1,
+          b: 1,
+        },
+      });
 
-            const modelTwo = await queryBuilder(TestDirtyModel, connectionName).where('name', 'John').firstOrFail()
-            expect(modelTwo).toBeTruthy()
-            expect(modelTwo.isDirty()).toBeFalsy();
+      const modelTwo = await queryBuilder(TestDirtyModel, connectionName)
+        .where("name", "John")
+        .firstOrFail();
+      expect(modelTwo).toBeTruthy();
+      expect(modelTwo.isDirty()).toBeFalsy();
 
-            modelTwo.attr('name', 'Jane')
-            expect(modelTwo.isDirty()).toBeTruthy();
-            const containsDirtyName2 = Object.keys(modelTwo.getDirty() ?? {}).includes('name')
-            expect(containsDirtyName2).toBeTruthy()
-            expect(modelTwo.getOriginal('name') === 'John')
+      modelTwo.attr("name", "Jane");
+      expect(modelTwo.isDirty()).toBeTruthy();
+      const containsDirtyName2 = Object.keys(
+        modelTwo.getDirty() ?? {},
+      ).includes("name");
+      expect(containsDirtyName2).toBeTruthy();
+      expect(modelTwo.getOriginal("name") === "John");
 
-            modelTwo.attr('array', ['a', 'b', 'c'])
-            expect(modelTwo.isDirty()).toBeTruthy();
-            const containsDirtyArray2 = Object.keys(modelTwo.getDirty() ?? {}).includes('array')
-            expect(containsDirtyArray2).toBeTruthy()
-            expect((modelTwo.getAttributeSync('array') as string[])?.length).toEqual(3)
-            expect((modelTwo.getOriginal('array') as string[])?.length).toEqual(2)
+      modelTwo.attr("array", ["a", "b", "c"]);
+      expect(modelTwo.isDirty()).toBeTruthy();
+      const containsDirtyArray2 = Object.keys(
+        modelTwo.getDirty() ?? {},
+      ).includes("array");
+      expect(containsDirtyArray2).toBeTruthy();
+      expect((modelTwo.getAttributeSync("array") as string[])?.length).toEqual(
+        3,
+      );
+      expect((modelTwo.getOriginal("array") as string[])?.length).toEqual(2);
 
-            modelTwo.attr('object', {
-                a: 2,
-                b: 2
-            })
-            expect(modelTwo.isDirty()).toBeTruthy();
-            const containsDirtyObject2 = Object.keys(modelTwo.getDirty() ?? {}).includes('object')
-            expect(containsDirtyObject2).toBeTruthy()
-            expect((modelTwo.getAttributeSync('object') as {a: number, b: number})?.a).toEqual(2)
-            expect((modelTwo.getAttributeSync('object') as {a: number, b: number})?.b).toEqual(2)
-            expect((modelTwo.getOriginal('object') as {a: number, b: number})?.a).toEqual(1)
-            expect((modelTwo.getOriginal('object') as {a: number, b: number})?.b).toEqual(1)
-        })
-    })
+      modelTwo.attr("object", {
+        a: 2,
+        b: 2,
+      });
+      expect(modelTwo.isDirty()).toBeTruthy();
+      const containsDirtyObject2 = Object.keys(
+        modelTwo.getDirty() ?? {},
+      ).includes("object");
+      expect(containsDirtyObject2).toBeTruthy();
+      expect(
+        (modelTwo.getAttributeSync("object") as { a: number; b: number })?.a,
+      ).toEqual(2);
+      expect(
+        (modelTwo.getAttributeSync("object") as { a: number; b: number })?.b,
+      ).toEqual(2);
+      expect(
+        (modelTwo.getOriginal("object") as { a: number; b: number })?.a,
+      ).toEqual(1);
+      expect(
+        (modelTwo.getOriginal("object") as { a: number; b: number })?.b,
+      ).toEqual(1);
+    });
+  });
 });

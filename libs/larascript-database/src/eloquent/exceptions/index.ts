@@ -1,10 +1,9 @@
-export { default as EloquentExpression } from "./EloquentExpression"
-export { default as EloquentRelationshipException } from "./EloquentRelationshipException"
-export { default as ExpressionException } from "./ExpressionException"
-export { default as InsertException } from "./InsertException"
-export { default as InvalidMethodException } from "./InvalidMethodException"
-export { default as MissingTableException } from "./MissingTableException"
-export { default as ModelNotFound } from "./ModelNotFoundException"
-export { default as QueryBuilderException } from "./QueryBuilderException"
-export { default as UpdateException } from "./UpdateException"
-
+export { default as EloquentExpression } from "./EloquentExpression";
+export { default as EloquentRelationshipException } from "./EloquentRelationshipException";
+export { default as ExpressionException } from "./ExpressionException";
+export { default as InsertException } from "./InsertException";
+export { default as InvalidMethodException } from "./InvalidMethodException";
+export { default as MissingTableException } from "./MissingTableException";
+export { default as ModelNotFound } from "./ModelNotFoundException";
+export { default as QueryBuilderException } from "./QueryBuilderException";
+export { default as UpdateException } from "./UpdateException";

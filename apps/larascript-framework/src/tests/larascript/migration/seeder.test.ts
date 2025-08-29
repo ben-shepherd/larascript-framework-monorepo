@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
-import { db } from '@src/core/domains/database/services/Database';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
-import Model from '@src/core/domains/models/base/Model';
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { IModelAttributes, Model } from '@larascript-framework/larascript-database';
 import { app } from '@src/core/services/App';
+import { db } from '@src/core/services/Database';
+import { queryBuilder } from '@src/core/services/QueryBuilder';
 import TestMigrationModel from '@src/tests/larascript/migration/models/TestMigrationModel';
 import testHelper from '@src/tests/testHelper';
 import { DataTypes } from 'sequelize';

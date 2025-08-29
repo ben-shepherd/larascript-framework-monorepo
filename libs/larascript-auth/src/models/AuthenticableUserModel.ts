@@ -1,9 +1,8 @@
+import { IUserModel } from "@/auth";
 import { IAccessControlEntity } from "@larascript-framework/larascript-acl";
-import { IUserModel } from "@larascript-framework/larascript-auth";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { acl } from "@src/core/services/ACLService";
 
-export interface AuthenticableUserAttributes extends IModelAttributes {
+export interface AuthenticableUserModelAttributes extends IModelAttributes {
     id: string;
     email: string;
     hashedPassword: string;
@@ -19,10 +18,10 @@ export interface AuthenticableUserAttributes extends IModelAttributes {
  * user attributes such as email, hashed password, roles, and groups, while
  * implementing security measures to protect sensitive data.
  * 
- * @extends Model<AuthenticableUserAttributes>
+ * @extends Model<AuthenticableUserModelAttributes>
  * @implements IUserModel
  */
-class AuthenticableUser extends Model<AuthenticableUserAttributes> implements IUserModel, IAccessControlEntity {
+export class AuthenticableUserModel extends Model<AuthenticableUserModelAttributes> implements IUserModel, IAccessControlEntity {
 
     public static EMAIL = 'email';
 
@@ -34,7 +33,7 @@ class AuthenticableUser extends Model<AuthenticableUserAttributes> implements IU
 
     public static GROUPS = 'groups';
 
-    constructor(data: AuthenticableUserAttributes | null = null) {
+    constructor(data: AuthenticableUserModelAttributes | null = null) {
         super(data);
     }
 
@@ -126,9 +125,16 @@ class AuthenticableUser extends Model<AuthenticableUserAttributes> implements IU
      * @returns True if the user has the specified role(s), false otherwise
      */
     hasRole(role: string | string[]): boolean {
-        return acl().hasRole(this, role)
+        const currentRoles = this.getAclRoles()
+        if(!currentRoles) {
+            return false
+        }
+        if(Array.isArray(role)) {
+            return role.every(r => currentRoles.includes(r))
+        }
+        return currentRoles.includes(role)
     }
 
 }
 
-export default AuthenticableUser;
+export default AuthenticableUserModel;

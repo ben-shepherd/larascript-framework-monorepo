@@ -1,4 +1,4 @@
-class ParsePostgresConnectionUrl {
+export class ParsePostgresConnectionUrl {
   static readonly pattern = new RegExp(
     /postgres:\/\/([^:]+):([^@]+)@([^:]+):([^\/]+)\/(.+)/,
   );

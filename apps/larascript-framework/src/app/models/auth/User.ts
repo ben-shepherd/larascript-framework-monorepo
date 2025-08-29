@@ -1,13 +1,13 @@
+import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
 import { TCastableType } from "@larascript-framework/larascript-utils";
 import UserFactory from "@src/app/factory/UserFactory";
-import AuthenticableUser, { AuthenticableUserAttributes } from "@src/app/models/auth/AuthenticableUser";
 import UserObserver from "@src/app/observers/UserObserver";
 import { IModelFactory } from "@src/core/interfaces/factory.t";
 
 /**
  * User structure
  */
-export interface UserAttributes extends AuthenticableUserAttributes {
+export interface UserAttributes extends AuthenticableUserModelAttributes {
 
     // AuthenticableUser attributes
     id: string;
@@ -29,7 +29,7 @@ export interface UserAttributes extends AuthenticableUserAttributes {
  *
  * Represents a user in the database.
  */
-export default class User extends AuthenticableUser {
+export default class User extends AuthenticableUserModel {
 
     public static PASSWORD = 'password';
 

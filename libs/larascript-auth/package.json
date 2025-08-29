@@ -46,6 +46,7 @@
     "@larascript-framework/async-session": "workspace:*",
     "@larascript-framework/crypto-js": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

@@ -471,6 +471,9 @@ importers:
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core
+      '@larascript-framework/larascript-database':
+        specifier: workspace:*
+        version: link:../larascript-database
       '@larascript-framework/test-helpers':
         specifier: workspace:*
         version: link:../test-helpers

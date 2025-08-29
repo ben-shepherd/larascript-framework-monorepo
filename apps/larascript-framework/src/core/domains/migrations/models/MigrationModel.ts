@@ -1,5 +1,4 @@
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
 
 /**
  * Represents a migration stored in the database.

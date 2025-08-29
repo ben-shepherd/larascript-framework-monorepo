@@ -1,10 +1,10 @@
+import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
 import { IModelEvents } from "@larascript-framework/larascript-database";
-import AuthenticableUser, { AuthenticableUserAttributes } from "@src/app/models/auth/AuthenticableUser";
 import { UserAttributes } from "@src/app/models/auth/User";
 import TestUserCreatedListener from "../../events/TestUserCreatedListener";
 
 
-export interface TestUserAttributes extends AuthenticableUserAttributes {
+export interface TestUserAttributes extends AuthenticableUserModelAttributes {
 
     // AuthenticableUser attributes
     id: string;
@@ -25,7 +25,7 @@ export interface TestUserAttributes extends AuthenticableUserAttributes {
  *
  * Represents a user in the database.
  */
-export default class TestUser extends AuthenticableUser {
+export default class TestUser extends AuthenticableUserModel {
 
     public table: string = 'users';
 

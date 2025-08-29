@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
 import { describe, test } from '@jest/globals';
 import Repository from '@src/core/base/Repository';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
+import { queryBuilder } from '@src/core/services/QueryBuilder';
 import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
 import TestPeopleRepository from '@src/tests/larascript/repositories/TestPeopleRepository';
 import testHelper, { forEveryConnection } from '@src/tests/testHelper';

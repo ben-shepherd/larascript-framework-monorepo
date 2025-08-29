@@ -3,12 +3,12 @@ import 'tsconfig-paths/register';
 import { Kernel } from '@larascript-framework/larascript-core';
 import appConfig from '@src/config/app.config';
 import ConsoleProvider from '@src/core/domains/console/providers/ConsoleProvider';
-import DatabaseSetupProvider from '@src/core/domains/database/providers/DatabaseSetupProvider';
 import SetupProvider from '@src/core/domains/setup/providers/SetupProvider';
 import CryptoProvider from '@src/core/providers/CryptoProvider';
 import LoggerProvider from '@src/core/providers/LoggerProvider';
 import { app } from '@src/core/services/App';
 
+import DatabaseSetupProvider from './core/providers/DatabaseSetupProvider';
 import EnvServiceProvider from './core/providers/EnvServiceProvider';
 import PackageJsonProvider from './core/providers/PackageJsonProvider';
 

@@ -1,6 +1,5 @@
+import { ModelConstructor, TWhereClauseValue } from "@larascript-framework/larascript-database";
 import { IRule } from "@larascript-framework/larascript-validator";
-import { TWhereClauseValue } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 import AbstractDatabaseRule from "@src/core/domains/validator/abstract/AbstractDatabaseRule";
 
 type UniqueRuleOptions = {

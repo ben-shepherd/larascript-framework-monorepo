@@ -1,8 +1,8 @@
-import { IDatabaseAdapter } from "@src/core/domains/database/interfaces/IDatabaseAdapter";
-import { db } from "@src/core/domains/database/services/Database";
+import { IDatabaseAdapter } from "@larascript-framework/larascript-database";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IMigration, MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
-import { TClassConstructor } from "@src/core/interfaces/ClassConstructor.t";
 import { app } from "@src/core/services/App";
+import { db } from "@src/core/services/Database";
 
 /**
  * BaseMigration class serves as the foundation for all database migrations.
@@ -66,7 +66,7 @@ abstract class BaseMigration implements IMigration {
         }
 
         // Check if the current database matches the specified provider for this migration
-        return db().isConnectionAdapter(this.databaseAdapter);
+        return db().isRegisteredAdapter(this.databaseAdapter);
     }
 
 }

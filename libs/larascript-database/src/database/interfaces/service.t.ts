@@ -26,15 +26,15 @@ export interface IDatabaseService {
 
   getAllAdapterConstructors(): TClassConstructor<IDatabaseAdapter>[];
 
-  // isRegisteredAdapter(adapter: TClassConstructor<IDatabaseAdapter>, connectionName?: string): boolean
+  isRegisteredAdapter(adapter: TClassConstructor<IDatabaseAdapter>, connectionName?: string): boolean
 
-  // getDefaultCredentials(adapterName: string): string | null;
+  getDefaultCredentials(adapterName: string): string | null;
 
   schema<TSchema extends IDatabaseSchema = IDatabaseSchema>(
     connectionName?: string,
   ): TSchema;
 
-  // createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
+  createMigrationSchema(tableName: string, connectionName?: string): Promise<unknown>;
 
   postgres(connectionName?: string): IPostgresAdapter;
 

@@ -1,6 +1,5 @@
+import { MongoDbAdapter, PostgresAdapter } from "@larascript-framework/larascript-database";
 import responseError from "@src/core/domains/http/handlers/responseError";
-import MongoDbAdapter from "@src/core/domains/mongodb/adapters/MongoDbAdapter";
-import PostgresAdapter from "@src/core/domains/postgres/adapters/PostgresAdapter";
 import { app } from "@src/core/services/App";
 import { Request, Response } from "express";
 import { MongoClient } from "mongodb";
@@ -28,7 +27,7 @@ export default async (req: Request, res: Response) => {
 
         // Check if the provider is Postgres
         else if (adapter as unknown instanceof PostgresAdapter) {
-            const pool = (adapter as PostgresAdapter).getSequelize();
+            const pool = (adapter as unknown as PostgresAdapter).getSequelize();
             await (pool as Sequelize).query('SELECT 1 as connected');
         }
     }

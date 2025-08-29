@@ -1,15 +1,15 @@
+import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
 import { IUserFactory } from "@larascript-framework/larascript-auth/dist/auth/interfaces/factory";
+import { ModelConstructor } from "@larascript-framework/larascript-database";
 import BaseModelFactory from "@src/core/base/BaseModelFactory";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
-import AuthenticableUser, { AuthenticableUserAttributes } from "../models/auth/AuthenticableUser";
 
-class AuthenticableUserFactory<T extends AuthenticableUser> extends BaseModelFactory<T> implements IUserFactory {
+class AuthenticableUserFactory<T extends AuthenticableUserModel> extends BaseModelFactory<T> implements IUserFactory {
 
     constructor(modelConstructor: ModelConstructor<T>) {
         super(modelConstructor);
     }
 
-    getDefinition(): AuthenticableUserAttributes {
+    getDefinition(): AuthenticableUserModelAttributes {
         return {
             id: '',
             email: '',

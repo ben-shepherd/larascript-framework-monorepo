@@ -1,7 +1,7 @@
 
 import { IUserModel } from "@larascript-framework/larascript-auth";
+import { IModel, ModelConstructor } from "@larascript-framework/larascript-database";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
-import { db } from "@src/core/domains/database/services/Database";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
@@ -11,8 +11,8 @@ import ApiResponse from "@src/core/domains/http/response/ApiResponse";
 import ResourceOwnerRule from "@src/core/domains/http/security/rules/ResourceOwnerRule";
 import SecurityReader from "@src/core/domains/http/security/services/SecurityReader";
 import Paginate from "@src/core/domains/http/utils/Paginate";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 import { auth } from "@src/core/services/AuthService";
+import { db } from "@src/core/services/Database";
 
 type TResponseOptions = {
     showPagination: boolean;

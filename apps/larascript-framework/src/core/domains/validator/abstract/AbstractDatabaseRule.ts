@@ -1,8 +1,7 @@
 import { IRule } from "@larascript-framework/larascript-validator";
-import { IEloquent, TOperator, TWhereClause, TWhereClauseValue } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 
+import { IEloquent, ModelConstructor, TOperator, TWhereClause, TWhereClauseValue } from "@larascript-framework/larascript-database";
+import { queryBuilder } from "@src/core/services/QueryBuilder";
 import ExtendedAbstractRule from "./ExtendedAbstractRule";
 
 /**

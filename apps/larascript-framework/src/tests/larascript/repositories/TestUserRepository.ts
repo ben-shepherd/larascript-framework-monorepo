@@ -1,12 +1,12 @@
-import UserRepository from "@src/app/repositories/UserRepository";
+import { AuthenticableUserModel } from "@larascript-framework/larascript-auth";
+import AuthenticationUserRepository from "@src/app/repositories/auth/AuthenticationUserRepository";
 import TestUser from "@src/tests/larascript/models/models/TestUser";
 
 
-export default class TestUserRepository extends UserRepository {
+export default class TestUserRepository extends AuthenticationUserRepository<AuthenticableUserModel> {
 
     constructor() {
-        super()
-        this.setModelCtor(TestUser)
+        super(TestUser)
     }
 
 }

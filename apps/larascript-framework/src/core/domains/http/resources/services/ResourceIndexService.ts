@@ -1,5 +1,4 @@
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
+import { IEloquent, IModelAttributes } from "@larascript-framework/larascript-database";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import { IPageOptions } from "@src/core/domains/http/interfaces/IResourceService";
@@ -11,7 +10,7 @@ import Paginate from "@src/core/domains/http/utils/Paginate";
 import QueryFilters from "@src/core/domains/http/utils/QueryFilters";
 import SortOptions from "@src/core/domains/http/utils/SortOptions";
 import stripGuardedResourceProperties from "@src/core/domains/http/utils/stripGuardedResourceProperties";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { queryBuilder } from "@src/core/services/QueryBuilder";
 
 /**
  * Service class that handles retrieving collections of resources through HTTP requests

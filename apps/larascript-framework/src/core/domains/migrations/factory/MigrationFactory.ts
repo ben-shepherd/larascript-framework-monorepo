@@ -1,6 +1,6 @@
+import { IModel, ModelConstructor } from "@larascript-framework/larascript-database";
 import { MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
 import MigrationModel from "@src/core/domains/migrations/models/MigrationModel";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 
 
 type Props = {

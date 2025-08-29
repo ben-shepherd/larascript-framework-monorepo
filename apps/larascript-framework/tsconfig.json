@@ -19,7 +19,6 @@
     "include": ["src/**/*", "*.config.*"],
     "exclude": [
         "node_modules",
-        "dist",
-        "../../libs/*/dist"
+        "dist"
     ]
 }

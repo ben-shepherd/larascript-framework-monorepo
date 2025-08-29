@@ -1,5 +1,6 @@
-import Repository from "@src/core/base/Repository";
+import { Repository } from "@larascript-framework/larascript-database";
 import TestPeopleModel from "@src/tests/larascript/eloquent/models/TestPeopleModel";
+
 export default class TestPeopleRepository extends Repository<TestPeopleModel> {
 
     constructor(connectionName?: string) {

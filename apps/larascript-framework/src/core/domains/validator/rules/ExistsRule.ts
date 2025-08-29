@@ -1,10 +1,8 @@
-
+import { IEloquent, ModelConstructor } from "@larascript-framework/larascript-database";
 import { IRule } from "@larascript-framework/larascript-validator";
-import { db } from "@src/core/domains/database/services/Database";
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
 import { IHttpContext } from "@src/core/domains/http/interfaces/IHttpContext";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 import AbstractDatabaseRule from "@src/core/domains/validator/abstract/AbstractDatabaseRule";
+import { db } from "@src/core/services/Database";
 
 type ExistsRuleOptions = {
     modelConstructor: ModelConstructor;

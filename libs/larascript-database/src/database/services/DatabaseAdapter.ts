@@ -5,7 +5,7 @@ import {
 } from "../interfaces/adapter.t";
 import { IDatabaseService } from "../interfaces/service.t";
 
-class DatabaseAdapter {
+export class DatabaseAdapter {
   public static getName(adapter: TClassConstructor<IDatabaseAdapter>): string {
     return adapter.name;
   }

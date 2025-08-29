@@ -1,4 +1,5 @@
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
+import { IModelAttributes } from "@larascript-framework/larascript-database";
 import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import { TResponseErrorMessages } from "@src/core/domains/http/interfaces/ErrorResponse.t";
@@ -6,7 +7,6 @@ import AbastractBaseResourceService from "@src/core/domains/http/resources/abstr
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
 import { RouteResourceTypes } from "@src/core/domains/http/router/RouterResource";
 import stripGuardedResourceProperties from "@src/core/domains/http/utils/stripGuardedResourceProperties";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
 import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
 
 /**

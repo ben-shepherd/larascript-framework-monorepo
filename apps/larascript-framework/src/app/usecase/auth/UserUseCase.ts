@@ -1,8 +1,8 @@
 
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
+import { IModel } from "@larascript-framework/larascript-database";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { IModel } from "@src/core/domains/models/interfaces/IModel";
 import { auth } from "@src/core/services/AuthService";
 
 /**

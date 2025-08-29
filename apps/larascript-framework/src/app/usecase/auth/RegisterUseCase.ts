@@ -1,10 +1,10 @@
 import { IUserAttributes, IUserModel } from "@larascript-framework/larascript-auth";
+import { IModel, IModelAttributes } from "@larascript-framework/larascript-database";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
 import { UserAttributes } from "@src/app/models/auth/User";
 import CreateUserValidator from "@src/app/validators/user/CreateUserValidator";
 import HttpContext from "@src/core/domains/http/context/HttpContext";
 import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { IModel, IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
 import { app } from "@src/core/services/App";
 import { auth } from "@src/core/services/AuthService";
 import { cryptoService } from "@src/core/services/CryptoService";

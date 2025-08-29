@@ -3,4 +3,5 @@ export * from "./eloquent";
 export * from "./model";
 export * from "./mongodb";
 export * from "./postgres";
+export * from "./repository";
 

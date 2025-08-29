@@ -1,18 +1,19 @@
-import DatabaseAdapter from "@src/core/domains/database/services/DatabaseAdapter";
+import { DatabaseAdapter } from "@larascript-framework/larascript-database";
 import CopyEnvExampleAction from "@src/core/domains/setup/actions/CopyEnvExampleAction";
 import EnableExpress from "@src/core/domains/setup/actions/EnableExpress";
+import GenerateAppKeyAction from "@src/core/domains/setup/actions/GenerateAppKeyAction";
 import GenerateJwtSecretAction from "@src/core/domains/setup/actions/GenerateJwtSecretAction";
 import SetupDefaultDatabase from "@src/core/domains/setup/actions/SetupDefaultDatabase";
 import SetupDockerDatabaseScripts from "@src/core/domains/setup/actions/SetupDockerDatabaseScripts";
 import { QuestionIDs } from "@src/core/domains/setup/consts/QuestionConsts";
 import QuestionDTO from "@src/core/domains/setup/DTOs/QuestionDTO";
-import GenerateAppKeyAction from "@src/core/domains/setup/actions/GenerateAppKeyAction";
+import { app } from "@src/core/services/App";
 
 const ENV_OVERWRITE_WARNING = 'This step will overwrite your .env file.';
 const acceptedAnswersBoolean = ['yes', 'no', 'y', 'n', ''];
 
 const acceptedDatabaseAdaptersAnswers = (() => {
-    return ['all', '', ...DatabaseAdapter.getComposerShortFileNames()]
+    return ['all', '', ...DatabaseAdapter.getComposerShortFileNames(app('db'))]
 });
 
 const buildQuestionDTOs = (): QuestionDTO[] => {

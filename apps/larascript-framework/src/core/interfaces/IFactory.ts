@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { IModel } from "@src/core/domains/models/interfaces/IModel";
+import { IModel } from "@larascript-framework/larascript-database";
 
 export type FactoryConstructor<Model extends IModel> = {
     new (...args: any[]): IFactory<Model>

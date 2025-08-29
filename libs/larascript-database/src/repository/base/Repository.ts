@@ -1,14 +1,13 @@
+import { IEloquent, ModelNotFound } from "@/eloquent";
+import { IModel, ModelConstructor } from "@/model";
+import { queryBuilder } from "@/tests/tests-helper/testHelper";
 import { Collection, ICollection, collect } from "@larascript-framework/larascript-collection";
-import { IEloquent } from "@src/core/domains/eloquent/interfaces/IEloquent";
-import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
-import { IModel, ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
-import ModelNotFound from "@src/core/exceptions/ModelNotFound";
-import { IRepository } from "@src/core/interfaces/IRepository";
+import { IRepository } from "../types/repository.t";
 
 /**
  * Base class for repositories
  */
-export default class Repository<Model extends IModel> implements IRepository<Model> {
+export class Repository<Model extends IModel> implements IRepository<Model> {
 
     /**
      * The model constructor
@@ -119,3 +118,5 @@ export default class Repository<Model extends IModel> implements IRepository<Mod
     }
 
 }
+
+export default Repository

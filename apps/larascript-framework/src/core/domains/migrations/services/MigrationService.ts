@@ -1,4 +1,4 @@
-import Repository from "@src/core/base/Repository";
+import { IRepository, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
 import MigrationTypeEnum from "@src/core/domains/migrations/enums/MigrationTypeEnum";
 import MigrationFactory from "@src/core/domains/migrations/factory/MigrationFactory";
 import { IMigration, MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
@@ -6,9 +6,7 @@ import { IMigrationConfig } from "@src/core/domains/migrations/interfaces/IMigra
 import { IMigrationService, IMigrationServiceOptions } from "@src/core/domains/migrations/interfaces/IMigrationService";
 import MigrationModel from "@src/core/domains/migrations/models/MigrationModel";
 import MigrationFileService from "@src/core/domains/migrations/services/MigrationFilesService";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
 import FileNotFoundError from "@src/core/exceptions/FileNotFoundError";
-import { IRepository } from "@src/core/interfaces/IRepository";
 import { app } from "@src/core/services/App";
 import { logger } from "@src/core/services/Logger";
 

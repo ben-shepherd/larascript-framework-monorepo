@@ -1,5 +1,5 @@
 import { IWorkerModel, IWorkerRepository } from "@larascript-framework/larascript-events";
-import { queryBuilder } from "../../eloquent/services/EloquentQueryBuilderService";
+import { queryBuilder } from "@src/core/services/QueryBuilder";
 import WorkerModel from "../models/WorkerModel";
 
 export class WorkerRepository implements IWorkerRepository {

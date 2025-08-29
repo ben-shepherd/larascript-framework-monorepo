@@ -1,5 +1,5 @@
 import { BaseFactory } from "@larascript-framework/larascript-core";
-import { IModel, ModelConstructor } from "../domains/models/interfaces/IModel";
+import { IModel, ModelConstructor } from "@larascript-framework/larascript-database";
 
 
 abstract class BaseModelFactory<T extends IModel> extends BaseFactory<T['attributes']> {

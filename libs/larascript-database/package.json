@@ -50,16 +50,16 @@
   },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/crypto-js": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-utils": "workspace:*",
     "@larascript-framework/larascript-collection": "workspace:*",
+    "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-events": "workspace:*",
     "@larascript-framework/larascript-observer": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/crypto-js": "workspace:*",
+    "@larascript-framework/larascript-utils": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {
@@ -67,5 +67,8 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "mongodb": "^6.9.0"
   }
 }

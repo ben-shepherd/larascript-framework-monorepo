@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
-import { IDatabaseSchema } from '@src/core/domains/database/interfaces/IDatabaseSchema';
+import { IDatabaseSchema } from '@larascript-framework/larascript-database';
 import { app } from '@src/core/services/App';
 import TestMigrationModel from '@src/tests/larascript/migration/models/TestMigrationModel';
 import TestApiTokenModel from '@src/tests/larascript/models/models/TestApiTokenModel';

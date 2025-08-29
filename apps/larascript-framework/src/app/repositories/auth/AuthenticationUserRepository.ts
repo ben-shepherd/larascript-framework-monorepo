@@ -1,8 +1,6 @@
-import { IUserAttributes, IUserModel, IUserRepository } from "@larascript-framework/larascript-auth";
-import AuthenticableUser from "@src/app/models/auth/AuthenticableUser";
-import Repository from "@src/core/base/Repository";
-import { queryBuilder } from "@src/core/domains/eloquent/services/EloquentQueryBuilderService";
-import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
+import { AuthenticableUserModel, IUserAttributes, IUserModel, IUserRepository } from "@larascript-framework/larascript-auth";
+import { ModelConstructor, Repository } from "@larascript-framework/larascript-database";
+import { queryBuilder } from "@src/core/services/QueryBuilder";
 
 /**
  * Repository class for managing user data operations
@@ -20,7 +18,7 @@ import { ModelConstructor } from "@src/core/domains/models/interfaces/IModel";
  * @implements IUserRepository
  */
 
-class AuthenticationUserRepository<T extends AuthenticableUser> extends Repository<T> implements IUserRepository {
+class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Repository<T> implements IUserRepository {
 
     constructor(modelConstructor: ModelConstructor<T>) {
         super(modelConstructor);
@@ -45,7 +43,7 @@ class AuthenticationUserRepository<T extends AuthenticableUser> extends Reposito
      * @returns The user record or null if not found
      */
     async findById(id: string | number): Promise<T | null> {
-        return await queryBuilder(this.modelConstructor).find(id)
+        return await queryBuilder(this.modelConstructor).find(id) as T | null
     }
 
     /**
@@ -55,7 +53,7 @@ class AuthenticationUserRepository<T extends AuthenticableUser> extends Reposito
      * @returns The user record
      */
     async findByIdOrFail(id: string | number): Promise<T> {
-        return await queryBuilder(this.modelConstructor).findOrFail(id)
+        return await queryBuilder(this.modelConstructor).findOrFail(id) as T
     }
 
     /**

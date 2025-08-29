@@ -1,5 +1,4 @@
 import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
-import EloquentQueryProvider from "@src/core/domains/eloquent/providers/EloquentQueryProvider";
 import EventProvider from "@src/core/domains/events/providers/EventProvider";
 import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
@@ -33,7 +32,6 @@ const testBootApp = async () => {
             new LoggerProvider(),
             new TestConsoleProvider(),
             new TestDatabaseProvider(),
-            new EloquentQueryProvider(),
             new ACLProvider(),
             new TestAuthProvider(),
             new TestMigrationProvider(),

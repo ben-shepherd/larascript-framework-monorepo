@@ -7,9 +7,10 @@ import { IDatabaseSchema } from "./schema.t";
 export interface IConnectionTypes extends Record<string, IDatabaseAdapter> {}
 
 export interface IDatabaseService {
-  // boot(): Promise<void>;
 
-  // registerConnections(): void
+  boot(): Promise<void>;
+
+  register(): void;
 
   showLogs(): boolean;
 

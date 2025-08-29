@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
 import { EmailRule, RequiredRule, Validator } from '@larascript-framework/larascript-validator';
-import { queryBuilder } from '@src/core/domains/eloquent/services/EloquentQueryBuilderService';
 import UniqueRule from '@src/core/domains/validator/rules/UniqueRule';
+import { queryBuilder } from '@src/core/services/QueryBuilder';
 import TestEmailModel, { resetEmailTable } from '@src/tests/larascript/eloquent/models/TestEmailModel';
 import testHelper from '@src/tests/testHelper';
 

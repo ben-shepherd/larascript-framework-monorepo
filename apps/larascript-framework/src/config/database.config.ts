@@ -1,8 +1,6 @@
+import { DatabaseConfig, IDatabaseConfig } from "@larascript-framework/larascript-database";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
-import { IDatabaseConfig } from "@src/core/domains/database/interfaces/IDatabaseConfig";
-import DatabaseConfig from "@src/core/domains/database/services/DatabaseConfig";
-import MongoDbAdapter from "@src/core/domains/mongodb/adapters/MongoDbAdapter";
-import PostgresAdapter from "@src/core/domains/postgres/adapters/PostgresAdapter";
+
 
 const DATABASE_DEFAULT_CONNECTION = (process.env.DATABASE_DEFAULT_CONNECTION as string) ?? 'default';
 
@@ -28,29 +26,30 @@ const config: IDatabaseConfig = {
      * Database connections configuration.
      * Define multiple connections here if needed.
      */
-    connections: DatabaseConfig.createConnections([
+    connections: [
 
         /**
          * Default Postgres connection
          */
-        DatabaseConfig.createConfig({
-            connectionName: process.env.DATABASE_POSTGRES_CONNECTION as string,
-            adapter: PostgresAdapter,
-            uri: process.env.DATABASE_POSTGRES_URI as string,
-            options: {}, // Additional connection options can be specified here
-        }),
+        DatabaseConfig.postgres(
+            process.env.DATABASE_POSTGRES_CONNECTION as string,
+            {
+                uri: process.env.DATABASE_POSTGRES_URI as string,
+                options: {}, // Additional connection options can be specified here
+            }
+        ),
 
         /**
          * Default MongoDB connection
-         */
-        DatabaseConfig.createConfig({
-            connectionName: process.env.DATABASE_MONGODB_CONNECTION as string,
-            adapter: MongoDbAdapter,
-            uri: process.env.DATABASE_MONGODB_URI as string,
-            options: {} // Additional connection options can be specified here
-        }),
-
-    ])
+         */ 
+        DatabaseConfig.mongodb(
+            process.env.DATABASE_MONGODB_CONNECTION as string,
+            {
+                uri: process.env.DATABASE_MONGODB_URI as string,
+                options: {} // Additional connection options can be specified here
+            }
+        ),
+    ]
 };
 
 export default config;

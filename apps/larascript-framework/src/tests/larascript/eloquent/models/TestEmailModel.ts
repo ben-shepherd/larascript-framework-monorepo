@@ -1,6 +1,5 @@
+import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
 import { TCastableType } from "@larascript-framework/larascript-utils";
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
 import { app } from "@src/core/services/App";
 import { forEveryConnection } from "@src/tests/testHelper";
 import { DataTypes } from "sequelize";

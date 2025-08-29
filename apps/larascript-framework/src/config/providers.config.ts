@@ -3,6 +3,7 @@ import { ICryptoService } from '@larascript-framework/crypto-js';
 import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-acl';
 import { IAuthService, IJwtAuthService } from '@larascript-framework/larascript-auth';
 import { IEnvService, IPackageJsonService } from '@larascript-framework/larascript-core';
+import { IDatabaseService, IEloquentQueryBuilderService } from '@larascript-framework/larascript-database';
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
 import { ILoggerService } from '@larascript-framework/larascript-logger';
 import { IMailService } from '@larascript-framework/larascript-mail';
@@ -15,10 +16,6 @@ import RoutesProvider from "@src/app/providers/RoutesProvider";
 import { IAppConfig } from "@src/config/app.config";
 import ICommandService from '@src/core/domains/console/interfaces/ICommandService';
 import ConsoleProvider from "@src/core/domains/console/providers/ConsoleProvider";
-import { IDatabaseService } from '@src/core/domains/database/interfaces/IDatabaseService';
-import DatabaseProvider from "@src/core/domains/database/providers/DatabaseProvider";
-import { IEloquentQueryBuilderService } from '@src/core/domains/eloquent/interfaces/IEloquentQueryBuilderService';
-import EloquentQueryProvider from "@src/core/domains/eloquent/providers/EloquentQueryProvider";
 import EventProvider from "@src/core/domains/events/providers/EventProvider";
 import IHttpService from '@src/core/domains/http/interfaces/IHttpService';
 import { IRequestContext } from '@src/core/domains/http/interfaces/IRequestContext';
@@ -34,6 +31,7 @@ import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
 import AuthProvider from "@src/core/providers/AuthProvider";
 import CommandsProvider from '@src/core/providers/CommandsProvider';
 import CryptoProvider from "@src/core/providers/CryptoProvider";
+import DatabaseProvider from '@src/core/providers/DatabaseProvider';
 import EnvServiceProvider from "@src/core/providers/EnvServiceProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
 import MailProvider from "@src/core/providers/MailProvider";
@@ -91,7 +89,6 @@ const providers: IProvider[] = [
     new ConsoleProvider(),
     new EventProvider(),
     new DatabaseProvider(),
-    new EloquentQueryProvider(),
     new ACLProvider(),
     new AuthProvider(),
     new MigrationProvider(),

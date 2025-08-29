@@ -1,7 +1,5 @@
 import { Collection } from "@larascript-framework/larascript-collection";
-import HasMany from "@src/core/domains/eloquent/relational/HasMany";
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { HasMany, IModelAttributes, Model } from "@larascript-framework/larascript-database";
 import { app } from "@src/core/services/App";
 import TestEmployeeModel from "@src/tests/larascript/eloquent/models/TestEmployeeModel";
 import testHelper from "@src/tests/testHelper";

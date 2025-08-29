@@ -3,11 +3,11 @@ import { IJSonWebToken } from "./jwt.t";
 import { IApiTokenModel, IUserModel } from "./models.t";
 
 export interface IUserFactoryConstructor {
-  new (...args: unknown[]): IUserFactory;
+  new (...args: any[]): IUserFactory;
 }
 
 export interface IApiTokenFactoryConstructor {
-  new (...args: unknown[]): IApiTokenFactory;
+  new (...args: any[]): IApiTokenFactory;
 }
 
 export type IUserFactory = IFactory<IUserModel>;

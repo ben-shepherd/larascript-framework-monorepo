@@ -1,12 +1,8 @@
-import { IDatabaseConfig } from '@src/core/domains/database/interfaces/IDatabaseConfig';
-import DatabaseProvider from '@src/core/domains/database/providers/DatabaseProvider';
-import DatabaseConfig from '@src/core/domains/database/services/DatabaseConfig';
-import MongoDbAdapter from '@src/core/domains/mongodb/adapters/MongoDbAdapter';
-import ParseMongoDBConnectionString from '@src/core/domains/mongodb/helper/ParseMongoDBConnectionUrl';
-import { IMongoConfig } from '@src/core/domains/mongodb/interfaces/IMongoConfig';
-import PostgresAdapter from '@src/core/domains/postgres/adapters/PostgresAdapter';
-import ParsePostgresConnectionUrl from '@src/core/domains/postgres/helper/ParsePostgresConnectionUrl';
-import { IPostgresConfig } from '@src/core/domains/postgres/interfaces/IPostgresConfig';
+import { DatabaseConfig, IDatabaseConfig, IPostgresConfig, MongoDbAdapter, ParseMongoDBConnectionString, PostgresAdapter } from "@larascript-framework/larascript-database";
+import { IMongoConfig } from "@larascript-framework/larascript-database/dist/mongodb/interfaces/IMongoConfig";
+import ParsePostgresConnectionUrl from "@larascript-framework/larascript-database/dist/postgres/helper/ParsePostgresConnectionUrl";
+import DatabaseProvider from "@src/core/providers/DatabaseProvider";
+
 
 export const testDbName = 'test_db';
 
@@ -35,21 +31,16 @@ export default class TestDatabaseProvider extends DatabaseProvider {
         enableLogging: true,
         defaultConnectionName: 'postgres',
         keepAliveConnections: 'mongodb',
-        connections: DatabaseConfig.createConnections([
-            DatabaseConfig.createConfig({
-                connectionName: 'postgres',
-                adapter: PostgresAdapter,
+        connections: [
+            DatabaseConfig.postgres('postgres', {
                 uri: postgresConnectionStringWithTestDb,
-                options: {} // Additional connection options can be specified here
+                options: {}
             }),
-            DatabaseConfig.createConfig({
-                connectionName: 'mongodb',
-                adapter: MongoDbAdapter,
+            DatabaseConfig.mongodb('mongodb', {
                 uri: mongoDbConnectionStringWithTestDb,
-                options: {} // Additional connection options can be specified here
+                options: {}
             })
-        ])
+        ]
     };
-    ;
 
 }

@@ -1,11 +1,9 @@
 import { BasicACLScope } from '@larascript-framework/larascript-acl';
 import { IApiTokenAttributes, IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
+import { BelongsTo, IModelAttributes, Model } from '@larascript-framework/larascript-database';
 import { TCastableType } from '@larascript-framework/larascript-utils';
 import User from '@src/app/models/auth/User';
 import ApiTokenObserver from '@src/app/observers/ApiTokenObserver';
-import BelongsTo from '@src/core/domains/eloquent/relational/BelongsTo';
-import Model from '@src/core/domains/models/base/Model';
-import { IModelAttributes } from '@src/core/domains/models/interfaces/IModel';
 import { auth } from '@src/core/services/AuthService';
 
 export interface ApiTokenAttributes extends IModelAttributes, IApiTokenAttributes {}

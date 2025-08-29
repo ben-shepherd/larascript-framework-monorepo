@@ -1,6 +1,4 @@
-import BelongsTo from "@src/core/domains/eloquent/relational/BelongsTo";
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import { BelongsTo, IModelAttributes, Model } from "@larascript-framework/larascript-database";
 import { app } from "@src/core/services/App";
 import TestDepartmentModel from "@src/tests/larascript/eloquent/models/TestDepartmentModel";
 import testHelper from "@src/tests/testHelper";

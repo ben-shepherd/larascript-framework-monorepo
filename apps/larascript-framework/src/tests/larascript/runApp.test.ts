@@ -1,8 +1,7 @@
 import { describe, expect, test } from '@jest/globals';
 import { AuthService } from '@larascript-framework/larascript-auth';
 import { Kernel } from '@larascript-framework/larascript-core';
-import { EloquentQueryBuilderService } from '@larascript-framework/larascript-database';
-import DatabaseService from '@larascript-framework/larascript-database/dist/database/services/DatabaseService';
+import { DatabaseService, EloquentQueryBuilderService } from '@larascript-framework/larascript-database';
 import { EventService } from '@larascript-framework/larascript-events';
 import ConsoleService from '@src/core/domains/console/service/ConsoleService';
 import { app } from '@src/core/services/App';

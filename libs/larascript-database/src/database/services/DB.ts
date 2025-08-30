@@ -19,7 +19,7 @@ export type InitTypes = {
   logger?: ILoggerService;
 };
 
-class DB extends BaseSingleton implements RequiresDependency {
+export class DB extends BaseSingleton implements RequiresDependency {
   protected _databaseService!: IDatabaseService;
 
   protected _eloquentQueryBuilderService!: IEloquentQueryBuilderService;

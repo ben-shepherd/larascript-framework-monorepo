@@ -1,4 +1,4 @@
-import { extractDefaultPostgresCredentials } from "@/postgres/utils/extractDefaultPostgresCredentials";
+import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials";
 import { describe, expect, test } from "@jest/globals";
 
 describe("extractDefaultPostgresCredentials", () => {

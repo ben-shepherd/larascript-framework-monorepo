@@ -1,5 +1,5 @@
 import { TOrderBy } from "@/eloquent";
-import { normalizeColumn } from "@/mongodb/utils/normalizeColumn";
+import { normalizeColumn } from "@/mongodb-adapter/utils/normalizeColumn";
 
 class Order {
   /**

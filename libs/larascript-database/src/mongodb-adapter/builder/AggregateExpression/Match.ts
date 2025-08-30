@@ -1,12 +1,12 @@
 import {
-  LogicalOperators,
-  TLogicalOperator,
-  TWhereClause,
-  TWhereClauseValue,
+    LogicalOperators,
+    TLogicalOperator,
+    TWhereClause,
+    TWhereClauseValue,
 } from "@/eloquent";
 import ExpressionException from "@/eloquent/exceptions/ExpressionException";
-import { MongoRaw } from "@/mongodb/builder/AggregateExpression";
-import { normalizeColumn } from "@/mongodb/utils/normalizeColumn";
+import { MongoRaw } from "@/mongodb-adapter/builder/AggregateExpression";
+import { normalizeColumn } from "@/mongodb-adapter/utils/normalizeColumn";
 import { ObjectId } from "mongodb";
 import { z } from "zod";
 

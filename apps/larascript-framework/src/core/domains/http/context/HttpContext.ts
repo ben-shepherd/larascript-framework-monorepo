@@ -61,9 +61,8 @@ class HttpContext implements IHttpContext {
 
     /**
      * Gets all parameters from the request.
-     * @returns {Record<string, string>} The parameters.
      */
-    public getParams() {
+    public getParams(): Record<string, string> {
         return this.req.params
     }
 

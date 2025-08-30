@@ -1,5 +1,5 @@
-import { IMongoDbAdapter } from "@/mongodb/interfaces/mongodb.t";
-import { IPostgresAdapter } from "@/postgres/interfaces/postgres.t";
+import { IMongoDbAdapter } from "@/mongodb-adapter/interfaces/mongodb.t";
+import { IPostgresAdapter } from "@/postgres-adapter/interfaces/postgres.t";
 import {
   DependencyLoader,
   RequiresDependency,
@@ -21,7 +21,7 @@ import DatabaseAdapter from "./DatabaseAdapter";
  * - Registers database adapters, connections
  * - Connects to default and keep alive connections
  */
-class Database implements IDatabaseService, RequiresDependency {
+export class DatabaseService implements IDatabaseService, RequiresDependency {
   protected connectionsConfig: Record<string, Record<string, unknown>> = {};
 
   protected adapters: Record<string, IDatabaseAdapter> = {};
@@ -355,4 +355,4 @@ class Database implements IDatabaseService, RequiresDependency {
   }
 }
 
-export default Database;
+export default DatabaseService;

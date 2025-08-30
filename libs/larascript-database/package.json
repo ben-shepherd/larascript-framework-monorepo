@@ -69,6 +69,6 @@
     }
   },
   "dependencies": {
-    "mongodb": "^6.9.0"
+    "mongodb": "^6.18.0"
   }
 }

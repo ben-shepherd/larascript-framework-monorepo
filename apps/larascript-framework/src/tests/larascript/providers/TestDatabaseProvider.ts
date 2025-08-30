@@ -1,5 +1,4 @@
-import { DatabaseConfig, IDatabaseConfig, IPostgresConfig, MongoDbAdapter, ParseMongoDBConnectionString, ParsePostgresConnectionUrl, PostgresAdapter } from "@larascript-framework/larascript-database";
-import { IMongoConfig } from "@larascript-framework/larascript-database/dist/mongodb/interfaces/IMongoConfig";
+import { DatabaseConfig, IDatabaseConfig, IMongoConfig, IPostgresConfig, MongoDbAdapter, ParseMongoDBConnectionString, ParsePostgresConnectionUrl, PostgresAdapter } from "@larascript-framework/larascript-database";
 import DatabaseProvider from "@src/core/providers/DatabaseProvider";
 
 

@@ -1,6 +1,5 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { DatabaseConfig, IDatabaseConfig } from "@larascript-framework/larascript-database";
-import DatabaseService from "@larascript-framework/larascript-database/dist/database/services/DatabaseService";
+import { DatabaseConfig, DatabaseService, IDatabaseConfig } from "@larascript-framework/larascript-database";
 /**
  * DatabaseRegisterOnlyProvider class
  * 

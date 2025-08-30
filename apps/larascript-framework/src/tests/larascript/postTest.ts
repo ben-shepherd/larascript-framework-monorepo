@@ -1,5 +1,4 @@
-import { IPostgresConfig, PostgresAdapter } from "@larascript-framework/larascript-database";
-import ParsePostgresConnectionUrl from "@larascript-framework/larascript-database/dist/postgres/helper/ParsePostgresConnectionUrl";
+import { IPostgresConfig, ParsePostgresConnectionUrl, PostgresAdapter } from "@larascript-framework/larascript-database";
 import testHelper from "@src/tests/testHelper";
 import pg from 'pg';
 

@@ -1,6 +1,6 @@
 import DatabaseConfig from "@/database/services/DatabaseConfig";
-import { MongoDbAdapter } from "@/mongodb/adapters";
-import { PostgresAdapter } from "@/postgres/adapters/PostgresAdapter";
+import { MongoDbAdapter } from "@/mongodb-adapter/adapters";
+import { PostgresAdapter } from "@/postgres-adapter/adapters/PostgresAdapter";
 import { describe, expect, test } from "@jest/globals";
 import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
 

@@ -528,7 +528,7 @@ importers:
   libs/larascript-database:
     dependencies:
       mongodb:
-        specifier: ^6.9.0
+        specifier: ^6.18.0
         version: 6.18.0
     devDependencies:
       '@larascript-framework/check-exports':

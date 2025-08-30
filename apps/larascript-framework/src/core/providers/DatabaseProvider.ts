@@ -1,8 +1,6 @@
 import { CryptoService } from "@larascript-framework/crypto-js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { EloquentQueryBuilderService, IDatabaseConfig } from "@larascript-framework/larascript-database";
-import DatabaseService from "@larascript-framework/larascript-database/dist/database/services/DatabaseService";
-import DB from "@larascript-framework/larascript-database/dist/database/services/DB";
+import { DatabaseService, DB, EloquentQueryBuilderService, IDatabaseConfig } from "@larascript-framework/larascript-database";
 import appConfig, { IAppConfig } from "@src/config/app.config";
 import databaseConfig from "@src/config/database.config";
 import { app } from "../services/App";

@@ -1,6 +1,6 @@
 import { JoinTypes, TJoin } from "@/eloquent";
 import Eloquent from "@/eloquent/Eloquent";
-import { normalizeColumn } from "@/mongodb/utils/normalizeColumn";
+import { normalizeColumn } from "@/mongodb-adapter/utils/normalizeColumn";
 
 class Join {
   /**

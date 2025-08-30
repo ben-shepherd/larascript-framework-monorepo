@@ -3,20 +3,20 @@ import DatabaseService from "@/database/services/DatabaseService";
 import DB from "@/database/services/DB";
 import EloquentQueryBuilderService from "@/eloquent/services/EloquentQueryBuilderService";
 import { IModel, ModelConstructor } from "@/model";
-import { MongoDbAdapter } from "@/mongodb/adapters";
-import { extractDefaultMongoCredentials } from "@/mongodb/utils/extractDefaultMongoCredentials";
-import { PostgresAdapter } from "@/postgres/adapters";
-import { extractDefaultPostgresCredentials } from "@/postgres/utils/extractDefaultPostgresCredentials";
+import { MongoDbAdapter } from "@/mongodb-adapter/adapters";
+import { extractDefaultMongoCredentials } from "@/mongodb-adapter/utils/extractDefaultMongoCredentials";
+import { PostgresAdapter } from "@/postgres-adapter/adapters";
+import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials";
 import { CryptoService } from "@larascript-framework/crypto-js";
 import {
-  AppSingleton,
-  BaseProvider,
-  EnvironmentTesting,
-  Kernel,
+    AppSingleton,
+    BaseProvider,
+    EnvironmentTesting,
+    Kernel,
 } from "@larascript-framework/larascript-core";
 import {
-  EventService,
-  SyncDriver,
+    EventService,
+    SyncDriver,
 } from "@larascript-framework/larascript-events";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import { execSync } from "child_process";

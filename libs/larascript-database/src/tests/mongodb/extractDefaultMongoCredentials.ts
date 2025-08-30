@@ -1,4 +1,4 @@
-import { extractDefaultMongoCredentials } from "@/mongodb/utils/extractDefaultMongoCredentials";
+import { extractDefaultMongoCredentials } from "@/mongodb-adapter/utils/extractDefaultMongoCredentials";
 import { describe, expect, test } from "@jest/globals";
 
 describe("extractDefaultMongoCredentials", () => {

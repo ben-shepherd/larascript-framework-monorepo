@@ -31,6 +31,5 @@ export default class TestDatabaseProvider extends BaseProvider {
 
     async boot(): Promise<void> {
         await DB.getInstance().databaseService().boot();
-
     }
 }

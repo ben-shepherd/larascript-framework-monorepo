@@ -1,4 +1,3 @@
-import { CryptoService } from "@larascript-framework/crypto-js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
 import { DatabaseService, DB, EloquentQueryBuilderService, IDatabaseConfig } from "@larascript-framework/larascript-database";
 import appConfig, { IAppConfig } from "@src/config/app.config";
@@ -17,24 +16,21 @@ export default class TestDatabaseProvider extends BaseProvider {
         databaseService.register();
 
         const eloquentQueryBuilder = new EloquentQueryBuilderService();
-
-        const cryptoService = new CryptoService({
-            secretKey: this.appConfig.appKey,
-        });
-
+        
         DB.init({
-            databaseService,
-            eloquentQueryBuilder,
-            cryptoService,
+            databaseService: databaseService,
+            eloquentQueryBuilder:eloquentQueryBuilder,
+            cryptoService: app('crypto'),
             eventsService: app('events'),
             logger: app('logger'),
         });
 
-        this.bind("db", databaseService);
-        this.bind("query", eloquentQueryBuilder);
+        this.bind("db", DB.getInstance().databaseService());
+        this.bind("query", DB.getInstance().queryBuilderService());
     }
 
     async boot(): Promise<void> {
-        app('db').boot();
+        await DB.getInstance().databaseService().boot();
+
     }
 }

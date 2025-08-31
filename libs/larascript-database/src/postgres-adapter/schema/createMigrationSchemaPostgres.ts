@@ -10,7 +10,7 @@ const createMigrationSchemaPostgres = async (
   adapter: PostgresAdapter,
   tableName: string = "migrations",
 ) => {
-  const sequelize = adapter.getSequelize();
+  const sequelize = await adapter.getSequelize();
   const queryInterface = sequelize.getQueryInterface();
 
   if ((await queryInterface.showAllTables())?.includes(tableName)) {

@@ -7,7 +7,7 @@ import CommandNotFoundException from '@src/core/domains/console/exceptions/Comma
 import CommandBootService from '@src/core/domains/console/service/CommandBootService';
 import { logger } from '@src/core/services/Logger';
 
-(async () => {
+await(async () => {
     try {
         const args = process.argv.slice(2);
         const cmdBoot  = new CommandBootService();

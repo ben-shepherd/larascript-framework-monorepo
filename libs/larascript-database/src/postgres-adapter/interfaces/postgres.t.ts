@@ -80,13 +80,13 @@ export interface IPostgresAdapter extends IDatabaseAdapter {
    * Get the query interface for the database
    * @returns {QueryInterface} The query interface
    */
-  getSequelizeQueryInterface(): QueryInterface;
+  getSequelizeQueryInterface(): Promise<QueryInterface>;
 
   /**
    * Get the sequelize instance
    * @returns {Sequelize} The sequelize instance
    */
-  getSequelize(): Sequelize;
+  getSequelize(): Promise<Sequelize>;
 
   /**
    * Get a new PostgreSQL client instance.

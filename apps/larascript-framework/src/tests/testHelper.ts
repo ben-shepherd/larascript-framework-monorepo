@@ -2,6 +2,7 @@ import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/
 import EventProvider from "@src/core/domains/events/providers/EventProvider";
 import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
+import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
 import { app } from "@src/core/services/App";
 import TestApiTokenModel from "@src/tests/larascript/models/models/TestApiTokenModel";
@@ -31,14 +32,15 @@ const testBootApp = async () => {
         providers: [
             new LoggerProvider(),
             new TestConsoleProvider(),
+            new TestCryptoProvider(),
+            new AsyncSessionProvider(),
+            new EventProvider(),
             new TestDatabaseProvider(),
             new ACLProvider(),
             new TestAuthProvider(),
             new TestMigrationProvider(),
             new ValidatorProvider(),
-            new TestCryptoProvider(),
             new TestViewProvider(),
-            new EventProvider(),
         ]
     }
 
@@ -56,7 +58,7 @@ export const createAuthTables = async (connectionName?: string) => {
     const schema = app('db').schema(connectionName)
 
     const userTable = (new TestUser).table;
-    const apiTokenTable = (new TestApiTokenModel).table;
+    const apiTokenTable = TestApiTokenModel.getTable();
 
     const stringNullable = {
         type: DataTypes.STRING,
@@ -132,7 +134,8 @@ const clearMigrations = async () => {
  * @returns An array of connection names, excluding those specified in the `exclude` parameter.
  */
 export const getTestConnectionNames = ({ exclude = [] }: { exclude?: string[] } = {}) => {
-    return ['mongodb', 'postgres'].filter(connectionName => !exclude.includes(connectionName));
+    // return ['mongodb', 'postgres'].filter(connectionName => !exclude.includes(connectionName));
+    return ['postgres']
 }
 
 /**

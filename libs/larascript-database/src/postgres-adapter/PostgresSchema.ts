@@ -160,7 +160,7 @@ class PostgresSchema extends BaseSchema<PostgresAdapter> {
     optons?: QueryInterfaceCreateTableOptions,
   ): Promise<void> {
     try {
-      const sequelize = this.getAdapter().getSequelize();
+      const sequelize = await this.getAdapter().getSequelize();
       const queryInterface = sequelize.getQueryInterface();
       await queryInterface.createTable(
         tableName,
@@ -187,7 +187,7 @@ class PostgresSchema extends BaseSchema<PostgresAdapter> {
     options?: QueryInterfaceDropTableOptions,
   ): Promise<void> {
     try {
-      const sequelize = this.getAdapter().getSequelize();
+      const sequelize = await this.getAdapter().getSequelize();
       const queryInterface = sequelize.getQueryInterface();
       await queryInterface.dropTable(tableName, options);
     } catch (err) {
@@ -208,7 +208,7 @@ class PostgresSchema extends BaseSchema<PostgresAdapter> {
     options: Omit<IAlterTableOptions, "tableName">,
   ): Promise<void> {
     try {
-      const sequelize = this.getAdapter().getSequelize();
+      const sequelize = await this.getAdapter().getSequelize();
 
       if (options.addColumn) {
         await sequelize
@@ -284,7 +284,7 @@ class PostgresSchema extends BaseSchema<PostgresAdapter> {
    */
   async tableExists(tableName: string): Promise<boolean> {
     try {
-      const sequelize = this.getAdapter().getSequelize();
+      const sequelize = await this.getAdapter().getSequelize();
       const queryInterface = sequelize.getQueryInterface();
       return await queryInterface.tableExists(tableName);
     } catch (err) {
@@ -302,7 +302,7 @@ class PostgresSchema extends BaseSchema<PostgresAdapter> {
    */
   async dropAllTables(): Promise<void> {
     try {
-      const sequelize = this.getAdapter().getSequelize();
+      const sequelize = await this.getAdapter().getSequelize();
       const queryInterface = sequelize.getQueryInterface();
       await queryInterface.dropAllTables();
     } catch (err) {

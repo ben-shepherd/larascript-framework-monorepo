@@ -28,7 +28,7 @@ export default class TestDatabaseProvider extends DatabaseProvider {
     protected config: IDatabaseConfig = {
         enableLogging: true,
         defaultConnectionName: 'postgres',
-        keepAliveConnections: 'mongodb',
+        keepAliveConnections: '',
         connections: [
             DatabaseConfig.postgres('postgres', {
                 uri: postgresConnectionStringWithTestDb,

@@ -50,6 +50,7 @@ export class PostgresAdapter
     super(connectionName, config);
   }
 
+
   /**
    * Returns the default Postgres credentials extracted from the docker-compose file
    * @returns {string | null} The default Postgres credentials
@@ -189,20 +190,21 @@ export class PostgresAdapter
    * Get the query interface for the database
    * @returns {QueryInterface} The query interface
    */
-  getSequelizeQueryInterface(): QueryInterface {
-    return this.getSequelize().getQueryInterface();
+  async getSequelizeQueryInterface(): Promise<QueryInterface> {
+    return (await this.getSequelize()).getQueryInterface();
   }
 
   /**
    * Get the sequelize instance
    * @returns
    */
-  getSequelize(): Sequelize {
+  async getSequelize(): Promise<Sequelize> {
     if (!this.sequelize) {
       this.sequelize = new Sequelize(this.getConfig().uri, {
         logging: DB.getInstance().databaseService().showLogs(),
         ...this.getConfig().options,
       });
+      await this.sequelize.authenticate();
     }
 
     return this.sequelize;

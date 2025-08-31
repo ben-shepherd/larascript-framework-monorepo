@@ -1,6 +1,6 @@
-import ApiToken from "@src/app/models/auth/ApiToken";
 import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
 import { DataTypes } from "sequelize";
+import TestApiTokenModel from "../../models/models/TestApiTokenModel";
 
 export class CreateApiTokenMigration extends BaseMigration {
 
@@ -11,7 +11,7 @@ export class CreateApiTokenMigration extends BaseMigration {
 
     group?: string = 'testing';
 
-    table = ApiToken.getTable()
+    table = TestApiTokenModel.getTable()
 
     async up(): Promise<void> {
         await this.schema.createTable(this.table, {

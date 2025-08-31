@@ -36,9 +36,9 @@ describe('test migrations', () => {
         await testHelper.testBootApp()
 
         tables = [
-            (new TestApiTokenModel).table,
-            (new TestUser).table,
-            (new TestModel(null)).table
+            TestApiTokenModel.getTable(),
+            TestUser.getTable(),
+            TestModel.getTable()
         ]
 
         console.log('Connection', app('db').getDefaultConnectionName())
@@ -60,6 +60,7 @@ describe('test migrations', () => {
         await app('console').readerService(['migrate:up', '--group=testing']).handle();
 
         for (const table of tables) {
+            console.log('checking if table exists', table)
             const tableExists = await schema.tableExists(table);
             console.log('tableExists (expect: true)', table, tableExists)
             expect(tableExists).toBe(true);

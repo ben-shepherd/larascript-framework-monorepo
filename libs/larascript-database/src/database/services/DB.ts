@@ -12,6 +12,7 @@ import { ILoggerService } from "../../../../larascript-logger/dist";
 import { IDatabaseService } from "../interfaces/service.t";
 
 export type InitTypes = {
+  app?: (name: string) => unknown;
   databaseService: IDatabaseService;
   eloquentQueryBuilder: IEloquentQueryBuilderService;
   cryptoService: ICryptoService;
@@ -30,13 +31,17 @@ export class DB extends BaseSingleton implements RequiresDependency {
 
   protected _logger?: ILoggerService;
 
+  app?: (name: string) => unknown;
+
   public static init({
+    app,
     databaseService,
     eloquentQueryBuilder,
     cryptoService,
     eventsService,
     logger,
   }: InitTypes) {
+    DB.getInstance().app = app;
     DB.getInstance().setDependencyLoader(
       CreateDependencyLoader.create({
         databaseService,
@@ -73,11 +78,24 @@ export class DB extends BaseSingleton implements RequiresDependency {
   }
 
   databaseService(): IDatabaseService {
+
+    if (typeof this.app === "function") {
+      return this.app("db") as IDatabaseService;
+    }
+
     if (!this._databaseService) {
       throw new Error("DatabaseService is not initialized");
     }
 
     return this._databaseService;
+  }
+
+  queryBuilderService(): IEloquentQueryBuilderService {
+    if (!this._eloquentQueryBuilderService) {
+      throw new Error("EloquentQueryBuilderService is not initialized");
+    }
+
+    return this._eloquentQueryBuilderService;
   }
 
   queryBuilder<Model extends IModel>(

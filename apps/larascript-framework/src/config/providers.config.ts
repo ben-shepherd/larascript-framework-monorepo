@@ -24,7 +24,6 @@ import HttpProvider from "@src/core/domains/http/providers/HttpProvider";
 import MakeProvider from "@src/core/domains/make/providers/MakeProvider";
 import MigrationProvider from "@src/core/domains/migrations/providers/MigrationProvider";
 import SetupProvider from "@src/core/domains/setup/providers/SetupProvider";
-import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorProvider";
 import { IProvider } from "@src/core/interfaces/IProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
 import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
@@ -37,6 +36,7 @@ import LoggerProvider from "@src/core/providers/LoggerProvider";
 import MailProvider from "@src/core/providers/MailProvider";
 import PackageJsonProvider from "@src/core/providers/PackageJsonProvider";
 import StorageProvider from "@src/core/providers/StorageProvider";
+import ValidatorProvider from "@src/core/providers/ValidatorProvider";
 import ViewProvider from "@src/core/providers/ViewProvider";
 import readline from 'node:readline';
 

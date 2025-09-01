@@ -1,9 +1,9 @@
 import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
 import EventProvider from "@src/core/domains/events/providers/EventProvider";
-import ValidatorProvider from "@src/core/domains/validator/providers/ValidatorProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
 import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
+import ValidatorProvider from "@src/core/providers/ValidatorProvider";
 import { app } from "@src/core/services/App";
 import TestApiTokenModel from "@src/tests/larascript/models/models/TestApiTokenModel";
 import TestUser from "@src/tests/larascript/models/models/TestUser";

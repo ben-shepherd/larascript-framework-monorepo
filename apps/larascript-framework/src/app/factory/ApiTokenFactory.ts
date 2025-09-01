@@ -1,4 +1,4 @@
-import BaseModelFactory from "@src/core/base/BaseModelFactory";
+import { BaseModelFactory } from "@larascript-framework/larascript-database";
 import ApiToken, { ApiTokenAttributes } from "../models/auth/ApiToken";
 
 class ApiTokenFactory extends BaseModelFactory<ApiToken> {

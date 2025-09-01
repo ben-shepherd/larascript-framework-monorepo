@@ -1,10 +1,10 @@
+import { IEnvService } from "@larascript-framework/larascript-core";
 import BaseCommand from "@src/core/domains/console/base/BaseCommand";
 import { IConsoleInputService } from '@src/core/domains/console/interfaces/IConsoleInputService';
 import ConsoleInputService from '@src/core/domains/console/service/ConsoleInputService';
 import QuestionDTO from '@src/core/domains/setup/DTOs/QuestionDTO';
 import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
 import buildQuestionDTOs from '@src/core/domains/setup/utils/buildQuestionDTOs';
-import { IEnvService } from '@src/core/interfaces/IEnvService';
 import { app } from "@src/core/services/App";
 
 /**

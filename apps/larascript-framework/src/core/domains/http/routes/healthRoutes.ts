@@ -1,4 +1,4 @@
-import health from '@src/core/actions/health';
+import health from '@src/app/routes/health';
 import Route from '@src/core/domains/http/router/Route';
 
 /**

@@ -1,4 +1,4 @@
-import BaseCommand from "@src/core/domains/console/base/BaseCommand";
+import { BaseCommand } from "@larascript-framework/larascript-console";
 import { app } from "@src/core/services/App";
 import { cryptoService } from "@src/core/services/CryptoService";
 

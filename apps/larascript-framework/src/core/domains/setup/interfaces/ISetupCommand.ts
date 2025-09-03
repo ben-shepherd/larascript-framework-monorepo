@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
+import { IConsoleInputService } from '@larascript-framework/larascript-console';
 import { IEnvService } from "@larascript-framework/larascript-core";
-import { IConsoleInputService } from '@src/core/domains/console/interfaces/IConsoleInputService';
 
 export interface ISetupCommand {
     env: IEnvService;

@@ -1,4 +1,4 @@
-import BaseCommand from "@src/core/domains/console/base/BaseCommand";
+import { BaseCommand } from "@larascript-framework/larascript-console";
 import MigrationTypeEnum from "@src/core/domains/migrations/enums/MigrationTypeEnum";
 import MigrationError from "@src/core/domains/migrations/exceptions/MigrationError";
 import { IMigrationConfig } from "@src/core/domains/migrations/interfaces/IMigrationConfig";

@@ -1,6 +1,6 @@
+import { BaseCommand } from "@larascript-framework/larascript-console";
 import { IEventDriversConfigOption, TEventWorkerOptions } from "@larascript-framework/larascript-events";
 import { EVENT_DRIVERS } from "@src/config/events.config";
-import BaseCommand from "@src/core/domains/console/base/BaseCommand";
 import { app } from "@src/core/services/App";
 import { z } from "zod";
 
@@ -46,7 +46,7 @@ export default class WorkerCommand extends BaseCommand {
         const driverName = this.getArguementByKey('driver')?.value ?? EVENT_DRIVERS.QUEABLE;
         const queueName = this.getArguementByKey('queue')?.value ?? 'default';
 
-        const options = this.eventService.getDriverOptionsByName(driverName)?.options;
+        const options = app('events').getDriverOptionsByName(driverName)?.options;
 
         this.validateOptions(driverName, options);
 

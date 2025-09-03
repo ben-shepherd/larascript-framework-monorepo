@@ -8,7 +8,7 @@ import { ICommandRegister } from "./ICommandRegister";
  *
  * @interface ICommandService
  */
-export default interface ICommandService {
+export interface ICommandService {
   /**
    * Creates a new ICommandReader instance with given argv
    *
@@ -31,3 +31,5 @@ export default interface ICommandService {
    */
   register: (cmdCtor: ICommandConstructor, config?: object) => void;
 }
+
+export default ICommandService;

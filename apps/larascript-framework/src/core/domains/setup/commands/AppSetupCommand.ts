@@ -1,12 +1,9 @@
+import { BaseCommand } from "@larascript-framework/larascript-console";
 import { IEnvService } from "@larascript-framework/larascript-core";
-import BaseCommand from "@src/core/domains/console/base/BaseCommand";
-import { IConsoleInputService } from '@src/core/domains/console/interfaces/IConsoleInputService';
-import ConsoleInputService from '@src/core/domains/console/service/ConsoleInputService';
 import QuestionDTO from '@src/core/domains/setup/DTOs/QuestionDTO';
 import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
 import buildQuestionDTOs from '@src/core/domains/setup/utils/buildQuestionDTOs';
 import { app } from "@src/core/services/App";
-
 /**
  * Command to run the setup process
  */
@@ -26,11 +23,6 @@ class AppSetupCommand extends BaseCommand implements ISetupCommand {
      * The environment service
      */
     env!: IEnvService;
-
-    /**
-     * The console input service
-     */
-    input: IConsoleInputService = new ConsoleInputService();
 
     /**
      * The questions to ask the user

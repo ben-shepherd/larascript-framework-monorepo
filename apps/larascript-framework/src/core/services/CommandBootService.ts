@@ -1,5 +1,5 @@
 import { AppSingleton, KernelOptions } from "@larascript-framework/larascript-core";
-import ICommandBootService from "@src/core/domains/console/interfaces/ICommandBootService";
+import ICommandBootService from "@src/core/interfaces/ICommandBootService";
 
 class CommandBootService implements ICommandBootService {
 

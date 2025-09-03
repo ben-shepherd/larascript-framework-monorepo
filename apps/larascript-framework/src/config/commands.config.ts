@@ -1,5 +1,5 @@
+import { ICommandConstructor } from '@larascript-framework/larascript-console';
 import ExampleCommand from '@src/app/commands/ExampleCommand';
-import { ICommandConstructor } from '@src/core/domains/console/interfaces/ICommand';
 
 /**
  * Register your custom commands here.

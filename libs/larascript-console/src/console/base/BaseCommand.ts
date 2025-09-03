@@ -14,7 +14,7 @@ import ConsoleInputService from "../service/ConsoleInputService";
  *
  * @abstract
  */
-export default abstract class BaseCommand implements ICommand {
+export abstract class BaseCommand implements ICommand {
   /**
    * Whether the command is being mocked
    */
@@ -205,3 +205,5 @@ export default abstract class BaseCommand implements ICommand {
     }
   }
 }
+
+export default BaseCommand;

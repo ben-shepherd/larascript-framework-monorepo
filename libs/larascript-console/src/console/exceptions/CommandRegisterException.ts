@@ -1,4 +1,4 @@
-export default class CommandRegisterException extends Error {
+export class CommandRegisterException extends Error {
   constructor(name: string, message?: string) {
     if (message) {
       super(message.replace("{name}", name));
@@ -10,3 +10,5 @@ export default class CommandRegisterException extends Error {
     this.name = "CommandRegisterException";
   }
 }
+
+export default CommandRegisterException;

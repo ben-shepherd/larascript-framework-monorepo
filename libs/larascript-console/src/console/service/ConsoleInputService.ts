@@ -3,7 +3,7 @@ import readline from "node:readline";
 import { IConsoleInputService } from "../interfaces/IConsoleInputService";
 import ConsoleService from "./ConsoleService";
 
-class ConsoleInputService
+export class ConsoleInputService
   extends BaseSingleton
   implements IConsoleInputService
 {

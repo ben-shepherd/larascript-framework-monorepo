@@ -1,13 +1,13 @@
 import 'dotenv/config';
 
+import { CommandNotFoundException } from '@larascript-framework/larascript-console';
 import { Kernel, KernelOptions } from '@larascript-framework/larascript-core';
 import appConfig from '@src/config/app.config';
 import providers from '@src/config/providers.config';
-import CommandNotFoundException from '@src/core/domains/console/exceptions/CommandNotFoundException';
-import CommandBootService from '@src/core/domains/console/service/CommandBootService';
+import CommandBootService from '@src/core/services/CommandBootService';
 import { logger } from '@src/core/services/Logger';
 
-await(async () => {
+(async () => {
     try {
         const args = process.argv.slice(2);
         const cmdBoot  = new CommandBootService();

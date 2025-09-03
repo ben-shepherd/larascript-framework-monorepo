@@ -1,18 +1,5 @@
-import { BaseProvider } from "@larascript-framework/larascript-core";
-import ConsoleService from "@src/core/domains/console/service/ConsoleService";
-import readline from 'readline';
+import ConsoleProvider from "@src/core/providers/ConsoleProvider";
 
-class TestConsoleProvider extends BaseProvider {
-
-    async register(): Promise<void> {
-
-        this.bind('readline', readline.createInterface({
-            input: process.stdin,
-            output: process.stdout,
-        }));
-        this.bind('console', new ConsoleService());
-    }
-
-}
+class TestConsoleProvider extends ConsoleProvider {}
 
 export default TestConsoleProvider

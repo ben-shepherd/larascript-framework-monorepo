@@ -1,4 +1,4 @@
-import BaseCommand from "@src/core/domains/console/base/BaseCommand";
+import { BaseCommand } from "@larascript-framework/larascript-console";
 import { app } from "@src/core/services/App";
 
 export default class RouteListCommand extends BaseCommand {

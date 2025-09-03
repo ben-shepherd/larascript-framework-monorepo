@@ -1,5 +1,5 @@
  
-import { KeyPair, ParsedArgumentsArray } from '@src/core/domains/console/parsers/CommandArgumentParser';
+import { KeyPair, ParsedArgumentsArray } from '@larascript-framework/larascript-console';
 import BaseMakeFileCommand from '@src/core/domains/make/base/BaseMakeFileCommand';
 import MakeCmdCommand from '@src/core/domains/make/commands/MakeCmdCommand';
 import MakeController from '@src/core/domains/make/commands/MakeControllerCommand';

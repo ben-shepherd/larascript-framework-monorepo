@@ -198,6 +198,9 @@ importers:
       '@larascript-framework/larascript-collection':
         specifier: workspace:*
         version: link:../../libs/larascript-collection
+      '@larascript-framework/larascript-console':
+        specifier: workspace:*
+        version: link:../../libs/larascript-console
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../../libs/larascript-core

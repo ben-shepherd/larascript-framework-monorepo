@@ -9,7 +9,7 @@ import CommandRegister from "./CommandRegister";
  * ConsoleService class that implements the ICommandService interface.
  * This class provides methods for creating command readers and registering commands.
  */
-export default class ConsoleService
+export class ConsoleService
   extends BaseSingleton
   implements ICommandService
 {
@@ -57,3 +57,5 @@ export default class ConsoleService
     return this.readlineInterface;
   }
 }
+
+export default ConsoleService;

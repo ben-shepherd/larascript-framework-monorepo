@@ -1,4 +1,4 @@
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "@/events";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "@/worker";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
 import TestFailedWorkerModel from "../models/TestFailedWorkerModel";
 import TestWorkerModel from "../models/TestWorkerModel";

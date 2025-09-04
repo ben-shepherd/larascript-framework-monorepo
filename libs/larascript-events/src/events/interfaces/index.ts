@@ -5,5 +5,4 @@ export * from "./event.t";
 export * from "./mock.t";
 export * from "./services.t";
 export * from "./types.t";
-export * from "./worker.t";
 

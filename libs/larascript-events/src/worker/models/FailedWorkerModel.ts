@@ -1,0 +1,16 @@
+import WorkerModel from "./WorkerModel";
+
+/**
+ * FailedWorkerModel class.
+ * 
+ * Represents a worker model that has failed to process successfully.
+ * This model stores failed worker data in a separate table for tracking
+ * and debugging purposes.
+ * 
+ * @class FailedWorkerModel
+ * @extends WorkerModel
+ */
+export default class FailedWorkerModel extends WorkerModel {
+    table: string = 'failed_worker_queue';
+}
+

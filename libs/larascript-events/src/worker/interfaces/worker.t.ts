@@ -1,6 +1,6 @@
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import { TSerializableValues } from "./event.t";
-import { IEventService } from "./services.t";
+import { TSerializableValues } from "../../events/interfaces/event.t";
+import { IEventService } from "../../events/interfaces/services.t";
 
 /**
  * Interface for worker repositories that manage worker data

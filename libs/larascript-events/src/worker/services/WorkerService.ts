@@ -1,10 +1,19 @@
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "@/worker";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import { EventWorkerException } from "../exceptions/EventWorkerException";
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "../interfaces";
-import { IEventService } from "../interfaces/services.t";
+import { EventWorkerException } from "../../events/exceptions/EventWorkerException";
+import { IEventService } from "../../events/interfaces/services.t";
 
+/**
+ * WorkerService class.
+ * 
+ * Handles the execution of background workers that process queued events.
+ * This service manages worker models, processes events, handles retries,
+ * and manages failed worker models when events cannot be processed successfully.
+ * 
+ * @class WorkerService
+ * @implements IWorkerService
+ */
 export class WorkerService implements IWorkerService {
-
 
         private workerRepository!: IWorkerRepository;
 

@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
-import { BaseEvent, EventRegistry, EventService, IWorkerAttributes, IWorkerModel, TSerializableValues, WorkerService } from '@/events';
+import { BaseEvent, EventRegistry, EventService, TSerializableValues } from '@/events';
+import { IWorkerAttributes, IWorkerModel, WorkerService } from '@/worker';
 import { describe } from '@jest/globals';
 import { AppSingleton, BaseProvider, EnvironmentTesting, Kernel } from '@larascript-framework/larascript-core';
 import InMemoryEventDriver from './drivers/InMemoryEventDriver';

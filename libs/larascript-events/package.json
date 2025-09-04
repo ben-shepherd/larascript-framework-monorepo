@@ -40,6 +40,8 @@
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-utils": "workspace:*",
     "@larascript-framework/larascript-logger": "workspace:*",
+    "@larascript-framework/larascript-console": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

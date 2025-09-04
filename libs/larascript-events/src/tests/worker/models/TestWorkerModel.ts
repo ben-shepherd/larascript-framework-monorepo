@@ -1,4 +1,4 @@
-import { IWorkerAttributes, IWorkerModel, WorkerService } from "@/events";
+import { IWorkerAttributes, IWorkerModel, WorkerService } from "@/worker";
 import { AppSingleton } from "@larascript-framework/larascript-core";
 import { InMemoryWorkerRepository } from "../repository/InMemoryWorkerRepository";
 

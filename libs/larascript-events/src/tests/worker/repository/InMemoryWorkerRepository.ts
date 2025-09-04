@@ -1,4 +1,4 @@
-import { IWorkerModel, IWorkerRepository } from "@/events";
+import { IWorkerModel, IWorkerRepository } from "@/worker";
 
 export class InMemoryWorkerRepository implements IWorkerRepository {
     

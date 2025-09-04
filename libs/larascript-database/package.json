@@ -55,7 +55,6 @@
     "@larascript-framework/jest-config": "workspace:*",
     "@larascript-framework/larascript-collection": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-events": "workspace:*",
     "@larascript-framework/larascript-observer": "workspace:*",
     "@larascript-framework/larascript-utils": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",

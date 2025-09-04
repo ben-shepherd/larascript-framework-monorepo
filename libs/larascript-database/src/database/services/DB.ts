@@ -7,16 +7,14 @@ import {
   DependencyLoader,
   RequiresDependency,
 } from "@larascript-framework/larascript-core";
-import { IEventService } from "@larascript-framework/larascript-events";
 import { ILoggerService } from "../../../../larascript-logger/dist";
 import { IDatabaseService } from "../interfaces/service.t";
-
 export type InitTypes = {
   app?: (name: string) => unknown;
   databaseService: IDatabaseService;
   eloquentQueryBuilder: IEloquentQueryBuilderService;
   cryptoService: ICryptoService;
-  eventsService: IEventService;
+  dispatcher: (...args: any[]) => Promise<void>;
   logger?: ILoggerService;
 };
 
@@ -27,7 +25,7 @@ export class DB extends BaseSingleton implements RequiresDependency {
 
   protected _cryptoService!: ICryptoService;
 
-  protected _eventsService!: IEventService;
+  protected _dispatcher!: (...args: any[]) => Promise<void>;
 
   protected _logger?: ILoggerService;
 
@@ -35,7 +33,7 @@ export class DB extends BaseSingleton implements RequiresDependency {
     databaseService,
     eloquentQueryBuilder,
     cryptoService,
-    eventsService,
+    dispatcher,
     logger,
   }: InitTypes) {
     DB.getInstance().setDependencyLoader(
@@ -43,7 +41,7 @@ export class DB extends BaseSingleton implements RequiresDependency {
         databaseService,
         eloquentQueryBuilder,
         cryptoService,
-        eventsService,
+        dispatcher,
         logger,
       }),
     );
@@ -62,14 +60,14 @@ export class DB extends BaseSingleton implements RequiresDependency {
       throw new Error("CryptoService is not a valid dependency");
     }
 
-    if (typeof loader("eventsService") === "undefined") {
-      throw new Error("EventsService is not a valid dependency");
+    if (typeof loader("dispatcher") === "undefined") {
+      throw new Error("Dispatcher is not a valid dependency");
     }
 
     this._databaseService = loader("databaseService");
     this._eloquentQueryBuilderService = loader("eloquentQueryBuilder");
     this._cryptoService = loader("cryptoService");
-    this._eventsService = loader("eventsService");
+    this._dispatcher = loader("dispatcher");
     this._logger = loader("logger");
   }
 
@@ -109,12 +107,12 @@ export class DB extends BaseSingleton implements RequiresDependency {
     return this._cryptoService;
   }
 
-  eventsService(): IEventService {
-    if (!this._eventsService) {
-      throw new Error("EventsService is not initialized");
+  dispatcher(...args: any[]): Promise<void> {
+    if (!this._dispatcher) {
+      throw new Error("Dispatcher is not initialized");
     }
 
-    return this._eventsService;
+    return this._dispatcher(...args);
   }
 
   logger(): ILoggerService | undefined {

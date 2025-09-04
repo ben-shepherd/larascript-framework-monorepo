@@ -8,7 +8,6 @@ import {
 } from "@/model/interfaces/model.t";
 import { beforeEach, describe, test } from "@jest/globals";
 import { ICryptoService } from "@larascript-framework/crypto-js";
-import { IEventService } from "@larascript-framework/larascript-events";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
 
@@ -25,12 +24,6 @@ describe("Example Test Suite", () => {
         .fn()
         .mockImplementation((...args: any[]) => {
           return {} as unknown as IDatabaseService;
-        });
-
-      const eventServiceMock = jest
-        .fn()
-        .mockImplementation((...args: any[]) => {
-          return {} as unknown as IEventService;
         });
 
       const cryptoServiceMock = jest
@@ -57,7 +50,7 @@ describe("Example Test Suite", () => {
         databaseService: databaseServiceMock(),
         eloquentQueryBuilder: eloquentQueryBuilderMock(),
         cryptoService: cryptoServiceMock(),
-        eventsService: eventServiceMock(),
+        dispatcher: () => Promise.resolve(),
         logger: logger,
       });
     });
@@ -66,7 +59,7 @@ describe("Example Test Suite", () => {
       expect(DB.getInstance().databaseService()).toBeDefined();
       expect(DB.getInstance().queryBuilder(mockModel, "test")).toBeDefined();
       expect(DB.getInstance().cryptoService()).toBeDefined();
-      expect(DB.getInstance().eventsService()).toBeDefined();
+      expect(DB.getInstance().dispatcher()).toBeDefined();
       expect(DB.getInstance().logger()).toBeDefined();
     });
   });

@@ -9,15 +9,11 @@ import { PostgresAdapter } from "@/postgres-adapter/adapters";
 import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials";
 import { CryptoService } from "@larascript-framework/crypto-js";
 import {
-    AppSingleton,
-    BaseProvider,
-    EnvironmentTesting,
-    Kernel,
+  AppSingleton,
+  BaseProvider,
+  EnvironmentTesting,
+  Kernel,
 } from "@larascript-framework/larascript-core";
-import {
-    EventService,
-    SyncDriver,
-} from "@larascript-framework/larascript-events";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import { execSync } from "child_process";
 import path from "path";
@@ -46,16 +42,10 @@ class TestDatabaseProvider extends BaseProvider {
     const cryptoService = new CryptoService({
       secretKey: "test",
     });
-    const eventsService = new EventService({
-      defaultDriver: SyncDriver,
-      drivers: {
-        sync: {
-          driver: SyncDriver,
-          options: {},
-        },
-      },
-      listeners: [],
-    });
+    const dispatcher = (event: any) => {
+      console.log('dispatcher', event);
+      return Promise.resolve();
+    };
 
     const logger = new LoggerService({
       logPath: path.join(process.cwd(), "storage/logs"),
@@ -66,11 +56,11 @@ class TestDatabaseProvider extends BaseProvider {
       databaseService,
       eloquentQueryBuilder,
       cryptoService,
-      eventsService,
+      dispatcher,
       logger,
     });
 
-    this.bind("events", eventsService);
+    this.bind("dispatcher", dispatcher);
     this.bind("db", databaseService);
   }
 

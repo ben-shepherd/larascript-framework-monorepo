@@ -1213,8 +1213,7 @@ export default abstract class Model<Attributes extends IModelAttributes>
   ): Promise<void> {
     if (typeof this.events?.[event] === "function") {
       await DB.getInstance()
-        .eventsService()
-        .dispatch(new this.events[event](...args));
+        .dispatcher(new this.events[event](...args))
     }
   }
 

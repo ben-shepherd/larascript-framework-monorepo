@@ -1,3 +1,4 @@
+import { EVENT_DRIVERS } from "../consts/drivers";
 import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService } from "../interfaces";
 
 /**
@@ -5,6 +6,8 @@ import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService } fr
  * Provides common functionality for event dispatching and configuration management
  */
 export abstract class BaseDriver implements IEventDriver {
+
+    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
 
     /** The event service instance */
     protected eventService!: IEventService;

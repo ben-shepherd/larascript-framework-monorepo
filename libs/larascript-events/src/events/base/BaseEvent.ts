@@ -1,7 +1,6 @@
 import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
 import assert from "node:assert";
-import { EventConfig } from "../../index";
-import QueueableDriver from "../../worker/drivers/QueableDriver";
+import { EVENT_DRIVERS } from "../consts/drivers";
 import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException";
 import { IBaseEvent } from "../interfaces";
 import { EventRegistry } from "../registry/EventRegistry";
@@ -141,7 +140,7 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
      * @returns True if the queable driver should be used
      */
     useQueableDriver(): boolean {
-        this.driverName = EventConfig.getDriverName(QueueableDriver);
+        this.driverName = EVENT_DRIVERS.QUEABLE;
         return true;
     }
 }

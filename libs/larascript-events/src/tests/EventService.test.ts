@@ -1,3 +1,4 @@
+import { EVENT_DRIVERS } from "@/events/consts/drivers";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { BaseEvent, BaseEventListener } from "../events/base";
 import { IEventConfig, IEventDriver } from "../events/interfaces";
@@ -19,6 +20,8 @@ jest.mock("@larascript-framework/larascript-utils", () => ({
 
 // Create a mock event driver for testing
 class MockEventDriver implements IEventDriver {
+  _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
+  
   private eventService: EventService;
 
   constructor(eventService: EventService) {

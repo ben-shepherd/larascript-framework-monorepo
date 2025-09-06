@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { EventConfig, QueueableDriver } from "..";
+import { EVENT_DRIVERS } from "../events";
 import { BaseEvent } from "../events/base/BaseEvent";
 import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
 import { EventRegistry } from "../events/registry/EventRegistry";
@@ -168,8 +168,8 @@ describe("BaseEvent", () => {
   describe("queable driver", () => {
     test("should use queable driver", () => {
       const event = new TestQueableEvent()
-      ;
-      expect(event.getDriverName()).toBe(EventConfig.getDriverName(QueueableDriver));
+       
+      expect(event.getDriverName()).toBe(EVENT_DRIVERS.QUEABLE);
     });
   });
   

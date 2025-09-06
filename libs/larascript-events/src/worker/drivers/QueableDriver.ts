@@ -1,5 +1,6 @@
 import { z } from "zod";
 import { BaseDriver } from "../../events/base/BaseDriver";
+import { EVENT_DRIVERS } from "../../events/consts/drivers";
 import { EventDriverException } from "../../events/exceptions/EventDriverException";
 import { IBaseEvent } from "../../events/interfaces";
 import { IWorkerAttributes, TEventWorkerOptions } from "../../worker";
@@ -32,6 +33,8 @@ export interface IQueableDriverOptions extends TEventWorkerOptions {
  * @extends BaseDriver
  */
 export class QueueableDriver extends BaseDriver  {
+
+    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.QUEABLE as keyof typeof EVENT_DRIVERS;
 
     /**
      * Dispatches an event by saving it to the worker model.

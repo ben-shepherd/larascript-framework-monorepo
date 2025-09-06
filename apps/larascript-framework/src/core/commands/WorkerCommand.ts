@@ -1,9 +1,6 @@
 import { BaseCommand } from "@larascript-framework/larascript-console";
+import { EVENT_DRIVERS, IEventDriversConfigOption, TEventWorkerOptions, WorkerServiceProvider } from "@larascript-framework/larascript-events";
 import { z } from "zod";
-import { EventConfig, IEventDriversConfigOption } from "../../events";
-import QueueableDriver from "../drivers/QueableDriver";
-import { TEventWorkerOptions } from "../interfaces";
-import { WorkerServiceProvider } from "../services";
 
 /**
  * WorkerCommand class.
@@ -54,12 +51,11 @@ export class WorkerCommand extends BaseCommand {
      * @returns The worker options.
      */
     private getWorkerOptions(): TEventWorkerOptions {
-        const driverName = this.getArguementByKey('driver')?.value ?? EventConfig.getDriverName(QueueableDriver);
         const queueName = this.getArguementByKey('queue')?.value ?? 'default';
 
-        const options = WorkerServiceProvider.events().getDriverOptionsByName(driverName)?.options;
+        const options = WorkerServiceProvider.events().getDriverOptionsByName(EVENT_DRIVERS.QUEABLE)?.options;
 
-        this.validateOptions(driverName, options);
+        this.validateOptions(EVENT_DRIVERS.QUEABLE, options);
 
         return { ...options, queueName } as TEventWorkerOptions;
     }

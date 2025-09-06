@@ -1,7 +1,8 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { EventService, IEventConfig, WorkerCommand, WorkerModelFactory, WorkerRepository, WorkerService, WorkerServiceProvider } from "@larascript-framework/larascript-events";
+import { EventService, IEventConfig, WorkerModelFactory, WorkerRepository, WorkerService, WorkerServiceProvider } from "@larascript-framework/larascript-events";
 import { eventConfig } from "@src/config/events.config";
 import { app } from "@src/core/services/App";
+import { WorkerCommand } from "../commands/WorkerCommand";
 
 class EventProvider extends BaseProvider {
 
@@ -23,11 +24,6 @@ class EventProvider extends BaseProvider {
         this.bind('events', eventService);
         this.bind('events.worker', workerService);
 
-        // Register the worker command
-        app('console').registerService().registerAll([
-            WorkerCommand
-        ])
-
         // Init the worker service provider
         WorkerServiceProvider.init({
             workerService,
@@ -35,6 +31,11 @@ class EventProvider extends BaseProvider {
             eloquentQueryBuilder: app('query'),
             logger: app('logger')
         })
+
+        // Register the worker command
+        app('console').registerService().registerAll([
+            WorkerCommand
+        ])
     }
 
 }

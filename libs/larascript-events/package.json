@@ -4,6 +4,7 @@
   "description": "Larascript Events",
   "license": "ISC",
   "author": "ben.shepherd@gmx.com",
+  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -32,16 +33,17 @@
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
     "depcheck": "depcheck"
   },
+  "dependencies": {
+    "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/larascript-logger": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*"
+  },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-utils": "workspace:*",
-    "@larascript-framework/larascript-logger": "workspace:*",
-    "@larascript-framework/larascript-console": "workspace:*",
-    "@larascript-framework/larascript-database": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

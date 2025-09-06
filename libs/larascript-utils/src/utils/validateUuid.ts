@@ -1,4 +1,4 @@
-import { isUuid } from "./isUuid";
+import { isUuid } from "./isUuid.js";
 
 /**
  * Validates a UUID and throws an error if invalid

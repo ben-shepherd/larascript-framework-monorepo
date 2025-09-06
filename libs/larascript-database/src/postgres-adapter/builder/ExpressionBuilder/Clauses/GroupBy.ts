@@ -1,5 +1,5 @@
-import { TGroupBy } from "../../../../eloquent";
-import SqlExpression from "../SqlExpression";
+import { TGroupBy } from "../../../../eloquent/index.js";
+import SqlExpression from "../SqlExpression.js";
 
 class GroupBy {
   /**

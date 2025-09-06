@@ -1,10 +1,10 @@
 import { z } from "zod";
-import { BaseDriver } from "../../events/base/BaseDriver";
-import { EVENT_DRIVERS } from "../../events/consts/drivers";
-import { EventDriverException } from "../../events/exceptions/EventDriverException";
-import { IBaseEvent } from "../../events/interfaces";
-import { IWorkerAttributes, TEventWorkerOptions } from "../../worker";
-import { WorkerModelFactory } from "../factory/WorkerModelFactory";
+import { BaseDriver } from "../../events/base/BaseDriver.js";
+import { EVENT_DRIVERS } from "../../events/consts/drivers.js";
+import { EventDriverException } from "../../events/exceptions/EventDriverException.js";
+import { IBaseEvent } from "../../events/interfaces/index.js";
+import { IWorkerAttributes, TEventWorkerOptions } from "../../worker/index.js";
+import { WorkerModelFactory } from "../factory/WorkerModelFactory.js";
 
 /**
  * Options for queueable drivers

@@ -5,7 +5,7 @@ import {
   IAccessControlEntity,
   IAclConfig,
   IAclGroup,
-} from "../acl";
+} from "../acl/index.js";
 
 // Mock implementation of IAccessControlEntity for testing
 class MockAccessControlEntity implements IAccessControlEntity {

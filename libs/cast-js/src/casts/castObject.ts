@@ -1,5 +1,5 @@
-import { BaseCastable } from "./BaseCastable";
-import { TCasts } from "./types.t";
+import { BaseCastable } from "./BaseCastable.js";
+import { TCasts } from "./types.t.js";
 
 const castObject = <ReturnType = unknown>(
   data: unknown,

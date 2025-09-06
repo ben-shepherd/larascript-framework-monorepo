@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IHasObserver } from "../observer/IHasObserver";
-import { IObserver } from "../observer/IObserver";
-import { Observer } from "../observer/Observer";
+import { IHasObserver } from "../observer/IHasObserver.js";
+import { IObserver } from "../observer/IObserver.js";
+import { Observer } from "../observer/Observer.js";
 
 // Test implementation of IHasObserver
 class TestHasObserver implements IHasObserver {

@@ -10,6 +10,18 @@ import {
   TCastableType,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
+import DB from "../../database/services/DB.js";
+import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver.js";
+import {
+  IBelongsToOptions,
+  IdGeneratorFn,
+  IEloquent,
+  IHasManyOptions,
+  IRelationship,
+} from "../../eloquent/index.js";
+import BelongsTo from "../../eloquent/relational/BelongsTo.js";
+import HasMany from "../../eloquent/relational/HasMany.js";
 import {
   GetAttributesOptions,
   IModel,
@@ -20,21 +32,9 @@ import {
   IModelLifeCycleEvent,
   ModelConstructor,
   ModelWithAttributes,
-} from "..";
-import { IDatabaseSchema } from "../../database/interfaces/schema.t";
-import DB from "../../database/services/DB";
-import {
-  IBelongsToOptions,
-  IdGeneratorFn,
-  IEloquent,
-  IHasManyOptions,
-  IRelationship,
-} from "../../eloquent";
-import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver";
-import BelongsTo from "../../eloquent/relational/BelongsTo";
-import HasMany from "../../eloquent/relational/HasMany";
-import ProxyModelHandler from "../proxy/ProxyModelHandler";
-import { ModelScopes, TModelScope } from "../utils";
+} from "../index.js";
+import ProxyModelHandler from "../proxy/ProxyModelHandler.js";
+import { ModelScopes, TModelScope } from "../utils/index.js";
 
 /**
  * Abstract base class for database models.

@@ -1,10 +1,10 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient } from "mongodb";
-import { IDatabaseSchema } from "../../database/interfaces/schema.t";
-import { IEloquent, IRelationshipResolver } from "../../eloquent";
-import { IModel } from "../../model";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
+import { IEloquent, IRelationshipResolver } from "../../eloquent/index.js";
+import { IModel } from "../../model/index.js";
 
-import { IMongoConfig } from "./IMongoConfig";
+import { IMongoConfig } from "./IMongoConfig.js";
 export interface IMongoDbAdapter {
   _adapter_type_: string;
 

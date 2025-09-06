@@ -1,8 +1,8 @@
-import CommandArguementParserException from "@/console/exceptions/CommandArguementParserException";
-import CommandExecutionException from "@/console/exceptions/CommandExecutionException";
-import CommandNotFoundException from "@/console/exceptions/CommandNotFoundException";
-import CommandRegisterException from "@/console/exceptions/CommandRegisterException";
-import CommandSignatureInvalid from "@/console/exceptions/CommandSignatureInvalid";
+import CommandArguementParserException from "@/console/exceptions/CommandArguementParserException.js";
+import CommandExecutionException from "@/console/exceptions/CommandExecutionException.js";
+import CommandNotFoundException from "@/console/exceptions/CommandNotFoundException.js";
+import CommandRegisterException from "@/console/exceptions/CommandRegisterException.js";
+import CommandSignatureInvalid from "@/console/exceptions/CommandSignatureInvalid.js";
 import { describe, expect, test } from "@jest/globals";
 
 describe("Console Exceptions Test Suite", () => {

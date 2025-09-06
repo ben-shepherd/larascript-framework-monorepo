@@ -1,4 +1,4 @@
-import { MongoDbAdapter } from "../adapters";
+import { MongoDbAdapter } from "../adapters/index.js";
 
 /**
  * Creates the migrations schema for MongoDB

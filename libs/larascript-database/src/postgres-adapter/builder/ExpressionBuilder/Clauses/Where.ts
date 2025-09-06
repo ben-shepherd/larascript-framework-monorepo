@@ -3,9 +3,9 @@ import {
   TLogicalOperator,
   TWhereClause,
   TWhereClauseValue,
-} from "../../../../eloquent";
-import BindingsHelper from "../../BindingsHelper";
-import SqlExpression, { SqlRaw } from "../SqlExpression";
+} from "../../../../eloquent/index.js";
+import BindingsHelper from "../../BindingsHelper.js";
+import SqlExpression, { SqlRaw } from "../SqlExpression.js";
 
 type SqlWhereClause = {
   column: string;

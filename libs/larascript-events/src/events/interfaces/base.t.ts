@@ -1,5 +1,5 @@
 import { IHasCastableConcern } from "@larascript-framework/larascript-utils";
-import { IExecutable, INameable } from "./types.t";
+import { IExecutable, INameable } from "./types.t.js";
 
 /**
  * Interface for event subscribers that handle event payloads

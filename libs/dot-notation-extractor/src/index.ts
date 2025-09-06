@@ -1,1 +1,2 @@
-export * from "./dotNotationExtractor";
+export * from "./dotNotationExtractor/index.js";
+

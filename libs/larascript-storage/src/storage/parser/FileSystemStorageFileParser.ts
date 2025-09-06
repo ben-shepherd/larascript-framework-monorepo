@@ -1,12 +1,12 @@
 import fs from "fs";
-import StorageFile from "../data/StorageFile";
-import { FileNotFoundException } from "../exceptions/FileNotFoundException";
-import { InvalidStorageFileException } from "../exceptions/InvalidStorageFileException";
-import { FileSystemMeta, S3Meta } from "../interfaces/meta";
+import StorageFile from "../data/StorageFile.js";
+import { FileNotFoundException } from "../exceptions/FileNotFoundException.js";
+import { InvalidStorageFileException } from "../exceptions/InvalidStorageFileException.js";
+import { FileSystemMeta, S3Meta } from "../interfaces/meta.js";
 import {
   createFileSystemStorageFile,
   toAbsolutePath,
-} from "../utils/StorageUtils";
+} from "../utils/StorageUtils.js";
 
 class FileSystemStorageFileParser {
   public parseStorageFileOrStringS3(

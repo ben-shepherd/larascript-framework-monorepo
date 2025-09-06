@@ -4,7 +4,7 @@ import {
   RequiredRule,
   StringRule,
   Validator,
-} from "@/validator";
+} from "@/validator.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

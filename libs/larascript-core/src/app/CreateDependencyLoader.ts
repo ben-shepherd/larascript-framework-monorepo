@@ -1,6 +1,6 @@
-import { UninitializedContainerError } from "../exceptions";
-import { DependencyLoader } from "../interfaces";
-import { Containers } from "../kernel/Kernel";
+import { UninitializedContainerError } from "../exceptions/index.js";
+import { DependencyLoader } from "../interfaces/index.js";
+import { Containers } from "../kernel/Kernel.js";
 
 /**
  * Utility class for creating dependency loader functions from plain objects.

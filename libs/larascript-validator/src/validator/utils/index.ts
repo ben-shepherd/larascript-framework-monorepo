@@ -1,2 +1,2 @@
-export * from "./isFalsy";
-export * from "./isTruthy";
+export * from "./isFalsy.js";
+export * from "./isTruthy.js";

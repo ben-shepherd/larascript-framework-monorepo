@@ -1,16 +1,16 @@
-import JwtAuthService from "@/auth/services/JwtAuthService";
+import JwtAuthService from "@/auth/services/JwtAuthService.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import {
   BasicACLService,
   IAclConfig,
 } from "@larascript-framework/larascript-acl";
-import { IAuthAdapter, IAuthConfig } from "../auth/interfaces";
-import AuthService from "../auth/services/AuthService";
-import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
-import { TestUserFactory } from "./factory/TestUserFactory";
-import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository";
-import { InMemoryUserRepository } from "./repository/InMemoryUserRepository";
+import { IAuthAdapter, IAuthConfig } from "../auth/index.js";
+import AuthService from "../auth/services/AuthService.js";
+import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
+import { TestUserFactory } from "./factory/TestUserFactory.js";
+import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository.js";
+import { InMemoryUserRepository } from "./repository/InMemoryUserRepository.js";
 
 type MockCustomAdapterConfig = {
   name: "custom";

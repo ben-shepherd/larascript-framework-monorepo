@@ -1,2 +1,2 @@
-export * from "./BaseExpression";
-export * from "./BaseRelationshipResolver";
+export * from "./BaseExpression.js";
+export * from "./BaseRelationshipResolver.js";

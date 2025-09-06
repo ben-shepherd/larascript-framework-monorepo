@@ -1,6 +1,6 @@
-import { JoinTypes, TJoin } from "../../../eloquent";
-import Eloquent from "../../../eloquent/Eloquent";
-import { normalizeColumn } from "../../utils/normalizeColumn";
+import Eloquent from "../../../eloquent/Eloquent.js";
+import { JoinTypes, TJoin } from "../../../eloquent/index.js";
+import { normalizeColumn } from "../../utils/normalizeColumn.js";
 
 class Join {
   /**

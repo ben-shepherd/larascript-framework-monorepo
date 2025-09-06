@@ -1,6 +1,6 @@
-import { TWhereClause } from "../../../../eloquent";
-import BindingsHelper from "../../BindingsHelper";
-import SqlExpression from "../SqlExpression";
+import { TWhereClause } from "../../../../eloquent/index.js";
+import BindingsHelper from "../../BindingsHelper.js";
+import SqlExpression from "../SqlExpression.js";
 
 class Update {
   /**

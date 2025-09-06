@@ -1,7 +1,7 @@
  
-import { ICommandConstructor } from "./ICommand";
-import { ICommandReader } from "./ICommandReader";
-import { ICommandRegister } from "./ICommandRegister";
+import { ICommandConstructor } from "./ICommand.js";
+import { ICommandReader } from "./ICommandReader.js";
+import { ICommandRegister } from "./ICommandRegister.js";
 
 /**
  * Service that provides methods for registering and executing console commands

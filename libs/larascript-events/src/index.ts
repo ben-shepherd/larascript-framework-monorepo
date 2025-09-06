@@ -1,2 +1,3 @@
-export * from "./events";
-export * from "./worker";
+export * from "./events/index.js";
+export * from "./worker/index.js";
+

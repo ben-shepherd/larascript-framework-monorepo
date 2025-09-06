@@ -1,1 +1,1 @@
-export * from "./ValidatorException";
+export * from "./ValidatorException.js";

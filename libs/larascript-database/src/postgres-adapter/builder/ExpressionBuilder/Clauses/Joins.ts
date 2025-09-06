@@ -1,6 +1,6 @@
-import { TJoin } from "../../../../eloquent";
-import ExpressionException from "../../../../eloquent/exceptions/ExpressionException";
-import SqlExpression from "../SqlExpression";
+import ExpressionException from "../../../../eloquent/exceptions/ExpressionException.js";
+import { TJoin } from "../../../../eloquent/index.js";
+import SqlExpression from "../SqlExpression.js";
 
 class Joins {
   /**

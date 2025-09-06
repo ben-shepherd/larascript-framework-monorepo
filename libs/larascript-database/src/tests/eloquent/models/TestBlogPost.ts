@@ -1,7 +1,7 @@
 import { DataTypes, Model } from "sequelize";
-import DB from "../../../database/services/DB";
-import { IModelAttributes } from "../../../model";
-import { testHelper } from "../../../tests/tests-helper/testHelper";
+import DB from "../../../database/services/DB.js";
+import { IModelAttributes } from "../../../model/index.js";
+import { testHelper } from "../../../tests/tests-helper/testHelper.js";
 
 const tableName = "testsBlogPosts";
 

@@ -1,5 +1,5 @@
-import { EVENT_DRIVERS } from "../consts/drivers";
-import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService } from "../interfaces";
+import { EVENT_DRIVERS } from "../consts/drivers.js";
+import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService } from "../interfaces/index.js";
 
 /**
  * Abstract base class for event drivers

@@ -7,12 +7,12 @@ import {
   IStorageService,
   StorageFile,
   StorageTypes,
-} from "@/index";
+} from "@/index.js";
 import { BaseAdapter } from "@larascript-framework/larascript-core";
 import path from "path";
-import { IUploadedFile } from "../interfaces/IUploadedFile.t";
-import AmazonS3StorageService from "./AmazonS3StorageService";
-import FileSystemStorageService from "./FileSystemStorageService";
+import { IUploadedFile } from "../interfaces/IUploadedFile.t.js";
+import AmazonS3StorageService from "./AmazonS3StorageService.js";
+import FileSystemStorageService from "./FileSystemStorageService.js";
 
 /**
  * Service class for handling file storage operations

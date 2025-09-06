@@ -3,7 +3,7 @@ import {
   BaseModel,
   BaseModelAttributes,
 } from "@larascript-framework/test-helpers";
-import { ApiTokenModelOptions, IApiTokenModel } from "../../auth";
+import { ApiTokenModelOptions, IApiTokenModel } from "../../auth/index.js";
 
 export interface ITestApiTokenAttributes extends BaseModelAttributes {
   id: string;

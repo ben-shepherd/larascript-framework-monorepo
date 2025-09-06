@@ -1,7 +1,7 @@
 export * from "@larascript-framework/cast-js";
 export * from "@larascript-framework/dot-notation-extractor";
-export * from "./baseFormatter";
-export { compose } from "./compose";
-export { TClassConstructor } from "./interfaces";
-export * from "./utils";
+export * from "./baseFormatter/index.js";
+export { compose } from "./compose.js";
+export { TClassConstructor } from "./interfaces/index.js";
+export * from "./utils/index.js";
 

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BaseSingleton } from "@/base/BaseSingleton";
+import { BaseSingleton } from "@/base/index.js";
 import { afterEach, beforeEach, describe, expect, test } from "@jest/globals";
 
 // Test service classes that extend BaseSingleton

@@ -1,7 +1,7 @@
 import { DataTypes } from "sequelize";
-import { EventWorkerException } from "../../events/exceptions/EventWorkerException";
-import { IEventService } from "../../events/interfaces/services.t";
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions, WorkerModel, WorkerServiceProvider } from "../../worker";
+import { EventWorkerException } from "../../events/exceptions/EventWorkerException.js";
+import { IEventService } from "../../events/interfaces/services.t.js";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions, WorkerModel, WorkerServiceProvider } from "../../worker/index.js";
 
 /**
  * WorkerService class.

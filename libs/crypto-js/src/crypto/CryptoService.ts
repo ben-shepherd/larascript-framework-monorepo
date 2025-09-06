@@ -1,6 +1,6 @@
 import crypto from "node:crypto";
-import { ICryptoConfig } from "./ICryptoConfig.t";
-import { ICryptoService } from "./ICryptoService.t";
+import { ICryptoConfig } from "./ICryptoConfig.t.js";
+import { ICryptoService } from "./ICryptoService.t.js";
 
 export class CryptoService implements ICryptoService {
   protected config!: ICryptoConfig;

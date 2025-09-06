@@ -1,4 +1,4 @@
-import { IValidatorAttributes } from "./IValidator";
+import { IValidatorAttributes } from "./IValidator.js";
 
 export interface IValidatorResult<
   T extends IValidatorAttributes = IValidatorAttributes,

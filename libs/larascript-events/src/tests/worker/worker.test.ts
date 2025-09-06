@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
 import { describe } from '@jest/globals';
 import { AppSingleton, BaseProvider, EnvironmentTesting, Kernel } from '@larascript-framework/larascript-core';
-import { BaseEvent, EventRegistry, EventService, TSerializableValues } from '../../events';
-import { IWorkerAttributes, IWorkerModel, WorkerService } from '../../worker';
-import InMemoryEventDriver from './drivers/InMemoryEventDriver';
-import { TestWorkerFactory } from './factory/TestWorkerFactory';
-import { InMemoryWorkerRepository } from './repository/InMemoryWorkerRepository';
+import { BaseEvent, EventRegistry, EventService, TSerializableValues } from "../../events/index.js";
+import { IWorkerAttributes, IWorkerModel, WorkerService } from "../../worker/index.js";
+import InMemoryEventDriver from "./drivers/InMemoryEventDriver.js";
+import { TestWorkerFactory } from "./factory/TestWorkerFactory.js";
+import { InMemoryWorkerRepository } from "./repository/InMemoryWorkerRepository.js";
 
 class TestEvent extends BaseEvent<{ foo: string }> {
     queueName: string = 'testing';

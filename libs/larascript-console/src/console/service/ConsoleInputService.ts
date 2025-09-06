@@ -1,7 +1,7 @@
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import readline from "node:readline";
-import { IConsoleInputService } from "../interfaces/IConsoleInputService";
-import ConsoleService from "./ConsoleService";
+import { IConsoleInputService } from "../index.js";
+import ConsoleService from "./ConsoleService.js";
 
 export class ConsoleInputService
   extends BaseSingleton

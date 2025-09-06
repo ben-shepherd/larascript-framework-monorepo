@@ -1,7 +1,7 @@
-import { AppSingleton } from "../app/AppSingleton";
-import { BaseSingleton } from "../base";
-import { EnvironmentType } from "../interfaces/EnvironmentType.t";
-import { IProvider } from "../interfaces/Provider.t";
+import { AppSingleton } from "../app/AppSingleton.js";
+import { BaseSingleton } from "../base/index.js";
+import { EnvironmentType } from "../interfaces/EnvironmentType.t.js";
+import { IProvider } from "../interfaces/Provider.t.js";
 
 export type Containers = {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

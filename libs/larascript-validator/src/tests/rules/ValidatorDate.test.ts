@@ -1,5 +1,5 @@
-import DateRule from "@/validator/rules/DateRule";
-import Validator from "@/validator/service/Validator";
+import DateRule from "@/validator/rules/DateRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test date validation rule", () => {

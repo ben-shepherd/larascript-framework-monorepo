@@ -1,5 +1,5 @@
-import { BaseMailAdapters, MailAdapter } from "./adapter";
-import { IMail } from "./data";
+import { BaseMailAdapters, MailAdapter } from "./adapter.js";
+import { IMail } from "./data.js";
 
 export interface IMailService {
   boot(): void;

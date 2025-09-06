@@ -2,14 +2,14 @@ import { beforeEach, describe, test } from "@jest/globals";
 import { ICryptoService } from "@larascript-framework/crypto-js";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
-import { IDatabaseService } from "../database/interfaces/service.t";
-import DB from "../database/services/DB";
-import { IEloquent, IEloquentQueryBuilderService } from "../eloquent";
+import { IDatabaseService } from "../database/interfaces/service.t.js";
+import DB from "../database/services/DB.js";
+import { IEloquent, IEloquentQueryBuilderService } from "../eloquent/index.js";
 import {
   IModel,
   IModelAttributes,
   ModelConstructor,
-} from "../model/interfaces/model.t";
+} from "../model/interfaces/model.t.js";
 
 describe("Example Test Suite", () => {
   let mockModel: ModelConstructor<IModel<IModelAttributes>>;

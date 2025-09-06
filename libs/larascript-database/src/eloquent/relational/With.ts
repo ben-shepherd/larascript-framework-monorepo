@@ -1,8 +1,8 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import DB from "../../database/services/DB";
-import { IEloquent } from "../../eloquent/interfaces/eloquent.t";
-import { IModel } from "../../model";
-import BaseRelationshipResolver from "../base/BaseRelationshipResolver";
+import DB from "../../database/services/DB.js";
+import { IEloquent } from "../../eloquent/interfaces/eloquent.t.js";
+import { IModel } from "../../model/index.js";
+import BaseRelationshipResolver from "../base/BaseRelationshipResolver.js";
 
 class With {
   constructor(

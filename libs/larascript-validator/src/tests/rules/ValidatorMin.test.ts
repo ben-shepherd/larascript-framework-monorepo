@@ -1,5 +1,5 @@
-import MinRule from "@/validator/rules/MinRule";
-import Validator from "@/validator/service/Validator";
+import MinRule from "@/validator/rules/MinRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test min validation rule", () => {

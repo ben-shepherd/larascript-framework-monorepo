@@ -1,8 +1,8 @@
 import { captureError } from "@larascript-framework/larascript-utils";
-import BaseSchema from "../../database/base/BaseSchema";
-import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException";
-import DB from "../../database/services/DB";
-import MongoDbAdapter from "../adapters/MongoDbAdapter";
+import BaseSchema from "../../database/base/BaseSchema.js";
+import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException.js";
+import DB from "../../database/services/DB.js";
+import MongoDbAdapter from "../adapters/MongoDbAdapter.js";
 
 export class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
   /**

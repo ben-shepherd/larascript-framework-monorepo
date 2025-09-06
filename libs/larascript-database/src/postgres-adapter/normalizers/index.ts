@@ -1,1 +1,1 @@
-export * from "./PostgresJsonNormalizer";
+export * from "./PostgresJsonNormalizer.js";

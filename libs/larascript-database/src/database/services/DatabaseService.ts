@@ -4,17 +4,17 @@ import {
 } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IMongoDbAdapter } from "../../mongodb-adapter/interfaces/mongodb.t";
-import { IPostgresAdapter } from "../../postgres-adapter/interfaces/postgres.t";
-import DatabaseConnectionException from "../exceptions/DatabaseConnectionException";
+import { IMongoDbAdapter } from "../../mongodb-adapter/interfaces/mongodb.t.js";
+import { IPostgresAdapter } from "../../postgres-adapter/interfaces/postgres.t.js";
+import DatabaseConnectionException from "../exceptions/DatabaseConnectionException.js";
 import {
   IDatabaseAdapter,
   IDatabaseAdapterConstructor,
-} from "../interfaces/adapter.t";
-import { IDatabaseConfig } from "../interfaces/config.t";
-import { IDatabaseSchema } from "../interfaces/schema.t";
-import { IDatabaseService } from "../interfaces/service.t";
-import DatabaseAdapter from "./DatabaseAdapter";
+} from "../interfaces/adapter.t.js";
+import { IDatabaseConfig } from "../interfaces/config.t.js";
+import { IDatabaseSchema } from "../interfaces/schema.t.js";
+import { IDatabaseService } from "../interfaces/service.t.js";
+import DatabaseAdapter from "./DatabaseAdapter.js";
 
 /**
  * Database Service

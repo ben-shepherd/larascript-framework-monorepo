@@ -1,2 +1,2 @@
-export * from "./IMongoConfig";
-export * from "./mongodb.t";
+export * from "./IMongoConfig.js";
+export * from "./mongodb.t.js";

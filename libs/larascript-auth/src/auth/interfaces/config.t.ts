@@ -1,5 +1,5 @@
-import { IAuthAdapter } from "./adapter.t";
-import { IJwtConfig } from "./jwt.t";
+import { IAuthAdapter } from "./adapter.t.js";
+import { IJwtConfig } from "./jwt.t.js";
 
 export interface IBaseDriverConfig<Adapter extends IAuthAdapter = IAuthAdapter>
   extends Record<string, unknown> {

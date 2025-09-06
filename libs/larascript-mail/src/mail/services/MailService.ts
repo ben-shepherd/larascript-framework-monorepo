@@ -11,7 +11,7 @@ import {
     IMailService,
     MailAdapter,
     MailAdapters,
-} from "../interfaces";
+} from "../interfaces.js";
 
 export class MailService
   extends BaseAdapter<MailAdapters>

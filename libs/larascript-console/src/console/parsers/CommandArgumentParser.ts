@@ -1,4 +1,4 @@
-import CommandArguementParserException from "../exceptions/CommandArguementParserException";
+import CommandArguementParserException from "../exceptions/CommandArguementParserException.js";
 
 export const KeyPair = "KeyPair";
 export type KeyPairArguementType = {

@@ -1,16 +1,16 @@
 import { Collection } from "@larascript-framework/larascript-collection";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import DB from "../../database/services/DB.js";
+import { IModel, IModelAttributes, ModelConstructor } from "../../model/index.js";
+import EloquentRelationshipException from "../exceptions/EloquentRelationshipException.js";
 import {
   IEloquent,
   IRelationship,
   IRelationshipResolver,
   TWhereClauseValue,
-} from "..";
-import DB from "../../database/services/DB";
-import { IModel, IModelAttributes, ModelConstructor } from "../../model";
-import EloquentRelationshipException from "../exceptions/EloquentRelationshipException";
-import BelongsTo from "../relational/BelongsTo";
-import HasMany from "../relational/HasMany";
+} from "../index.js";
+import BelongsTo from "../relational/BelongsTo.js";
+import HasMany from "../relational/HasMany.js";
 
 class BaseRelationshipResolver implements IRelationshipResolver {
   /**

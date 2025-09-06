@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { ApiTokenModelOptions } from "../auth";
-import { TestApiTokenModel } from "./model/TestApiTokenModel";
+import { ApiTokenModelOptions } from "../auth/index.js";
+import { TestApiTokenModel } from "./model/TestApiTokenModel.js";
 
 describe("TestApiTokenModel", () => {
   let apiToken: TestApiTokenModel;

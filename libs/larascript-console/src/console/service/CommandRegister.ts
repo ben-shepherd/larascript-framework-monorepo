@@ -1,10 +1,10 @@
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import CommandRegisterException from "../exceptions/CommandRegisterException";
+import CommandRegisterException from "../exceptions/CommandRegisterException.js";
 import {
   ICommandConstructor,
   ICommandRegister,
   Registered,
-} from "../interfaces";
+} from "../index.js";
 
 export default class CommandRegister
   extends BaseSingleton

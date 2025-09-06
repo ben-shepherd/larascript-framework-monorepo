@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { CustomSequencer } from "../test-helpers/CustomSequencer";
+import { CustomSequencer } from "../test-helpers/CustomSequencer.js";
 
 describe("CustomSequencer", () => {
   let sequencer: CustomSequencer;

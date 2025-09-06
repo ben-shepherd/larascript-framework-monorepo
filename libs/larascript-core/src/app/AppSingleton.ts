@@ -1,7 +1,7 @@
-import { BaseSingleton } from "../base";
-import { UninitializedContainerError } from "../exceptions/UninitializedContainerError";
-import { RequiresDependency } from "../interfaces";
-import { Containers, Kernel } from "../kernel/Kernel";
+import { BaseSingleton } from "../base/index.js";
+import { UninitializedContainerError } from "../exceptions/UninitializedContainerError.js";
+import { RequiresDependency } from "../interfaces/index.js";
+import { Containers, Kernel } from "../kernel/Kernel.js";
 
 /**
  * @module App

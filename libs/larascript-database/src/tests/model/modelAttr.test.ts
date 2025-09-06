@@ -1,5 +1,5 @@
-import TestModel from "@/tests/model/models/TestModel";
-import { testHelper } from "@/tests/tests-helper/testHelper";
+import TestModel from "@/tests/model/models/TestModel.js";
+import { testHelper } from "@/tests/tests-helper/testHelper.js";
 import { describe, expect, test } from "@jest/globals";
 
 describe("test model attr", () => {

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import IService from "../interfaces/Singleton.t";
+import IService from "../interfaces/Singleton.t.js";
 
 /**
  * Service base class

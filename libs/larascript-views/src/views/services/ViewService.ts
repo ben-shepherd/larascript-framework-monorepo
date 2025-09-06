@@ -1,7 +1,7 @@
-import { IViewServiceConfig } from "../interfaces/config";
-import { RenderData } from "../interfaces/data";
-import { IViewRenderService, IViewService } from "../interfaces/services";
-import EjsRenderService from "./EjsRenderService";
+import { IViewServiceConfig } from "../interfaces/config.js";
+import { RenderData } from "../interfaces/data.js";
+import { IViewRenderService, IViewService } from "../interfaces/services.js";
+import EjsRenderService from "./EjsRenderService.js";
 
 export class ViewService implements IViewService {
   constructor(protected readonly config: IViewServiceConfig) {}

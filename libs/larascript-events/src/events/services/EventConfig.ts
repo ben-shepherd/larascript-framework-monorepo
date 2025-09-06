@@ -1,4 +1,4 @@
-import { EventDriverConstructor, IEventDriversConfigOption } from "../interfaces/driver.t"
+import { EventDriverConstructor, IEventDriversConfigOption } from "../interfaces/driver.t.js"
 
 export class EventConfig 
 {

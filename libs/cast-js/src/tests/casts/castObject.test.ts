@@ -1,6 +1,6 @@
-import { BaseCastable } from "@/casts/BaseCastable";
-import { CastException } from "@/casts/CastException";
-import { TCastableType } from "@/casts/types.t";
+import { BaseCastable } from "@/casts/BaseCastable.js";
+import { CastException } from "@/casts/CastException.js";
+import { TCastableType } from "@/casts/types.t.js";
 import { describe } from "@jest/globals";
 
 describe("HasCastableConcern Tests", () => {

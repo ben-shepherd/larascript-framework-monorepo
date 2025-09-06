@@ -1,8 +1,8 @@
-import { IdGeneratorFn } from "../../eloquent/interfaces/eloquent.t";
+import { IdGeneratorFn } from "../../eloquent/interfaces/eloquent.t.js";
 import { IHasObserver } from "@larascript-framework/larascript-observer";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { TModelScope } from "../utils/ModelScope";
-import { IModelFactory } from "./factory.t";
+import { TModelScope } from "../utils/ModelScope.js";
+import { IModelFactory } from "./factory.t.js";
 
 export type GetAttributesOptions = { excludeGuarded: boolean };
 

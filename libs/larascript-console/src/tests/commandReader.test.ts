@@ -1,8 +1,8 @@
-import BaseCommand from "@/console/base/BaseCommand";
-import CommandNotFoundException from "@/console/exceptions/CommandNotFoundException";
-import CommandSignatureInvalid from "@/console/exceptions/CommandSignatureInvalid";
-import { KeyPair } from "@/console/parsers/CommandArgumentParser";
-import CommandReader from "@/console/service/CommandReader";
+import BaseCommand from "@/console/base/BaseCommand.js";
+import CommandNotFoundException from "@/console/exceptions/CommandNotFoundException.js";
+import CommandSignatureInvalid from "@/console/exceptions/CommandSignatureInvalid.js";
+import { KeyPair } from "@/console/parsers/CommandArgumentParser.js";
+import CommandReader from "@/console/service/CommandReader.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 
 // Mock command for testing

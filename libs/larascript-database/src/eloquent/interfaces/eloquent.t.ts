@@ -5,8 +5,8 @@ import {
   IModelAttributes,
   ModelConstructor,
   ModelWithAttributes,
-} from "../../model/interfaces/model.t";
-import IEloquentExpression from "./expressions.t";
+} from "../../model/interfaces/model.t.js";
+import IEloquentExpression from "./expressions.t.js";
 
 export type TColumnOption = {
   column: string | null;

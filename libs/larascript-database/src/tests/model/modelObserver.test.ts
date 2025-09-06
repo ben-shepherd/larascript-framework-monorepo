@@ -1,10 +1,10 @@
-import DB from "@/database/services/DB";
+import DB from "@/database/services/DB.js";
 import { describe, expect, test } from "@jest/globals";
-import { testHelper } from "../tests-helper/testHelper";
+import { testHelper } from "../tests-helper/testHelper.js";
 import {
   resetTestObserverTable,
   TestObserverModel,
-} from "./models/TestObserverModel";
+} from "./models/TestObserverModel.js";
 
 const connections = testHelper.getTestConnectionNames();
 

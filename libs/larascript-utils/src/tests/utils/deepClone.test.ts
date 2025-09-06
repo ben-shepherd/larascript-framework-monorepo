@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { deepClone } from "../../utils/deepClone";
+import { deepClone } from "../../utils/deepClone.js";
 
 describe("deepClone", () => {
   describe("primitive values", () => {

@@ -1,7 +1,7 @@
 import { describe } from "@jest/globals";
-import { forEveryConnection } from "../tests-helper/forEveryConnection";
-import { queryBuilder, testHelper } from "../tests-helper/testHelper";
-import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel";
+import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
+import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel.js";
 
 const resetAndRepopulate = async () => {
   await resetPeopleTable();

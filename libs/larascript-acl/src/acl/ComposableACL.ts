@@ -1,6 +1,6 @@
-import { TClassConstructor } from "../utils/compose";
-import { BasicACLService } from "./BasicACLService";
-import { IAccessControlEntity, IAclConfig, IAclGroup } from "./IACLService";
+import { TClassConstructor } from "../utils/compose.js";
+import { BasicACLService } from "./BasicACLService.js";
+import { IAccessControlEntity, IAclConfig, IAclGroup } from "./IACLService.js";
 
 /**
  * Composable ACL Mixin

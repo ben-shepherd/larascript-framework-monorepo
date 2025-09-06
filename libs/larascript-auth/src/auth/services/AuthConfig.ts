@@ -1,5 +1,4 @@
-import { IBaseDriverConfig } from "../interfaces";
-import { IAuthAdapter } from "../interfaces/adapter.t";
+import { IAuthAdapter, IBaseDriverConfig } from "../interfaces/index.js";
 
 /**
  * AuthConfig is a configuration service for managing authentication adapters.

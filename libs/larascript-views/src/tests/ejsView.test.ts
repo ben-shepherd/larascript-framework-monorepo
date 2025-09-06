@@ -1,5 +1,5 @@
-import { IViewService } from "@/views";
-import ViewService from "@/views/services/ViewService";
+import { IViewService } from "@/views/interfaces/services.js";
+import ViewService from "@/views/services/ViewService.js";
 import { describe, expect, test } from "@jest/globals";
 import path from "path";
 

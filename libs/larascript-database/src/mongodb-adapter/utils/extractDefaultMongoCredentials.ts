@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import DB from "../../database/services/DB";
+import DB from "../../database/services/DB.js";
 
 /**
  * Extracts the default MongoDB credentials from the `docker-compose.mongodb.yml` file.

@@ -1,8 +1,8 @@
 import { describe, expect, test } from "@jest/globals";
-import DatabaseConfig from "../../database/services/DatabaseConfig";
-import { MongoDbAdapter } from "../../mongodb-adapter/adapters";
-import { PostgresAdapter } from "../../postgres-adapter/adapters/PostgresAdapter";
-import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
+import DatabaseConfig from "../../database/services/DatabaseConfig.js";
+import { MongoDbAdapter } from "../../mongodb-adapter/adapters/index.js";
+import { PostgresAdapter } from "../../postgres-adapter/adapters/PostgresAdapter.js";
+import { MockSQLAdapter } from "./mocks/MockSQLAdapter.js";
 
 describe("Database Config", () => {
   describe("Database Config", () => {

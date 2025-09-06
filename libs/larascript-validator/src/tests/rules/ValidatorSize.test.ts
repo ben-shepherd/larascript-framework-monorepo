@@ -1,5 +1,5 @@
-import SizeRule from "@/validator/rules/SizeRule";
-import Validator from "@/validator/service/Validator";
+import SizeRule from "@/validator/rules/SizeRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test size validation rule", () => {

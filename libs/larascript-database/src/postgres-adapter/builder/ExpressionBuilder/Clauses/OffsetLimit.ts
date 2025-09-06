@@ -1,4 +1,4 @@
-import { TOffsetLimit } from "../../../../eloquent";
+import { TOffsetLimit } from "../../../../eloquent/index.js";
 
 class OffsetLimit {
   /**

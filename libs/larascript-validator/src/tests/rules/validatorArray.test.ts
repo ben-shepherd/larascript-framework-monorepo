@@ -1,5 +1,5 @@
-import ArrayRule from "@/validator/rules/ArrayRule";
-import Validator from "@/validator/service/Validator";
+import ArrayRule from "@/validator/rules/ArrayRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

@@ -1,4 +1,4 @@
-import Collection from "./Collection";
+import Collection from "./Collection.js";
 
 /**
  * Creates a new proxy collection from the given items. The proxy collection

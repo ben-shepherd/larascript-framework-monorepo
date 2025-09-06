@@ -1,6 +1,6 @@
-import { IWorkerModel, IWorkerRepository } from "../../worker";
-import WorkerModel from "../models/WorkerModel";
-import { WorkerServiceProvider } from "../services";
+import { IWorkerModel, IWorkerRepository } from "../../worker/index.js";
+import WorkerModel from "../models/WorkerModel.js";
+import { WorkerServiceProvider } from "../services/index.js";
 
 export class WorkerRepository implements IWorkerRepository {
 

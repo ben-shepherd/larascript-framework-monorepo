@@ -1,5 +1,5 @@
-import AfterDateRule from "@/validator/rules/AfterDateRule";
-import Validator from "@/validator/service/Validator";
+import AfterDateRule from "@/validator/rules/AfterDateRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe, expect, it } from "@jest/globals";
 
 describe("test after date validation rule", () => {

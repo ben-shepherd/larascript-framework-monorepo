@@ -1,8 +1,8 @@
-import MockingBaseCommand from "@/console/base/MockingBaseCommand";
-import CommandExecutionException from "@/console/exceptions/CommandExecutionException";
-import { ParsedArgumentsArray } from "@/console/parsers/CommandArgumentParser";
+import MockingBaseCommand from "@/console/base/MockingBaseCommand.js";
+import CommandExecutionException from "@/console/exceptions/CommandExecutionException.js";
+import { ParsedArgumentsArray } from "@/console/parsers/CommandArgumentParser.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { createInterface } from "./mocking";
+import { createInterface } from "./mocking.js";
 
 // Test command classes
 class TestCommand extends MockingBaseCommand {

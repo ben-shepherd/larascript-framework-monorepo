@@ -1,1 +1,1 @@
-export * from "./ValidatorResult";
+export * from "./ValidatorResult.js";

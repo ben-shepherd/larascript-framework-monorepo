@@ -1,13 +1,13 @@
-import BaseCommand from "@/console/base/BaseCommand";
-import { ICommand, ICommandConstructor } from "@/console/interfaces/ICommand";
-import ICommandBootService from "@/console/interfaces/ICommandBootService";
-import { ICommandReader } from "@/console/interfaces/ICommandReader";
+import BaseCommand from "@/console/base/BaseCommand.js";
+import { ICommand, ICommandConstructor } from "@/console/interfaces/ICommand.js";
+import ICommandBootService from "@/console/interfaces/ICommandBootService.js";
+import { ICommandReader } from "@/console/interfaces/ICommandReader.js";
 import {
   ICommandRegister,
   Registered,
-} from "@/console/interfaces/ICommandRegister";
-import ICommandService from "@/console/interfaces/ICommandService";
-import { IConsoleInputService } from "@/console/interfaces/IConsoleInputService";
+} from "@/console/interfaces/ICommandRegister.js";
+import ICommandService from "@/console/interfaces/ICommandService.js";
+import { IConsoleInputService } from "@/console/interfaces/IConsoleInputService.js";
 import { describe, expect, test } from "@jest/globals";
 import { KernelOptions } from "@larascript-framework/larascript-core";
 

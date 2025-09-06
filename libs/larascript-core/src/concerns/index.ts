@@ -1,1 +1,1 @@
-export * from "./HasConfigConcern";
+export * from "./HasConfigConcern.js";

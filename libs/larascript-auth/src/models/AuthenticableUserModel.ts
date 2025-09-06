@@ -1,6 +1,6 @@
 import { IAccessControlEntity } from "@larascript-framework/larascript-acl";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { IUserModel } from "../auth";
+import { IUserModel } from "../auth/index.js";
 
 export interface AuthenticableUserModelAttributes extends IModelAttributes {
     id: string;

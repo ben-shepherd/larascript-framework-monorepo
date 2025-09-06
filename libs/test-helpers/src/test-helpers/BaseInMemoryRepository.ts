@@ -1,4 +1,4 @@
-import { IBaseModel, IBaseModelConstructor } from "@/test-helpers/BaseModel";
+import { IBaseModel, IBaseModelConstructor } from "@/test-helpers/BaseModel.js";
 
 /**
  * Interface defining the contract for an in-memory repository that manages base models.

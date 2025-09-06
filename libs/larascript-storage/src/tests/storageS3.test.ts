@@ -2,10 +2,10 @@ import { jest } from "@jest/globals";
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
-import { StorageFile } from "../storage/data";
-import { FileSystemMeta, IStorageConfig } from "../storage/interfaces";
-import AmazonS3StorageService from "../storage/services/AmazonS3StorageService";
-import StorageService from "../storage/services/StorageService";
+import { StorageFile } from "../storage/data.js";
+import { FileSystemMeta, IStorageConfig } from "../storage/interfaces.js";
+import AmazonS3StorageService from "../storage/services/AmazonS3StorageService.js";
+import StorageService from "../storage/services/StorageService.js";
 
 // Check if AWS tests should run
 const shouldRunAWSTests = process.env.AWS_SKIP_TESTS !== "true";

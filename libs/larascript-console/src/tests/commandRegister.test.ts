@@ -1,7 +1,7 @@
-// import BaseCommand from "@/console/base/BaseCommand";
-import BaseCommand from "@/console/base/BaseCommand";
-import CommandRegisterException from "@/console/exceptions/CommandRegisterException";
-import CommandRegister from "@/console/service/CommandRegister";
+// import BaseCommand from "@/console/base/BaseCommand.js";
+import BaseCommand from "@/console/base/BaseCommand.js";
+import CommandRegisterException from "@/console/exceptions/CommandRegisterException.js";
+import CommandRegister from "@/console/service/CommandRegister.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 // Test command classes

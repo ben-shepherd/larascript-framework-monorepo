@@ -1,7 +1,7 @@
-import { TClassConstructor } from "@/utils/ClassConstructor.t";
-import { compose } from "@/utils/compose";
-import { HasCastableConcern } from "./HasCastableConcern";
-import { IHasCastableConcern } from "./types.t";
+import { TClassConstructor } from "../utils/ClassConstructor.t.js";
+import { compose } from "../utils/compose.js";
+import { HasCastableConcern } from "./HasCastableConcern.js";
+import { IHasCastableConcern } from "./types.t.js";
 
 export const BaseCastable: TClassConstructor<IHasCastableConcern> = compose(
   class {},

@@ -1,1 +1,1 @@
-export { default as EloquentQueryBuilderService } from "./EloquentQueryBuilderService";
+export { default as EloquentQueryBuilderService } from "./EloquentQueryBuilderService.js";

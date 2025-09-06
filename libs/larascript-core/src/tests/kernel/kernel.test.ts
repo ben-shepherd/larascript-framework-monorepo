@@ -1,10 +1,10 @@
-import { AppSingleton } from "@/app";
-import { Environment } from "@/consts";
-import { UninitializedContainerError } from "@/exceptions";
-import { Kernel } from "@/kernel";
+import { AppSingleton } from "@/app/index.js";
+import { Environment } from "@/consts/index.js";
+import { UninitializedContainerError } from "@/exceptions/index.js";
+import { Kernel } from "@/kernel/index.js";
 import { describe, expect, test } from "@jest/globals";
-import { testApp } from "./app/app";
-import { TestContainers, TestProvider } from "./providers/providers";
+import { testApp } from "./app/app.js";
+import { TestContainers, TestProvider } from "./providers/providers.js";
 
 describe("Kernel Test Suite", () => {
   describe("Kernel with providers", () => {

@@ -1,4 +1,4 @@
-import SqlExpression from "../SqlExpression";
+import SqlExpression from "../SqlExpression.js";
 
 class FromTable {
   /**

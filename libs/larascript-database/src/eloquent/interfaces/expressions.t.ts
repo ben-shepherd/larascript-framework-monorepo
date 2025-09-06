@@ -9,7 +9,7 @@ import {
   TWhereClause,
   TWhereClauseValue,
   TWith,
-} from "./eloquent.t";
+} from "./eloquent.t.js";
 
 interface IEloquentExpression<BindingsUtility = unknown> {
   // Build final expression

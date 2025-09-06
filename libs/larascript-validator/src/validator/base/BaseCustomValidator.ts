@@ -1,5 +1,5 @@
-import { ValidatorResult } from "../data";
-import { ValidatorException } from "../exceptions";
+import { ValidatorResult } from "../data.js";
+import { ValidatorException } from "../exceptions.js";
 import {
   IRuleContext,
   IRulesObject,
@@ -7,8 +7,8 @@ import {
   IValidatorAttributes,
   IValidatorMessages,
   IValidatorResult,
-} from "../interfaces";
-import { Validator } from "../service";
+} from "../interfaces.js";
+import { Validator } from "../service.js";
 
 /**
  * Abstract base class for creating custom validators with type-safe validation rules and error messages.

@@ -1,10 +1,12 @@
-import { EVENT_DRIVERS } from "@/events/consts/drivers";
+import { EVENT_DRIVERS } from "@/events/consts/drivers.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { BaseEvent, BaseEventListener } from "../events/base";
-import { IEventConfig, IEventDriver } from "../events/interfaces";
-import { EventRegistry } from "../events/registry/EventRegistry";
-import { EventConfig } from "../events/services/EventConfig";
-import { EventService } from "../events/services/EventService";
+import { BaseEvent } from "../events/base/BaseEvent.js";
+import { BaseEventListener } from "../events/base/BaseEventListener.js";
+import { IEventConfig } from "../events/interfaces/config.t.js";
+import { IEventDriver } from "../events/interfaces/index.js";
+import { EventRegistry } from "../events/registry/EventRegistry.js";
+import { EventConfig } from "../events/services/EventConfig.js";
+import { EventService } from "../events/services/EventService.js";
 
 // Mock dependencies
 jest.mock("@larascript-framework/larascript-utils", () => ({

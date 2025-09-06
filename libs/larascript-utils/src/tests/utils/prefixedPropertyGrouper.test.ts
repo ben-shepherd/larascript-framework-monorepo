@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { PrefixedPropertyGrouper } from "../../utils/prefixedPropertyGrouper";
+import { PrefixedPropertyGrouper } from "../../utils/prefixedPropertyGrouper.js";
 
 describe("PrefixedPropertyGrouper", () => {
   let formatter: PrefixedPropertyGrouper;

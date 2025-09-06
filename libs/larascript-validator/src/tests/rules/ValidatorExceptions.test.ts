@@ -1,6 +1,6 @@
-import AbstractRule from "@/validator/abstract/AbstractRule";
-import { IRule } from "@/validator/interfaces/IRule";
-import Validator from "@/validator/service/Validator";
+import AbstractRule from "@/validator/abstract/AbstractRule.js";
+import { IRule } from "@/validator/interfaces/IRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 class ThrowsExceptionRule extends AbstractRule implements IRule {

@@ -1,1 +1,1 @@
-export * from "./Mail";
+export * from "./Mail.js";

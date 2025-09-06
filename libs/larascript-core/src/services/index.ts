@@ -1,3 +1,3 @@
-export * from "./EnvService";
-export * from "./PackageJsonService";
+export * from "./EnvService.js";
+export * from "./PackageJsonService.js";
 

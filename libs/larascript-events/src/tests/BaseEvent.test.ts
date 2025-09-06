@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { EVENT_DRIVERS } from "../events";
-import { BaseEvent } from "../events/base/BaseEvent";
-import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
-import { EventRegistry } from "../events/registry/EventRegistry";
+import { BaseEvent } from "../events/base/BaseEvent.js";
+import { EVENT_DRIVERS } from "../events/consts/drivers.js";
+import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException.js";
+import { EventRegistry } from "../events/registry/EventRegistry.js";
 
 // Mock dependencies
 jest.mock("@larascript-framework/larascript-core", () => ({

@@ -1,5 +1,5 @@
-import AbstractRule from "../abstract/AbstractRule";
-import { IRule, IRuleError } from "../interfaces/IRule";
+import AbstractRule from "../abstract/AbstractRule.js";
+import { IRule, IRuleError } from "../interfaces/IRule.js";
 
 class JsonRule extends AbstractRule implements IRule {
   protected name: string = "json";

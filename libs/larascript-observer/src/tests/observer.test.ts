@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IObserverEvent } from "../observer/IObserver";
-import { Observer } from "../observer/Observer";
+import { IObserverEvent } from "../observer/IObserver.js";
+import { Observer } from "../observer/Observer.js";
 
 // Test class that extends Observer for testing purposes
 class TestObserver extends Observer<{

@@ -1,5 +1,5 @@
 import { describe, expect, jest, test } from "@jest/globals";
-import { minExecTime, MinExecTimeFn, sleepMs } from "../../utils/minExecTime";
+import { minExecTime, MinExecTimeFn, sleepMs } from "../../utils/minExecTime.js";
 
 describe("minExecTime", () => {
   beforeEach(() => {

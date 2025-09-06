@@ -1,7 +1,7 @@
-import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/factory";
+import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/factory.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
-import { TestUserFactory } from "./factory/TestUserFactory";
+import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
+import { TestUserFactory } from "./factory/TestUserFactory.js";
 
 describe("Factory", () => {
   let userFactory: IUserFactory;

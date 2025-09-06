@@ -1,8 +1,9 @@
-export * from "./app";
-export * from "./base";
-export * from "./concerns";
-export * from "./consts";
-export * from "./exceptions";
-export * from "./interfaces";
-export * from "./kernel";
-export * from "./services";
+export * from "./app/index.js";
+export * from "./base/index.js";
+export * from "./concerns/index.js";
+export * from "./consts/index.js";
+export * from "./exceptions/index.js";
+export * from "./interfaces/index.js";
+export * from "./kernel/index.js";
+export * from "./services/index.js";
+

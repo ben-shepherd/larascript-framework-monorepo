@@ -1,4 +1,4 @@
-import { BaseConfig } from "@/base/BaseConfig";
+import { BaseConfig } from "@/base/BaseConfig.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("BaseConfig Tests", () => {

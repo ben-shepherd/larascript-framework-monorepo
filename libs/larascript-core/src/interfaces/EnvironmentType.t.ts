@@ -2,7 +2,7 @@ import {
   EnvironmentDevelopment,
   EnvironmentProduction,
   EnvironmentTesting,
-} from "../consts/EnvironmentType";
+} from "../consts/EnvironmentType.js";
 
 export type EnvironmentType =
   | typeof EnvironmentDevelopment

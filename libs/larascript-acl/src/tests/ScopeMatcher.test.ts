@@ -1,4 +1,4 @@
-import BasicACLScope from "../acl/BasicACLScope";
+import BasicACLScope from "../acl/BasicACLScope.js";
 
 describe("ScopeMatcher", () => {
   describe("getDefaultScopes", () => {

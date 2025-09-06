@@ -1,3 +1,3 @@
-export * from "./JWTConfigException";
-export * from "./JWTSecretException";
-export * from "./UnauthorizedException";
+export * from "./JWTConfigException.js";
+export * from "./JWTSecretException.js";
+export * from "./UnauthorizedException.js";

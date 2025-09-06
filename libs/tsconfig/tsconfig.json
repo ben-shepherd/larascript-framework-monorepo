@@ -5,9 +5,7 @@
       "moduleResolution": "nodenext",
       "baseUrl": ".",
       "paths": {
-        "@src/*": ["apps/larascript-framework/src/*"],
-        "@package1/*": ["libs/package1/src/*"],
-        "@package2/*": ["libs/package2/src/*"]
+        "@/*": ["src/*"]
       },
       "outDir": "./dist",
       "strict": true,

@@ -1,5 +1,5 @@
-import AbstractRule from "../abstract/AbstractRule";
-import { IRule } from "../interfaces/IRule";
+import AbstractRule from "../abstract/AbstractRule.js";
+import { IRule } from "../interfaces/IRule.js";
 
 type TObjectOptions = {
   requiredProperties: string[];

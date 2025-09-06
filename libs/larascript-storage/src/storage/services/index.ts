@@ -1,3 +1,3 @@
-export * from "./AmazonS3StorageService";
-export * from "./FileSystemStorageService";
-export * from "./StorageService";
+export * from "./AmazonS3StorageService.js";
+export * from "./FileSystemStorageService.js";
+export * from "./StorageService.js";

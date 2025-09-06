@@ -1,5 +1,5 @@
-import { TOrderBy } from "../../../eloquent";
-import { normalizeColumn } from "../../utils/normalizeColumn";
+import { TOrderBy } from "../../../eloquent/index.js";
+import { normalizeColumn } from "../../utils/normalizeColumn.js";
 
 class Order {
   /**

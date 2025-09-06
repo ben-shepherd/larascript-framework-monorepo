@@ -10,8 +10,8 @@ import {
   TWhereClause,
   TWhereClauseValue,
   TWith,
-} from "../interfaces/eloquent.t";
-import IEloquentExpression from "../interfaces/expressions.t";
+} from "../interfaces/eloquent.t.js";
+import IEloquentExpression from "../interfaces/expressions.t.js";
 
 export type BuildType = "select" | "insert" | "update" | "delete";
 export type NullableObjectOrArray = object | object[] | null;

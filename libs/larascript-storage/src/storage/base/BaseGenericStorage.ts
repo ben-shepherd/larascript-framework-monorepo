@@ -1,4 +1,4 @@
-import { IStorageService } from "../interfaces";
+import { IStorageService } from "../interfaces.js";
 
 export abstract class BaseGenericStorage {
   constructor(protected readonly storageService: IStorageService) {}

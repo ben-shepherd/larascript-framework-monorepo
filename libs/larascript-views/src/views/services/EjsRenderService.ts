@@ -1,8 +1,8 @@
 import ejs from "ejs";
 import path from "path";
-import { IViewServiceConfig } from "../interfaces/config";
-import { RenderData } from "../interfaces/data";
-import { IViewRenderService } from "../interfaces/services";
+import { IViewServiceConfig } from "../interfaces/config.js";
+import { RenderData } from "../interfaces/data.js";
+import { IViewRenderService } from "../interfaces/services.js";
 
 export class EjsRenderService implements IViewRenderService {
   constructor(protected readonly config: IViewServiceConfig) {}

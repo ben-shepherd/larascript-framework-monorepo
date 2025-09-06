@@ -1,14 +1,14 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import DatabaseConnectionException from "../../database/exceptions/DatabaseConnectionException";
-import { IDatabaseConfig } from "../../database/interfaces/config.t";
-import DatabaseConfig from "../../database/services/DatabaseConfig";
-import DatabaseService from "../../database/services/DatabaseService";
+import DatabaseConnectionException from "../../database/exceptions/DatabaseConnectionException.js";
+import { IDatabaseConfig } from "../../database/interfaces/config.t.js";
+import DatabaseConfig from "../../database/services/DatabaseConfig.js";
+import DatabaseService from "../../database/services/DatabaseService.js";
 import {
   MockMongoDBAdapter,
   MockPostgresAdapter,
   MockSQLAdapter,
   MockSQLConfig,
-} from "./mocks/MockSQLAdapter";
+} from "./mocks/MockSQLAdapter.js";
 
 describe("Database Service", () => {
   const DEFAULT_CONNECTION = "sql";

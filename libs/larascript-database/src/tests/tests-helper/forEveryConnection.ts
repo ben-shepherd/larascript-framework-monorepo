@@ -1,4 +1,4 @@
-import { testHelper } from "./testHelper";
+import { testHelper } from "./testHelper.js";
 
 export type ForEveryConnectionFn = (connectionName: string) => Promise<void>;
 export type ForEveryConnectionOptions = {

@@ -1,6 +1,6 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IModel } from "../../model";
-import { IEloquent } from "./eloquent.t";
+import { IModel } from "../../model/index.js";
+import { IEloquent } from "./eloquent.t.js";
 
 export interface IEloquentQueryBuilderService {
   builder<Model extends IModel>(

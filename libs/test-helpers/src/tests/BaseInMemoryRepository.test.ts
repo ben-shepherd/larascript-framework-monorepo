@@ -1,6 +1,6 @@
-import { BaseModel, BaseModelAttributes } from "@/test-helpers/BaseModel";
+import { BaseModel, BaseModelAttributes } from "@/test-helpers/BaseModel.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { BaseInMemoryRepository } from "../test-helpers/BaseInMemoryRepository";
+import { BaseInMemoryRepository } from "../test-helpers/BaseInMemoryRepository.js";
 
 // Test model implementation
 interface TestModelAttributes extends BaseModelAttributes {

@@ -1,4 +1,4 @@
-import { collect } from "@/collections/collect";
+import { collect } from "@/collections/collect.js";
 import { describe, expect, test } from "@jest/globals";
 import { Collection as CollectJsCollection } from "collect.js";
 

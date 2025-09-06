@@ -1,6 +1,6 @@
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "../../worker";
-import FailedWorkerModel from "../models/FailedWorkerModel";
-import WorkerModel, { WorkerModelAttributes } from "../models/WorkerModel";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "../../worker/index.js";
+import FailedWorkerModel from "../models/FailedWorkerModel.js";
+import WorkerModel, { WorkerModelAttributes } from "../models/WorkerModel.js";
 
 /**
  * WorkerModelFactory class.

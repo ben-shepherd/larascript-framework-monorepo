@@ -1,4 +1,4 @@
-import { IStorageFile } from "../interfaces/IStorageFile";
+import { IStorageFile } from "../interfaces/IStorageFile.js";
 
 /**
  * Configuration options for creating a StorageFile instance

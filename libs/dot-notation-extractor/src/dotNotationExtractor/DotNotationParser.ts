@@ -1,4 +1,4 @@
-import { DotNotationParserException } from "./DotNotationParserException";
+import { DotNotationParserException } from "./DotNotationParserException.js";
 
 /**
  * Options for parsing rule keys

@@ -1,6 +1,6 @@
-import { IEloquent, IEloquentQueryBuilderService } from "..";
-import DB from "../../database/services/DB";
-import { IModel, ModelConstructor } from "../../model";
+import DB from "../../database/services/DB.js";
+import { IModel, ModelConstructor } from "../../model/index.js";
+import { IEloquent, IEloquentQueryBuilderService } from "../index.js";
 
 /**
  * Eloquent query service

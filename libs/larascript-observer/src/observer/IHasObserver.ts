@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IObserver } from "./IObserver";
+import { IObserver } from "./IObserver.js";
 
 export type TClassConstructor<T = any> = new (...args: any[]) => T;
 

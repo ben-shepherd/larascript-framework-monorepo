@@ -1,6 +1,6 @@
 import { BaseInMemoryRepository } from "@larascript-framework/test-helpers";
-import { IUserModel, IUserRepository } from "../../auth";
-import TestUserModel from "../model/TestUserModel";
+import { IUserModel, IUserRepository } from "../../auth/index.js";
+import TestUserModel from "../model/TestUserModel.js";
 
 export class InMemoryUserRepository
   extends BaseInMemoryRepository<TestUserModel>

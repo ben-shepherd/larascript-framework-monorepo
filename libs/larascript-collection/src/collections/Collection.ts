@@ -7,8 +7,8 @@ import {
   TFindCallback,
   TForeachCallback,
   TMapCallback,
-} from "./ICollection";
-import ProxyCollectionHandler from "./ProxyCollectionHandler";
+} from "./ICollection.js";
+import ProxyCollectionHandler from "./ProxyCollectionHandler.js";
 
 /**
  * Abstract class representing a collection of items

@@ -1,5 +1,5 @@
-import { IBelongsToOptions, IRelationship } from "..";
-import { IModel, ModelConstructor } from "../../model";
+import { IModel, ModelConstructor } from "../../model/index.js";
+import { IBelongsToOptions, IRelationship } from "../interfaces/index.js";
 
 export class GenericRelationship implements IRelationship {
   _relationshipInterface = true;

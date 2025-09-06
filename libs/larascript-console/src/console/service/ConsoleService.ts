@@ -1,9 +1,9 @@
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import readline, { createInterface } from "node:readline";
-import { ICommandConstructor } from "../interfaces/ICommand";
-import ICommandService from "../interfaces/ICommandService";
-import CommandReader from "./CommandReader";
-import CommandRegister from "./CommandRegister";
+import { ICommandConstructor } from "../index.js";
+import ICommandService from "../interfaces/ICommandService.js";
+import CommandReader from "./CommandReader.js";
+import CommandRegister from "./CommandRegister.js";
 
 /**
  * ConsoleService class that implements the ICommandService interface.

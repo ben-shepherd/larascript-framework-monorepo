@@ -1,6 +1,6 @@
 import { Collection } from "@larascript-framework/larascript-collection";
-import { IModel, IModelAttributes } from "../../model";
-import { IEloquent, IRelationship } from "./eloquent.t";
+import { IModel, IModelAttributes } from "../../model/index.js";
+import { IEloquent, IRelationship } from "./eloquent.t.js";
 
 export interface IRelationshipResolver<Model extends IModel = IModel> {
   resolveData<

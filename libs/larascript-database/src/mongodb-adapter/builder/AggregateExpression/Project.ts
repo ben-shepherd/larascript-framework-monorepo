@@ -1,5 +1,5 @@
-import { TColumnOption } from "../../../eloquent";
-import { normalizeColumn } from "../../utils/normalizeColumn";
+import { TColumnOption } from "../../../eloquent/index.js";
+import { normalizeColumn } from "../../utils/normalizeColumn.js";
 
 class Project {
   /**

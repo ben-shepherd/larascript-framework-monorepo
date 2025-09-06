@@ -1,1 +1,1 @@
-export * from "./BaseMailAdapter";
+export * from "./BaseMailAdapter.js";

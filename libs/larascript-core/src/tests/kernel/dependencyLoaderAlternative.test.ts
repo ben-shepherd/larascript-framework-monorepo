@@ -1,13 +1,13 @@
-import { AppSingleton, dependencyLoader, withDependencies } from "@/app";
-import { Environment } from "@/consts";
-import { Kernel } from "@/kernel";
+import { AppSingleton, dependencyLoader, withDependencies } from "@/app/index.js";
+import { Environment } from "@/consts/index.js";
+import { Kernel } from "@/kernel/index.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import {
   AlternativeDependencyLoaderProvider,
   LoggerProvider,
   MockFailedConnectionDatabaseProvider,
   MockSuccessfulConnectionDatabaseProvider,
-} from "./providers/providers";
+} from "./providers/providers.js";
 
 describe("Dependency Loader Test Suite", () => {
   beforeEach(async () => {

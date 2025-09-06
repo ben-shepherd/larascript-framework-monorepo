@@ -4,7 +4,7 @@ import {
   IAuthService,
   IOneTimeAuthenticationService,
   IUserModel,
-} from "../interfaces";
+} from "../index.js";
 
 type SingleUseTokenOptions = Required<
   Pick<ApiTokenModelOptions, "expiresAfterMinutes">

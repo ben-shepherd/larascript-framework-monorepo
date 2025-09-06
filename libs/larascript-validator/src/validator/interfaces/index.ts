@@ -1,3 +1,3 @@
-export * from "./IRule";
-export * from "./IValidator";
-export * from "./IValidatorResult";
+export * from "./IRule.js";
+export * from "./IValidator.js";
+export * from "./IValidatorResult.js";

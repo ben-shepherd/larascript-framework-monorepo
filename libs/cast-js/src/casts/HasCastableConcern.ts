@@ -1,6 +1,6 @@
-import { TClassConstructor } from "@/utils/ClassConstructor.t";
-import { Castable } from "./Castable";
-import { TCastableType } from "./types.t";
+import { TClassConstructor } from "@/utils/ClassConstructor.t.js";
+import { Castable } from "./Castable.js";
+import { TCastableType } from "./types.t.js";
 
 export const HasCastableConcern = (Base: TClassConstructor) => {
   return class extends Base {

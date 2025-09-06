@@ -1,2 +1,2 @@
-export * from "./AppSingleton";
-export * from "./CreateDependencyLoader";
+export * from "./AppSingleton.js";
+export * from "./CreateDependencyLoader.js";

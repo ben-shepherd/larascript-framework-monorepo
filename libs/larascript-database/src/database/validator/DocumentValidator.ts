@@ -1,10 +1,10 @@
 import { returnOrThrow } from "@larascript-framework/larascript-utils";
 import { z } from "zod";
-import UnidentifiableDocumentException from "../exceptions/UnidentifiableDocumentException";
+import UnidentifiableDocumentException from "../exceptions/UnidentifiableDocumentException.js";
 import {
   IDatabaseDocument,
   IDocumentValidator,
-} from "../interfaces/validator.t";
+} from "../interfaces/validator.t.js";
 
 class DocumentValidator implements IDocumentValidator {
   /**

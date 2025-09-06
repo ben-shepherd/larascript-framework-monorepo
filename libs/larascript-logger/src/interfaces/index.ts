@@ -1,1 +1,1 @@
-export * from "./Logger.t";
+export * from "./Logger.t.js";

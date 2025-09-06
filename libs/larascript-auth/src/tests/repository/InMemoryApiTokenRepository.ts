@@ -1,6 +1,6 @@
 import { BaseInMemoryRepository } from "@larascript-framework/test-helpers";
-import { IApiTokenModel } from "../../auth";
-import { TestApiTokenModel } from "../model/TestApiTokenModel";
+import { IApiTokenModel } from "../../auth/index.js";
+import { TestApiTokenModel } from "../model/TestApiTokenModel.js";
 
 export class InMemoryApiTokenRepository extends BaseInMemoryRepository<TestApiTokenModel> {
   constructor() {

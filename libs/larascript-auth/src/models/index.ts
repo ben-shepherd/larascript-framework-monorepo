@@ -1,2 +1,2 @@
-export * from './AuthenticableUserModel';
+export * from "./AuthenticableUserModel.js";
 

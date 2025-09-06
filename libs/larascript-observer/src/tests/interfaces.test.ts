@@ -3,9 +3,9 @@ import {
   IHasObserver,
   ObserveConstructor,
   TClassConstructor,
-} from "../observer/IHasObserver";
-import { IObserver, IObserverEvent } from "../observer/IObserver";
-import { Observer } from "../observer/Observer";
+} from "../observer/IHasObserver.js";
+import { IObserver, IObserverEvent } from "../observer/IObserver.js";
+import { Observer } from "../observer/Observer.js";
 
 // Test implementation of IObserver
 class TestObserver implements IObserver<{ id: number; name: string }> {

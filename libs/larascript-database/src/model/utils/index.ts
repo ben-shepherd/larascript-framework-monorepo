@@ -1,1 +1,1 @@
-export * from "./ModelScope";
+export * from "./ModelScope.js";

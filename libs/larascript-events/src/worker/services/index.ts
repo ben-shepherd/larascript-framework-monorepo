@@ -1,2 +1,2 @@
-export * from "./WorkerService";
-export * from "./WorkerServiceProvider";
+export * from "./WorkerService.js";
+export * from "./WorkerServiceProvider.js";

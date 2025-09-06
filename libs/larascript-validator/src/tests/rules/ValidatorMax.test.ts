@@ -1,5 +1,5 @@
-import MaxRule from "@/validator/rules/MaxRule";
-import Validator from "@/validator/service/Validator";
+import MaxRule from "@/validator/rules/MaxRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test max validation rule", () => {

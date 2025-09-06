@@ -1,1 +1,1 @@
-export * from "./StorageTypes";
+export * from "./StorageTypes.js";

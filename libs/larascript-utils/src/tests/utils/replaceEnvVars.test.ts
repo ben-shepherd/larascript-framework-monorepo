@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { replaceEnvValue } from "../../utils/replaceEnvVars";
+import { replaceEnvValue } from "../../utils/replaceEnvVars.js";
 
 describe("replaceEnvValue", () => {
   describe("single occurrence", () => {

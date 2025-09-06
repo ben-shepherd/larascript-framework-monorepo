@@ -1,13 +1,13 @@
-import CommandExecutionException from "../exceptions/CommandExecutionException";
-import { ICommand } from "../interfaces";
+import CommandExecutionException from "../exceptions/CommandExecutionException.js";
+import { ICommand } from "../index.js";
 import {
   KeyPair,
   KeyPairArguementType,
   ParsedArguement,
   ParsedArgumentsArray,
   ValueOnly,
-} from "../parsers/CommandArgumentParser";
-import ConsoleInputService from "../service/ConsoleInputService";
+} from "../parsers/CommandArgumentParser.js";
+import ConsoleInputService from "../service/ConsoleInputService.js";
 
 /**
  * Base command class

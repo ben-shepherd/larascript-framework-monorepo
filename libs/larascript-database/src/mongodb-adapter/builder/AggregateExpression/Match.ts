@@ -1,14 +1,14 @@
 import { ObjectId } from "mongodb";
 import { z } from "zod";
+import ExpressionException from "../../../eloquent/exceptions/ExpressionException.js";
 import {
   LogicalOperators,
   TLogicalOperator,
   TWhereClause,
   TWhereClauseValue,
-} from "../../../eloquent";
-import ExpressionException from "../../../eloquent/exceptions/ExpressionException";
-import { MongoRaw } from "../../builder/AggregateExpression";
-import { normalizeColumn } from "../../utils/normalizeColumn";
+} from "../../../eloquent/index.js";
+import { normalizeColumn } from "../../utils/normalizeColumn.js";
+import { MongoRaw } from "./index.js";
 
 /**
  * Match class handles building MongoDB $match pipeline stages from SQL-style where clauses.

@@ -3,7 +3,7 @@ import {
   IApiTokenModel,
   IUserAttributes,
   IUserModel,
-} from ".";
+} from "../index.js";
 
 export interface IApiTokenRepositoryConstructor {
   new (...args: unknown[]): IApiTokenRepository;

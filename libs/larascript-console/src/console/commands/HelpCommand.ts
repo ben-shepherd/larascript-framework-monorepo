@@ -1,6 +1,6 @@
-import BaseCommand from "../base/BaseCommand";
-import { ICommandConstructor } from "../interfaces/ICommand";
-import CommandRegister from "../service/CommandRegister";
+import BaseCommand from "../base/BaseCommand.js";
+import { ICommandConstructor } from "../interfaces/ICommand.js";
+import CommandRegister from "../service/CommandRegister.js";
 
 export default class HelpCommand extends BaseCommand {
   signature: string = "help";

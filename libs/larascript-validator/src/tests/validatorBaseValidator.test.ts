@@ -6,7 +6,7 @@ import {
   ObjectRule,
   RequiredRule,
   StringRule,
-} from "@/validator";
+} from "@/validator.js";
 import { describe } from "@jest/globals";
 
 class CustomValidator extends BaseCustomValidator {

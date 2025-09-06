@@ -13,9 +13,9 @@ import {
   IJwtAuthService,
   IUserModel,
   IUserRepository,
-} from "../interfaces";
-import { IApiTokenFactory, IUserFactory } from "../interfaces/factory";
-import JwtAuthService from "./JwtAuthService";
+} from "../index.js";
+import { IApiTokenFactory, IUserFactory } from "../interfaces/factory.js";
+import JwtAuthService from "./JwtAuthService.js";
 
 /**
  * AuthService provides authentication and authorization services,

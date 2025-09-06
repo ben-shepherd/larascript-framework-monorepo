@@ -1,6 +1,6 @@
-import { TColumnOption } from "../../../../eloquent";
-import BindingsHelper from "../../BindingsHelper";
-import SqlExpression, { SqlRaw } from "../SqlExpression";
+import { TColumnOption } from "../../../../eloquent/index.js";
+import BindingsHelper from "../../BindingsHelper.js";
+import SqlExpression, { SqlRaw } from "../SqlExpression.js";
 
 class SelectColumns {
   /**

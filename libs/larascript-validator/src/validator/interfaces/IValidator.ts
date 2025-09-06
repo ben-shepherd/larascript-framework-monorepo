@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IRule, IRuleContext, IRulesObject } from "./IRule";
-import { IValidatorResult } from "./IValidatorResult";
+import { IRule, IRuleContext, IRulesObject } from "./IRule.js";
+import { IValidatorResult } from "./IValidatorResult.js";
 
 export type CustomValidatorConstructor = {
   new (...args: any[]): IValidator;

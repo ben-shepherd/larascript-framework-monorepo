@@ -1,1 +1,1 @@
-export * from "./extractDefaultMongoCredentials";
+export * from "./extractDefaultMongoCredentials.js";

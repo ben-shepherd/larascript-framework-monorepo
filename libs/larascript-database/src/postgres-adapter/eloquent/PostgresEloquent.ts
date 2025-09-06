@@ -10,24 +10,24 @@ import {
 } from "@larascript-framework/larascript-utils";
 import { bindAll } from "lodash";
 import pg, { QueryResult } from "pg";
-import DB from "../../database/services/DB";
+import DB from "../../database/services/DB.js";
+import Eloquent from "../../eloquent/Eloquent.js";
+import EloquentException from "../../eloquent/exceptions/EloquentExpression.js";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException.js";
+import UpdateException from "../../eloquent/exceptions/UpdateException.js";
 import {
   IEloquent,
   IdGeneratorFn,
   SetModelColumnsOptions,
   TransactionFn,
-} from "../../eloquent";
-import Eloquent from "../../eloquent/Eloquent";
-import EloquentException from "../../eloquent/exceptions/EloquentExpression";
-import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
-import UpdateException from "../../eloquent/exceptions/UpdateException";
-import IEloquentExpression from "../../eloquent/interfaces/expressions.t";
-import { IModel, ModelConstructor } from "../../model";
-import { PostgresAdapter } from "../adapters";
+} from "../../eloquent/index.js";
+import IEloquentExpression from "../../eloquent/interfaces/expressions.t.js";
+import { IModel, ModelConstructor } from "../../model/index.js";
+import { PostgresAdapter } from "../adapters/index.js";
 import SqlExpression, {
   SqlRaw,
-} from "../builder/ExpressionBuilder/SqlExpression";
-import PostgresJsonNormalizer from "../normalizers/PostgresJsonNormalizer";
+} from "../builder/ExpressionBuilder/SqlExpression.js";
+import PostgresJsonNormalizer from "../normalizers/PostgresJsonNormalizer.js";
 
 class PostgresEloquent<Model extends IModel> extends Eloquent<
   Model,

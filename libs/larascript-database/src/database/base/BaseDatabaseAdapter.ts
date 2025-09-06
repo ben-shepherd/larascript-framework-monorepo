@@ -1,10 +1,10 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IEloquent, IRelationshipResolver } from "../../eloquent";
-import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver";
-import { IModel } from "../../model";
-import { IDatabaseAdapter } from "../interfaces/adapter.t";
-import { IPrepareOptions } from "../interfaces/options.t";
-import { IDatabaseSchema } from "../interfaces/schema.t";
+import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver.js";
+import { IEloquent, IRelationshipResolver } from "../../eloquent/index.js";
+import { IModel } from "../../model/index.js";
+import { IDatabaseAdapter } from "../interfaces/adapter.t.js";
+import { IPrepareOptions } from "../interfaces/options.t.js";
+import { IDatabaseSchema } from "../interfaces/schema.t.js";
 
 export abstract class BaseDatabaseAdapter<Config> implements IDatabaseAdapter {
   abstract _adapter_type_: string;

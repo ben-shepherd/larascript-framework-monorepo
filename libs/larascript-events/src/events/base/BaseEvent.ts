@@ -1,9 +1,9 @@
 import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
 import assert from "node:assert";
-import { EVENT_DRIVERS } from "../consts/drivers";
-import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException";
-import { IBaseEvent } from "../interfaces";
-import { EventRegistry } from "../registry/EventRegistry";
+import { EVENT_DRIVERS } from "../consts/drivers.js";
+import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException.js";
+import { IBaseEvent } from "../interfaces/index.js";
+import { EventRegistry } from "../registry/EventRegistry.js";
 
 /**
  * Abstract base class for all events in the system

@@ -1,5 +1,5 @@
-import { RequiredRule, StringRule, Validator } from "@/validator";
-import IsNumber from "@/validator/rules/NumberRule";
+import { RequiredRule, StringRule, Validator } from "@/validator.js";
+import IsNumber from "@/validator/rules/NumberRule.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

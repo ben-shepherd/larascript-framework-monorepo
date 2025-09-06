@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { IObserver, IObserverEvent } from "./IObserver";
+import { IObserver, IObserverEvent } from "./IObserver.js";
 
 /**
  * Abstract class implementing the Observer pattern.

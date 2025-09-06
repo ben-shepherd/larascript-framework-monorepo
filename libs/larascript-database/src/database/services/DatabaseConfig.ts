@@ -1,10 +1,10 @@
-import { MongoDbAdapter } from "../../mongodb-adapter";
-import { PostgresAdapter } from "../../postgres-adapter";
+import { MongoDbAdapter } from "../../mongodb-adapter/index.js";
+import { PostgresAdapter } from "../../postgres-adapter/index.js";
 import {
   IDatabaseAdapter,
   IDatabaseAdapterConstructor,
-} from "../interfaces/adapter.t";
-import { IDatabaseGenericConnectionConfig } from "../interfaces/config.t";
+} from "../interfaces/adapter.t.js";
+import { IDatabaseGenericConnectionConfig } from "../interfaces/config.t.js";
 
 export class DatabaseConfig {
 

@@ -1,7 +1,7 @@
 import { Resend } from "resend";
-import BaseMailAdapter from "../base/BaseMailAdapter";
-import Mail from "../data/Mail";
-import { MailAdapter } from "../interfaces";
+import BaseMailAdapter from "../base/BaseMailAdapter.js";
+import Mail from "../data/Mail.js";
+import { MailAdapter } from "../interfaces.js";
 
 type ResendMailOptions = {
   apiKey: string;

@@ -1,8 +1,8 @@
-export * from "./adapters";
-export * from "./eloquent";
-export * from "./helper";
-export * from "./interfaces";
-export * from "./relationship";
-export * from "./schema";
-export * from "./utils";
+export * from "./adapters/index.js";
+export * from "./eloquent/index.js";
+export * from "./helper/index.js";
+export * from "./interfaces/index.js";
+export * from "./relationship/index.js";
+export * from "./schema/index.js";
+export * from "./utils/index.js";
 

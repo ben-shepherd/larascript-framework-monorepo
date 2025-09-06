@@ -1,11 +1,11 @@
 import { Collection } from "@larascript-framework/larascript-collection";
 import { DataTypes } from "sequelize";
-import DB from "../../../database/services/DB";
-import HasMany from "../../../eloquent/relational/HasMany";
-import { IModelAttributes } from "../../../model";
-import Model from "../../../model/base/Model";
-import { testHelper } from "../../../tests/tests-helper/testHelper";
-import TestEmployeeModel from "./TestEmployeeModel";
+import DB from "../../../database/services/DB.js";
+import HasMany from "../../../eloquent/relational/HasMany.js";
+import Model from "../../../model/base/Model.js";
+import { IModelAttributes } from "../../../model/index.js";
+import { testHelper } from "../../../tests/tests-helper/testHelper.js";
+import TestEmployeeModel from "./TestEmployeeModel.js";
 
 const tableName = Model.formatTableName("testsDepartments");
 

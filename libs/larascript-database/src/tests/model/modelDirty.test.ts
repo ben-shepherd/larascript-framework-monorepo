@@ -1,7 +1,7 @@
-import DB from "@/database/services/DB";
-import { forEveryConnection } from "../tests-helper/forEveryConnection";
-import { queryBuilder, testHelper } from "../tests-helper/testHelper";
-import TestDirtyModel, { resetDirtyTable } from "./models/TestDirtyModel";
+import DB from "@/database/services/DB.js";
+import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
+import TestDirtyModel, { resetDirtyTable } from "./models/TestDirtyModel.js";
 
 const resetAndPopulateDirtyTable = async () => {
   await resetDirtyTable();

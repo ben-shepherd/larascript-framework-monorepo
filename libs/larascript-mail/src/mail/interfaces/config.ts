@@ -1,4 +1,4 @@
-import { MailAdapterConstructor } from "./adapter";
+import { MailAdapterConstructor } from "./adapter.js";
 
 export type MailAdapterConfig = MailAdapterConfigItem[];
 

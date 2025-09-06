@@ -1,5 +1,5 @@
-import EmailRule from "@/validator/rules/EmailRule";
-import Validator from "@/validator/service/Validator";
+import EmailRule from "@/validator/rules/EmailRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test email validation rule", () => {

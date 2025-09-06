@@ -1,10 +1,10 @@
 import { describe } from "@jest/globals";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
-import { forEveryConnection } from "../tests-helper/forEveryConnection";
-import { queryBuilder, testHelper } from "../tests-helper/testHelper";
-import { ITestEmployeeModelData } from "./models/TestEmployeeModel";
-import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException.js";
+import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
+import { ITestEmployeeModelData } from "./models/TestEmployeeModel.js";
+import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel.js";
 
 describe("eloquent", () => {
   const resetAndRepopulateTable = async () => {

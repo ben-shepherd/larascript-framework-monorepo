@@ -1,15 +1,15 @@
 import fs from "fs";
 import path from "path";
-import { BaseGenericStorage } from "../base/BaseGenericStorage";
-import { StorageFile } from "../data";
+import { BaseGenericStorage } from "../base/BaseGenericStorage.js";
+import { StorageFile } from "../data.js";
 import {
   FileNotFoundException,
   InvalidStorageFileException,
-} from "../exceptions";
-import { FileSystemMeta, IGenericStorage } from "../interfaces";
-import { IUploadedFile } from "../interfaces/IUploadedFile.t";
-import FileSystemStorageFileParser from "../parser/FileSystemStorageFileParser";
-import { createFileSystemStorageFile } from "../utils";
+} from "../exceptions.js";
+import { FileSystemMeta, IGenericStorage } from "../interfaces.js";
+import { IUploadedFile } from "../interfaces/IUploadedFile.t.js";
+import FileSystemStorageFileParser from "../parser/FileSystemStorageFileParser.js";
+import { createFileSystemStorageFile } from "../utils.js";
 
 /**
  * Service for handling file system storage operations.

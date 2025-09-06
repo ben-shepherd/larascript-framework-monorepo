@@ -1,5 +1,5 @@
-import BooleanRule from "@/validator/rules/BooleanRule";
-import Validator from "@/validator/service/Validator";
+import BooleanRule from "@/validator/rules/BooleanRule.js";
+import Validator from "@/validator/service/Validator.js";
 
 describe("Validator Boolean Rule Tests", () => {
   it("should pass validation when field is boolean true", async () => {

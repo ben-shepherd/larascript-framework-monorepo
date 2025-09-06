@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { EventRegistry } from "../events/registry/EventRegistry";
+import { EventRegistry } from "../events/registry/EventRegistry.js";
 
 // Create a simple test class
 class TestEvent {

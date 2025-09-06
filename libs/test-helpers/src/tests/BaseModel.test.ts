@@ -3,7 +3,7 @@ import {
   BaseModel,
   BaseModelAttributes,
   IBaseModel,
-} from "../test-helpers/BaseModel";
+} from "../test-helpers/BaseModel.js";
 
 // Test model implementation
 interface TestModelAttributes extends BaseModelAttributes {

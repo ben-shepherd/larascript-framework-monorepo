@@ -1,5 +1,5 @@
-import UuidRule from "@/validator/rules/UuidRule";
-import Validator from "@/validator/service/Validator";
+import UuidRule from "@/validator/rules/UuidRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test uuid validation rule", () => {

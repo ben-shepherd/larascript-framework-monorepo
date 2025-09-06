@@ -1,2 +1,2 @@
-export * from "./MongoDbEloquent";
+export * from "./MongoDbEloquent.js";
 

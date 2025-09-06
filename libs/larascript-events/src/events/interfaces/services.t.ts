@@ -1,9 +1,9 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IBaseEvent } from "./base.t";
-import { IEventConfig } from "./config.t";
-import { IEventDriver, IEventDriversConfigOption } from "./driver.t";
-import { SubscriberConstructor } from "./event.t";
-import { IDispatchable } from "./types.t";
+import { IBaseEvent } from "./base.t.js";
+import { IEventConfig } from "./config.t.js";
+import { IEventDriver, IEventDriversConfigOption } from "./driver.t.js";
+import { SubscriberConstructor } from "./event.t.js";
+import { IDispatchable } from "./types.t.js";
 
 /**
  * Interface for event services that manage event dispatching and configuration

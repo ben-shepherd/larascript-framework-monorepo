@@ -1,6 +1,6 @@
 import { BaseAdapterTypes } from "@larascript-framework/larascript-core";
-import { IJwtAuthService } from "./jwt.t";
-import { IUserModel } from "./models.t";
+import { IJwtAuthService } from "./jwt.t.js";
+import { IUserModel } from "./models.t.js";
 
 export type BaseAuthAdapterTypes = BaseAdapterTypes<IAuthAdapter> & {
   jwt: IJwtAuthService;

@@ -1,5 +1,5 @@
-import { UnauthorizedException } from "@/auth/exceptions/UnauthorizedException";
-import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/factory";
+import { UnauthorizedException } from "@/auth/exceptions/UnauthorizedException.js";
+import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/index.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
@@ -8,13 +8,13 @@ import {
   IAuthConfig,
   IJwtAuthService,
   IUserRepository,
-} from "../auth/interfaces";
-import AuthService from "../auth/services/AuthService";
-import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
-import { TestUserFactory } from "./factory/TestUserFactory";
-import { TestApiTokenModel } from "./model/TestApiTokenModel";
-import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository";
-import { InMemoryUserRepository } from "./repository/InMemoryUserRepository";
+} from "../auth/index.js";
+import AuthService from "../auth/services/AuthService.js";
+import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
+import { TestUserFactory } from "./factory/TestUserFactory.js";
+import { TestApiTokenModel } from "./model/TestApiTokenModel.js";
+import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository.js";
+import { InMemoryUserRepository } from "./repository/InMemoryUserRepository.js";
 
 const mockAclConfig: IAclConfig = {
   roles: [

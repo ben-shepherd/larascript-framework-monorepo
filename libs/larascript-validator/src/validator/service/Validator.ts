@@ -1,6 +1,6 @@
 import { DotNotationDataExtrator } from "@larascript-framework/larascript-utils";
-import { ValidatorResult } from "../data";
-import { ValidatorException } from "../exceptions";
+import { ValidatorResult } from "../data.js";
+import { ValidatorException } from "../exceptions.js";
 import {
     IRule,
     IRuleContext,
@@ -10,7 +10,7 @@ import {
     IValidatorFn,
     IValidatorMessages,
     IValidatorResult,
-} from "../interfaces";
+} from "../interfaces.js";
 
 /**
  * Short hand for creating a new validator on the fly

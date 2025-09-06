@@ -1,6 +1,6 @@
 import { IFactory } from "@larascript-framework/larascript-core";
-import { IJSonWebToken } from "./jwt.t";
-import { IApiTokenModel, IUserModel } from "./models.t";
+import { IJSonWebToken } from "./jwt.t.js";
+import { IApiTokenModel, IUserModel } from "./models.t.js";
 
 export interface IUserFactoryConstructor {
   new (...args: any[]): IUserFactory;

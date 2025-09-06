@@ -1,10 +1,10 @@
-import BaseExpression from "../../../eloquent/base/BaseExpression";
-import Join from "./Join";
-import Limit from "./Limit";
-import Match from "./Match";
-import Order from "./Order";
-import Project from "./Project";
-import Skip from "./Skip";
+import BaseExpression from "../../../eloquent/base/BaseExpression.js";
+import Join from "./Join.js";
+import Limit from "./Limit.js";
+import Match from "./Match.js";
+import Order from "./Order.js";
+import Project from "./Project.js";
+import Skip from "./Skip.js";
 
 export type MongoRaw = object | object[];
 
@@ -16,7 +16,6 @@ export type MongoRaw = object | object[];
  * @extends {BaseExpression<unknown>}
  */
 class AggregateExpression extends BaseExpression<unknown> {
-  bindingsUtility: unknown;
 
   /** Raw MongoDB where conditions to be merged with builder conditions */
   rawWhere: MongoRaw | null = null;

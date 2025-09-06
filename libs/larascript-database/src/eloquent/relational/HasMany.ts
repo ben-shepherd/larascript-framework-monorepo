@@ -1,8 +1,8 @@
 import { Collection } from "collect.js";
-import DB from "../../database/services/DB";
-import { IModel, IModelAttributes } from "../../model";
-import { IRelationship, TWhereClauseValue } from "../interfaces";
-import GenericRelationship from "./GenericRelationship";
+import DB from "../../database/services/DB.js";
+import { IModel, IModelAttributes } from "../../model/index.js";
+import { IRelationship, TWhereClauseValue } from "../interfaces/index.js";
+import GenericRelationship from "./GenericRelationship.js";
 
 export class HasMany extends GenericRelationship {
   /**

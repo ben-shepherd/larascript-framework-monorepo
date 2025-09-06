@@ -1,4 +1,4 @@
-import { PackageJsonService } from "@/services";
+import { PackageJsonService } from "@/services/index.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("Package Json Test Suite", () => {

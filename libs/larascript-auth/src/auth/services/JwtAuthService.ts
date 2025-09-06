@@ -2,28 +2,27 @@ import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { JsonWebTokenError } from "jsonwebtoken";
-import BaseAuthAdapter from "../base/BaseAuthAdapter";
-import {
-  JWTConfigException,
-  JWTSecretException,
-  UnauthorizedException,
-} from "../exceptions";
-import { JwtFactory } from "../factory/JwtFactory";
+import BaseAuthAdapter from "../base/BaseAuthAdapter.js";
+import { JwtFactory } from "../factory/JwtFactory.js";
 import {
   ApiTokenModelOptions,
+  IApiTokenFactory,
   IApiTokenModel,
   IApiTokenRepository,
   IJwtAuthService,
   IJwtConfig,
   IOneTimeAuthenticationService,
+  IUserFactory,
   IUserModel,
   IUserRepository,
-} from "../interfaces";
-import { IApiTokenFactory, IUserFactory } from "../interfaces/factory";
-import { createJwt } from "../utils/createJwt";
-import { decodeJwt } from "../utils/decodeJwt";
-import { generateToken } from "../utils/generateToken";
-import OneTimeAuthenticationService from "./OneTimeAuthenticationService";
+  JWTConfigException,
+  JWTSecretException,
+  UnauthorizedException,
+} from "../index.js";
+import { createJwt } from "../utils/createJwt.js";
+import { decodeJwt } from "../utils/decodeJwt.js";
+import { generateToken } from "../utils/generateToken.js";
+import OneTimeAuthenticationService from "./OneTimeAuthenticationService.js";
 
 /**
  * JWT-based authentication service that extends BaseAuthAdapter.

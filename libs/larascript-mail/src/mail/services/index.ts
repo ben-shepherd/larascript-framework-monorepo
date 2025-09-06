@@ -1,2 +1,2 @@
-export * from "./MailConfig";
-export * from "./MailService";
+export * from "./MailConfig.js";
+export * from "./MailService.js";

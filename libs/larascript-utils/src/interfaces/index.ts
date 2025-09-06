@@ -1,2 +1,2 @@
-export * from "./ClassConstructor.t";
-export * from "./prettify.t";
+export * from "./ClassConstructor.t.js";
+export * from "./prettify.t.js";

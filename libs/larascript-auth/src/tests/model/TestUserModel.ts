@@ -2,7 +2,7 @@ import {
   BaseModel,
   BaseModelAttributes,
 } from "@larascript-framework/test-helpers";
-import { IUserModel } from "../../auth";
+import { IUserModel } from "../../auth/index.js";
 
 export interface ITestUserAttributes extends BaseModelAttributes {
   id: string;

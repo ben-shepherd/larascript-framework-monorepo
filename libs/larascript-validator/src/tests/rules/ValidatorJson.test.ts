@@ -1,5 +1,5 @@
-import JsonRule from "@/validator/rules/JsonRule";
-import Validator from "@/validator/service/Validator";
+import JsonRule from "@/validator/rules/JsonRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test json validation rule", () => {

@@ -3,7 +3,7 @@ import {
   IAsyncSessionService,
 } from "@larascript-framework/async-session";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
-import { IAuthAdapter, IUserModel } from "../interfaces";
+import { IAuthAdapter, IUserModel } from "../index.js";
 
 /**
  * Base authentication adapter class that implements the IAuthAdapter interface.

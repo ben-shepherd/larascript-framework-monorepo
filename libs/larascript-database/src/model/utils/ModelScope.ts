@@ -1,4 +1,4 @@
-import { ModelConstructor } from "../interfaces/model.t";
+import { ModelConstructor } from "../interfaces/model.t.js";
 
 export type TModelScope = "read" | "write" | "create" | "delete" | "all";
 

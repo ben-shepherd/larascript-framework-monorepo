@@ -1,5 +1,5 @@
-import AcceptedIfRule from "@/validator/rules/AcceptedIfRule";
-import Validator from "@/validator/service/Validator";
+import AcceptedIfRule from "@/validator/rules/AcceptedIfRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

@@ -1,3 +1,3 @@
-export * from "./IPostgresAlterTableOptions";
-export * from "./IPostgresConfig";
-export * from "./postgres.t";
+export * from "./IPostgresAlterTableOptions.js";
+export * from "./IPostgresConfig.js";
+export * from "./postgres.t.js";

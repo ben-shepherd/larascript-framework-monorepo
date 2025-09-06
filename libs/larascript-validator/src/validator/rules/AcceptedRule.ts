@@ -1,6 +1,6 @@
-import AbstractRule from "../abstract/AbstractRule";
-import { IRule } from "../interfaces/IRule";
-import isTruthy from "../utils/isTruthy";
+import AbstractRule from "../abstract/AbstractRule.js";
+import { IRule } from "../interfaces/IRule.js";
+import isTruthy from "../utils/isTruthy.js";
 
 class AcceptedRule extends AbstractRule implements IRule {
   protected name: string = "accepted";

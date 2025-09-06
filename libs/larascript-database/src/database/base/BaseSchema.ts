@@ -1,6 +1,6 @@
-import { IDatabaseAdapter } from "../interfaces/adapter.t";
-import { IDatabaseSchema } from "../interfaces/schema.t";
-import DB from "../services/DB";
+import { IDatabaseAdapter } from "../interfaces/adapter.t.js";
+import { IDatabaseSchema } from "../interfaces/schema.t.js";
+import DB from "../services/DB.js";
 
 abstract class BaseSchema<Adapter extends IDatabaseAdapter = IDatabaseAdapter>
   implements IDatabaseSchema

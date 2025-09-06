@@ -1,2 +1,2 @@
-export * from "./ClassConstructor.t";
-export * from "./compose";
+export * from "./ClassConstructor.t.js";
+export * from "./compose.js";

@@ -1,19 +1,19 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient, MongoClientOptions, MongoServerError } from "mongodb";
-import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter";
-import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException";
-import { IDatabaseSchema } from "../../database/interfaces/schema.t";
-import DB from "../../database/services/DB";
-import { IEloquent, IRelationshipResolver } from "../../eloquent";
-import { IModel } from "../../model";
-import MongoDbEloquent from "../eloquent/MongoDbEloquent";
-import ParseMongoDBConnectionString from "../helper/ParseMongoDBConnectionUrl";
-import { IMongoConfig } from "../interfaces/IMongoConfig";
-import { IMongoDbAdapter } from "../interfaces/mongodb.t";
-import MongoRelationshipResolver from "../relationship/MongoRelationshipResolver";
-import createMigrationSchemaMongo from "../schema/createMigrationSchemaMongo";
-import MongoDbSchema from "../schema/MongoDbSchema";
-import { extractDefaultMongoCredentials } from "../utils/extractDefaultMongoCredentials";
+import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter.js";
+import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException.js";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
+import DB from "../../database/services/DB.js";
+import { IEloquent, IRelationshipResolver } from "../../eloquent/index.js";
+import { IModel } from "../../model/index.js";
+import MongoDbEloquent from "../eloquent/MongoDbEloquent.js";
+import ParseMongoDBConnectionString from "../helper/ParseMongoDBConnectionUrl.js";
+import { IMongoConfig } from "../interfaces/IMongoConfig.js";
+import { IMongoDbAdapter } from "../interfaces/mongodb.t.js";
+import MongoRelationshipResolver from "../relationship/MongoRelationshipResolver.js";
+import createMigrationSchemaMongo from "../schema/createMigrationSchemaMongo.js";
+import MongoDbSchema from "../schema/MongoDbSchema.js";
+import { extractDefaultMongoCredentials } from "../utils/extractDefaultMongoCredentials.js";
 
 class MongoDbAdapter
   extends BaseDatabaseAdapter<IMongoConfig>

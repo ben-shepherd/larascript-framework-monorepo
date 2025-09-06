@@ -1,1 +1,1 @@
-export * from "./ProxyModelHandler";
+export * from "./ProxyModelHandler.js";

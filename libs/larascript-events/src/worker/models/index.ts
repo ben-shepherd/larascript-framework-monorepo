@@ -1,2 +1,2 @@
-export * from "./FailedWorkerModel";
-export * from "./WorkerModel";
+export * from "./FailedWorkerModel.js";
+export * from "./WorkerModel.js";

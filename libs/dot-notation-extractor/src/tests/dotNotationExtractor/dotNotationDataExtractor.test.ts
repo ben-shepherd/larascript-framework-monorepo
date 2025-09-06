@@ -1,4 +1,4 @@
-import { DotNotationDataExtrator } from "@/dotNotationExtractor";
+import { DotNotationDataExtrator } from "@/dotNotationExtractor/index.js";
 import { describe, expect, test } from "@jest/globals";
 
 describe("DotNotationDataExtractor", () => {

@@ -4,7 +4,7 @@ import {
   IAsyncSessionService,
   TAsyncSessionData,
   TAsyncSessionObject,
-} from "./IAsyncSessionService";
+} from "./IAsyncSessionService.js";
 
 const generateUuidV4 = (): string => v4();
 

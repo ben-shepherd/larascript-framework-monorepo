@@ -1,3 +1,3 @@
-export * from "./test-helpers/BaseInMemoryRepository";
-export * from "./test-helpers/BaseModel";
-export * from "./test-helpers/CustomSequencer";
+export * from "./test-helpers/BaseInMemoryRepository.js";
+export * from "./test-helpers/BaseModel.js";
+export * from "./test-helpers/CustomSequencer.js";

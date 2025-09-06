@@ -5,7 +5,7 @@ import {
   IAclGroup,
   IAclRole,
   IBasicACLService,
-} from ".";
+} from "./index.js";
 
 /**
  * Access Control List (ACL) Service

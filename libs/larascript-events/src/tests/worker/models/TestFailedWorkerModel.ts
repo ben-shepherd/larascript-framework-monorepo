@@ -1,4 +1,4 @@
-import TestWorkerModel from "./TestWorkerModel";
+import TestWorkerModel from "./TestWorkerModel.js";
 
 class TestFailedWorkerModel extends TestWorkerModel {
 

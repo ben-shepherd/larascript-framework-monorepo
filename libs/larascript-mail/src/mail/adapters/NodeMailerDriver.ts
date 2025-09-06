@@ -1,7 +1,7 @@
 import nodemailer from "nodemailer";
 import { MailAdapter } from "..";
-import BaseMailAdapter from "../base/BaseMailAdapter";
-import Mail from "../data/Mail";
+import BaseMailAdapter from "../base/BaseMailAdapter.js";
+import Mail from "../data/Mail.js";
 
 type NodeMailerOptions = {
   host: string;

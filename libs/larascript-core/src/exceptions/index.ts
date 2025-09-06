@@ -1,3 +1,3 @@
-export * from "./AdapterException";
-export * from "./DependencyExecption";
-export * from "./UninitializedContainerError";
+export * from "./AdapterException.js";
+export * from "./DependencyExecption.js";
+export * from "./UninitializedContainerError.js";

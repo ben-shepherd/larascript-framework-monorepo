@@ -1,7 +1,7 @@
 import {
   IUploadedFile,
   IUploadedFileAttributes,
-} from "../interfaces/IUploadedFile.t";
+} from "../interfaces/IUploadedFile.t.js";
 
 /**
  * Concrete implementation of an uploaded file.

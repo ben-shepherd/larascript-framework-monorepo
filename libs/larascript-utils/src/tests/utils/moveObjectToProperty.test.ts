@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MoveObjectToProperty } from "../../utils/moveObjectToPropery";
+import { MoveObjectToProperty } from "../../utils/moveObjectToPropery.js";
 
 describe("MoveObjectToProperty", () => {
   let formatter: MoveObjectToProperty;

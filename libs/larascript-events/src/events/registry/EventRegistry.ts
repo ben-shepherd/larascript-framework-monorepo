@@ -1,5 +1,5 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IBaseEvent, ListenerConstructor, SubscriberConstructor } from "../interfaces";
+import { IBaseEvent, ListenerConstructor, SubscriberConstructor } from "../interfaces/index.js";
 
 /**
  * A static registry for events that can work before the event service is available

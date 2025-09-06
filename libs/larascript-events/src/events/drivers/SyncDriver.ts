@@ -1,6 +1,6 @@
-import { BaseDriver } from "../base/BaseDriver";
-import { EVENT_DRIVERS } from "../consts/drivers";
-import { IBaseEvent } from "../interfaces/base.t";
+import { BaseDriver } from "../base/BaseDriver.js";
+import { EVENT_DRIVERS } from "../consts/drivers.js";
+import { IBaseEvent } from "../interfaces/base.t.js";
 
 /**
  * SyncDriver class.

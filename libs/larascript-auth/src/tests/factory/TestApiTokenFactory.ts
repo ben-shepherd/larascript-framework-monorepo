@@ -1,7 +1,7 @@
 import { IFactory } from "@larascript-framework/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import { IApiTokenAttributes, IApiTokenModel } from "../../auth";
-import { TestApiTokenModel } from "../model/TestApiTokenModel";
+import { IApiTokenAttributes, IApiTokenModel } from "../../auth/index.js";
+import { TestApiTokenModel } from "../model/TestApiTokenModel.js";
 
 export class TestApiTokenFactory implements IFactory<IApiTokenModel> {
   getDefinition(): unknown {

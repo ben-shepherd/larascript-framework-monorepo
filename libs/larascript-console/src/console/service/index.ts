@@ -1,5 +1,5 @@
-export * from "./CommandReader";
-export * from "./CommandRegister";
-export * from "./ConsoleInputService";
-export * from "./ConsoleService";
+export * from "./CommandReader.js";
+export * from "./CommandRegister.js";
+export * from "./ConsoleInputService.js";
+export * from "./ConsoleService.js";
 

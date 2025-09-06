@@ -1,6 +1,6 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IEventDriver, IEventDriversConfig } from "./driver.t";
-import { TListenersConfigOption } from "./event.t";
+import { IEventDriver, IEventDriversConfig } from "./driver.t.js";
+import { TListenersConfigOption } from "./event.t.js";
 
 /**
  * Configuration interface for the event system

@@ -1,4 +1,4 @@
-import { BaseFormatter } from "../baseFormatter";
+import { BaseFormatter } from "../baseFormatter/index.js";
 
 export type MoveObjectToPropertyOptions = {
   column: string;

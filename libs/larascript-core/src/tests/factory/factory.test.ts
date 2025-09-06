@@ -1,4 +1,4 @@
-import { BaseFactory } from "@/base/BaseFactory";
+import { BaseFactory } from "@/base/BaseFactory.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 // Create a concrete implementation of Factory for testing

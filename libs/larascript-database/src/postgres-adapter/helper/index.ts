@@ -1,1 +1,1 @@
-export * from "./ParsePostgresConnectionUrl";
+export * from "./ParsePostgresConnectionUrl.js";

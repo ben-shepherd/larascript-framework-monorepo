@@ -1,5 +1,5 @@
 import jwt from "jsonwebtoken";
-import { IJSonWebToken } from "../interfaces/jwt.t";
+import { IJSonWebToken } from "../interfaces/jwt.t.js";
 
 /**
  * Decodes a JWT token using the provided secret.

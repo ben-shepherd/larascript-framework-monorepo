@@ -1,7 +1,7 @@
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "../../../worker";
-import TestFailedWorkerModel from "../models/TestFailedWorkerModel";
-import TestWorkerModel from "../models/TestWorkerModel";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "../../../worker/index.js";
+import TestFailedWorkerModel from "../models/TestFailedWorkerModel.js";
+import TestWorkerModel from "../models/TestWorkerModel.js";
 
 export class TestWorkerFactory implements IWorkerModelFactory {
 

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import { IBaseEvent, IBaseListener, IBaseSubscriber } from "./base.t";
-import { INameable } from "./types.t";
+import { IBaseEvent, IBaseListener, IBaseSubscriber } from "./base.t.js";
+import { INameable } from "./types.t.js";
 
 /**
  * Constructor type for event classes

@@ -1,7 +1,7 @@
 import { describe, expect, test } from "@jest/globals";
-import { IDatabaseService } from "../../database/interfaces/service.t";
-import DatabaseAdapter from "../../database/services/DatabaseAdapter";
-import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
+import { IDatabaseService } from "../../database/interfaces/service.t.js";
+import DatabaseAdapter from "../../database/services/DatabaseAdapter.js";
+import { MockSQLAdapter } from "./mocks/MockSQLAdapter.js";
 
 describe("Database Adapter", () => {
   test("getName", () => {

@@ -1,4 +1,4 @@
-import ConsoleService from "@/console/service/ConsoleService";
+import ConsoleService from "@/console/service/ConsoleService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 describe("Console Service Test Suite", () => {

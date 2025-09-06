@@ -1,4 +1,4 @@
-export * from "../../worker/services/WorkerService";
-export * from "./EventConfig";
-export * from "./EventService";
+export * from "../../worker/services/WorkerService.js";
+export * from "./EventConfig.js";
+export * from "./EventService.js";
 

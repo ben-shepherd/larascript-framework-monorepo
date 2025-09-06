@@ -1,1 +1,1 @@
-export * from "./AbstractRule";
+export * from "./AbstractRule.js";

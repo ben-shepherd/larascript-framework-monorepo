@@ -3,15 +3,16 @@ import {
   deepClone,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
-import { IDatabaseAdapter } from "../database/interfaces/adapter.t";
-import DB from "../database/services/DB";
-import { IModel, ModelConstructor } from "../model";
-import Direction from "./enums/Direction";
-import EloquentException from "./exceptions/EloquentExpression";
-import ExpressionException from "./exceptions/ExpressionException";
-import InvalidMethodException from "./exceptions/InvalidMethodException";
-import MissingTableException from "./exceptions/MissingTableException";
-import QueryBuilderException from "./exceptions/QueryBuilderException";
+import { IDatabaseAdapter } from "../database/interfaces/adapter.t.js";
+import DB from "../database/services/DB.js";
+import { IModel, ModelConstructor } from "../model/index.js";
+import Direction from "./enums/Direction.js";
+import EloquentException from "./exceptions/EloquentExpression.js";
+import ExpressionException from "./exceptions/ExpressionException.js";
+import InvalidMethodException from "./exceptions/InvalidMethodException.js";
+import MissingTableException from "./exceptions/MissingTableException.js";
+import QueryBuilderException from "./exceptions/QueryBuilderException.js";
+import IEloquentExpression from "./interfaces/expressions.t.js";
 import {
   IdGeneratorFn,
   IEloquent,
@@ -26,9 +27,8 @@ import {
   TOperator,
   TransactionFn,
   TWhereClauseValue,
-} from "./interfaces";
-import IEloquentExpression from "./interfaces/expressions.t";
-import With from "./relational/With";
+} from "./interfaces/index.js";
+import With from "./relational/With.js";
 
 /**
  * Base class for Eloquent query builder.

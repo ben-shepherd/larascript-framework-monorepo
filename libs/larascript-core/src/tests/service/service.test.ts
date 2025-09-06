@@ -1,4 +1,4 @@
-import { BaseService } from "@/base/BaseService";
+import { BaseService } from "@/base/BaseService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 
 // Simple concrete implementation of BaseService for testing

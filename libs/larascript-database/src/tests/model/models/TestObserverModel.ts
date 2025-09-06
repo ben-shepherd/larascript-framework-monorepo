@@ -1,7 +1,7 @@
-import DB from "@/database/services/DB";
-import { IModelAttributes } from "@/index";
-import Model from "@/model/base/Model";
-import { forEveryConnection } from "@/tests/tests-helper/forEveryConnection";
+import DB from "@/database/services/DB.js";
+import { IModelAttributes } from "@/index.js";
+import Model from "@/model/base/Model.js";
+import { forEveryConnection } from "@/tests/tests-helper/forEveryConnection.js";
 import { Observer } from "@larascript-framework/larascript-observer";
 import { DataTypes } from "sequelize";
 

@@ -1,1 +1,1 @@
-export * from "./FileSystemStorageFileParser";
+export * from "./FileSystemStorageFileParser.js";

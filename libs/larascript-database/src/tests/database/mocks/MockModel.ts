@@ -1,5 +1,5 @@
-import { IModelAttributes } from "../../../model";
-import Model from "../../../model/base/Model";
+import Model from "../../../model/base/Model.js";
+import { IModelAttributes } from "../../../model/index.js";
 
 export interface MockModelAttributes extends IModelAttributes {
   id: string;

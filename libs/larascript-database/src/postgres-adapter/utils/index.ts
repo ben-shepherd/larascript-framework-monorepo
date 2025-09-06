@@ -1,1 +1,1 @@
-export * from "./extractDefaultPostgresCredentials";
+export * from "./extractDefaultPostgresCredentials.js";

@@ -1,18 +1,18 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import pg from "pg";
 import { QueryInterface, Sequelize } from "sequelize";
-import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter";
-import { IDatabaseSchema } from "../../database/interfaces/schema.t";
-import DB from "../../database/services/DB";
-import { IEloquent } from "../../eloquent";
-import { IModel } from "../../model";
-import PostgresEloquent from "../eloquent/PostgresEloquent";
-import ParsePostgresConnectionUrl from "../helper/ParsePostgresConnectionUrl";
-import { IPostgresConfig } from "../interfaces/IPostgresConfig";
-import { IPostgresAdapter } from "../interfaces/postgres.t";
-import PostgresSchema from "../PostgresSchema";
-import createMigrationSchemaPostgres from "../schema/createMigrationSchemaPostgres";
-import { extractDefaultPostgresCredentials } from "../utils/extractDefaultPostgresCredentials";
+import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter.js";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
+import DB from "../../database/services/DB.js";
+import { IEloquent } from "../../eloquent/index.js";
+import { IModel } from "../../model/index.js";
+import PostgresEloquent from "../eloquent/PostgresEloquent.js";
+import ParsePostgresConnectionUrl from "../helper/ParsePostgresConnectionUrl.js";
+import { IPostgresConfig } from "../interfaces/IPostgresConfig.js";
+import { IPostgresAdapter } from "../interfaces/postgres.t.js";
+import PostgresSchema from "../PostgresSchema.js";
+import createMigrationSchemaPostgres from "../schema/createMigrationSchemaPostgres.js";
+import { extractDefaultPostgresCredentials } from "../utils/extractDefaultPostgresCredentials.js";
 
 /**
  * PostgresAdapter is responsible for managing the connection and operations with a PostgreSQL database.

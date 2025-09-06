@@ -1,12 +1,12 @@
 import { describe } from "@jest/globals";
-import { forEveryConnection } from "../tests-helper/forEveryConnection";
-import { queryBuilder, testHelper } from "../tests-helper/testHelper";
+import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
+import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
 import TestDepartmentModel, {
   resetTableDepartmentModel,
-} from "./models/TestDepartmentModel";
+} from "./models/TestDepartmentModel.js";
 import TestEmployeeModel, {
   resetTableEmployeeModel,
-} from "./models/TestEmployeeModel";
+} from "./models/TestEmployeeModel.js";
 
 const resetAndRepopulate = async () => {
   await resetTableEmployeeModel();

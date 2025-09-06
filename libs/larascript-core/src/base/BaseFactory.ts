@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { IFactory } from "../interfaces/base.t";
+import { IFactory } from "../interfaces/base.t.js";
 
 /**
  * Abstract base class for factories that create instances of a specific model.

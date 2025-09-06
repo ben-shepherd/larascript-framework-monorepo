@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { forceString } from "../../utils/forceString";
+import { forceString } from "../../utils/forceString.js";
 
 describe("forceString", () => {
   describe("string values", () => {

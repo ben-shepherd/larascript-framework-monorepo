@@ -1,7 +1,7 @@
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
-import { IApiTokenRepository, IJwtAuthService, IUserRepository } from ".";
-import { IApiTokenFactory, IUserFactory } from "./factory";
-import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t";
+import { IApiTokenRepository, IJwtAuthService, IUserRepository } from "../index.js";
+import { IApiTokenFactory, IUserFactory } from "./factory.js";
+import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t.js";
 
 export interface IAuthService {
   setAclService(aclService: IBasicACLService): void;

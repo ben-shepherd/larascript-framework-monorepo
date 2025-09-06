@@ -1,5 +1,5 @@
-import { TSerializableValues } from "../../events/interfaces/event.t";
-import { IEventService } from "../../events/interfaces/services.t";
+import { TSerializableValues } from "../../events/interfaces/event.t.js";
+import { IEventService } from "../../events/interfaces/services.t.js";
 
 /**
  * Interface for worker repositories that manage worker data

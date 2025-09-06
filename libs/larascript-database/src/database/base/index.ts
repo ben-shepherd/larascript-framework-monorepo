@@ -1,2 +1,2 @@
-export * from "./BaseDatabaseAdapter";
-export * from "./BaseSchema";
+export * from "./BaseDatabaseAdapter.js";
+export * from "./BaseSchema.js";

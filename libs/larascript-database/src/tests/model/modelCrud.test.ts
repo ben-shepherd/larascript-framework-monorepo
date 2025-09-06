@@ -1,9 +1,9 @@
-import { queryBuilder, testHelper } from "@/tests/tests-helper/testHelper";
+import { queryBuilder, testHelper } from "@/tests/tests-helper/testHelper.js";
 import { describe, expect, test } from "@jest/globals";
 import TestPeopleModel, {
   resetPeopleTable,
-} from "../eloquent/models/TestPeopleModel";
-import { forEveryConnection } from "../tests-helper/forEveryConnection";
+} from "../eloquent/models/TestPeopleModel.js";
+import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
 
 describe("test model crud", () => {
   beforeAll(async () => {

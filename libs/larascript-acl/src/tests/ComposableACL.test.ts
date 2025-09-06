@@ -1,6 +1,6 @@
-import { IAclConfig } from "@/acl";
-import { ComposableACL } from "../acl/ComposableACL";
-import { compose } from "../utils/compose";
+import { IAclConfig } from "@/acl/index.js";
+import { ComposableACL } from "../acl/ComposableACL.js";
+import { compose } from "../utils/compose.js";
 
 // Test ACL configuration
 const testAclConfig: IAclConfig = {

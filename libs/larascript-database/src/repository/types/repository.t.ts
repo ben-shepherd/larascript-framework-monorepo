@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 
-import { IModel, ModelConstructor } from "../../model";
+import { IModel, ModelConstructor } from "../../model/index.js";
 
 /**
  * Constructor type for repositories.

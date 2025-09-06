@@ -1,5 +1,5 @@
  
-import { ParsedArgumentsArray } from "../parsers/CommandArgumentParser";
+import { ParsedArgumentsArray } from "../parsers/CommandArgumentParser.js";
 
 export type ICommandConstructor<T extends ICommand = ICommand> = new (
   ...args: any[]

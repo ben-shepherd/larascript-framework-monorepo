@@ -1,8 +1,8 @@
-import { withDependencies } from "../../../app";
-import { BaseProvider } from "../../../base";
-import AltMockDatabaseService from "../services/AltMockDatabaseService";
-import LoggerService from "../services/LoggerService";
-import MockDatabaseService from "../services/MockDatabaseService";
+import { withDependencies } from "../../../app/index.js";
+import { BaseProvider } from "../../../base/index.js";
+import AltMockDatabaseService from "../services/AltMockDatabaseService.js";
+import LoggerService from "../services/LoggerService.js";
+import MockDatabaseService from "../services/MockDatabaseService.js";
 
 export type TestContainers = {
   example: string;

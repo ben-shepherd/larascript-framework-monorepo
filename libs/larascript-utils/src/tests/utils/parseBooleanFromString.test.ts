@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { parseBooleanFromString } from "../../utils/parseBooleanFromString";
+import { parseBooleanFromString } from "../../utils/parseBooleanFromString.js";
 
 describe("parseBooleanFromString", () => {
   describe("with defined values", () => {

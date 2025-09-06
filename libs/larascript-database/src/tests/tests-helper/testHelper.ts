@@ -1,12 +1,12 @@
-import DatabaseConfig from "@/database/services/DatabaseConfig";
-import DatabaseService from "@/database/services/DatabaseService";
-import DB from "@/database/services/DB";
-import EloquentQueryBuilderService from "@/eloquent/services/EloquentQueryBuilderService";
-import { IModel, ModelConstructor } from "@/model";
-import { MongoDbAdapter } from "@/mongodb-adapter/adapters";
-import { extractDefaultMongoCredentials } from "@/mongodb-adapter/utils/extractDefaultMongoCredentials";
-import { PostgresAdapter } from "@/postgres-adapter/adapters";
-import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials";
+import DatabaseConfig from "@/database/services/DatabaseConfig.js";
+import DatabaseService from "@/database/services/DatabaseService.js";
+import DB from "@/database/services/DB.js";
+import EloquentQueryBuilderService from "@/eloquent/services/EloquentQueryBuilderService.js";
+import { IModel, ModelConstructor } from "@/model/index.js";
+import { MongoDbAdapter } from "@/mongodb-adapter/adapters/index.js";
+import { extractDefaultMongoCredentials } from "@/mongodb-adapter/utils/extractDefaultMongoCredentials.js";
+import { PostgresAdapter } from "@/postgres-adapter/adapters/index.js";
+import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials.js";
 import { CryptoService } from "@larascript-framework/crypto-js";
 import {
   AppSingleton,

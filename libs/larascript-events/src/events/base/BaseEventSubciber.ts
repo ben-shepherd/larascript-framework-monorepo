@@ -1,5 +1,5 @@
-import { IBaseSubscriber } from "../interfaces";
-import BaseEvent from "./BaseEvent";
+import { IBaseSubscriber } from "../interfaces/index.js";
+import BaseEvent from "./BaseEvent.js";
 
 /**
  * Base class for event subscribers

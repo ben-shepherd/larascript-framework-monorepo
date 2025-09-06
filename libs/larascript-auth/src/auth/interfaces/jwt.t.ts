@@ -9,14 +9,14 @@ import {
   IUserModel,
   IUserRepository,
   IUserRepositoryConstructor,
-} from ".";
-import { IBaseDriverConfig } from "./config.t";
+} from "../index.js";
+import { IBaseDriverConfig } from "./config.t.js";
 import {
   IApiTokenFactory,
   IApiTokenFactoryConstructor,
   IUserFactory,
   IUserFactoryConstructor,
-} from "./factory";
+} from "./factory.js";
 
 export interface IJSonWebToken {
   uid: string;

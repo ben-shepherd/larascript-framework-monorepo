@@ -1,8 +1,8 @@
 import { BaseAdapterTypes, RequiresDependency } from "@larascript-framework/larascript-core";
-import LocalMailDriver from "../adapters/LocalMailDriver";
-import NodeMailDriver from "../adapters/NodeMailerDriver";
-import ResendMailDriver from "../adapters/ResendMailDriver";
-import { IMail } from "./data";
+import LocalMailDriver from "../adapters/LocalMailDriver.js";
+import NodeMailDriver from "../adapters/NodeMailerDriver.js";
+import ResendMailDriver from "../adapters/ResendMailDriver.js";
+import { IMail } from "./data.js";
 
 export type BaseMailAdapters = BaseAdapterTypes<MailAdapter> & {
   [key: string]: MailAdapter;

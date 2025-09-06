@@ -1,9 +1,9 @@
-import { StorageFile } from "../data";
-import { IGenericStorage } from "./IGenericStorage.t";
-import { IStorageConfig } from "./IStorageConfig.t";
-import { IStorageFile } from "./IStorageFile";
-import { IUploadedFile } from "./IUploadedFile.t";
-import { FileSystemMeta } from "./meta";
+import { StorageFile } from "../data.js";
+import { IGenericStorage } from "./IGenericStorage.t.js";
+import { IStorageConfig } from "./IStorageConfig.t.js";
+import { IStorageFile } from "./IStorageFile.js";
+import { IUploadedFile } from "./IUploadedFile.t.js";
+import { FileSystemMeta } from "./meta.js";
 
 /**
  * Interface for a storage service that extends generic storage capabilities.

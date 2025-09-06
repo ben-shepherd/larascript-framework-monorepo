@@ -1,10 +1,10 @@
-import DB from "@/database/services/DB";
-import BelongsTo from "@/eloquent/relational/BelongsTo";
-import { IModelAttributes } from "@/model";
-import Model from "@/model/base/Model";
-import { testHelper } from "@/tests/tests-helper/testHelper";
+import DB from "@/database/services/DB.js";
+import BelongsTo from "@/eloquent/relational/BelongsTo.js";
+import Model from "@/model/base/Model.js";
+import { IModelAttributes } from "@/model/index.js";
+import { testHelper } from "@/tests/tests-helper/testHelper.js";
 import { DataTypes } from "sequelize";
-import TestDepartmentModel from "./TestDepartmentModel";
+import TestDepartmentModel from "./TestDepartmentModel.js";
 
 const tableName = Model.formatTableName("testsEmployees");
 

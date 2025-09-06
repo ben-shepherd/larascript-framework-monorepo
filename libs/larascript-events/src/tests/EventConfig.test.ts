@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { EventConfig } from "../events/services/EventConfig";
+import { EventConfig } from "../events/services/EventConfig.js";
 
 describe("EventConfig", () => {
   let config: EventConfig;

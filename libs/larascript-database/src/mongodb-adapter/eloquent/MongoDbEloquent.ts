@@ -1,4 +1,4 @@
-import DB from "../../database/services/DB";
+import DB from "../../database/services/DB.js";
 
 import {
   Collection,
@@ -9,14 +9,14 @@ import {
   captureError,
 } from "@larascript-framework/larascript-utils";
 import { Document, Collection as MongoCollection, ObjectId } from "mongodb";
-import { IEloquent } from "../../eloquent";
-import Eloquent from "../../eloquent/Eloquent";
-import EloquentException from "../../eloquent/exceptions/EloquentExpression";
-import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
-import IEloquentExpression from "../../eloquent/interfaces/expressions.t";
-import { IModel, ModelConstructor } from "../../model";
-import { MongoDbAdapter } from "../adapters";
-import AggregateExpression from "../builder/AggregateExpression";
+import Eloquent from "../../eloquent/Eloquent.js";
+import EloquentException from "../../eloquent/exceptions/EloquentExpression.js";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException.js";
+import { IEloquent } from "../../eloquent/index.js";
+import IEloquentExpression from "../../eloquent/interfaces/expressions.t.js";
+import { IModel, ModelConstructor } from "../../model/index.js";
+import { MongoDbAdapter } from "../adapters/index.js";
+import AggregateExpression from "../builder/AggregateExpression/index.js";
 
 /**
  * Represents a MongoDB document with an ObjectId _id field and model attributes.

@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import TestUserModel from "./model/TestUserModel";
+import TestUserModel from "./model/TestUserModel.js";
 
 describe("TestUserModel", () => {
   let userModel: TestUserModel;

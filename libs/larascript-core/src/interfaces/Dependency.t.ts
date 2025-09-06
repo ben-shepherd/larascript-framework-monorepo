@@ -1,4 +1,4 @@
-import { Containers } from "../kernel/Kernel";
+import { Containers } from "../kernel/Kernel.js";
 
 export type DependencyLoader<C extends Containers = Containers> = <
   T extends C,

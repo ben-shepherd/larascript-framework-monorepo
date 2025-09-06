@@ -1,5 +1,5 @@
 import { DataTypes } from "sequelize";
-import PostgresAdapter from "../adapters/PostgresAdapter";
+import PostgresAdapter from "../adapters/PostgresAdapter.js";
 
 /**
  * Creates the migrations table in Postgres if it does not already exist

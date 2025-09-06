@@ -1,2 +1,2 @@
-export * from "./InvalidSequelizeException";
+export * from "./InvalidSequelizeException.js";
 

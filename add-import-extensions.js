@@ -56,6 +56,11 @@ function fixImports(file) {
       if (/\.(js|ts|json|mjs|cjs|jsx|tsx)$/.test(p1)) return match;
       return `from "${p1}.js"`;
     })
+    // handle `import ... from "@/foo"`
+    .replace(/from\s+["']@\/([^"']+)["']/g, (match, p1) => {
+      if (/\.(js|ts|json|mjs|cjs|jsx|tsx)$/.test(p1)) return match;
+      return `from "@/${p1}.js"`;
+    })
     // handle `export ... from "./foo"`
     .replace(/export\s+.*from\s+["'](\.\/[^"']+|\.{2}\/[^"']+)["']/g, (match, p1) => {
       if (/\.(js|ts|json|mjs|cjs|jsx|tsx)$/.test(p1)) return match;

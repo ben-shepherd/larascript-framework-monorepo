@@ -1,7 +1,7 @@
 import { IFactory } from "@larascript-framework/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import { IUserAttributes, IUserModel } from "../../auth";
-import TestUserModel from "../model/TestUserModel";
+import { IUserAttributes, IUserModel } from "../../auth/index.js";
+import TestUserModel from "../model/TestUserModel.js";
 
 export class TestUserFactory implements IFactory<IUserModel> {
   getDefinition(): unknown {

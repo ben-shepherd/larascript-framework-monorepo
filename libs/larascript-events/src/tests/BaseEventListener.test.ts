@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { BaseEventListener } from "../events/base";
-import { EventRegistry } from "../events/registry/EventRegistry";
+import { BaseEventListener } from "../events/base/BaseEventListener.js";
+import { EventRegistry } from "../events/registry/EventRegistry.js";
 
 // Mock dependencies
 jest.mock("@larascript-framework/larascript-core", () => ({

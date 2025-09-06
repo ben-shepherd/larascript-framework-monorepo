@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { validateUuid } from "../../utils/validateUuid";
+import { validateUuid } from "../../utils/validateUuid.js";
 
 describe("validateUuid", () => {
   describe("valid UUIDs", () => {

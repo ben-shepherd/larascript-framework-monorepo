@@ -4,15 +4,15 @@ import {
   IJwtAuthService,
   IUserModel,
   IUserRepository,
-} from "@/auth";
-import AuthService from "@/auth/services/AuthService";
-import OneTimeAuthenticationService from "@/auth/services/OneTimeAuthenticationService";
+} from "@/auth/index.js";
+import AuthService from "@/auth/services/AuthService.js";
+import OneTimeAuthenticationService from "@/auth/services/OneTimeAuthenticationService.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
-import { TestApiTokenFactory } from "./factory/TestApiTokenFactory";
-import { TestUserFactory } from "./factory/TestUserFactory";
-import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository";
-import { InMemoryUserRepository } from "./repository/InMemoryUserRepository";
+import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
+import { TestUserFactory } from "./factory/TestUserFactory.js";
+import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository.js";
+import { InMemoryUserRepository } from "./repository/InMemoryUserRepository.js";
 
 const mockAclConfig: IAclConfig = {
   roles: [

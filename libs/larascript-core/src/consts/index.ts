@@ -1,1 +1,1 @@
-export * from "./EnvironmentType";
+export * from "./EnvironmentType.js";

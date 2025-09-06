@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { CryptoService } from "../crypto/CryptoService";
-import { ICryptoConfig } from "../crypto/ICryptoConfig.t";
+import { CryptoService } from "../crypto/CryptoService.js";
+import { ICryptoConfig } from "../crypto/ICryptoConfig.t.js";
 
 describe("CryptoService", () => {
   let cryptoService: CryptoService;

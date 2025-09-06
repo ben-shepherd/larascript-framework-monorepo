@@ -1,6 +1,6 @@
-import BaseMailAdapter from "../base/BaseMailAdapter";
-import Mail from "../data/Mail";
-import { MailAdapter } from "../interfaces";
+import BaseMailAdapter from "../base/BaseMailAdapter.js";
+import Mail from "../data/Mail.js";
+import { MailAdapter } from "../interfaces.js";
 
 export class LocalMailDriver extends BaseMailAdapter implements MailAdapter {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars

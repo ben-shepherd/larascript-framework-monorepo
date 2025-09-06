@@ -1,4 +1,4 @@
-import { BaseAdapter, BaseAdapterTypes } from "@/base/BaseAdapter";
+import { BaseAdapter, BaseAdapterTypes } from "@/base/BaseAdapter.js";
 
 // Simple interface for a basic adapter
 interface SimpleAdapter {

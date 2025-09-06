@@ -1,20 +1,20 @@
 import AWS from "aws-sdk";
 import fs from "fs";
 import path from "path";
-import { BaseGenericStorage } from "../base/BaseGenericStorage";
-import { StorageFile } from "../data";
-import { StorageTypes } from "../enums";
+import { BaseGenericStorage } from "../base/BaseGenericStorage.js";
+import { StorageFile } from "../data.js";
+import { StorageTypes } from "../enums.js";
 import {
   FileNotFoundException,
   InvalidStorageFileException,
-} from "../exceptions";
+} from "../exceptions.js";
 import {
   FileSystemMeta,
   IGenericStorage,
   IStorageService,
   S3Meta,
-} from "../interfaces";
-import FileSystemStorageFileParser from "../parser/FileSystemStorageFileParser";
+} from "../interfaces.js";
+import FileSystemStorageFileParser from "../parser/FileSystemStorageFileParser.js";
 /**
  * Configuration interface for Amazon S3 storage service
  */

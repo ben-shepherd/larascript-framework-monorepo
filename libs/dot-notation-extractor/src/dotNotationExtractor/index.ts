@@ -1,3 +1,3 @@
-export * from "./DotNotationDataExtrator";
-export * from "./DotNotationParser";
-export * from "./DotNotationParserException";
+export * from "./DotNotationDataExtrator.js";
+export * from "./DotNotationParser.js";
+export * from "./DotNotationParserException.js";

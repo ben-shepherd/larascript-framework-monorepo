@@ -1,5 +1,5 @@
-import { IModelAttributes } from "@/index";
-import Model from "@/model/base/Model";
+import { IModelAttributes } from "@/index.js";
+import Model from "@/model/base/Model.js";
 
 export interface TestModelData extends IModelAttributes {
   name: string;

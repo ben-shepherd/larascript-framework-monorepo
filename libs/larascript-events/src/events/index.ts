@@ -1,8 +1,8 @@
-export * from "./base";
-export * from "./consts";
-export * from "./drivers";
-export * from "./exceptions";
-export * from "./interfaces";
-export * from "./registry";
-export * from "./services";
+export * from "./base/index.js";
+export * from "./consts/index.js";
+export * from "./drivers/index.js";
+export * from "./exceptions/index.js";
+export * from "./interfaces/index.js";
+export * from "./registry/index.js";
+export * from "./services/index.js";
 

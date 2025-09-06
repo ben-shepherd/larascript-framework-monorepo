@@ -1,10 +1,10 @@
 import { describe, expect, test } from "@jest/globals";
-import { EventDispatchException } from "../events/exceptions/EventDispatchException";
-import { EventDriverException } from "../events/exceptions/EventDriverException";
-import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
-import { EventMockException } from "../events/exceptions/EventMockException";
-import { EventNotDispatchedException } from "../events/exceptions/EventNotDispatchedException";
-import { EventWorkerException } from "../events/exceptions/EventWorkerException";
+import { EventDispatchException } from "../events/exceptions/EventDispatchException.js";
+import { EventDriverException } from "../events/exceptions/EventDriverException.js";
+import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException.js";
+import { EventMockException } from "../events/exceptions/EventMockException.js";
+import { EventNotDispatchedException } from "../events/exceptions/EventNotDispatchedException.js";
+import { EventWorkerException } from "../events/exceptions/EventWorkerException.js";
 
 describe("Event Exceptions", () => {
   describe("EventDispatchException", () => {

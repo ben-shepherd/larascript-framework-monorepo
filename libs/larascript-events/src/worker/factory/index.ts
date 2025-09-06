@@ -1,1 +1,1 @@
-export * from "./WorkerModelFactory";
+export * from "./WorkerModelFactory.js";

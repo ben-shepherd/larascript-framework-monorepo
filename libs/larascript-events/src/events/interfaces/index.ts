@@ -1,8 +1,8 @@
-export * from "./base.t";
-export * from "./config.t";
-export * from "./driver.t";
-export * from "./event.t";
-export * from "./mock.t";
-export * from "./services.t";
-export * from "./types.t";
+export * from "./base.t.js";
+export * from "./config.t.js";
+export * from "./driver.t.js";
+export * from "./event.t.js";
+export * from "./mock.t.js";
+export * from "./services.t.js";
+export * from "./types.t.js";
 

@@ -1,4 +1,4 @@
-import { AdapterException } from "../exceptions";
+import { AdapterException } from "../exceptions/index.js";
 
 /**
  * @template T type of the adapter

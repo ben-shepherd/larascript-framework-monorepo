@@ -1,2 +1,2 @@
-export { default as createMigrationSchemaMongo } from "./createMigrationSchemaMongo";
-export * from "./MongoDbSchema";
+export { default as createMigrationSchemaMongo } from "./createMigrationSchemaMongo.js";
+export * from "./MongoDbSchema.js";

@@ -1,4 +1,4 @@
-import { RenderData } from "./data";
+import { RenderData } from "./data.js";
 
 export interface IViewService extends IViewRenderService {
   ejs(): IViewRenderService;

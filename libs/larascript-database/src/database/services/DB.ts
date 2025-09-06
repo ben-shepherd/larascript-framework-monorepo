@@ -6,9 +6,9 @@ import {
   RequiresDependency,
 } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import { IEloquent, IEloquentQueryBuilderService } from "../../eloquent";
-import { IModel, ModelConstructor } from "../../model";
-import { IDatabaseService } from "../interfaces/service.t";
+import { IEloquent, IEloquentQueryBuilderService } from "../../eloquent/index.js";
+import { IModel, ModelConstructor } from "../../model/index.js";
+import { IDatabaseService } from "../interfaces/service.t.js";
 
 export type InitTypes = {
   app?: (name: string) => unknown;

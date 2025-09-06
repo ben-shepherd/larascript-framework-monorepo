@@ -1,6 +1,6 @@
-import EnumRule from "@/validator/rules/EnumRule";
-import NullableRule from "@/validator/rules/NullableRule";
-import Validator from "@/validator/service/Validator";
+import EnumRule from "@/validator/rules/EnumRule.js";
+import NullableRule from "@/validator/rules/NullableRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe, expect, it } from "@jest/globals";
 
 describe("test enum validation rule", () => {

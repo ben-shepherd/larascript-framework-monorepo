@@ -1,5 +1,5 @@
-import AsyncSessionService from "@/session/AsyncSessionService";
 import { describe, expect, test } from "@jest/globals";
+import AsyncSessionService from "../session/AsyncSessionService.js";
 
 describe("SessionService", () => {
   test("should create a new session with unique ID", async () => {

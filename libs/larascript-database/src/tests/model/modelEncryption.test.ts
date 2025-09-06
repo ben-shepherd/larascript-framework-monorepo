@@ -1,9 +1,9 @@
-import Model from "@/model/base/Model";
-import { testHelper } from "../tests-helper/testHelper";
+import Model from "@/model/base/Model.js";
+import { testHelper } from "../tests-helper/testHelper.js";
 import TestEncryptionModel, {
   resetEncryptionTable,
   TestEncryptionModelAttributes,
-} from "./models/TestEncryptionModel";
+} from "./models/TestEncryptionModel.js";
 
 describe("test model encryption", () => {
   beforeAll(async () => {

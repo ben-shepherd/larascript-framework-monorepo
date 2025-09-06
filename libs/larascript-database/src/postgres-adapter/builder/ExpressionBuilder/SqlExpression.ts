@@ -1,25 +1,25 @@
+import { isUuid } from "@larascript-framework/larascript-utils";
+import { z } from "zod";
+import BaseExpression, { buildTypes } from "../../../eloquent/base/BaseExpression.js";
+import ExpressionException from "../../../eloquent/exceptions/ExpressionException.js";
 import {
   TColumnOption,
   TJoin,
   TLogicalOperator,
   TOperator,
   TWhereClauseValue,
-} from "../../../eloquent";
-import BaseExpression, { buildTypes } from "../../../eloquent/base/BaseExpression";
-import ExpressionException from "../../../eloquent/exceptions/ExpressionException";
-import { isUuid } from "@larascript-framework/larascript-utils";
-import { z } from "zod";
-import BindingsHelper from "../BindingsHelper";
-import DeleteFrom from "./Clauses/DeleteFrom";
-import FromTable from "./Clauses/FromTable";
-import GroupBy from "./Clauses/GroupBy";
-import Insert from "./Clauses/Insert";
-import Joins from "./Clauses/Joins";
-import OffsetLimit from "./Clauses/OffsetLimit";
-import OrderBy from "./Clauses/OrderBy";
-import SelectColumns from "./Clauses/SelectColumns";
-import Update from "./Clauses/Update";
-import Where from "./Clauses/Where";
+} from "../../../eloquent/index.js";
+import BindingsHelper from "../BindingsHelper.js";
+import DeleteFrom from "./Clauses/DeleteFrom.js";
+import FromTable from "./Clauses/FromTable.js";
+import GroupBy from "./Clauses/GroupBy.js";
+import Insert from "./Clauses/Insert.js";
+import Joins from "./Clauses/Joins.js";
+import OffsetLimit from "./Clauses/OffsetLimit.js";
+import OrderBy from "./Clauses/OrderBy.js";
+import SelectColumns from "./Clauses/SelectColumns.js";
+import Update from "./Clauses/Update.js";
+import Where from "./Clauses/Where.js";
 
 export type SqlRaw = { sql: string; bindings?: unknown };
 

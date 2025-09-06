@@ -1,6 +1,6 @@
-import AbstractRule from "../abstract/AbstractRule";
-import { IRule, IRuleError } from "../interfaces/IRule";
-import isTruthy from "../utils/isTruthy";
+import AbstractRule from "../abstract/AbstractRule.js";
+import { IRule, IRuleError } from "../interfaces/IRule.js";
+import isTruthy from "../utils/isTruthy.js";
 
 type AcceptedIfOptions = {
   anotherField: string;

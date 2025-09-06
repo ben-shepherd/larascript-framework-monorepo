@@ -1,5 +1,5 @@
-import RegexRule from "@/validator/rules/RegexRule";
-import Validator from "@/validator/service/Validator";
+import RegexRule from "@/validator/rules/RegexRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test regex validation rule", () => {

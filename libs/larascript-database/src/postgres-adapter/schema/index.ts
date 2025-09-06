@@ -1,1 +1,1 @@
-export * from "./createMigrationSchemaPostgres";
+export * from "./createMigrationSchemaPostgres.js";

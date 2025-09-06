@@ -1,2 +1,2 @@
-export * from "./EjsRenderService";
-export * from "./ViewService";
+export * from "./EjsRenderService.js";
+export * from "./ViewService.js";

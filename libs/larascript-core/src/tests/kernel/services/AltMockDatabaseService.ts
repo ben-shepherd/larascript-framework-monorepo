@@ -1,9 +1,9 @@
 import {
   DependencyLoader,
   RequiresDependency,
-} from "@/interfaces/Dependency.t";
-import { TestContainers } from "../providers/providers";
-import LoggerService from "./LoggerService";
+} from "@/interfaces/Dependency.t.js";
+import { TestContainers } from "../providers/providers.js";
+import LoggerService from "./LoggerService.js";
 
 type MockDatabaseServiceOptions = {
   connectionWillSucceed: boolean;

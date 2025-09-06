@@ -1,5 +1,5 @@
-import { CastException } from "./CastException";
-import { IHasCastableConcern, TCastableType, TCasts } from "./types.t";
+import { CastException } from "./CastException.js";
+import { IHasCastableConcern, TCastableType, TCasts } from "./types.t.js";
 
 type TCastableOptions = {
   returnNullOnException: boolean;

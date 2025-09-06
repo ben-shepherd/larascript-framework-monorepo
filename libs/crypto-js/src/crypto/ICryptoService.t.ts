@@ -1,4 +1,4 @@
-import { BufferEncoding } from "./BufferingEncoding.t";
+import { BufferEncoding } from "./BufferingEncoding.t.js";
 
 export interface ICryptoService {
   generateBytesAsString(length?: number, encoding?: BufferEncoding): string;

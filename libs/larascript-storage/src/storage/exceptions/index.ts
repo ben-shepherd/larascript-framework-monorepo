@@ -1,2 +1,2 @@
-export * from "./FileNotFoundException";
-export * from "./InvalidStorageFileException";
+export * from "./FileNotFoundException.js";
+export * from "./InvalidStorageFileException.js";

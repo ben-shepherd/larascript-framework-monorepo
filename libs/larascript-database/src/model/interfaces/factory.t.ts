@@ -1,5 +1,5 @@
 import { IFactory } from "@larascript-framework/larascript-core";
-import { IModel, ModelConstructor } from "./model.t";
+import { IModel, ModelConstructor } from "./model.t.js";
 
 export type IModelFactory<Model extends IModel> = IFactory<Model>;
 

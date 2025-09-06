@@ -1,11 +1,11 @@
 
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { BaseEventListener } from "../base";
-import { EventDispatchException } from "../exceptions/EventDispatchException";
-import { EventNotDispatchedException } from "../exceptions/EventNotDispatchedException";
-import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService, SubscriberConstructor, TListenersConfigOption, TMockableEventCallback } from "../interfaces";
-import { IEventConfig } from "../interfaces/config.t";
-import EventRegistry from "../registry/EventRegistry";
+import { BaseEventListener } from "../base/index.js";
+import { EventDispatchException } from "../exceptions/EventDispatchException.js";
+import { EventNotDispatchedException } from "../exceptions/EventNotDispatchedException.js";
+import { IEventConfig } from "../interfaces/config.t.js";
+import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService, SubscriberConstructor, TListenersConfigOption, TMockableEventCallback } from "../interfaces/index.js";
+import EventRegistry from "../registry/EventRegistry.js";
 
 /**
  * The event service is responsible for managing the event system.

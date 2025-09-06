@@ -1,1 +1,1 @@
-export * from "./UserWithACL";
+export * from "./UserWithACL.js";

@@ -1,6 +1,6 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import HelpCommand from "../commands/HelpCommand";
-import ConsoleService from "../service/ConsoleService";
+import HelpCommand from "../commands/HelpCommand.js";
+import ConsoleService from "../service/ConsoleService.js";
 
 export class ConsoleProvider extends BaseProvider {
   /**

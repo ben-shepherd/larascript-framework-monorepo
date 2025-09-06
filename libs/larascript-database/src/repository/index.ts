@@ -1,2 +1,2 @@
-export * from "./base/Repository";
-export * from "./types/repository.t";
+export * from "./base/Repository.js";
+export * from "./types/repository.t.js";

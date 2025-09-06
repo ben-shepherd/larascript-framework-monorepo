@@ -1,5 +1,5 @@
-import { TOrderBy } from "../../../../eloquent";
-import SqlExpression from "../SqlExpression";
+import { TOrderBy } from "../../../../eloquent/index.js";
+import SqlExpression from "../SqlExpression.js";
 
 class OrderBy {
   /**

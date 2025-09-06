@@ -1,5 +1,5 @@
-import { IRule, IRuleError } from "../interfaces";
-import { forceString } from "../utils/forceString";
+import { IRule, IRuleError } from "../interfaces.js";
+import { forceString } from "../utils/forceString.js";
 
 /**
  * Abstract base class for validation rules.

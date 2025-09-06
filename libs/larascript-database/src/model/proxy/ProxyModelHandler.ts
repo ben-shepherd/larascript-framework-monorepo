@@ -1,4 +1,4 @@
-import { IModel } from "../../model";
+import { IModel } from "../../model/index.js";
 
 /**
  * A proxy handler for model objects that intercepts property access and method calls.

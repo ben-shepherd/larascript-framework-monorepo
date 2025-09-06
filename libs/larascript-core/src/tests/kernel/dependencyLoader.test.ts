@@ -1,15 +1,15 @@
-import { AppSingleton, CreateDependencyLoader } from "@/app";
-import { Environment } from "@/consts";
-import { Kernel } from "@/kernel";
+import { AppSingleton, CreateDependencyLoader } from "@/app/index.js";
+import { Environment } from "@/consts/index.js";
+import { Kernel } from "@/kernel/index.js";
 import { describe } from "@jest/globals";
 import {
   AlternativeDependencyLoaderProvider,
   LoggerProvider,
   MockSuccessfulConnectionDatabaseProvider,
   TestContainers,
-} from "./providers/providers";
-import LoggerService from "./services/LoggerService";
-import MockDatabaseService from "./services/MockDatabaseService";
+} from "./providers/providers.js";
+import LoggerService from "./services/LoggerService.js";
+import MockDatabaseService from "./services/MockDatabaseService.js";
 
 describe("Dependency Loader Test Suite", () => {
   describe("Kernel with successful database provider", () => {

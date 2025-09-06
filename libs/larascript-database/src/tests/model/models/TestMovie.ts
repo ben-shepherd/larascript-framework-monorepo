@@ -1,5 +1,5 @@
-import { IModelAttributes } from "@/index";
-import Model from "@/model/base/Model";
+import { IModelAttributes } from "@/index.js";
+import Model from "@/model/base/Model.js";
 import { BaseFactory } from "@larascript-framework/larascript-core";
 
 class TestMovieFactory extends BaseFactory<TestMovieModel> {

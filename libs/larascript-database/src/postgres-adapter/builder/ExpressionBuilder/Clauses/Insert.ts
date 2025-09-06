@@ -1,5 +1,5 @@
-import BindingsHelper from "../../BindingsHelper";
-import SqlExpression from "../SqlExpression";
+import BindingsHelper from "../../BindingsHelper.js";
+import SqlExpression from "../SqlExpression.js";
 
 class Insert {
   /**

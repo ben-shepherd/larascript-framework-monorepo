@@ -1,4 +1,4 @@
-import { IWorkerModel, IWorkerRepository } from "../../../worker";
+import { IWorkerModel, IWorkerRepository } from "../../../worker/index.js";
 
 export class InMemoryWorkerRepository implements IWorkerRepository {
     

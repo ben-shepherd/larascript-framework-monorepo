@@ -1,4 +1,4 @@
-import { DotNotationParser } from "./DotNotationParser";
+import { DotNotationParser } from "./DotNotationParser.js";
 
 type TStateName = "REDUCABLE" | "SKIP";
 

@@ -1,8 +1,8 @@
-import { IApiTokenModel, IUserModel } from "@/auth/interfaces";
+import { IApiTokenModel, IUserModel } from "@/auth/index.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import TestUserModel from "../model/TestUserModel";
-import { InMemoryApiTokenRepository } from "./InMemoryApiTokenRepository";
-import { InMemoryUserRepository } from "./InMemoryUserRepository";
+import TestUserModel from "../model/TestUserModel.js";
+import { InMemoryApiTokenRepository } from "./InMemoryApiTokenRepository.js";
+import { InMemoryUserRepository } from "./InMemoryUserRepository.js";
 
 describe("Repository", () => {
   let userRepository: InMemoryUserRepository;

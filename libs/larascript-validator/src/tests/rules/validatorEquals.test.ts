@@ -1,5 +1,5 @@
-import EqualsRule from "@/validator/rules/EqualsRule";
-import Validator from "@/validator/service/Validator";
+import EqualsRule from "@/validator/rules/EqualsRule.js";
+import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

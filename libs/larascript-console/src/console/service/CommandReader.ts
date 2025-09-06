@@ -1,10 +1,10 @@
-import CommandNotFoundException from "../exceptions/CommandNotFoundException";
-import CommandSignatureInvalid from "../exceptions/CommandSignatureInvalid";
-import { ICommandReader } from "../interfaces";
+import CommandNotFoundException from "../exceptions/CommandNotFoundException.js";
+import CommandSignatureInvalid from "../exceptions/CommandSignatureInvalid.js";
+import { ICommandReader } from "../index.js";
 import CommandArguementParser, {
   ParsedArgumentsArray,
-} from "../parsers/CommandArgumentParser";
-import CommandRegister from "./CommandRegister";
+} from "../parsers/CommandArgumentParser.js";
+import CommandRegister from "./CommandRegister.js";
 
 export default class CommandReader implements ICommandReader {
   /**

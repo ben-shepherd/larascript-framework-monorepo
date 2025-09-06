@@ -1,6 +1,6 @@
 import { AppSingleton } from "@larascript-framework/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import { EVENT_DRIVERS, IBaseEvent, IEventDriver, TSerializableValues, WorkerService } from "../../../events";
+import { EVENT_DRIVERS, IBaseEvent, IEventDriver, TSerializableValues, WorkerService } from "../../../events/index.js";
 
 class InMemoryEventDriver implements IEventDriver {
 

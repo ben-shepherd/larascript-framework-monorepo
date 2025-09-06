@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import IService from "../interfaces/Singleton.t";
+import IService from "../interfaces/Singleton.t.js";
 
 /**
  * Singleton pattern implementation for services.

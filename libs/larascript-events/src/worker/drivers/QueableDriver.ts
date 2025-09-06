@@ -1,6 +1,8 @@
-import { BaseDriver, EventDriverException, IBaseEvent } from "@/events";
-import { IWorkerAttributes, TEventWorkerOptions } from "@/worker";
 import { z } from "zod";
+import { BaseDriver } from "../../events/base/BaseDriver";
+import { EventDriverException } from "../../events/exceptions/EventDriverException";
+import { IBaseEvent } from "../../events/interfaces";
+import { IWorkerAttributes, TEventWorkerOptions } from "../../worker";
 import { WorkerModelFactory } from "../factory/WorkerModelFactory";
 
 /**
@@ -19,7 +21,6 @@ export interface IQueableDriverOptions extends TEventWorkerOptions {
     runOnce?: boolean;
 } 
 
-
 /**
  * QueueableDriver class.
  * 
@@ -30,7 +31,7 @@ export interface IQueableDriverOptions extends TEventWorkerOptions {
  * @class QueueableDriver
  * @extends BaseDriver
  */
-class QueueableDriver extends BaseDriver  {
+export class QueueableDriver extends BaseDriver  {
 
     /**
      * Dispatches an event by saving it to the worker model.

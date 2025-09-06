@@ -1,5 +1,4 @@
-import { TClassConstructor } from "@larascript-framework/larascript-utils"
-import { IEventDriver, IEventDriversConfigOption } from "../interfaces/driver.t"
+import { EventDriverConstructor, IEventDriversConfigOption } from "../interfaces/driver.t"
 
 export class EventConfig 
 {
@@ -8,7 +7,7 @@ export class EventConfig
      * @param driver The constructor of the event driver.
      * @returns The name of the event driver as a string.
      */
-        public static getDriverName(driver: TClassConstructor<IEventDriver>): string {
+        public static getDriverName(driver: EventDriverConstructor): string {
             return driver.name
         }
     
@@ -17,7 +16,7 @@ export class EventConfig
          * @param options The event driver options.
          * @returns The event driver config.
          */
-        public static createConfigDriver<T extends IEventDriversConfigOption['options'] = {}>(driverCtor: TClassConstructor<IEventDriver>, options?: T): IEventDriversConfigOption {
+        public static createConfigDriver<T extends IEventDriversConfigOption['options'] = {}>(driverCtor: EventDriverConstructor, options?: T): IEventDriversConfigOption {
             return {
                 driver: driverCtor,
                 options

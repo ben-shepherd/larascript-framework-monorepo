@@ -10,7 +10,8 @@ import WorkerModel from "./WorkerModel";
  * @class FailedWorkerModel
  * @extends WorkerModel
  */
-export default class FailedWorkerModel extends WorkerModel {
+export class FailedWorkerModel extends WorkerModel {
     table: string = 'failed_worker_queue';
 }
 
+export default FailedWorkerModel;

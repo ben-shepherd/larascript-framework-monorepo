@@ -1,4 +1,3 @@
-import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TSerializableValues } from "../../events/interfaces/event.t";
 import { IEventService } from "../../events/interfaces/services.t";
 
@@ -81,6 +80,7 @@ export interface IWorkerModel  {
      * @returns Promise that resolves when data is deleted
      */
     deleteWorkerData(): Promise<void>;
+    
 }
 
 /**
@@ -154,12 +154,6 @@ export interface IWorkerService {
     getFactory(): IWorkerModelFactory;
     
     /**
-     * Sets the logger instance
-     * @param logger - The logger instance
-     */
-    setLogger(logger?: ILoggerService): void;
-    
-    /**
      * Sets the event service instance
      * @param eventService - The event service instance
      */
@@ -171,4 +165,10 @@ export interface IWorkerService {
      * @returns Promise that resolves when the worker is running
      */
     runWorker(options: TEventWorkerOptions): Promise<void>;
+
+    /**
+     * Gets the Sequelize schema for the worker data
+     * @returns The Sequelize schema
+     */
+    getSequelizeSchema(): Record<string, unknown>;
 }

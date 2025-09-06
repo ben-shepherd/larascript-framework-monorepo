@@ -7,11 +7,16 @@ import { IDispatchable, INameable } from "./types.t";
 export interface IEventDriver extends INameable, IDispatchable {}
 
 /**
+ * Constructor type for event drivers
+ */
+export type EventDriverConstructor = TClassConstructor<IEventDriver>;
+
+/**
  * Configuration option for event drivers
  */
 export interface IEventDriversConfigOption {
     /** The driver constructor */
-    driver: TClassConstructor<IEventDriver>,
+    driver: EventDriverConstructor,
     /** Optional configuration options for the driver */
     options?: Record<string, unknown>;
 }

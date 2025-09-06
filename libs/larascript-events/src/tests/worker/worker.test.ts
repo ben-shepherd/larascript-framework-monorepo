@@ -8,9 +8,9 @@ import { TestWorkerFactory } from './factory/TestWorkerFactory';
 import { InMemoryWorkerRepository } from './repository/InMemoryWorkerRepository';
 
 class TestEvent extends BaseEvent<{ foo: string }> {
-    getQueueName(): string {
-        return 'testing';
-    }
+    queueName: string = 'testing';
+
+    queable: boolean = true;
 
     constructor(payload: { foo: string }) {
         super(payload);
@@ -18,9 +18,10 @@ class TestEvent extends BaseEvent<{ foo: string }> {
 }
 
 class TestEventFailed extends BaseEvent<{ foo: string }> {
-    getQueueName(): string {
-        return 'testing';
-    }
+
+    queable: boolean = true;
+
+    queueName: string = 'testing';
 
     constructor(payload: { foo: string }) {
         super(payload);

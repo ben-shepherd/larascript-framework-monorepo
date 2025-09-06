@@ -1,7 +1,7 @@
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions } from "@/worker";
-import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { DataTypes } from "sequelize";
 import { EventWorkerException } from "../../events/exceptions/EventWorkerException";
 import { IEventService } from "../../events/interfaces/services.t";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory, IWorkerRepository, IWorkerService, TEventWorkerOptions, WorkerModel, WorkerServiceProvider } from "../../worker";
 
 /**
  * WorkerService class.
@@ -18,8 +18,6 @@ export class WorkerService implements IWorkerService {
         private workerRepository!: IWorkerRepository;
 
         private workerFactory!: IWorkerModelFactory;
-
-        private logger?: ILoggerService;
 
         private eventService!: IEventService;
 
@@ -43,10 +41,10 @@ export class WorkerService implements IWorkerService {
 
             const workerModels = await this.workerRepository.getWorkers()
 
-            this.logger?.console('Queued items: ', workerModels.length)
+            WorkerServiceProvider.logger()?.console('Queued items: ', workerModels.length)
 
             if (workerModels.length === 0) {
-                this.logger?.console("No queued items");
+                WorkerServiceProvider.logger()?.console("No queued items");
                 return;
             }
 
@@ -68,10 +66,6 @@ export class WorkerService implements IWorkerService {
         }
         getFactory(): IWorkerModelFactory {
             return this.workerFactory;
-        }
-
-        setLogger(logger?: ILoggerService): void {
-            this.logger = logger;
         }
 
         setEventService(eventService: IEventService): void {
@@ -105,7 +99,7 @@ export class WorkerService implements IWorkerService {
                 await worker.deleteWorkerData();
             }
             catch (err) {
-                this.logger?.error(err)
+                WorkerServiceProvider.logger()?.error(err)
                 await this.handleUpdateWorkerModelAttempts(worker, options, (err as Error))
             }
         }
@@ -164,4 +158,22 @@ export class WorkerService implements IWorkerService {
             await worker.deleteWorkerData();
         }
 
+        /**
+         * Gets the Sequelize schema for the worker data
+         * @returns The Sequelize schema
+         */
+        getSequelizeSchema(): Record<string, unknown> {
+            return {
+                [WorkerModel.QUEUE_NAME]: DataTypes.STRING,
+                [WorkerModel.EVENT_NAME]: DataTypes.STRING,
+                [WorkerModel.PAYLOAD]: DataTypes.JSON,
+                [WorkerModel.ATTEMPTS]: DataTypes.INTEGER,
+                [WorkerModel.RETRIES]: DataTypes.INTEGER,
+                [WorkerModel.ERROR]: DataTypes.STRING,
+                [WorkerModel.CREATED_AT]: DataTypes.DATE,
+                [WorkerModel.UPDATED_AT]: DataTypes.DATE,
+                [WorkerModel.DELETED_AT]: DataTypes.DATE,
+                [WorkerModel.FAILED_AT]: DataTypes.DATE
+            }
+        }
     }

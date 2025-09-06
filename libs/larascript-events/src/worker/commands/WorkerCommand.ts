@@ -1,6 +1,6 @@
-import { EventConfig, IEventDriversConfigOption } from "@/events";
 import { BaseCommand } from "@larascript-framework/larascript-console";
 import { z } from "zod";
+import { EventConfig, IEventDriversConfigOption } from "../../events";
 import QueueableDriver from "../drivers/QueableDriver";
 import { TEventWorkerOptions } from "../interfaces";
 import { WorkerServiceProvider } from "../services";
@@ -15,7 +15,7 @@ import { WorkerServiceProvider } from "../services";
  * @class WorkerCommand
  * @extends BaseCommand
  */
-export default class WorkerCommand extends BaseCommand {
+export class WorkerCommand extends BaseCommand {
 
     /**
      * The signature of the command
@@ -90,5 +90,6 @@ export default class WorkerCommand extends BaseCommand {
             throw new Error('Invalid worker options: ' + parsedResult.error.message);
         }
     }
-
 }
+
+export default WorkerCommand;

@@ -1,6 +1,6 @@
-import { IWorkerAttributes, IWorkerModel } from "@/worker";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
 import { TCastableType } from "@larascript-framework/larascript-utils";
+import { IWorkerAttributes, IWorkerModel } from "../../worker";
 
 export type WorkerModelAttributes = IWorkerAttributes & IModelAttributes
 
@@ -22,7 +22,7 @@ export const initialWorkerModalData: WorkerModelAttributes = {
  * @class WorkerModel
  * @extends Model<WorkerModelData>
  */
-export default class WorkerModel extends Model<WorkerModelAttributes> implements IWorkerModel {
+export class WorkerModel extends Model<WorkerModelAttributes> implements IWorkerModel {
 
     table: string = 'worker_queue';
 
@@ -127,5 +127,6 @@ export default class WorkerModel extends Model<WorkerModelAttributes> implements
     deleteWorkerData(): Promise<void> {
         return this.delete()
     }
-
 }
+
+export default WorkerModel;

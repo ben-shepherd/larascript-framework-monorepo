@@ -1,5 +1,7 @@
 import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
 import assert from "node:assert";
+import { EventConfig } from "../../index";
+import QueueableDriver from "../../worker/drivers/QueableDriver";
 import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException";
 import { IBaseEvent } from "../interfaces";
 import { EventRegistry } from "../registry/EventRegistry";
@@ -20,9 +22,14 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
     /** The namespace for the event */
     protected namespace: string = '';
 
+    /** The name of the queue that should process this event */
+    queueName: string = 'default';
+
+    /** Whether the event should be processed by the queable driver */
+    queable?: boolean = false;
+
     /** Casting configuration for the event */
     casts: TCasts = {};
-
     /**
      * Creates a new BaseEvent instance
      * @param payload - The payload of the event
@@ -34,6 +41,10 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
 
         this.payload = payload;
         this.driverName = driverName;
+
+        if(this.queable) {
+            this.useQueableDriver();
+        }
 
         // Ensure the payload is valid
         if (!this.validatePayload()) {
@@ -88,7 +99,7 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
      * @returns The name of the queue as a string
      */
     getQueueName(): string {
-        return 'default';
+        return this.queueName ?? 'default';
     }
 
     /**
@@ -125,6 +136,14 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
         return this.driverName;
     }
 
+    /**
+     * Use the queable driver for this event
+     * @returns True if the queable driver should be used
+     */
+    useQueableDriver(): boolean {
+        this.driverName = EventConfig.getDriverName(QueueableDriver);
+        return true;
+    }
 }
 
 export default BaseEvent

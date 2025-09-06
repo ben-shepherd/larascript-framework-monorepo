@@ -1,4 +1,4 @@
-import { IWorkerModel, IWorkerRepository } from "@/worker";
+import { IWorkerModel, IWorkerRepository } from "../../worker";
 import WorkerModel from "../models/WorkerModel";
 import { WorkerServiceProvider } from "../services";
 

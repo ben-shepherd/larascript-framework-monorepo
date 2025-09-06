@@ -1,9 +1,9 @@
  
-import { IEventService } from "@/events";
-import { IWorkerService } from "@/worker";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { IEventService } from "../../events";
+import { IWorkerService } from "../../worker";
 
 type InitTypes = {
     workerService: IWorkerService;

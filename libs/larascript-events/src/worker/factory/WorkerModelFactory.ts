@@ -1,4 +1,4 @@
-import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "@/worker";
+import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "../../worker";
 import FailedWorkerModel from "../models/FailedWorkerModel";
 import WorkerModel, { WorkerModelAttributes } from "../models/WorkerModel";
 

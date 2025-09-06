@@ -1,9 +1,8 @@
-import { IEloquent, ModelNotFound } from "@/eloquent";
-import { IModel, ModelConstructor } from "@/model";
-import { queryBuilder } from "@/tests/tests-helper/testHelper";
 import { Collection, ICollection, collect } from "@larascript-framework/larascript-collection";
+import DB from "../../database/services/DB";
+import { IEloquent, ModelNotFound } from "../../eloquent";
+import { IModel, ModelConstructor } from "../../model";
 import { IRepository } from "../types/repository.t";
-
 /**
  * Base class for repositories
  */
@@ -34,7 +33,7 @@ export class Repository<Model extends IModel> implements IRepository<Model> {
      * @returns A new query builder instance.
      */
     protected query(): IEloquent<Model> {
-        return queryBuilder(this.modelConstructor, this.connection);
+        return DB.getInstance().queryBuilder(this.modelConstructor, this.connection);
     }
 
     /**

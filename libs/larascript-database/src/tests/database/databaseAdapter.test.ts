@@ -1,6 +1,6 @@
-import { IDatabaseService } from "@/database/interfaces/service.t";
-import DatabaseAdapter from "@/database/services/DatabaseAdapter";
 import { describe, expect, test } from "@jest/globals";
+import { IDatabaseService } from "../../database/interfaces/service.t";
+import DatabaseAdapter from "../../database/services/DatabaseAdapter";
 import { MockSQLAdapter } from "./mocks/MockSQLAdapter";
 
 describe("Database Adapter", () => {

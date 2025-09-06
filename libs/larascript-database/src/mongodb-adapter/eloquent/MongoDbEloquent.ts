@@ -1,10 +1,5 @@
-import DB from "@/database/services/DB";
-import { IEloquent } from "@/eloquent";
-import Eloquent from "@/eloquent/Eloquent";
-import EloquentException from "@/eloquent/exceptions/EloquentExpression";
-import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
-import IEloquentExpression from "@/eloquent/interfaces/expressions.t";
-import { IModel, ModelConstructor } from "@/model";
+import DB from "../../database/services/DB";
+
 import {
   Collection,
   collect,
@@ -14,6 +9,12 @@ import {
   captureError,
 } from "@larascript-framework/larascript-utils";
 import { Document, Collection as MongoCollection, ObjectId } from "mongodb";
+import { IEloquent } from "../../eloquent";
+import Eloquent from "../../eloquent/Eloquent";
+import EloquentException from "../../eloquent/exceptions/EloquentExpression";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
+import IEloquentExpression from "../../eloquent/interfaces/expressions.t";
+import { IModel, ModelConstructor } from "../../model";
 import { MongoDbAdapter } from "../adapters";
 import AggregateExpression from "../builder/AggregateExpression";
 

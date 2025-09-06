@@ -1,11 +1,11 @@
-import BaseDatabaseAdapter from "@/database/base/BaseDatabaseAdapter";
-import { IDatabaseSchema } from "@/database/interfaces/schema.t";
-import DB from "@/database/services/DB";
-import { IEloquent } from "@/eloquent";
-import { IModel } from "@/model";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import pg from "pg";
 import { QueryInterface, Sequelize } from "sequelize";
+import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t";
+import DB from "../../database/services/DB";
+import { IEloquent } from "../../eloquent";
+import { IModel } from "../../model";
 import PostgresEloquent from "../eloquent/PostgresEloquent";
 import ParsePostgresConnectionUrl from "../helper/ParsePostgresConnectionUrl";
 import { IPostgresConfig } from "../interfaces/IPostgresConfig";

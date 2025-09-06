@@ -1,11 +1,11 @@
+import { Collection } from "@larascript-framework/larascript-collection";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import {
   IModel,
   IModelAttributes,
   ModelConstructor,
   ModelWithAttributes,
-} from "@/model/interfaces/model.t";
-import { Collection } from "@larascript-framework/larascript-collection";
-import { TClassConstructor } from "@larascript-framework/larascript-utils";
+} from "../../model/interfaces/model.t";
 import IEloquentExpression from "./expressions.t";
 
 export type TColumnOption = {

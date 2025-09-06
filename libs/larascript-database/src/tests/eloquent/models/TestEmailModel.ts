@@ -1,9 +1,9 @@
-import DB from "@/database/services/DB";
-import { IModelAttributes } from "@/model";
-import Model from "@/model/base/Model";
-import { forEveryConnection } from "@/tests/tests-helper/forEveryConnection";
 import { TCastableType } from "@larascript-framework/larascript-utils";
 import { DataTypes } from "sequelize";
+import DB from "../../../database/services/DB";
+import { IModelAttributes } from "../../../model";
+import Model from "../../../model/base/Model";
+import { forEveryConnection } from "../../../tests/tests-helper/forEveryConnection";
 
 const tableName = Model.formatTableName("testsEmails");
 

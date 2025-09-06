@@ -1,5 +1,5 @@
-import { IModel } from "@/model";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import { IModel } from "../../model";
 import { IEloquent } from "./eloquent.t";
 
 export interface IEloquentQueryBuilderService {

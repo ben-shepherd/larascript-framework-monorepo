@@ -1,5 +1,5 @@
-import ExpressionException from "@/eloquent/exceptions/ExpressionException";
 import { types } from "pg";
+import ExpressionException from "../../eloquent/exceptions/ExpressionException";
 
 export type TBinding = {
   sql: string;

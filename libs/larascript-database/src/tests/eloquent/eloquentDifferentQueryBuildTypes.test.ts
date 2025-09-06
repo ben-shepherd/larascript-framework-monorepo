@@ -1,5 +1,5 @@
-import { IEloquent } from "@/eloquent/interfaces/eloquent.t";
 import { describe } from "@jest/globals";
+import { IEloquent } from "../../eloquent/interfaces/eloquent.t";
 import { forEveryConnection } from "../tests-helper/forEveryConnection";
 import { queryBuilder, testHelper } from "../tests-helper/testHelper";
 import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel";

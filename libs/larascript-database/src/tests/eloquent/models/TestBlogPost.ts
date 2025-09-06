@@ -1,7 +1,7 @@
-import DB from "@/database/services/DB";
-import { IModelAttributes } from "@/model";
-import { testHelper } from "@/tests/tests-helper/testHelper";
 import { DataTypes, Model } from "sequelize";
+import DB from "../../../database/services/DB";
+import { IModelAttributes } from "../../../model";
+import { testHelper } from "../../../tests/tests-helper/testHelper";
 
 const tableName = "testsBlogPosts";
 

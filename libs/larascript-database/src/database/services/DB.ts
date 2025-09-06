@@ -1,5 +1,3 @@
-import { IEloquent, IEloquentQueryBuilderService } from "@/eloquent";
-import { IModel, ModelConstructor } from "@/model";
 import { ICryptoService } from "@larascript-framework/crypto-js";
 import {
   BaseSingleton,
@@ -7,8 +5,11 @@ import {
   DependencyLoader,
   RequiresDependency,
 } from "@larascript-framework/larascript-core";
-import { ILoggerService } from "../../../../larascript-logger/dist";
+import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { IEloquent, IEloquentQueryBuilderService } from "../../eloquent";
+import { IModel, ModelConstructor } from "../../model";
 import { IDatabaseService } from "../interfaces/service.t";
+
 export type InitTypes = {
   app?: (name: string) => unknown;
   databaseService: IDatabaseService;

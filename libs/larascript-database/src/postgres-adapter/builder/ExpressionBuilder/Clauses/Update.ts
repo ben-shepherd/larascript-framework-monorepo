@@ -1,4 +1,4 @@
-import { TWhereClause } from "@/eloquent";
+import { TWhereClause } from "../../../../eloquent";
 import BindingsHelper from "../../BindingsHelper";
 import SqlExpression from "../SqlExpression";
 

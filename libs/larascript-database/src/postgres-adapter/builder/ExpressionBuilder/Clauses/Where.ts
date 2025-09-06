@@ -3,7 +3,7 @@ import {
   TLogicalOperator,
   TWhereClause,
   TWhereClauseValue,
-} from "@/eloquent";
+} from "../../../../eloquent";
 import BindingsHelper from "../../BindingsHelper";
 import SqlExpression, { SqlRaw } from "../SqlExpression";
 

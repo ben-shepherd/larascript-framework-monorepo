@@ -1,10 +1,10 @@
-import DB from "@/database/services/DB";
-import HasMany from "@/eloquent/relational/HasMany";
-import { IModelAttributes } from "@/model";
-import Model from "@/model/base/Model";
-import { testHelper } from "@/tests/tests-helper/testHelper";
 import { Collection } from "@larascript-framework/larascript-collection";
 import { DataTypes } from "sequelize";
+import DB from "../../../database/services/DB";
+import HasMany from "../../../eloquent/relational/HasMany";
+import { IModelAttributes } from "../../../model";
+import Model from "../../../model/base/Model";
+import { testHelper } from "../../../tests/tests-helper/testHelper";
 import TestEmployeeModel from "./TestEmployeeModel";
 
 const tableName = Model.formatTableName("testsDepartments");

@@ -1,5 +1,5 @@
-import { MongoDbAdapter } from "@/mongodb-adapter";
-import { PostgresAdapter } from "@/postgres-adapter";
+import { MongoDbAdapter } from "../../mongodb-adapter";
+import { PostgresAdapter } from "../../postgres-adapter";
 import {
   IDatabaseAdapter,
   IDatabaseAdapterConstructor,

@@ -1,4 +1,4 @@
-import ExpressionException from "@/eloquent/exceptions/ExpressionException";
+import ExpressionException from "../../../../eloquent/exceptions/ExpressionException";
 import SqlExpression from "../SqlExpression";
 
 class DeleteFrom {

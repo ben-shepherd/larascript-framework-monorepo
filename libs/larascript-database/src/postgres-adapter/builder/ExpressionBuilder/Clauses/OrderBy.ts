@@ -1,4 +1,4 @@
-import { TOrderBy } from "@/eloquent";
+import { TOrderBy } from "../../../../eloquent";
 import SqlExpression from "../SqlExpression";
 
 class OrderBy {

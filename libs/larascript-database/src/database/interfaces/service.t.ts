@@ -1,6 +1,6 @@
-import { IMongoDbAdapter } from "@/mongodb-adapter/interfaces/mongodb.t";
-import { IPostgresAdapter } from "@/postgres-adapter/interfaces/postgres.t";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import { IMongoDbAdapter } from "../../mongodb-adapter/interfaces/mongodb.t";
+import { IPostgresAdapter } from "../../postgres-adapter/interfaces/postgres.t";
 import { IDatabaseAdapter } from "./adapter.t";
 import { IDatabaseSchema } from "./schema.t";
 

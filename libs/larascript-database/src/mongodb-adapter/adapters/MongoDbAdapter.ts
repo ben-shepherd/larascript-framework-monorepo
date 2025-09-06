@@ -1,11 +1,11 @@
-import BaseDatabaseAdapter from "@/database/base/BaseDatabaseAdapter";
-import CreateDatabaseException from "@/database/exceptions/CreateDatabaseException";
-import { IDatabaseSchema } from "@/database/interfaces/schema.t";
-import DB from "@/database/services/DB";
-import { IEloquent, IRelationshipResolver } from "@/eloquent";
-import { IModel } from "@/model";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient, MongoClientOptions, MongoServerError } from "mongodb";
+import BaseDatabaseAdapter from "../../database/base/BaseDatabaseAdapter";
+import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t";
+import DB from "../../database/services/DB";
+import { IEloquent, IRelationshipResolver } from "../../eloquent";
+import { IModel } from "../../model";
 import MongoDbEloquent from "../eloquent/MongoDbEloquent";
 import ParseMongoDBConnectionString from "../helper/ParseMongoDBConnectionUrl";
 import { IMongoConfig } from "../interfaces/IMongoConfig";

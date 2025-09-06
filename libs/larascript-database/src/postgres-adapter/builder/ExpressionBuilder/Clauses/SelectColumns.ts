@@ -1,4 +1,4 @@
-import { TColumnOption } from "@/eloquent";
+import { TColumnOption } from "../../../../eloquent";
 import BindingsHelper from "../../BindingsHelper";
 import SqlExpression, { SqlRaw } from "../SqlExpression";
 

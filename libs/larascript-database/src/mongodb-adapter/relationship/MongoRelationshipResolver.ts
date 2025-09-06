@@ -1,5 +1,5 @@
-import { IRelationship } from "@/eloquent";
-import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
+import { IRelationship } from "../../eloquent";
+import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver";
 
 export class MongoRelationshipResolver extends BaseRelationshipResolver {
   /**

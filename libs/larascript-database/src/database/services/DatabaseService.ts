@@ -1,11 +1,11 @@
-import { IMongoDbAdapter } from "@/mongodb-adapter/interfaces/mongodb.t";
-import { IPostgresAdapter } from "@/postgres-adapter/interfaces/postgres.t";
 import {
   DependencyLoader,
   RequiresDependency,
 } from "@larascript-framework/larascript-core";
+import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { ILoggerService } from "../../../../larascript-logger/dist";
+import { IMongoDbAdapter } from "../../mongodb-adapter/interfaces/mongodb.t";
+import { IPostgresAdapter } from "../../postgres-adapter/interfaces/postgres.t";
 import DatabaseConnectionException from "../exceptions/DatabaseConnectionException";
 import {
   IDatabaseAdapter,

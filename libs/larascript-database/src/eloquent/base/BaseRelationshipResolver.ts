@@ -1,5 +1,3 @@
-import DB from "@/database/services/DB";
-import { IModel, IModelAttributes, ModelConstructor } from "@/model";
 import { Collection } from "@larascript-framework/larascript-collection";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import {
@@ -8,6 +6,8 @@ import {
   IRelationshipResolver,
   TWhereClauseValue,
 } from "..";
+import DB from "../../database/services/DB";
+import { IModel, IModelAttributes, ModelConstructor } from "../../model";
 import EloquentRelationshipException from "../exceptions/EloquentRelationshipException";
 import BelongsTo from "../relational/BelongsTo";
 import HasMany from "../relational/HasMany";

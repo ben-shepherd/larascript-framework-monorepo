@@ -1,6 +1,6 @@
-import UnidentifiableDocumentException from "@/database/exceptions/UnidentifiableDocumentException";
-import DocumentValidator from "@/database/validator/DocumentValidator";
 import { beforeEach, describe, expect, test } from "@jest/globals";
+import UnidentifiableDocumentException from "../../database/exceptions/UnidentifiableDocumentException";
+import DocumentValidator from "../../database/validator/DocumentValidator";
 
 describe("Document Validator", () => {
   let validator: DocumentValidator;

@@ -1,7 +1,7 @@
-import { IEloquent, IRelationshipResolver } from "@/eloquent";
-import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
-import { IModel } from "@/model";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import { IEloquent, IRelationshipResolver } from "../../eloquent";
+import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver";
+import { IModel } from "../../model";
 import { IDatabaseAdapter } from "../interfaces/adapter.t";
 import { IPrepareOptions } from "../interfaces/options.t";
 import { IDatabaseSchema } from "../interfaces/schema.t";

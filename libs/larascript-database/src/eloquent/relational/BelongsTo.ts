@@ -1,5 +1,5 @@
-import DB from "@/database/services/DB";
-import { IModel, IModelAttributes } from "@/model";
+import DB from "../../database/services/DB";
+import { IModel, IModelAttributes } from "../../model";
 import { IRelationship, TWhereClauseValue } from "../interfaces";
 import GenericRelationship from "./GenericRelationship";
 

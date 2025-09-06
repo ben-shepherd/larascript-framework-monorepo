@@ -1,11 +1,11 @@
-import { IDatabaseAdapter } from "@/database/interfaces/adapter.t";
-import DB from "@/database/services/DB";
-import { IModel, ModelConstructor } from "@/model";
 import { Collection } from "@larascript-framework/larascript-collection";
 import {
   deepClone,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
+import { IDatabaseAdapter } from "../database/interfaces/adapter.t";
+import DB from "../database/services/DB";
+import { IModel, ModelConstructor } from "../model";
 import Direction from "./enums/Direction";
 import EloquentException from "./exceptions/EloquentExpression";
 import ExpressionException from "./exceptions/ExpressionException";

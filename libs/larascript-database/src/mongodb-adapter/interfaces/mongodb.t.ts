@@ -1,8 +1,8 @@
-import { IDatabaseSchema } from "@/database/interfaces/schema.t";
-import { IEloquent, IRelationshipResolver } from "@/eloquent";
-import { IModel } from "@/model";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient } from "mongodb";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t";
+import { IEloquent, IRelationshipResolver } from "../../eloquent";
+import { IModel } from "../../model";
 
 import { IMongoConfig } from "./IMongoConfig";
 export interface IMongoDbAdapter {

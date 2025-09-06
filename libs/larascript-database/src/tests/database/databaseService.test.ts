@@ -1,8 +1,8 @@
-import DatabaseConnectionException from "@/database/exceptions/DatabaseConnectionException";
-import { IDatabaseConfig } from "@/database/interfaces/config.t";
-import DatabaseConfig from "@/database/services/DatabaseConfig";
-import DatabaseService from "@/database/services/DatabaseService";
 import { beforeEach, describe, expect, test } from "@jest/globals";
+import DatabaseConnectionException from "../../database/exceptions/DatabaseConnectionException";
+import { IDatabaseConfig } from "../../database/interfaces/config.t";
+import DatabaseConfig from "../../database/services/DatabaseConfig";
+import DatabaseService from "../../database/services/DatabaseService";
 import {
   MockMongoDBAdapter,
   MockPostgresAdapter,

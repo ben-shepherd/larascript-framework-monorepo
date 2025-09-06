@@ -4,9 +4,9 @@ import {
   TLogicalOperator,
   TOperator,
   TWhereClauseValue,
-} from "@/eloquent";
-import BaseExpression, { buildTypes } from "@/eloquent/base/BaseExpression";
-import ExpressionException from "@/eloquent/exceptions/ExpressionException";
+} from "../../../eloquent";
+import BaseExpression, { buildTypes } from "../../../eloquent/base/BaseExpression";
+import ExpressionException from "../../../eloquent/exceptions/ExpressionException";
 import { isUuid } from "@larascript-framework/larascript-utils";
 import { z } from "zod";
 import BindingsHelper from "../BindingsHelper";

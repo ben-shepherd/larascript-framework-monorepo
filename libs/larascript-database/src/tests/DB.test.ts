@@ -1,15 +1,15 @@
-import { IDatabaseService } from "@/database/interfaces/service.t";
-import DB from "@/database/services/DB";
-import { IEloquent, IEloquentQueryBuilderService } from "@/eloquent";
-import {
-  IModel,
-  IModelAttributes,
-  ModelConstructor,
-} from "@/model/interfaces/model.t";
 import { beforeEach, describe, test } from "@jest/globals";
 import { ICryptoService } from "@larascript-framework/crypto-js";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
+import { IDatabaseService } from "../database/interfaces/service.t";
+import DB from "../database/services/DB";
+import { IEloquent, IEloquentQueryBuilderService } from "../eloquent";
+import {
+  IModel,
+  IModelAttributes,
+  ModelConstructor,
+} from "../model/interfaces/model.t";
 
 describe("Example Test Suite", () => {
   let mockModel: ModelConstructor<IModel<IModelAttributes>>;

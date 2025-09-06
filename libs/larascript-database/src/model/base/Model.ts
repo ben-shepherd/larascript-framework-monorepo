@@ -1,17 +1,4 @@
-import { IDatabaseSchema } from "@/database/interfaces/schema.t";
-import DB from "@/database/services/DB";
-import {
-  IBelongsToOptions,
-  IdGeneratorFn,
-  IEloquent,
-  IHasManyOptions,
-  IRelationship,
-} from "@/eloquent";
-import BaseRelationshipResolver from "@/eloquent/base/BaseRelationshipResolver";
-import BelongsTo from "@/eloquent/relational/BelongsTo";
-import HasMany from "@/eloquent/relational/HasMany";
 import { Collection } from "@larascript-framework/larascript-collection";
-import { EventConstructor } from "@larascript-framework/larascript-events";
 import {
   IObserver,
   IObserverEvent,
@@ -34,6 +21,18 @@ import {
   ModelConstructor,
   ModelWithAttributes,
 } from "..";
+import { IDatabaseSchema } from "../../database/interfaces/schema.t";
+import DB from "../../database/services/DB";
+import {
+  IBelongsToOptions,
+  IdGeneratorFn,
+  IEloquent,
+  IHasManyOptions,
+  IRelationship,
+} from "../../eloquent";
+import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver";
+import BelongsTo from "../../eloquent/relational/BelongsTo";
+import HasMany from "../../eloquent/relational/HasMany";
 import ProxyModelHandler from "../proxy/ProxyModelHandler";
 import { ModelScopes, TModelScope } from "../utils";
 
@@ -1182,7 +1181,7 @@ export default abstract class Model<Attributes extends IModelAttributes>
    * @param {IModelLifeCycleEvent} event - The event to listen to.
    * @param {EventConstructor} eventConstructor - The event constructor to add.
    */
-  on(event: IModelLifeCycleEvent, eventConstructor: EventConstructor): void {
+  on(event: IModelLifeCycleEvent, eventConstructor: TClassConstructor): void {
     if (!this.events) {
       this.events = {};
     }

@@ -1,6 +1,6 @@
-import { IdGeneratorFn } from "@/eloquent/interfaces/eloquent.t";
-import { EventConstructor } from "@larascript-framework/larascript-events";
+import { IdGeneratorFn } from "../../eloquent/interfaces/eloquent.t";
 import { IHasObserver } from "@larascript-framework/larascript-observer";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { TModelScope } from "../utils/ModelScope";
 import { IModelFactory } from "./factory.t";
 
@@ -95,7 +95,7 @@ export interface IModel<Attributes extends IModelAttributes = IModelAttributes>
   }): Promise<IModel<IModelAttributes>>;
 
   // Events
-  on(event: IModelLifeCycleEvent, eventConstructor: EventConstructor): void;
+  on(event: IModelLifeCycleEvent, eventConstructor: TClassConstructor): void;
   off(event: IModelLifeCycleEvent): void;
 }
 
@@ -108,5 +108,5 @@ export type IModelLifeCycleEvent =
   | "created";
 
 export type IModelEvents = {
-  [key in IModelLifeCycleEvent]?: EventConstructor;
+  [key in IModelLifeCycleEvent]?: TClassConstructor;
 };

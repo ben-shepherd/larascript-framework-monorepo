@@ -1,4 +1,4 @@
-import { TOffsetLimit } from "@/eloquent";
+import { TOffsetLimit } from "../../../../eloquent";
 
 class OffsetLimit {
   /**

@@ -1,6 +1,6 @@
-import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
 import { describe } from "@jest/globals";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
 import { forEveryConnection } from "../tests-helper/forEveryConnection";
 import { queryBuilder, testHelper } from "../tests-helper/testHelper";
 import { ITestEmployeeModelData } from "./models/TestEmployeeModel";

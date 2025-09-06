@@ -1,4 +1,4 @@
-import BaseExpression from "@/eloquent/base/BaseExpression";
+import BaseExpression from "../../../eloquent/base/BaseExpression";
 import Join from "./Join";
 import Limit from "./Limit";
 import Match from "./Match";

@@ -1,5 +1,3 @@
-import BaseSchema from "@/database/base/BaseSchema";
-import DB from "@/database/services/DB";
 import pg from "pg";
 import {
   DataTypes,
@@ -7,6 +5,8 @@ import {
   QueryInterfaceDropTableOptions,
 } from "sequelize";
 import { ModelAttributes } from "sequelize/types/model";
+import BaseSchema from "../database/base/BaseSchema";
+import DB from "../database/services/DB";
 import { PostgresAdapter } from "./adapters";
 import { IAlterTableOptions } from "./interfaces/IPostgresAlterTableOptions";
 

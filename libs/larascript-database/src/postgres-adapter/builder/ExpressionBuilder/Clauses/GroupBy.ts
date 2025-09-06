@@ -1,4 +1,4 @@
-import { TGroupBy } from "@/eloquent";
+import { TGroupBy } from "../../../../eloquent";
 import SqlExpression from "../SqlExpression";
 
 class GroupBy {

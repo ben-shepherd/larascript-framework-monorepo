@@ -1,7 +1,7 @@
-import BaseSchema from "@/database/base/BaseSchema";
-import CreateDatabaseException from "@/database/exceptions/CreateDatabaseException";
-import DB from "@/database/services/DB";
 import { captureError } from "@larascript-framework/larascript-utils";
+import BaseSchema from "../../database/base/BaseSchema";
+import CreateDatabaseException from "../../database/exceptions/CreateDatabaseException";
+import DB from "../../database/services/DB";
 import MongoDbAdapter from "../adapters/MongoDbAdapter";
 
 export class MongoDBSchema extends BaseSchema<MongoDbAdapter> {

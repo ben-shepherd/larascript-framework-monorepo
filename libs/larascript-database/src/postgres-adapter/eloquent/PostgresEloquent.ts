@@ -1,16 +1,3 @@
-import DB from "@/database/services/DB";
-import {
-  IEloquent,
-  IdGeneratorFn,
-  SetModelColumnsOptions,
-  TransactionFn,
-} from "@/eloquent";
-import Eloquent from "@/eloquent/Eloquent";
-import EloquentException from "@/eloquent/exceptions/EloquentExpression";
-import ModelNotFoundException from "@/eloquent/exceptions/ModelNotFoundException";
-import UpdateException from "@/eloquent/exceptions/UpdateException";
-import IEloquentExpression from "@/eloquent/interfaces/expressions.t";
-import { IModel, ModelConstructor } from "@/model";
 import {
   Collection,
   collect,
@@ -23,6 +10,19 @@ import {
 } from "@larascript-framework/larascript-utils";
 import { bindAll } from "lodash";
 import pg, { QueryResult } from "pg";
+import DB from "../../database/services/DB";
+import {
+  IEloquent,
+  IdGeneratorFn,
+  SetModelColumnsOptions,
+  TransactionFn,
+} from "../../eloquent";
+import Eloquent from "../../eloquent/Eloquent";
+import EloquentException from "../../eloquent/exceptions/EloquentExpression";
+import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundException";
+import UpdateException from "../../eloquent/exceptions/UpdateException";
+import IEloquentExpression from "../../eloquent/interfaces/expressions.t";
+import { IModel, ModelConstructor } from "../../model";
 import { PostgresAdapter } from "../adapters";
 import SqlExpression, {
   SqlRaw,

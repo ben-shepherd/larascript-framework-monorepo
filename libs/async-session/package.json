@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/async-session",
+  "type": "module",
   "version": "1.0.1",
   "description": "Async session management utilities.",
   "repository": {

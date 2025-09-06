@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-console",
+  "type": "module",
   "version": "1.0.0",
   "description": "Console utilities for the Larascript framework.",
   "repository": {

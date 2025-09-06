@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-validator",
+  "type": "module",
   "version": "1.0.1",
   "description": "A powerful, flexible validation library for the Larascript Framework with support for custom rules, nested data validation, and comprehensive error handling.",
   "repository": {

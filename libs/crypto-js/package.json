@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/crypto-js",
+  "type": "module",
   "version": "1.0.0",
   "description": "A TypeScript library for cryptographic utilities and helpers.",
   "repository": {

@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-collection",
+  "type": "module",
   "version": "1.0.0",
   "description": "A TypeScript collection library with Laravel-inspired API and proxy-based array access, built on collect.js.",
   "repository": {

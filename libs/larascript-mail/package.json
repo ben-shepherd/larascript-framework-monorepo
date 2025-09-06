@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-mail",
+  "type": "module",
   "version": "1.0.1",
   "description": "Larascript bundle providing mail utilities and components.",
   "repository": {

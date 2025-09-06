@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-core",
+  "type": "module",
   "version": "1.0.23",
   "description": "Core modules and utilities for the Larascript Framework.",
   "repository": {

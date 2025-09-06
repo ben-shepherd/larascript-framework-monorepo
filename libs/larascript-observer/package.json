@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-observer",
+  "type": "module",
   "version": "1.0.0",
   "description": "A type-safe, extensible TypeScript Observer pattern implementation for the Larascript Framework, supporting lifecycle and custom events.",
   "repository": {

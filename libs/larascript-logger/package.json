@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-logger",
+  "type": "module",
   "version": "1.0.1",
   "description": "A flexible and extensible logger for the Larascript Framework, built on top of winston.",
   "repository": {

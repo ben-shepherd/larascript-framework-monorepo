@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-views",
+  "type": "module",
   "version": "1.0.0",
   "description": "Reusable EJS view templates and utilities for the Larascript Framework.",
   "repository": {

@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-utils",
+  "type": "module",
   "version": "1.0.8",
   "description": "A comprehensive TypeScript utility library providing essential tools for common programming tasks in the Larascript Framework ecosystem.",
   "repository": {

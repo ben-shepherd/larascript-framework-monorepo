@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-storage",
+  "type": "module",
   "version": "1.0.0",
   "description": "Storage abstraction and utilities for the Larascript framework, providing a unified API for file storage and retrieval.",
   "repository": {

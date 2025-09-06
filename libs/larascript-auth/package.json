@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-auth",
+  "type": "module",
   "version": "1.0.0",
   "description": "Authentication package for the Larascript Framework, providing user authentication, API token management, and related utilities.",
   "repository": {

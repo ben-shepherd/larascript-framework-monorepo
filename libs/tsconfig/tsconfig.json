@@ -1,26 +1,25 @@
 {
     "compilerOptions": {
-        "baseUrl": "./",
-        "paths": {
-            "@src/*": [
-                "src/*"
-            ]
-        },
-        "module": "CommonJS",
-        "target": "es2020",
-        "moduleResolution": "node",
-        "outDir": "./dist",
-        "esModuleInterop": true,
-        "allowSyntheticDefaultImports": true,
-        "strict": true,
-        "noImplicitAny": false,
-        "forceConsistentCasingInFileNames": true,
-        "declaration": true,
-        "declarationMap": true,
-        "sourceMap": true
+      "target": "ES2022",
+      "module": "nodenext",
+      "moduleResolution": "nodenext",
+      "baseUrl": ".",
+      "paths": {
+        "@src/*": ["apps/larascript-framework/src/*"],
+        "@package1/*": ["libs/package1/src/*"],
+        "@package2/*": ["libs/package2/src/*"]
+      },
+      "outDir": "./dist",
+      "strict": true,
+      "noImplicitAny": false,
+      "esModuleInterop": true,
+      "allowSyntheticDefaultImports": true,
+      "forceConsistentCasingInFileNames": true,
+      "declaration": true,
+      "declarationMap": true,
+      "sourceMap": true,
+      "lib": ["es2022"]
     },
-    "exclude": [
-        "node_modules",
-        "dist"
-    ]
-}
+    "exclude": ["node_modules", "dist"]
+  }
+  

@@ -1,5 +1,6 @@
 {
   "name": "@larascript-framework/larascript-acl",
+  "type": "module",
   "version": "1.0.5",
   "description": "Access Control List (ACL) module for the Larascript Framework.",
   "repository": {

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { BaseFormatter } from "@/baseFormatter";
+import { BaseFormatter } from "../baseFormatter";
 
 export type PrefixToTargetPropertyOptions = {
   columnPrefix: string;

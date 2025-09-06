@@ -5,3 +5,4 @@ export * from "./models.t";
 export * from "./repository.t";
 export * from "./scope.t";
 export * from "./service.t";
+export * from "./factory";

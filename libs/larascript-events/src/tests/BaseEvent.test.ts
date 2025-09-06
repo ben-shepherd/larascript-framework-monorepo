@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
+import { EventConfig, QueueableDriver } from "..";
 import { BaseEvent } from "../events/base/BaseEvent";
 import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException";
 import { EventRegistry } from "../events/registry/EventRegistry";
@@ -25,6 +26,14 @@ jest.mock("@larascript-framework/larascript-utils", () => ({
 
 // Create a concrete implementation for testing
 class TestEvent extends BaseEvent<unknown> {
+  async execute(): Promise<void> {
+    // Test implementation
+  }
+}
+
+class TestQueableEvent extends BaseEvent<unknown> {
+  queable: boolean = true;
+
   async execute(): Promise<void> {
     // Test implementation
   }
@@ -155,4 +164,13 @@ describe("BaseEvent", () => {
       expect(event.getDriverName()).toBeUndefined();
     });
   });
+
+  describe("queable driver", () => {
+    test("should use queable driver", () => {
+      const event = new TestQueableEvent()
+      ;
+      expect(event.getDriverName()).toBe(EventConfig.getDriverName(QueueableDriver));
+    });
+  });
+  
 });

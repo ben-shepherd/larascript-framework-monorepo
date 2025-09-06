@@ -1,5 +1,4 @@
-import BaseCommand from "@larascript-framework/larascript-console/dist/console/base/BaseCommand";
-import CommandExecutionException from "@larascript-framework/larascript-console/dist/console/exceptions/CommandExecutionException";
+import { BaseCommand, CommandExecutionException } from "@larascript-framework/larascript-console";
 import { Str } from "@larascript-framework/larascript-utils";
 import { IMakeFileArguments } from "@src/core/domains/make/interfaces/IMakeFileArguments";
 import { IMakeOptions } from "@src/core/domains/make/interfaces/IMakeOptions";

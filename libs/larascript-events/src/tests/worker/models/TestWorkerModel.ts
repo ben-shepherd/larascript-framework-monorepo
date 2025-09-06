@@ -1,5 +1,5 @@
-import { IWorkerAttributes, IWorkerModel, WorkerService } from "@/worker";
 import { AppSingleton } from "@larascript-framework/larascript-core";
+import { IWorkerAttributes, IWorkerModel, WorkerService } from "../../../worker";
 import { InMemoryWorkerRepository } from "../repository/InMemoryWorkerRepository";
 
 class TestWorkerModel implements IWorkerModel {

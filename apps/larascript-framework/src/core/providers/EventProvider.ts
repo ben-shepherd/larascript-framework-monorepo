@@ -1,10 +1,7 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { EventService, IEventConfig, WorkerService } from "@larascript-framework/larascript-events";
+import { EventService, IEventConfig, WorkerCommand, WorkerModelFactory, WorkerRepository, WorkerService, WorkerServiceProvider } from "@larascript-framework/larascript-events";
 import { eventConfig } from "@src/config/events.config";
-import WorkerCommand from "@src/core/domains/events/commands/WorkerCommand";
 import { app } from "@src/core/services/App";
-import { WorkerModelFactory } from "../factory/WorkerModelFactory";
-import { WorkerRepository } from "../repository/WorkerRepository";
 
 class EventProvider extends BaseProvider {
 
@@ -15,20 +12,29 @@ class EventProvider extends BaseProvider {
         // Create the event Service and register the drivers, events and listeners
         const eventService = new EventService(this.config);
         eventService.registerConfig();
-        this.bind('events', eventService);
-
+        
         // Create the worker service and register the worker repository
         const workerService = new WorkerService();
         workerService.setEventService(eventService);
         workerService.setWorkerRepository(new WorkerRepository());
         workerService.setWorkerFactory(new WorkerModelFactory());
-        workerService.setLogger(app('logger'));
+        
+        // Bind the services to the container
+        this.bind('events', eventService);
         this.bind('events.worker', workerService);
 
         // Register the worker command
         app('console').registerService().registerAll([
             WorkerCommand
         ])
+
+        // Init the worker service provider
+        WorkerServiceProvider.init({
+            workerService,
+            eventService,
+            eloquentQueryBuilder: app('query'),
+            logger: app('logger')
+        })
     }
 
 }

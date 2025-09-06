@@ -1,4 +1,4 @@
-import { AuthenticableUserModel, IUserAttributes, IUserModel, IUserRepository } from "@larascript-framework/larascript-auth";
+import { AuthenticableUserModel, IUserAttributes, IUserRepository } from "@larascript-framework/larascript-auth";
 import { ModelConstructor, Repository } from "@larascript-framework/larascript-database";
 import { queryBuilder } from "@src/core/services/QueryBuilder";
 

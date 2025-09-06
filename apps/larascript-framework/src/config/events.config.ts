@@ -1,9 +1,6 @@
-import { EventConfig, IEventConfig, SyncDriver } from "@larascript-framework/larascript-events";
+import { EventConfig, IEventConfig, IQueableDriverOptions, QueueableDriver, SyncDriver, WorkerModelFactory } from "@larascript-framework/larascript-events";
 import UserCreatedListener from "@src/app/events/listeners/UserCreatedListener";
 import UserCreatedSubscriber from "@src/app/events/subscribers/UserCreatedSubscriber";
-import QueueableDriver, { IQueableDriverOptions } from "@src/core/domains/events/drivers/QueableDriver";
-
-import { WorkerModelFactory } from "@src/core/domains/events/factory/WorkerModelFactory";
 
 export const EVENT_DRIVERS = {
     SYNC: EventConfig.getDriverName(SyncDriver),

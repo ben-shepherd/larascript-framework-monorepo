@@ -1,7 +1,7 @@
 import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
-import EventProvider from "@src/core/domains/events/providers/EventProvider";
 import ACLProvider from "@src/core/providers/ACLProvider";
 import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
+import EventProvider from "@src/core/providers/EventProvider";
 import LoggerProvider from "@src/core/providers/LoggerProvider";
 import ValidatorProvider from "@src/core/providers/ValidatorProvider";
 import { app } from "@src/core/services/App";
@@ -34,8 +34,8 @@ const testBootApp = async () => {
             new TestConsoleProvider(),
             new TestCryptoProvider(),
             new AsyncSessionProvider(),
-            new EventProvider(),
             new TestDatabaseProvider(),
+            new EventProvider(),
             new ACLProvider(),
             new TestAuthProvider(),
             new TestMigrationProvider(),

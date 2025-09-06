@@ -21,7 +21,7 @@ export default class TestDatabaseProvider extends BaseProvider {
             databaseService: databaseService,
             eloquentQueryBuilder:eloquentQueryBuilder,
             cryptoService: app('crypto'),
-            eventsService: app('events'),
+            dispatcher: (...args: any[]) => app('events').dispatch(...args) as Promise<void>,
             logger: app('logger'),
         });
 

@@ -14,6 +14,7 @@
     "tinker": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register ./src/tinker.ts",
     "postinstall": "pnpm run build",
     "test:jest": "jest --runInBand --detectOpenHandles",
+    "test:watch": "jest --runInBand --detectOpenHandles --watch",
     "test:post": "ts-node -r tsconfig-paths/register ./src/tests/postTest.ts",
     "test": "run-s --continue-on-error test:jest test:post",
     "setup": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register ./src/setup.ts",

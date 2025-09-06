@@ -576,9 +576,6 @@ importers:
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core
-      '@larascript-framework/larascript-events':
-        specifier: workspace:*
-        version: link:../larascript-events
       '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:../larascript-observer
@@ -596,10 +593,6 @@ importers:
         version: 1.8.16
 
   libs/larascript-events:
-    dependencies:
-      zod:
-        specifier: ^3.23.8
-        version: 3.25.76
     devDependencies:
       '@larascript-framework/check-exports':
         specifier: workspace:*

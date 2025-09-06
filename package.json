@@ -1,7 +1,13 @@
 {
 	"packageManager": "pnpm@10.0.0",
 	"scripts": {
-		"depcheck": "depcheck"
+		"depcheck": "depcheck",
+		"apps:watch": "turbo build:watch --filter=\"./apps/*\" --concurrency=100%",
+		"apps:build": "turbo build --filter=\"./apps/*\" --concurrency=100%",
+		"libs:watch": "turbo build:watch --filter=\"./libs/*\" --concurrency=100%",
+		"libs:build": "turbo build --filter=\"./libs/*\" --concurrency=100%",
+		"watch": "turbo build:watch --concurrency=100%",
+		"build": "turbo build --concurrency=100%"
 	},
 	"dependencies": {
 		"@larascript-framework/async-session": "workspace:*",

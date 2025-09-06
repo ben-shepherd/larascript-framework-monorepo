@@ -1,7 +1,7 @@
-import { BaseSingleton } from "@/base";
-import { UninitializedContainerError } from "@/exceptions/UninitializedContainerError";
-import { RequiresDependency } from "@/interfaces";
-import { Containers, Kernel } from "@/kernel/Kernel";
+import { BaseSingleton } from "../base";
+import { UninitializedContainerError } from "../exceptions/UninitializedContainerError";
+import { RequiresDependency } from "../interfaces";
+import { Containers, Kernel } from "../kernel/Kernel";
 
 /**
  * @module App

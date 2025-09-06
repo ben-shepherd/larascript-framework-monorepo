@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { AppSingleton } from "@/app/AppSingleton";
-import { IProvider } from "@/interfaces/Provider.t";
+import { AppSingleton } from "../app/AppSingleton";
+import { IProvider } from "../interfaces/Provider.t";
 
 /**
  * Base class for providers

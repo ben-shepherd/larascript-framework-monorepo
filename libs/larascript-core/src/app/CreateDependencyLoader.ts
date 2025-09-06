@@ -1,6 +1,6 @@
-import { UninitializedContainerError } from "@/exceptions";
-import { DependencyLoader } from "@/interfaces";
-import { Containers } from "@/kernel";
+import { UninitializedContainerError } from "../exceptions";
+import { DependencyLoader } from "../interfaces";
+import { Containers } from "../kernel/Kernel";
 
 /**
  * Utility class for creating dependency loader functions from plain objects.

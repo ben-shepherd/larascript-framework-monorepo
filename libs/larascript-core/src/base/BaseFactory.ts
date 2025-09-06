@@ -37,4 +37,11 @@ export abstract class BaseFactory<Data> implements IFactory<Data> {
         } as Data;
     }
 
+    /**
+     * Creates a new instance of the model with the given data.
+     */
+    createWithData(data: Data): Data {
+        return { ...data } as Data;
+    }
+
 }

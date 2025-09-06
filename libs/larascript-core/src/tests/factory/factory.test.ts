@@ -96,7 +96,7 @@ describe('BaseFactory', () => {
                 age: 25
             };
             
-            const instance = factory.create(partialData);
+            const instance = factory.createWithData(partialData);
             
             expect(instance.name).toBe('Jane Doe');
             expect(instance.age).toBe(25);
@@ -104,12 +104,12 @@ describe('BaseFactory', () => {
             expect(instance).not.toHaveProperty('email');
         });
 
-        test('should handle empty object as data (returns empty object)', () => {
+        test('should handle empty object as data (returns definition)', () => {
             const instance = factory.create({});
             
             expect(instance).toBeDefined();
-            expect(instance).toEqual({});
-            expect(Object.keys(instance)).toHaveLength(0);
+            expect(Object.keys(factory.getDefinition())).toEqual(['name', 'age', 'email']);
+            expect(Object.keys(instance)).toHaveLength(3);
         });
     });
 

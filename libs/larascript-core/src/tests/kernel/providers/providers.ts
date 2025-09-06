@@ -1,5 +1,5 @@
-import { withDependencies } from "@/app";
-import { BaseProvider } from "@/base";
+import { withDependencies } from "../../../app";
+import { BaseProvider } from "../../../base";
 import AltMockDatabaseService from "../services/AltMockDatabaseService";
 import LoggerService from "../services/LoggerService";
 import MockDatabaseService from "../services/MockDatabaseService";

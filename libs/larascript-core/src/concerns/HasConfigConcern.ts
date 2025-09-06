@@ -1,5 +1,5 @@
-import { IHasConfigConcern } from "@/interfaces/HasConfigConcern.t";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
+import { IHasConfigConcern } from "../interfaces/HasConfigConcern.t";
 
 export const HasConfigConcern = (Base: TClassConstructor) => {
   return class extends Base implements IHasConfigConcern {

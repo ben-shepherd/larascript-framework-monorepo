@@ -10,7 +10,17 @@ export const jestConfig = {
         target: "ES2022",
       },
     }],
+    "^.+\\.js$": ["ts-jest", {
+      useESM: true,
+      tsconfig: {
+        module: "ESNext",
+        target: "ES2022",
+      },
+    }],
   },
+  transformIgnorePatterns: [
+    "node_modules/(?!(@larascript-framework)/)"
+  ],
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^(\\.{1,2}/.*)\\.js$": "$1",

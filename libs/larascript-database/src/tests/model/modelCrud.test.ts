@@ -20,8 +20,8 @@ describe("test model crud", () => {
        * Create a model
        */
       const createdModel = new TestPeopleModel(null);
-      createdModel.setAttribute("name", "John");
-      createdModel.setAttribute("age", 30);
+      await createdModel.setAttribute("name", "John");
+      await createdModel.setAttribute("age", 30);
       createdModel.setConnectionName(connectionName);
 
       expect(createdModel.getId()).toBeFalsy();

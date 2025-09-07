@@ -35,14 +35,14 @@ describe("model dirty", () => {
         .firstOrFail();
       expect(modelOne.isDirty()).toBeFalsy();
 
-      modelOne.attr("name", "Jane");
+      await modelOne.attr("name", "Jane");
       expect(modelOne.isDirty()).toBeTruthy();
       expect(
         Object.keys(modelOne.getDirty() ?? {}).includes("name"),
       ).toBeTruthy();
       expect(modelOne.getOriginal("name") === "John");
 
-      modelOne.attr("array", ["a", "b", "c"]);
+      await modelOne.attr("array", ["a", "b", "c"]);
       expect(modelOne.isDirty()).toBeTruthy();
       const containsDirtyArray = Object.keys(
         modelOne.getDirty() ?? {},
@@ -50,7 +50,7 @@ describe("model dirty", () => {
       expect(containsDirtyArray).toBeTruthy();
       expect((modelOne.getOriginal("array") as string[])?.length).toEqual(2);
 
-      modelOne.attr("object", {
+      await modelOne.attr("object", {
         a: 2,
         b: 2,
       });
@@ -69,7 +69,7 @@ describe("model dirty", () => {
       await modelOne.save();
       expect(modelOne.isDirty()).toBeFalsy();
 
-      modelOne.attr("name", "Bob");
+      await modelOne.attr("name", "Bob");
       expect(modelOne.isDirty()).toBeTruthy();
       const containsDirtyName = Object.keys(modelOne.getDirty() ?? {}).includes(
         "name",
@@ -95,7 +95,7 @@ describe("model dirty", () => {
       expect(modelTwo).toBeTruthy();
       expect(modelTwo.isDirty()).toBeFalsy();
 
-      modelTwo.attr("name", "Jane");
+      await modelTwo.attr("name", "Jane");
       expect(modelTwo.isDirty()).toBeTruthy();
       const containsDirtyName2 = Object.keys(
         modelTwo.getDirty() ?? {},
@@ -103,7 +103,7 @@ describe("model dirty", () => {
       expect(containsDirtyName2).toBeTruthy();
       expect(modelTwo.getOriginal("name") === "John");
 
-      modelTwo.attr("array", ["a", "b", "c"]);
+      await modelTwo.attr("array", ["a", "b", "c"]);
       expect(modelTwo.isDirty()).toBeTruthy();
       const containsDirtyArray2 = Object.keys(
         modelTwo.getDirty() ?? {},
@@ -114,7 +114,7 @@ describe("model dirty", () => {
       );
       expect((modelTwo.getOriginal("array") as string[])?.length).toEqual(2);
 
-      modelTwo.attr("object", {
+      await modelTwo.attr("object", {
         a: 2,
         b: 2,
       });

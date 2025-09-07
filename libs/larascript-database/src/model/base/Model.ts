@@ -1,3 +1,4 @@
+import { Castable, TCastableType } from "@larascript-framework/cast-js";
 import { Collection } from "@larascript-framework/larascript-collection";
 import {
   IObserver,
@@ -5,9 +6,7 @@ import {
   ObserveConstructor,
 } from "@larascript-framework/larascript-observer";
 import {
-  Castable,
   Str,
-  TCastableType,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
 import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
@@ -843,7 +842,7 @@ export default abstract class Model<Attributes extends IModelAttributes>
     if (!this.timestamps || !this.dates.includes(dateTimeField)) {
       return;
     }
-    this.setAttribute(dateTimeField, value as Attributes[string]);
+    await this.setAttribute(dateTimeField, value as Attributes[string]);
   }
 
   /**
@@ -1093,7 +1092,7 @@ export default abstract class Model<Attributes extends IModelAttributes>
 
     // Update the model
     this.attributes = await this.observeAttributes("updating", this.attributes);
-    this.setTimestamp("updatedAt");
+    await this.setTimestamp("updatedAt");
     await this.update();
 
     // Refresh the model

@@ -1,4 +1,4 @@
-import { TCastableType } from "@larascript-framework/larascript-utils";
+import { TCastableType } from "@larascript-framework/cast-js";
 import { DataTypes } from "sequelize";
 import DB from "../../../database/services/DB.js";
 import Model from "../../../model/base/Model.js";

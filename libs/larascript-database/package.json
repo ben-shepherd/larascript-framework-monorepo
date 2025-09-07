@@ -46,7 +46,8 @@
     "db:mongodb:restart": "npm run db:mongodb:down && npm run db:mongodb:up",
     "db:mongodb:up": "cd ./docker && docker-compose -f docker-compose.mongodb.yml up -d",
     "db:mongodb:down": "cd ./docker && docker-compose -f docker-compose.mongodb.yml down",
-    "db:mongodb:delete-volume": "cd ./docker && docker volume rm mongodb_data"
+    "db:mongodb:delete-volume": "cd ./docker && docker volume rm mongodb_data",
+    "tslint": "tslint --project tsconfig.json"
   },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",
@@ -63,6 +64,7 @@
     }
   },
   "dependencies": {
+    "@larascript-framework/cast-js": "workspace:*",
     "@larascript-framework/crypto-js": "workspace:*",
     "@larascript-framework/larascript-collection": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",

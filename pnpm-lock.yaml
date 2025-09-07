@@ -572,6 +572,9 @@ importers:
 
   libs/larascript-database:
     dependencies:
+      '@larascript-framework/cast-js':
+        specifier: workspace:*
+        version: link:../cast-js
       '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:../crypto-js

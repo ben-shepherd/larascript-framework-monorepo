@@ -55,7 +55,7 @@ export class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
         ?.error("Error checking if database exists: " + (err as Error).message);
       throw err;
     } finally {
-      client.close();
+      await client.close();
     }
   }
 
@@ -76,7 +76,7 @@ export class MongoDBSchema extends BaseSchema<MongoDbAdapter> {
         ?.error("Error dropping database: " + (err as Error).message);
       throw err;
     } finally {
-      client.close();
+      await client.close();
     }
   }
 

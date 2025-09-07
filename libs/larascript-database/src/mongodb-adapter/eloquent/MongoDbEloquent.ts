@@ -892,7 +892,7 @@ class MongoDbEloquent<Model extends IModel> extends Eloquent<
         );
 
         // Update each document
-        collection.updateMany(matchFilter, { $set: normalizedDocument });
+        await collection.updateMany(matchFilter, { $set: normalizedDocument });
 
         // Get the post-update results for the match filter
         const postUpdateResults = await this.findMany({

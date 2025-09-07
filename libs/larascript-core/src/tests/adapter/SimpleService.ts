@@ -1,4 +1,5 @@
 import { BaseAdapter, BaseAdapterTypes } from "@/base/BaseAdapter.js";
+export type { BaseAdapterTypes } from "@/base/BaseAdapter.js";
 
 // Simple interface for a basic adapter
 interface SimpleAdapter {
@@ -124,4 +125,4 @@ export default class SimpleService extends BaseAdapter<TestAdapterTypes> {
 }
 
 // Export mock adapters for testing
-export { MockAdapterA, MockAdapterB, SimpleAdapter, TestAdapterTypes };
+export { MockAdapterA, MockAdapterB, type SimpleAdapter, type TestAdapterTypes };

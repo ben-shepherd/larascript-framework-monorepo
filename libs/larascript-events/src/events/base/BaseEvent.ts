@@ -22,10 +22,10 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
     protected namespace: string = '';
 
     /** The name of the queue that should process this event */
-    queueName: string = 'default';
+    protected queueName: string = 'default';
 
     /** Whether the event should be processed by the queable driver */
-    queable?: boolean = false;
+    protected queable?: boolean = false;
 
     /** Casting configuration for the event */
     casts: TCasts = {};
@@ -41,10 +41,6 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
         this.payload = payload;
         this.driverName = driverName;
 
-        if(this.queable) {
-            this.useQueableDriver();
-        }
-
         // Ensure the payload is valid
         if (!this.validatePayload()) {
             throw new EventInvalidPayloadException('Invalid payload. Must be JSON serializable.');
@@ -54,7 +50,6 @@ export abstract class BaseEvent<TPayload = unknown> extends BaseCastable impleme
         if (!EventRegistry.isInitialized()) {
             EventRegistry.register(this.constructor as TClassConstructor<IBaseEvent>);
         }
-
     }
 
     /**

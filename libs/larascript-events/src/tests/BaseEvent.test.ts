@@ -1,4 +1,3 @@
-import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { BaseEvent } from "../events/base/BaseEvent.js";
 import { EVENT_DRIVERS } from "../events/consts/drivers.js";
 import { EventInvalidPayloadException } from "../events/exceptions/EventInvalidPayloadException.js";
@@ -32,7 +31,11 @@ class TestEvent extends BaseEvent<unknown> {
 }
 
 class TestQueableEvent extends BaseEvent<unknown> {
-  queable: boolean = true;
+
+  constructor(payload: unknown | null = null) {
+    super(payload);
+    this.useQueableDriver();
+  }
 
   async execute(): Promise<void> {
     // Test implementation

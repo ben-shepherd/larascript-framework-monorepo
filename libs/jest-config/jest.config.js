@@ -1,8 +1,19 @@
 export const jestConfig = {
   preset: "ts-jest",
   testEnvironment: "node",
+  extensionsToTreatAsEsm: ['.ts'],
+  transform: {
+    "^.+\\.ts$": ["ts-jest", {
+      useESM: true,
+      tsconfig: {
+        module: "ESNext",
+        target: "ES2022",
+      },
+    }],
+  },
   moduleNameMapper: {
     "^@/(.*)$": "<rootDir>/src/$1",
+    "^(\\.{1,2}/.*)\\.js$": "$1",
   },
   testMatch: ["<rootDir>/src/tests/**/*.test.ts"],
   collectCoverageFrom: [

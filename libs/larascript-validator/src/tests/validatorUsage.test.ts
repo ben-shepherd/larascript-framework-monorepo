@@ -4,7 +4,7 @@ import {
   RequiredRule,
   StringRule,
   Validator,
-} from "@/validator.js";
+} from "@/validator/index.js";
 import { describe } from "@jest/globals";
 describe("test validation", () => {
   test("simple required name and string, passes", async () => {

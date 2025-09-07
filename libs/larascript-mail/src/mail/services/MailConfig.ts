@@ -1,4 +1,4 @@
-import { IMailConfig, MailAdapterConfigItem } from "../interfaces.js";
+import { IMailConfig, MailAdapterConfigItem } from "../interfaces/index.js";
 
 export class MailConfig {
   public static drivers(

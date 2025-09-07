@@ -2,8 +2,8 @@ import { jest } from "@jest/globals";
 import "dotenv/config";
 import fs from "fs";
 import path from "path";
-import { StorageFile } from "../storage/data.js";
-import { FileSystemMeta, IStorageConfig } from "../storage/interfaces.js";
+import { StorageFile } from "../storage/data/index.js";
+import { FileSystemMeta, IStorageConfig } from "../storage/interfaces/index.js";
 import AmazonS3StorageService from "../storage/services/AmazonS3StorageService.js";
 import StorageService from "../storage/services/StorageService.js";
 

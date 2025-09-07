@@ -1,4 +1,4 @@
-import { IMail, IMailOptions, IMailViewData } from "../interfaces.js";
+import { IMail, IMailOptions, IMailViewData } from "../interfaces/index.js";
 
 /**
  * Represents a mail message.

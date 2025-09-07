@@ -1,7 +1,7 @@
 import path from "path";
-import { StorageFile } from "../data.js";
-import { StorageTypes } from "../enums.js";
-import { FileSystemMeta } from "../interfaces.js";
+import { StorageFile } from "../data/index.js";
+import { StorageTypes } from "../enums/index.js";
+import { FileSystemMeta } from "../interfaces/index.js";
 
 /**
  * Converts an absolute path to a relative path within the storage directory.

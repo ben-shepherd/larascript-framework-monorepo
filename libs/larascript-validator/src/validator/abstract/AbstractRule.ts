@@ -1,4 +1,4 @@
-import { IRule, IRuleError } from "../interfaces.js";
+import { IRule, IRuleError } from "../interfaces/index.js";
 import { forceString } from "../utils/forceString.js";
 
 /**

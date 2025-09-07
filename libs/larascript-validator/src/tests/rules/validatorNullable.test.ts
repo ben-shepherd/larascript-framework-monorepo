@@ -1,4 +1,4 @@
-import { NullableRule, StringRule, Validator } from "@/validator.js";
+import { NullableRule, StringRule, Validator } from "@/validator/index.js";
 import { describe } from "@jest/globals";
 
 describe("test validation", () => {

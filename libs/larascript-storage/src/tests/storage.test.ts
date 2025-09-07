@@ -1,7 +1,7 @@
 import { jest } from "@jest/globals";
 import path from "path";
-import { StorageFile } from "../storage/data.js";
-import { IStorageConfig } from "../storage/interfaces.js";
+import { StorageFile } from "../storage/data/index.js";
+import { IStorageConfig } from "../storage/interfaces/index.js";
 import StorageService from "../storage/services/StorageService.js";
 
 // Mock path module

@@ -1,4 +1,4 @@
-import { StorageFile } from "../data.js";
+import { StorageFile } from "../data/index.js";
 import { IGenericStorage } from "./IGenericStorage.t.js";
 import { IStorageConfig } from "./IStorageConfig.t.js";
 import { IStorageFile } from "./IStorageFile.js";

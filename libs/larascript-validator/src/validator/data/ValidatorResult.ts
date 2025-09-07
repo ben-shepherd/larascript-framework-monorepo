@@ -1,4 +1,4 @@
-import { IValidatorAttributes, IValidatorResult } from "../interfaces.js";
+import { IValidatorAttributes, IValidatorResult } from "../interfaces/index.js";
 
 /**
  * ValidatorResult class represents the outcome of a validation operation.

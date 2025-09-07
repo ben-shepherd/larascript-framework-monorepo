@@ -1,4 +1,4 @@
-import { RequiredRule, StringRule, Validator } from "@/validator.js";
+import { RequiredRule, StringRule, Validator } from "@/validator/index.js";
 import IsNumber from "@/validator/rules/NumberRule.js";
 import { describe } from "@jest/globals";
 

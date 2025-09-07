@@ -1,7 +1,8 @@
-export * from "./storage/data.js";
-export * from "./storage/enums.js";
-export * from "./storage/exceptions.js";
-export * from "./storage/interfaces.js";
-export * from "./storage/parser.js";
-export * from "./storage/services.js";
-export * from "./storage/utils.js";
+export * from "./storage/data/index.js";
+export * from "./storage/enums/index.js";
+export * from "./storage/exceptions/index.js";
+export * from "./storage/interfaces/index.js";
+export * from "./storage/parser/index.js";
+export * from "./storage/services/index.js";
+export * from "./storage/utils/index.js";
+

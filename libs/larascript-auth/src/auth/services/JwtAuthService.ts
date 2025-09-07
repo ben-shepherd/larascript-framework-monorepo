@@ -53,9 +53,6 @@ export class JwtAuthService
   /** Crypto service for password hashing and verification */
   protected cryptoService!: ICryptoService;
 
-  /** Async session service for session management */
-  protected asyncSession!: IAsyncSessionService;
-
   /**
    * Creates a new JwtAuthService instance.
    *

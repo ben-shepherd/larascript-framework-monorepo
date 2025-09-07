@@ -12,7 +12,7 @@ class CustomRule extends AbstractRule implements IRule {
 
   protected errorTemplate: string = "The :attribute is invalid.";
 
-  protected options!: ConstructorProps;
+  declare options: ConstructorProps;
 
   constructor(
     fn: ConstructorProps["fn"],

@@ -14,7 +14,7 @@ class AfterDateRule extends AbstractRule implements IRule {
 
   protected errorTemplate: string = "The :attribute must be after :date.";
 
-  protected options!: Options & { date: Date };
+  declare options: Options & { date: Date };
 
   protected beforeDate!: Date;
 

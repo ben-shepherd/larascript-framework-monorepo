@@ -38,8 +38,8 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@larascript-framework/cast-js": "github:ben-shepherd/cast-js",
-    "@larascript-framework/dot-notation-extractor": "github:ben-shepherd/dot-notation-extractor",
+    "@larascript-framework/cast-js": "workspace:*",
+    "@larascript-framework/dot-notation-extractor": "workspace:*",
     "crypto": "^1.0.1",
     "lodash": "^4.17.21",
     "uuid": "^11.1.0"

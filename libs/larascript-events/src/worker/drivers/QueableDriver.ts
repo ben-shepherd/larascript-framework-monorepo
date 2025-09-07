@@ -34,7 +34,7 @@ export interface IQueableDriverOptions extends TEventWorkerOptions {
  */
 export class QueueableDriver extends BaseDriver  {
 
-    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.QUEABLE as keyof typeof EVENT_DRIVERS;
+    name: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.QUEABLE as keyof typeof EVENT_DRIVERS;
 
     /**
      * Dispatches an event by saving it to the worker model.

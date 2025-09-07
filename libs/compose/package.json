@@ -1,10 +1,14 @@
 {
-  "name": "@larascript-framework/larascript-events",
+  "name": "@larascript-framework/compose",
+  "type": "module",
   "version": "1.0.0",
-  "description": "Larascript Events",
+  "description": "A utility function for implementing the mixin pattern in TypeScript, allowing you to compose classes with multiple behaviors by combining a base class with one or more mixin functions.",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ben-shepherd/compose"
+  },
   "license": "ISC",
   "author": "ben.shepherd@gmx.com",
-  "type": "module",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
@@ -13,9 +17,9 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests",
-    "test:coverage": "jest --coverage --passWithNoTests",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:coverage": "jest --coverage",
     "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "tsc --watch --skipLibCheck",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -33,17 +37,9 @@
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
     "depcheck": "depcheck"
   },
-  "dependencies": {
-    "@larascript-framework/cast-js": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-utils": "workspace:*",
-    "@larascript-framework/larascript-logger": "workspace:*",
-    "@larascript-framework/larascript-database": "workspace:*"
-  },
   "devDependencies": {
-    "@larascript-framework/check-exports": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
     "tsc-alias": "^1.8.16"
   },

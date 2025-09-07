@@ -1,4 +1,5 @@
-import { BaseCastable, TCastableType, TCasts, TClassConstructor } from "@larascript-framework/larascript-utils";
+import { BaseCastable, TCastableType, TCasts } from "@larascript-framework/cast-js";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import assert from "node:assert";
 import { EVENT_DRIVERS } from "../consts/drivers.js";
 import { EventInvalidPayloadException } from "../exceptions/EventInvalidPayloadException.js";

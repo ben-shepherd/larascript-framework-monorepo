@@ -22,6 +22,7 @@ export const jestConfig = {
     "node_modules/(?!(@larascript-framework)/)"
   ],
   moduleNameMapper: {
+    "^@/(.*)\\.js$": "<rootDir>/src/$1",
     "^@/(.*)$": "<rootDir>/src/$1",
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },

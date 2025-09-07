@@ -377,6 +377,21 @@ importers:
 
   libs/check-exports: {}
 
+  libs/compose:
+    devDependencies:
+      '@larascript-framework/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@larascript-framework/jest-config':
+        specifier: workspace:*
+        version: link:../jest-config
+      '@larascript-framework/tsconfig':
+        specifier: workspace:*
+        version: link:../tsconfig
+      tsc-alias:
+        specifier: ^1.8.16
+        version: 1.8.16
+
   libs/crypto-js:
     dependencies:
       crypto:
@@ -532,6 +547,9 @@ importers:
 
   libs/larascript-core:
     dependencies:
+      '@larascript-framework/compose':
+        specifier: workspace:*
+        version: link:../compose
       '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils
@@ -554,22 +572,9 @@ importers:
 
   libs/larascript-database:
     dependencies:
-      mongodb:
-        specifier: ^6.18.0
-        version: 6.18.0
-    devDependencies:
-      '@larascript-framework/check-exports':
-        specifier: workspace:*
-        version: link:../check-exports
       '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:../crypto-js
-      '@larascript-framework/eslint-config':
-        specifier: workspace:*
-        version: link:../eslint-config
-      '@larascript-framework/jest-config':
-        specifier: workspace:*
-        version: link:../jest-config
       '@larascript-framework/larascript-collection':
         specifier: workspace:*
         version: link:../larascript-collection
@@ -582,6 +587,19 @@ importers:
       '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils
+      mongodb:
+        specifier: ^6.18.0
+        version: 6.18.0
+    devDependencies:
+      '@larascript-framework/check-exports':
+        specifier: workspace:*
+        version: link:../check-exports
+      '@larascript-framework/eslint-config':
+        specifier: workspace:*
+        version: link:../eslint-config
+      '@larascript-framework/jest-config':
+        specifier: workspace:*
+        version: link:../jest-config
       '@larascript-framework/test-helpers':
         specifier: workspace:*
         version: link:../test-helpers
@@ -594,6 +612,9 @@ importers:
 
   libs/larascript-events:
     dependencies:
+      '@larascript-framework/cast-js':
+        specifier: workspace:*
+        version: link:../cast-js
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core
@@ -709,11 +730,11 @@ importers:
   libs/larascript-utils:
     dependencies:
       '@larascript-framework/cast-js':
-        specifier: github:ben-shepherd/cast-js
-        version: '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c'
+        specifier: workspace:*
+        version: link:../cast-js
       '@larascript-framework/dot-notation-extractor':
-        specifier: github:ben-shepherd/dot-notation-extractor
-        version: '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37'
+        specifier: workspace:*
+        version: link:../dot-notation-extractor
       crypto:
         specifier: ^1.0.1
         version: 1.0.1
@@ -997,14 +1018,6 @@ packages:
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
-
-  '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c}
-    version: 1.0.0
-
-  '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37}
-    version: 1.0.0
 
   '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
     resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21}
@@ -4764,12 +4777,6 @@ snapshots:
       '@babel/helper-validator-identifier': 7.27.1
 
   '@bcoe/v8-coverage@0.2.3': {}
-
-  '@ben-shepherd/cast-js@https://codeload.github.com/ben-shepherd/cast-js/tar.gz/c24c6e095a90d8062d3cf13ecade8ef6b716304c':
-    dependencies:
-      collect.js: 4.36.1
-
-  '@ben-shepherd/dot-notation-extractor@https://codeload.github.com/ben-shepherd/dot-notation-extractor/tar.gz/06bc1645f90db6a59a1b679d71f1808b268a4f37': {}
 
   '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
     dependencies:

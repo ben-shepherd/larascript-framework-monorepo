@@ -108,6 +108,7 @@ export class EventService implements IEventService {
         }
 
         const eventDriver = new driverConstructor(this)
+        eventDriver.setEventService(this)
         await eventDriver.dispatch(event)
 
         // Notify all subscribers of the event
@@ -173,6 +174,15 @@ export class EventService implements IEventService {
      */
     getDriverOptions(driver: IEventDriver): IEventDriversConfigOption | undefined {
         return this.getDriverOptionsByName(driver.getName())
+    }
+
+    /**
+     * Sets the configuration options for a specific driver
+     * @param driver - The driver instance
+     * @param options - The driver configuration options
+     */
+    setDriverOptions(driver: IEventDriver, options: IEventDriversConfigOption): void {
+        this.registeredDrivers[driver.getName()] = options
     }
 
     /**

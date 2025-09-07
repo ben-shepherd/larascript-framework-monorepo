@@ -1,10 +1,16 @@
 import { AppSingleton } from "@larascript-framework/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import { EVENT_DRIVERS, IBaseEvent, IEventDriver, TSerializableValues, WorkerService } from "../../../events/index.js";
+import { EVENT_DRIVERS, IBaseEvent, IEventDriver, IEventService, TSerializableValues, WorkerService } from "../../../events/index.js";
 
 class InMemoryEventDriver implements IEventDriver {
 
-    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
+    name: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
+
+    private eventService!: IEventService;
+
+    setEventService(eventService: IEventService): void {
+        this.eventService = eventService;
+    }
 
     getName(): string {
         return 'in-memory';

@@ -38,7 +38,8 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@larascript-framework/larascript-utils": "workspace:*"
+    "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/compose": "workspace:*"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",

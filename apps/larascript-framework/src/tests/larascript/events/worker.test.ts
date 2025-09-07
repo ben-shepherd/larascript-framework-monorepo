@@ -7,11 +7,10 @@ import { BaseEvent, EventRegistry, EventService, FailedWorkerModel, IEventServic
 class TestEvent extends BaseEvent<{ foo: string, bar?: object, arr?: string[] }> {
 
     queueName: string = 'testing';
-
-    queable: boolean = true;
-
+    
     constructor(payload: { foo: string, bar?: object, arr?: string[] }) {
         super(payload);
+        this.useQueableDriver();
     }
 }
 

@@ -35,6 +35,13 @@ export interface IEventService extends IDispatchable
     getDriverOptions(driver: IEventDriver): IEventDriversConfigOption | undefined;
 
     /**
+     * Sets the configuration options for a specific driver
+     * @param driver - The driver instance
+     * @param options - The driver configuration options
+     */
+    setDriverOptions(driver: IEventDriver, options: IEventDriversConfigOption): void;
+
+    /**
      * Gets the configuration options for a driver by name
      * @param driverName - The name of the driver
      * @returns The driver configuration options or undefined if not found

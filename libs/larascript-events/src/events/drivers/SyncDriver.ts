@@ -13,7 +13,7 @@ import { IBaseEvent } from "../interfaces/base.t.js";
  */
 export class SyncDriver extends BaseDriver  {
 
-    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
+    name: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
 
     async dispatch(event: IBaseEvent): Promise<void> {
         await event.execute();

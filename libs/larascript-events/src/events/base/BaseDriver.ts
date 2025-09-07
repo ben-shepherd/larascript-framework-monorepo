@@ -7,16 +7,16 @@ import { IBaseEvent, IEventDriver, IEventDriversConfigOption, IEventService } fr
  */
 export abstract class BaseDriver implements IEventDriver {
 
-    _type: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
+    name: keyof typeof EVENT_DRIVERS = EVENT_DRIVERS.SYNC as keyof typeof EVENT_DRIVERS;
 
     /** The event service instance */
     protected eventService!: IEventService;
 
     /**
-     * Creates a new BaseDriver instance
-     * @param eventService - The event service to use for configuration and dispatching
+     * Sets the event service instance
+     * @param eventService - The event service instance
      */
-    constructor(eventService: IEventService) {
+    setEventService(eventService: IEventService): void {
         this.eventService = eventService
     }
 
@@ -25,7 +25,7 @@ export abstract class BaseDriver implements IEventDriver {
      * @returns The name of the event driver as a string
      */
     getName(): string {
-        return this.constructor.name
+        return this.name
     }
 
     /**
@@ -41,7 +41,10 @@ export abstract class BaseDriver implements IEventDriver {
      * @template T - The type of options to return
      * @returns The configuration options for this driver, or undefined if not found
      */
-    protected getOptions<T extends IEventDriversConfigOption['options'] = {}>(): T | undefined {
+    getOptions<T extends IEventDriversConfigOption['options'] = {}>(): T | undefined {
+        if(!this.eventService) {
+            return undefined
+        }
         return this.eventService.getDriverOptions(this)?.options as T ?? undefined
     }
 

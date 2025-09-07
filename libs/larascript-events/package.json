@@ -31,7 +31,8 @@
     "upstream:fetch": "git fetch upstream",
     "upstream:merge": "git fetch upstream && git merge upstream/main",
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
-    "depcheck": "depcheck"
+    "depcheck": "depcheck",
+    "tslint": "tslint --project tsconfig.json"
   },
   "dependencies": {
     "@larascript-framework/cast-js": "workspace:*",

@@ -145,7 +145,7 @@ describe('Worker', () => {
         expect(found?.getWorkerData()?.id).toBe('worker-1');
 
         // Update
-        workerModel.updateWorkerData({ ...workerData, attempts: 1 });
+        await workerModel.updateWorkerData({ ...workerData, attempts: 1 });
         await repo.updateWorker(workerModel);
         allWorkers = await repo.getWorkers();
         expect(allWorkers.length).toBe(1);

@@ -169,7 +169,7 @@ export class WorkerService implements IWorkerService {
                 [WorkerModel.PAYLOAD]: DataTypes.JSON,
                 [WorkerModel.ATTEMPTS]: DataTypes.INTEGER,
                 [WorkerModel.RETRIES]: DataTypes.INTEGER,
-                [WorkerModel.ERROR]: DataTypes.STRING,
+                [WorkerModel.ERROR]: DataTypes.TEXT,
                 [WorkerModel.CREATED_AT]: DataTypes.DATE,
                 [WorkerModel.UPDATED_AT]: DataTypes.DATE,
                 [WorkerModel.DELETED_AT]: DataTypes.DATE,

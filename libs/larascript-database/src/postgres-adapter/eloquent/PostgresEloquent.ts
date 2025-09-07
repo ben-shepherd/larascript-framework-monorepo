@@ -392,13 +392,13 @@ class PostgresEloquent<Model extends IModel> extends Eloquent<
     bindings?: unknown[],
   ): Promise<T> {
     if (DB.getInstance().databaseService().showLogs()) {
-      console.log("[Postgres] raw", { expression, bindings });
+      DB.getInstance().logger()?.info("[Postgres] raw", expression, bindings);
     }
 
     const results = await this.getPool().query(expression, bindings);
 
     if (DB.getInstance().databaseService().showLogs()) {
-      console.log("[Postgres] count", results?.rows?.length);
+      DB.getInstance().logger()?.info("[Postgres] count", results?.rows?.length );
     }
 
     this.expression.bindingsUtility.reset();

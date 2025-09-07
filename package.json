@@ -1,6 +1,5 @@
 {
 	"type": "module",
-	"packageManager": "pnpm@10.0.0",
 	"scripts": {
 		"depcheck": "depcheck",
 		"apps:watch": "turbo build:watch --filter=\"./apps/*\" --concurrency=100%",

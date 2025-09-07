@@ -480,23 +480,6 @@ export default abstract class Model<Attributes extends IModelAttributes>
       return (this.getAttributeSync(key) as Attributes[K]) ?? null;
     }
 
-    this.setAttribute(key, value).then(() => {});
-
-    return undefined;
-  }
-
-  /**
-   * Sets the value of a specific attribute in the model's data.
-   *
-   * @template K Type of the attribute key.
-   * @param {K} key - The key of the attribute to set.
-   * @param {any} value - The value to set for the attribute.
-   * @throws {Error} If the attribute is not in the allowed fields or if a date field is set with a non-Date value.
-   */
-  async setAttribute<K extends keyof Attributes = keyof Attributes>(
-    key: K,
-    value?: unknown,
-  ): Promise<void> {
     if (!this.attributeIsSettable(key as string)) {
       return;
     }
@@ -513,6 +496,22 @@ export default abstract class Model<Attributes extends IModelAttributes>
       this.attributes[key] = value as Attributes[K];
     }
 
+    return undefined;
+  }
+
+  /**
+   * Sets the value of a specific attribute in the model's data.
+   *
+   * @template K Type of the attribute key.
+   * @param {K} key - The key of the attribute to set.
+   * @param {any} value - The value to set for the attribute.
+   * @throws {Error} If the attribute is not in the allowed fields or if a date field is set with a non-Date value.
+   */
+  async setAttribute<K extends keyof Attributes = keyof Attributes>(
+    key: K,
+    value?: unknown,
+  ): Promise<void> {
+    this.attrSync(key, value);
     this.attributes = await this.observeProperty(key as string);
   }
 

@@ -1,4 +1,4 @@
-import { IHasCastableConcern } from "@larascript-framework/larascript-utils";
+import { IHasCastableConcern } from "@larascript-framework/cast-js";
 import { IExecutable, INameable } from "./types.t.js";
 
 /**

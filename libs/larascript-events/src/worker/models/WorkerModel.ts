@@ -1,5 +1,5 @@
+import { TCastableType } from "@larascript-framework/cast-js";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { TCastableType } from "@larascript-framework/larascript-utils";
 import { IWorkerAttributes, IWorkerModel } from "../../worker/index.js";
 
 export type WorkerModelAttributes = IWorkerAttributes & IModelAttributes
@@ -111,21 +111,19 @@ export class WorkerModel extends Model<WorkerModelAttributes> implements IWorker
         return new WorkerModel(data as WorkerModelAttributes).save()
     }
 
-    saveWorkerData(): Promise<void> {
-        return this.save()
+    async saveWorkerData(): Promise<void> {
+        return await this.save()
     }
 
-    updateWorkerData(data: IWorkerAttributes): Promise<void> {
-        this.getFields().forEach(field => {
-            if(data?.[field]) {
-                this[field] = data[field]
-            }
-        })
-        return this.save()
+    async updateWorkerData(data: IWorkerAttributes): Promise<void> {
+        for(const field of Object.keys(data)) {
+            this.attrSync(field as keyof WorkerModelAttributes, data[field])
+        }
+        return await this.save()
     }
 
-    deleteWorkerData(): Promise<void> {
-        return this.delete()
+    async deleteWorkerData(): Promise<void> {
+        return await this.delete()
     }
 }
 

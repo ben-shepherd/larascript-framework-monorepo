@@ -44,6 +44,7 @@ const testBootApp = async () => {
         ]
     }
 
+    Kernel.reset()
     await Kernel.boot(config, {});
 }
 

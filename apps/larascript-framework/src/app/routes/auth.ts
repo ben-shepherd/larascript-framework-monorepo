@@ -1,9 +1,9 @@
-import { IExtendedAuthConfig } from "@src/config/auth.config";
-import Route from "@src/core/domains/http/router/Route";
-import Router from "@src/core/domains/http/router/Router";
-import { IRouter } from "../../core/domains/http/interfaces/IRouter";
-import AuthController from "../controllers/AuthController";
-import AuthorizeMiddleware from "../middleware/auth/AuthorizeMiddleware";
+import { IExtendedAuthConfig } from "@/config/auth.config.js";
+import Route from "@/core/domains/http/router/Route.js";
+import Router from "@/core/domains/http/router/Router.js";
+import { IRouter } from "../../core/domains/http/interfaces/IRouter.js";
+import AuthController from "../controllers/AuthController.js";
+import AuthorizeMiddleware from "../middleware/auth/AuthorizeMiddleware.js";
 
 export default (config: IExtendedAuthConfig): IRouter => {
 

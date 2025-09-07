@@ -1,8 +1,8 @@
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import { IController } from "@/core/domains/http/interfaces/IController.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
 import { appEnv } from "@larascript-framework/larascript-core";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import { IController } from "@src/core/domains/http/interfaces/IController";
-import { TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
 
 class Controller implements IController {
 

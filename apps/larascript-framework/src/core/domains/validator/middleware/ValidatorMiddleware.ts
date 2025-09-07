@@ -1,6 +1,6 @@
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import { IHttpContext } from "@/core/domains/http/interfaces/IHttpContext.js";
 import { CustomValidatorConstructor } from "@larascript-framework/larascript-validator";
-import Middleware from "@src/core/domains/http/base/Middleware";
-import { IHttpContext } from "@src/core/domains/http/interfaces/IHttpContext";
 
 /**
  * Validator middleware for validating the request body

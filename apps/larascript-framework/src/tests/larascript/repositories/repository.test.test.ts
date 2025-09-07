@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
+import { queryBuilder } from '@/core/services/QueryBuilder.js';
+import TestPeopleModel, { resetPeopleTable } from '@/tests/larascript/eloquent/models/TestPeopleModel.js';
+import TestPeopleRepository from '@/tests/larascript/repositories/TestPeopleRepository.js';
+import testHelper, { forEveryConnection } from '@/tests/testHelper.js';
 import { describe, test } from '@jest/globals';
 import { Repository } from '@larascript-framework/larascript-database';
-import { queryBuilder } from '@src/core/services/QueryBuilder';
-import TestPeopleModel, { resetPeopleTable } from '@src/tests/larascript/eloquent/models/TestPeopleModel';
-import TestPeopleRepository from '@src/tests/larascript/repositories/TestPeopleRepository';
-import testHelper, { forEveryConnection } from '@src/tests/testHelper';
 
 const resetAndPopulate = async () => {
     await resetPeopleTable()

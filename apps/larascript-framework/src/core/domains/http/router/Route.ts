@@ -1,7 +1,7 @@
-import { IRoute, IRouteGroupOptions, IRouter, TRouteGroupFn, TRouteResourceOptions } from "@src/core/domains/http/interfaces/IRouter";
-import Router from "@src/core/domains/http/router/Router";
-import ResourceRouter from "@src/core/domains/http/router/RouterResource";
-import SecurityRules from "@src/core/domains/http/security/services/SecurityRules";
+import { IRoute, IRouteGroupOptions, IRouter, TRouteGroupFn, TRouteResourceOptions } from "@/core/domains/http/interfaces/IRouter.js";
+import Router from "@/core/domains/http/router/Router.js";
+import ResourceRouter from "@/core/domains/http/router/RouterResource.js";
+import SecurityRules from "@/core/domains/http/security/services/SecurityRules.js";
 
 /**
  * Route class provides static and instance methods for creating route groups and resource routes.

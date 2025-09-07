@@ -1,12 +1,12 @@
+import ApiTokenFactory from "@/app/factory/ApiTokenFactory.js";
+import AuthenticableUserFactory from "@/app/factory/AuthenticableUserFactory.js";
+import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
+import UserRepository from "@/app/repositories/UserRepository.js";
+import { GROUPS, ROLES } from "@/config/acl.config.js";
+import { IExtendedAuthConfig } from "@/config/auth.config.js";
+import AuthProvider from "@/core/providers/AuthProvider.js";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
-import ApiTokenFactory from "@src/app/factory/ApiTokenFactory";
-import AuthenticableUserFactory from "@src/app/factory/AuthenticableUserFactory";
-import ApiTokenRepository from "@src/app/repositories/auth/ApiTokenRepository";
-import UserRepository from "@src/app/repositories/UserRepository";
-import { GROUPS, ROLES } from "@src/config/acl.config";
-import { IExtendedAuthConfig } from "@src/config/auth.config";
-import AuthProvider from "@src/core/providers/AuthProvider";
 
 
 export default class TestAuthProvider extends AuthProvider {

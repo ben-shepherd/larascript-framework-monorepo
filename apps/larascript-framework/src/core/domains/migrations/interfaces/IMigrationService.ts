@@ -1,4 +1,4 @@
-import { MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
+import { MigrationType } from "@/core/domains/migrations/interfaces/IMigration.js";
 
 /* eslint-disable no-unused-vars */
 export interface IMigrationServiceOptions {

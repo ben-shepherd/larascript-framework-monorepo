@@ -1,9 +1,9 @@
+import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
+import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
+import { app } from "@/core/services/App.js";
 import { IPackageJsonService } from '@larascript-framework/larascript-core';
 import { DatabaseAdapter } from '@larascript-framework/larascript-database';
-import QuestionDTO from '@src/core/domains/setup/DTOs/QuestionDTO';
-import { IAction } from '@src/core/domains/setup/interfaces/IAction';
-import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
-import { app } from '@src/core/services/App';
 
 class SetupDockerDatabaseScripts implements IAction {
 

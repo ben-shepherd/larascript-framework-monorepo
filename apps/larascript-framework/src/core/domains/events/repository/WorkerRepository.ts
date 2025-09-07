@@ -1,6 +1,6 @@
+import { queryBuilder } from "@/core/services/QueryBuilder.js";
 import { IWorkerModel, IWorkerRepository } from "@larascript-framework/larascript-events";
-import { queryBuilder } from "@src/core/services/QueryBuilder";
-import WorkerModel from "../models/WorkerModel";
+import WorkerModel from "../models/WorkerModel.js";
 
 export class WorkerRepository implements IWorkerRepository {
 

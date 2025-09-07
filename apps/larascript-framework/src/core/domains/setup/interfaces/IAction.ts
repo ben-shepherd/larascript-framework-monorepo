@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
+import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 
 export type ActionCtor<T extends IAction = IAction> = new (...args: any[]) => T;
 

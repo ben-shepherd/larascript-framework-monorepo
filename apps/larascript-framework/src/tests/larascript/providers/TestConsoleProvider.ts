@@ -1,4 +1,4 @@
-import ConsoleProvider from "@src/core/providers/ConsoleProvider";
+import ConsoleProvider from "@/core/providers/ConsoleProvider.js";
 
 class TestConsoleProvider extends ConsoleProvider {}
 

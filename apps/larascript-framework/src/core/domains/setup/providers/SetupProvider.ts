@@ -1,6 +1,6 @@
+import AppSetupCommand from "@/core/domains/setup/commands/AppSetupCommand.js";
+import { app } from "@/core/services/App.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import AppSetupCommand from "@src/core/domains/setup/commands/AppSetupCommand";
-import { app } from "@src/core/services/App";
 
 class SetupProvider extends BaseProvider {
 

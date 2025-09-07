@@ -1,4 +1,4 @@
-import ApiToken, { ApiTokenAttributes } from '@src/app/models/auth/ApiToken';
+import ApiToken, { ApiTokenAttributes } from '@/app/models/auth/ApiToken.js';
 
 class TestApiTokenModel extends ApiToken {
     constructor(data: ApiTokenAttributes | null = null) {

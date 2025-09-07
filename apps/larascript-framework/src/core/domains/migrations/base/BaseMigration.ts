@@ -1,8 +1,8 @@
+import { IMigration, MigrationType } from "@/core/domains/migrations/interfaces/IMigration.js";
+import { app } from "@/core/services/App.js";
+import { db } from "@/core/services/Database.js";
 import { IDatabaseAdapter } from "@larascript-framework/larascript-database";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IMigration, MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
-import { app } from "@src/core/services/App";
-import { db } from "@src/core/services/Database";
 
 /**
  * BaseMigration class serves as the foundation for all database migrations.

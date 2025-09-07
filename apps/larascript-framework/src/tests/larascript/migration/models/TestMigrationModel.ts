@@ -1,4 +1,4 @@
-import MigrationModel, { MigrationModelData } from "@src/core/domains/migrations/models/MigrationModel";
+import MigrationModel, { MigrationModelData } from "@/core/domains/migrations/models/MigrationModel.js";
 
 /**
  * Model for test migrations stored in the database.

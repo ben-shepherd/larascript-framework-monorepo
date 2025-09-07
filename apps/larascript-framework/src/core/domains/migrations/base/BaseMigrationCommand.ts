@@ -1,14 +1,14 @@
+import MigrationTypeEnum from "@/core/domains/migrations/enums/MigrationTypeEnum.js";
+import MigrationError from "@/core/domains/migrations/exceptions/MigrationError.js";
+import { IMigrationConfig } from "@/core/domains/migrations/interfaces/IMigrationConfig.js";
+import { IMigrationService } from "@/core/domains/migrations/interfaces/IMigrationService.js";
+import MigrationService from "@/core/domains/migrations/services/MigrationService.js";
 import { BaseCommand } from "@larascript-framework/larascript-console";
-import MigrationTypeEnum from "@src/core/domains/migrations/enums/MigrationTypeEnum";
-import MigrationError from "@src/core/domains/migrations/exceptions/MigrationError";
-import { IMigrationConfig } from "@src/core/domains/migrations/interfaces/IMigrationConfig";
-import { IMigrationService } from "@src/core/domains/migrations/interfaces/IMigrationService";
-import MigrationService from "@src/core/domains/migrations/services/MigrationService";
 
 
 abstract class BaseMigrationCommand extends BaseCommand {
 
-    protected config!: IMigrationConfig;
+    declare config: IMigrationConfig;
 
     /**
      * Constructor

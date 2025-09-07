@@ -1,11 +1,11 @@
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import { requestContext } from '@src/core/domains/http/context/RequestContext';
-import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
-import { IRouter } from '@src/core/domains/http/interfaces/IRouter';
-import ApiResponse from '@src/core/domains/http/response/ApiResponse';
-import Route from '@src/core/domains/http/router/Route';
-import { app } from '@src/core/services/App';
+import Middleware from '@/core/domains/http/base/Middleware.js';
+import HttpContext from '@/core/domains/http/context/HttpContext.js';
+import { requestContext } from '@/core/domains/http/context/RequestContext.js';
+import { TBaseRequest } from '@/core/domains/http/interfaces/BaseRequest.js';
+import { IRouter } from '@/core/domains/http/interfaces/IRouter.js';
+import ApiResponse from '@/core/domains/http/response/ApiResponse.js';
+import Route from '@/core/domains/http/router/Route.js';
+import { app } from '@/core/services/App.js';
 import crypto from 'crypto';
 import { Request } from 'express';
 

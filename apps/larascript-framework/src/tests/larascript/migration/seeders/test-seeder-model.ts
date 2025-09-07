@@ -1,5 +1,5 @@
-import BaseSeeder from "@src/core/domains/migrations/base/BaseSeeder";
-import { SeederTestModel } from "@src/tests/larascript/migration/seeder.test";
+import BaseSeeder from "@/core/domains/migrations/base/BaseSeeder.js";
+import { SeederTestModel } from "@/tests/larascript/migration/seeder.test.js";
 
 export class Seeder extends BaseSeeder {
 

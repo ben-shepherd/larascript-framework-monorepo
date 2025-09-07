@@ -1,16 +1,16 @@
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import { default as IExpressConfig, default as IHttpConfig } from "@/core/domains/http/interfaces/IHttpConfig.js";
+import IHttpService from "@/core/domains/http/interfaces/IHttpService.js";
+import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from "@/core/domains/http/interfaces/IMiddleware.js";
+import { IRoute, IRouter, TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
+import EndRequestContextMiddleware from "@/core/domains/http/middleware/EndRequestContextMiddleware.js";
+import RequestIdMiddleware from "@/core/domains/http/middleware/RequestIdMiddleware.js";
+import StartSessionMiddleware from "@/core/domains/http/middleware/StartSessionMiddleware.js";
+import Route from "@/core/domains/http/router/Route.js";
+import RouterBindService from "@/core/domains/http/router/RouterBindService.js";
+import { app } from "@/core/services/App.js";
+import { logger } from "@/core/services/Logger.js";
 import { BaseService } from '@larascript-framework/larascript-core';
-import Middleware from '@src/core/domains/http/base/Middleware';
-import { default as IExpressConfig, default as IHttpConfig } from '@src/core/domains/http/interfaces/IHttpConfig';
-import IHttpService from '@src/core/domains/http/interfaces/IHttpService';
-import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from '@src/core/domains/http/interfaces/IMiddleware';
-import { IRoute, IRouter, TRouteItem } from '@src/core/domains/http/interfaces/IRouter';
-import EndRequestContextMiddleware from '@src/core/domains/http/middleware/EndRequestContextMiddleware';
-import RequestIdMiddleware from '@src/core/domains/http/middleware/RequestIdMiddleware';
-import StartSessionMiddleware from '@src/core/domains/http/middleware/StartSessionMiddleware';
-import Route from '@src/core/domains/http/router/Route';
-import RouterBindService from '@src/core/domains/http/router/RouterBindService';
-import { app } from '@src/core/services/App';
-import { logger } from '@src/core/services/Logger';
 import expressClient from 'express';
 
 
@@ -29,8 +29,7 @@ export const http = () => app('http');
  */
 export default class HttpService extends BaseService<IHttpConfig> implements IHttpService {
 
-
-    protected config!: IExpressConfig | null;
+    declare config: IExpressConfig | null;
 
     private readonly app: expressClient.Express
 
@@ -39,7 +38,7 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
     protected registeredRoutes: TRouteItem[] = []
 
     /**
-     * Config defined in @src/config/http/express.ts
+     * Config defined in @/config/http/express.ts
      * @param config 
      */
     constructor(config: IExpressConfig | null = null) {

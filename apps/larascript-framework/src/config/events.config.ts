@@ -1,6 +1,6 @@
+import UserCreatedListener from "@/app/events/listeners/UserCreatedListener.js";
+import UserCreatedSubscriber from "@/app/events/subscribers/UserCreatedSubscriber.js";
 import { EVENT_DRIVERS, EventConfig, IEventConfig, IQueableDriverOptions, QueueableDriver, SyncDriver, WorkerModelFactory } from "@larascript-framework/larascript-events";
-import UserCreatedListener from "@src/app/events/listeners/UserCreatedListener";
-import UserCreatedSubscriber from "@src/app/events/subscribers/UserCreatedSubscriber";
 
 export const eventConfig: IEventConfig = {
 

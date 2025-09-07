@@ -1,11 +1,11 @@
+import ResourceException from "@/core/domains/express/exceptions/ResourceException.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import AbastractBaseResourceService from "@/core/domains/http/resources/abstract/AbastractBaseResourceService.js";
+import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
+import { RouteResourceTypes } from "@/core/domains/http/router/RouterResource.js";
+import { queryBuilder } from "@/core/services/QueryBuilder.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
-import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import AbastractBaseResourceService from "@src/core/domains/http/resources/abstract/AbastractBaseResourceService";
-import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { RouteResourceTypes } from "@src/core/domains/http/router/RouterResource";
-import { queryBuilder } from "@src/core/services/QueryBuilder";
-import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
+import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 
 /**
  * Service class that handles deleting resources through HTTP requests

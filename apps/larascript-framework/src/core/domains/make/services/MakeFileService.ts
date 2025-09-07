@@ -1,6 +1,6 @@
-import { targetDirectories, templates } from "@src/core/domains/make/consts/MakeTypes";
-import { IMakeFileArguments } from "@src/core/domains/make/interfaces/IMakeFileArguments";
-import { IMakeOptions } from "@src/core/domains/make/interfaces/IMakeOptions";
+import { targetDirectories, templates } from "@/core/domains/make/consts/MakeTypes.js";
+import { IMakeFileArguments } from "@/core/domains/make/interfaces/IMakeFileArguments.js";
+import { IMakeOptions } from "@/core/domains/make/interfaces/IMakeOptions.js";
 import fs from 'fs';
 import path from 'path';
 

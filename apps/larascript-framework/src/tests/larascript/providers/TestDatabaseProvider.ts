@@ -1,5 +1,5 @@
+import DatabaseProvider from "@/core/providers/DatabaseProvider.js";
 import { DatabaseConfig, IDatabaseConfig, IMongoConfig, IPostgresConfig, MongoDbAdapter, ParseMongoDBConnectionString, ParsePostgresConnectionUrl, PostgresAdapter } from "@larascript-framework/larascript-database";
-import DatabaseProvider from "@src/core/providers/DatabaseProvider";
 
 
 export const testDbName = 'test_db';

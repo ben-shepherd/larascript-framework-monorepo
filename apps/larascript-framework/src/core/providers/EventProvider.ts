@@ -1,8 +1,8 @@
+import { eventConfig } from "@/config/events.config.js";
+import { app } from "@/core/services/App.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
 import { EventService, IEventConfig, WorkerModelFactory, WorkerRepository, WorkerService, WorkerServiceProvider } from "@larascript-framework/larascript-events";
-import { eventConfig } from "@src/config/events.config";
-import { app } from "@src/core/services/App";
-import { WorkerCommand } from "../commands/WorkerCommand";
+import { WorkerCommand } from "../commands/WorkerCommand.js";
 
 class EventProvider extends BaseProvider {
 

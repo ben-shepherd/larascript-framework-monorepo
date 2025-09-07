@@ -1,6 +1,6 @@
 import { BaseDriver, EventDriverException, IBaseEvent, IWorkerAttributes, TEventWorkerOptions } from "@larascript-framework/larascript-events";
 import { z } from "zod";
-import { WorkerModelFactory } from "../factory/WorkerModelFactory";
+import { WorkerModelFactory } from "../factory/WorkerModelFactory.js";
 
 /**
  * Options for queueable drivers

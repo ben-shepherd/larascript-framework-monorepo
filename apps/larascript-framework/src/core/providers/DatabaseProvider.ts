@@ -1,8 +1,8 @@
+import appConfig, { IAppConfig } from "@/config/app.config.js";
+import databaseConfig from "@/config/database.config.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
 import { DatabaseService, DB, EloquentQueryBuilderService, IDatabaseConfig } from "@larascript-framework/larascript-database";
-import appConfig, { IAppConfig } from "@src/config/app.config";
-import databaseConfig from "@src/config/database.config";
-import { app } from "../services/App";
+import { app } from "../services/App.js";
 
 export default class TestDatabaseProvider extends BaseProvider {
 

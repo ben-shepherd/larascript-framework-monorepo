@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { IExpressable } from "@src/core/domains/http/interfaces/IExpressable";
-import { TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { IExpressable } from "@/core/domains/http/interfaces/IExpressable.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
 import { NextFunction, Request, Response } from "express";
 
 

@@ -1,5 +1,5 @@
-import Middleware from "@src/core/domains/http/base/Middleware";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
+import Middleware from "@/core/domains/http/base/Middleware";
+import HttpContext from "@/core/domains/http/context/HttpContext";
 
 export type T#name#Config = {
     // ...

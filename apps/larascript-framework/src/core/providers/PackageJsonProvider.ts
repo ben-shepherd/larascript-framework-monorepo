@@ -5,7 +5,7 @@ class PackageJsonProvider extends BaseProvider {
 
     async register(): Promise<void> {
         const packageJsonService = new PackageJsonService({
-            packageJsonPath: path.resolve('@src/../', 'package.json')
+            packageJsonPath: path.resolve('@/../', 'package.json')
         }) 
 
         this.bind('packageJsonService', packageJsonService)

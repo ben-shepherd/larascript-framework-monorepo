@@ -1,6 +1,6 @@
-import { ALWAYS } from "@src/core/domains/http/enums/SecurityEnum";
-import { TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
-import { ISecurityRule } from "@src/core/domains/http/interfaces/ISecurity";
+import { ALWAYS } from "@/core/domains/http/enums/SecurityEnum.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
+import { ISecurityRule } from "@/core/domains/http/interfaces/ISecurity.js";
 
 class SecurityReader {
 

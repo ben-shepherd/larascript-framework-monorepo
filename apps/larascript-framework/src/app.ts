@@ -1,11 +1,11 @@
 import 'dotenv/config';
 
+import appConfig from '@/config/app.config.js';
+import providers from '@/config/providers.config.js';
+import CommandBootService from '@/core/services/CommandBootService.js';
+import { logger } from '@/core/services/Logger.js';
 import { CommandNotFoundException } from '@larascript-framework/larascript-console';
 import { Kernel, KernelOptions } from '@larascript-framework/larascript-core';
-import appConfig from '@src/config/app.config';
-import providers from '@src/config/providers.config';
-import CommandBootService from '@src/core/services/CommandBootService';
-import { logger } from '@src/core/services/Logger';
 
 (async () => {
     try {

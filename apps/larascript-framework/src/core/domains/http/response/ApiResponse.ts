@@ -1,5 +1,5 @@
-import { IApiResponse, TApiResponse } from "@src/core/domains/http/interfaces/IApiResponse";
-import { TPagination } from "@src/core/domains/http/interfaces/Pagination.t";
+import { IApiResponse, TApiResponse } from "@/core/domains/http/interfaces/IApiResponse.js";
+import { TPagination } from "@/core/domains/http/interfaces/Pagination.t.js";
 
 /**
  * ApiResponse is a class that builds standardized HTTP API responses.

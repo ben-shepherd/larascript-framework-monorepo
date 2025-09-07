@@ -1,8 +1,8 @@
 
+import { TUploadedFile } from "@/core/domains/http/interfaces/UploadedFile.js";
 import { IRule, IRuleError } from "@larascript-framework/larascript-validator";
-import { TUploadedFile } from "@src/core/domains/http/interfaces/UploadedFile";
 
-import ExtendedAbstractRule from "../abstract/ExtendedAbstractRule";
+import ExtendedAbstractRule from "../abstract/ExtendedAbstractRule.js";
 
 type Options = {
     startsWith?: string;

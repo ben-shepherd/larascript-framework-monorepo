@@ -1,5 +1,5 @@
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
-import { app } from "@src/core/services/App";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
+import { app } from "@/core/services/App.js";
 import { DataTypes } from "sequelize";
 
 class TestMigration extends BaseMigration {

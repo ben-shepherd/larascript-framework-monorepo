@@ -1,14 +1,14 @@
-import SecurityException from "@src/core/domains/express/exceptions/SecurityException";
-import Middleware from "@src/core/domains/http/base/Middleware";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import HasRoleRule from "@src/core/domains/http/security/rules/HasRoleRule";
-import RateLimitedRule from "@src/core/domains/http/security/rules/RateLimitedRule";
-import ScopeRule from "@src/core/domains/http/security/rules/ScopeRule";
-import SecurityReader from "@src/core/domains/http/security/services/SecurityReader";
-import { ForbiddenResourceError } from "../exceptions/ForbiddenResourceError";
-import { RateLimitedExceededError } from "../exceptions/RateLimitedExceededError";
+import SecurityException from "@/core/domains/express/exceptions/SecurityException.js";
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { SecurityEnum } from "@/core/domains/http/enums/SecurityEnum.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import HasRoleRule from "@/core/domains/http/security/rules/HasRoleRule.js";
+import RateLimitedRule from "@/core/domains/http/security/rules/RateLimitedRule.js";
+import ScopeRule from "@/core/domains/http/security/rules/ScopeRule.js";
+import SecurityReader from "@/core/domains/http/security/services/SecurityReader.js";
+import { ForbiddenResourceError } from "../exceptions/ForbiddenResourceError.js";
+import { RateLimitedExceededError } from "../exceptions/RateLimitedExceededError.js";
 
 /**
  * SecurityMiddleware handles security rule validation for HTTP routes.

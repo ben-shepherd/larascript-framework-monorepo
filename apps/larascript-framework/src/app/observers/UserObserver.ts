@@ -1,10 +1,10 @@
+import UserCreatedListener from "@/app/events/listeners/UserCreatedListener.js";
+import { UserAttributes } from "@/app/models/auth/User.js";
+import { app } from "@/core/services/App.js";
+import { cryptoService } from "@/core/services/CryptoService.js";
 import { IBaseEvent } from "@larascript-framework/larascript-events";
 import { Observer } from "@larascript-framework/larascript-observer";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import UserCreatedListener from "@src/app/events/listeners/UserCreatedListener";
-import { UserAttributes } from "@src/app/models/auth/User";
-import { app } from "@src/core/services/App";
-import { cryptoService } from "@src/core/services/CryptoService";
 
 /**
  * Observer for the User model.

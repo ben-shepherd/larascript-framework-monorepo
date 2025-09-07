@@ -1,13 +1,13 @@
+import { UserAttributes } from "@/app/models/auth/User.js";
+import CreateUserValidator from "@/app/validators/user/CreateUserValidator.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
+import { app } from "@/core/services/App.js";
+import { auth } from "@/core/services/AuthService.js";
+import { cryptoService } from "@/core/services/CryptoService.js";
 import { IUserAttributes, IUserModel } from "@larascript-framework/larascript-auth";
 import { IModel, IModelAttributes } from "@larascript-framework/larascript-database";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
-import { UserAttributes } from "@src/app/models/auth/User";
-import CreateUserValidator from "@src/app/validators/user/CreateUserValidator";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { app } from "@src/core/services/App";
-import { auth } from "@src/core/services/AuthService";
-import { cryptoService } from "@src/core/services/CryptoService";
 
 export type RegisterUseCaseResponse = ApiResponse<UserAttributes | { errors?: string[] | object }>
 

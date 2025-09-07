@@ -1,4 +1,4 @@
-import Singleton from "@src/core/base/Singleton";
+import Singleton from "@/core/base/Singleton";
 
 export interface I#name#Data {
 

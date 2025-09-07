@@ -1,4 +1,4 @@
-import BaseMakeFileCommand from "@src/core/domains/make/base/BaseMakeFileCommand";
+import BaseMakeFileCommand from "@/core/domains/make/base/BaseMakeFileCommand.js";
 
 export default class MakeSubscriberCommand extends BaseMakeFileCommand {
 

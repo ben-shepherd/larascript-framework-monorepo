@@ -1,6 +1,6 @@
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import responseError from '@src/core/domains/http/handlers/responseError';
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
 
 class ValidationMiddleware extends Middleware<{ scopes: string[] }> {
 

@@ -1,6 +1,6 @@
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
-import Middleware from "@src/core/domains/http/base/Middleware";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
 
 type Options = {
     // eslint-disable-next-line no-unused-vars

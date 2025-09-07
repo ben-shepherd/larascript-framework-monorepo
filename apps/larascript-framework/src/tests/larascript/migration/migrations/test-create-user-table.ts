@@ -1,5 +1,5 @@
-import User from "@src/app/models/auth/User";
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
+import User from "@/app/models/auth/User.js";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
 import { DataTypes } from "sequelize";
 
 export class CreateUserModelMigration extends BaseMigration {

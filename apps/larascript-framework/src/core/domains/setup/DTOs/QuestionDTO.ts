@@ -1,4 +1,4 @@
-import { ActionCtor } from "@src/core/domains/setup/interfaces/IAction";
+import { ActionCtor } from "@/core/domains/setup/interfaces/IAction.js";
 
 type ApplicableOnly = {
     ifId: string,

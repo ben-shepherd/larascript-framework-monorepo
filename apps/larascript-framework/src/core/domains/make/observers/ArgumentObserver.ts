@@ -1,7 +1,7 @@
+import { IMakeFileArguments } from "@/core/domains/make/interfaces/IMakeFileArguments.js";
+import { IMakeOptions } from "@/core/domains/make/interfaces/IMakeOptions.js";
 import { Observer } from "@larascript-framework/larascript-observer";
 import { Str } from "@larascript-framework/larascript-utils";
-import { IMakeFileArguments } from "@src/core/domains/make/interfaces/IMakeFileArguments";
-import { IMakeOptions } from "@src/core/domains/make/interfaces/IMakeOptions";
 
 /**
  * ArgumentObserver is responsible for modifying the make file arguments

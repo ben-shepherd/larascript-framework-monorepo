@@ -1,5 +1,5 @@
-import Model from "@src/core/domains/models/base/Model";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import Model from "@/core/domains/models/base/Model";
+import { IModelAttributes } from "@/core/domains/models/interfaces/IModel";
 
 // Attribute type hinting
 export interface #name#Attributes extends IModelAttributes {

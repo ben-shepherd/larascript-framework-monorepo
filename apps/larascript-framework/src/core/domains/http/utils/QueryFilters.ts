@@ -1,5 +1,5 @@
+import { logger } from "@/core/services/Logger.js";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { logger } from "@src/core/services/Logger";
 import { Request } from "express";
 
 type Options = {

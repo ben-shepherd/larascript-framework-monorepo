@@ -1,14 +1,14 @@
+import MigrationTypeEnum from "@/core/domains/migrations/enums/MigrationTypeEnum.js";
+import MigrationFactory from "@/core/domains/migrations/factory/MigrationFactory.js";
+import { IMigration, MigrationType } from "@/core/domains/migrations/interfaces/IMigration.js";
+import { IMigrationConfig } from "@/core/domains/migrations/interfaces/IMigrationConfig.js";
+import { IMigrationService, IMigrationServiceOptions } from "@/core/domains/migrations/interfaces/IMigrationService.js";
+import MigrationModel from "@/core/domains/migrations/models/MigrationModel.js";
+import MigrationFileService from "@/core/domains/migrations/services/MigrationFilesService.js";
+import FileNotFoundError from "@/core/exceptions/FileNotFoundError.js";
+import { app } from "@/core/services/App.js";
+import { logger } from "@/core/services/Logger.js";
 import { IRepository, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
-import MigrationTypeEnum from "@src/core/domains/migrations/enums/MigrationTypeEnum";
-import MigrationFactory from "@src/core/domains/migrations/factory/MigrationFactory";
-import { IMigration, MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
-import { IMigrationConfig } from "@src/core/domains/migrations/interfaces/IMigrationConfig";
-import { IMigrationService, IMigrationServiceOptions } from "@src/core/domains/migrations/interfaces/IMigrationService";
-import MigrationModel from "@src/core/domains/migrations/models/MigrationModel";
-import MigrationFileService from "@src/core/domains/migrations/services/MigrationFilesService";
-import FileNotFoundError from "@src/core/exceptions/FileNotFoundError";
-import { app } from "@src/core/services/App";
-import { logger } from "@src/core/services/Logger";
 
 
 interface MigrationDetail {

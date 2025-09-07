@@ -1,12 +1,12 @@
 /* eslint-disable no-undef */
+import { app } from '@/core/services/App.js';
+import TestMigrationModel from '@/tests/larascript/migration/models/TestMigrationModel.js';
+import TestApiTokenModel from '@/tests/larascript/models/models/TestApiTokenModel.js';
+import TestModel from '@/tests/larascript/models/models/TestModel.js';
+import TestUser from '@/tests/larascript/models/models/TestUser.js';
+import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
 import { IDatabaseSchema } from '@larascript-framework/larascript-database';
-import { app } from '@src/core/services/App';
-import TestMigrationModel from '@src/tests/larascript/migration/models/TestMigrationModel';
-import TestApiTokenModel from '@src/tests/larascript/models/models/TestApiTokenModel';
-import TestModel from '@src/tests/larascript/models/models/TestModel';
-import TestUser from '@src/tests/larascript/models/models/TestUser';
-import testHelper from '@src/tests/testHelper';
 
 const dropAndCreateMigrationSchema = async () => {
     const migrationTable = new TestMigrationModel(null).table

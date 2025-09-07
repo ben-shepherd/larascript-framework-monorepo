@@ -1,7 +1,7 @@
 /* eslint-disable no-undef */
+import makeTestHelper from '@/tests/larascript/make/makeTestHelper.js';
+import testHelper from '@/tests/testHelper.js';
 import { describe, test } from '@jest/globals';
-import makeTestHelper from '@src/tests/larascript/make/makeTestHelper';
-import testHelper from '@src/tests/testHelper';
 import fs from 'fs';
 
 

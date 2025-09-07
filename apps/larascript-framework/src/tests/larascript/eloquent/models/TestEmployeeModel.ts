@@ -1,7 +1,7 @@
+import { app } from "@/core/services/App.js";
+import TestDepartmentModel from "@/tests/larascript/eloquent/models/TestDepartmentModel.js";
+import testHelper from "@/tests/testHelper.js";
 import { BelongsTo, IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { app } from "@src/core/services/App";
-import TestDepartmentModel from "@src/tests/larascript/eloquent/models/TestDepartmentModel";
-import testHelper from "@src/tests/testHelper";
 import { DataTypes } from "sequelize";
 
 const tableName = Model.formatTableName('testsEmployees')

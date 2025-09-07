@@ -1,8 +1,8 @@
+import Middleware from '@/core/domains/http/base/Middleware.js';
+import HttpContext from '@/core/domains/http/context/HttpContext.js';
+import responseError from '@/core/domains/http/handlers/responseError.js';
+import { auth } from '@/core/services/AuthService.js';
 import { UnauthorizedException } from '@larascript-framework/larascript-auth';
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import responseError from '@src/core/domains/http/handlers/responseError';
-import { auth } from '@src/core/services/AuthService';
 
 type OneTimeTokenMiddlewareOptions = {
     validateContainsOneTimeScope?: boolean;

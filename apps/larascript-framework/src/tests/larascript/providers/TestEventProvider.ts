@@ -1,7 +1,5 @@
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { EventConfig, IEventConfig, IQueableDriverOptions, QueueableDriver, SyncDriver, WorkerModelFactory } from "@larascript-framework/larascript-events";
-import { EVENT_DRIVERS } from "@src/config/events.config";
-
+import { EVENT_DRIVERS, EventConfig, IEventConfig, IQueableDriverOptions, QueueableDriver, SyncDriver, WorkerModelFactory } from "@larascript-framework/larascript-events";
 class TestEventProvider extends BaseProvider {
 
     protected config: IEventConfig = {

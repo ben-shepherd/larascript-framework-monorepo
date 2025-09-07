@@ -1,7 +1,7 @@
+import UserRepository from "@/app/repositories/UserRepository.js";
+import { auth } from "@/core/services/AuthService.js";
 import { IApiTokenAttributes } from "@larascript-framework/larascript-auth";
 import { Observer } from "@larascript-framework/larascript-observer";
-import { auth } from "@src/core/services/AuthService";
-import UserRepository from "../repositories/UserRepository";
 
 interface IApiTokenObserverData extends IApiTokenAttributes {}
 

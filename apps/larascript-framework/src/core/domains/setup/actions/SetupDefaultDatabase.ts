@@ -1,8 +1,8 @@
-import QuestionDTO from '@src/core/domains/setup/DTOs/QuestionDTO';
-import InvalidDefaultCredentialsError from '@src/core/domains/setup/exceptions/InvalidDefaultCredentialsError';
-import { IAction } from '@src/core/domains/setup/interfaces/IAction';
-import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
-import { app } from '@src/core/services/App';
+import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import InvalidDefaultCredentialsError from "@/core/domains/setup/exceptions/InvalidDefaultCredentialsError.js";
+import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
+import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
+import { app } from "@/core/services/App.js";
 
 class SetupDefaultDatabase implements IAction {
 

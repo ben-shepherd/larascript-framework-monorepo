@@ -1,4 +1,4 @@
-import { TExpressMiddlewareFnOrClass } from "@src/core/domains/http/interfaces/IMiddleware";
+import { TExpressMiddlewareFnOrClass } from "@/core/domains/http/interfaces/IMiddleware.js";
 import express from "express";
 
 // eslint-disable-next-line no-unused-vars

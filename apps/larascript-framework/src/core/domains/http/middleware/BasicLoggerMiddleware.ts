@@ -1,7 +1,7 @@
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import { app } from '@src/core/services/App';
-import { logger } from '@src/core/services/Logger';
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { app } from "@/core/services/App.js";
+import { logger } from "@/core/services/Logger.js";
 
 /**
  * Middleware that logs detailed information about incoming HTTP requests

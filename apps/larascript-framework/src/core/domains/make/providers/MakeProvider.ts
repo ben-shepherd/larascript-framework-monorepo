@@ -1,23 +1,23 @@
+import MakeCmdCommand from "@/core/domains/make/commands/MakeCmdCommand.js";
+import MakeController from "@/core/domains/make/commands/MakeControllerCommand.js";
+import MakeEventCommand from "@/core/domains/make/commands/MakeEventCommand.js";
+import MakeFactoryCommand from "@/core/domains/make/commands/MakeFactoryCommand.js";
+import MakeListenerCommand from "@/core/domains/make/commands/MakeListenerCommand.js";
+import MakeMiddlewareCommand from "@/core/domains/make/commands/MakeMiddlewareCommand.js";
+import MakeMigrationCommand from "@/core/domains/make/commands/MakeMigrationCommand.js";
+import MakeModelCommand from "@/core/domains/make/commands/MakeModelCommand.js";
+import MakeObserverCommand from "@/core/domains/make/commands/MakeObserverCommand.js";
+import MakeProviderCommand from "@/core/domains/make/commands/MakeProviderCommand.js";
+import MakeRepositoryCommand from "@/core/domains/make/commands/MakeRepositoryCommand.js";
+import MakeRouteResourceCommand from "@/core/domains/make/commands/MakeRouteResourceCommand.js";
+import MakeRoutesCommand from "@/core/domains/make/commands/MakeRoutesCommand.js";
+import MakeSeederCommand from "@/core/domains/make/commands/MakeSeederCommand.js";
+import MakeServiceCommand from "@/core/domains/make/commands/MakeServiceCommand.js";
+import MakeSingletonCommand from "@/core/domains/make/commands/MakeSingletonCommand.js";
+import MakeSubscriberCommand from "@/core/domains/make/commands/MakeSubscriberCommand.js";
+import MakeValidatorCommand from "@/core/domains/make/commands/MakeValidatorCommand.js";
+import { app } from "@/core/services/App.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import MakeCmdCommand from "@src/core/domains/make/commands/MakeCmdCommand";
-import MakeController from "@src/core/domains/make/commands/MakeControllerCommand";
-import MakeEventCommand from "@src/core/domains/make/commands/MakeEventCommand";
-import MakeFactoryCommand from "@src/core/domains/make/commands/MakeFactoryCommand";
-import MakeListenerCommand from "@src/core/domains/make/commands/MakeListenerCommand";
-import MakeMiddlewareCommand from "@src/core/domains/make/commands/MakeMiddlewareCommand";
-import MakeMigrationCommand from "@src/core/domains/make/commands/MakeMigrationCommand";
-import MakeModelCommand from "@src/core/domains/make/commands/MakeModelCommand";
-import MakeObserverCommand from "@src/core/domains/make/commands/MakeObserverCommand";
-import MakeProviderCommand from "@src/core/domains/make/commands/MakeProviderCommand";
-import MakeRepositoryCommand from "@src/core/domains/make/commands/MakeRepositoryCommand";
-import MakeRouteResourceCommand from "@src/core/domains/make/commands/MakeRouteResourceCommand";
-import MakeRoutesCommand from "@src/core/domains/make/commands/MakeRoutesCommand";
-import MakeSeederCommand from "@src/core/domains/make/commands/MakeSeederCommand";
-import MakeServiceCommand from "@src/core/domains/make/commands/MakeServiceCommand";
-import MakeSingletonCommand from "@src/core/domains/make/commands/MakeSingletonCommand";
-import MakeSubscriberCommand from "@src/core/domains/make/commands/MakeSubscriberCommand";
-import MakeValidatorCommand from "@src/core/domains/make/commands/MakeValidatorCommand";
-import { app } from "@src/core/services/App";
 
 export default class MakeProvider extends BaseProvider {
 

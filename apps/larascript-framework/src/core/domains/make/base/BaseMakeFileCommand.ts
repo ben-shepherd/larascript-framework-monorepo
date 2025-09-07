@@ -1,10 +1,10 @@
+import { IMakeFileArguments } from "@/core/domains/make/interfaces/IMakeFileArguments.js";
+import { IMakeOptions } from "@/core/domains/make/interfaces/IMakeOptions.js";
+import ArgumentObserver from "@/core/domains/make/observers/ArgumentObserver.js";
+import MakeFileService from "@/core/domains/make/services/MakeFileService.js";
+import { app } from "@/core/services/App.js";
 import { BaseCommand, CommandExecutionException } from "@larascript-framework/larascript-console";
 import { Str } from "@larascript-framework/larascript-utils";
-import { IMakeFileArguments } from "@src/core/domains/make/interfaces/IMakeFileArguments";
-import { IMakeOptions } from "@src/core/domains/make/interfaces/IMakeOptions";
-import ArgumentObserver from "@src/core/domains/make/observers/ArgumentObserver";
-import MakeFileService from "@src/core/domains/make/services/MakeFileService";
-import { app } from "@src/core/services/App";
 
 const DefaultOptions: Partial<IMakeOptions> = {
     startWithLowercase: false

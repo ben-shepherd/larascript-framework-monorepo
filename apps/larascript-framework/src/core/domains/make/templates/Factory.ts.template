@@ -1,5 +1,5 @@
-import Factory from "@src/core/base/Factory";
-import { IModelAttributes } from "@src/core/domains/models/interfaces/IModel";
+import Factory from "@/core/base/Factory";
+import { IModelAttributes } from "@/core/domains/models/interfaces/IModel";
 
 class #name# extends Factory {
 

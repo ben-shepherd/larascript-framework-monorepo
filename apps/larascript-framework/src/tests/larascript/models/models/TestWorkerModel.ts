@@ -1,4 +1,4 @@
-import WorkerModel, { WorkerModelAttributes } from "@src/core/domains/events/models/WorkerModel";
+import WorkerModel, { WorkerModelAttributes } from "@/core/domains/events/models/WorkerModel.js";
 
 export default class TestWorkerModel extends WorkerModel {
 

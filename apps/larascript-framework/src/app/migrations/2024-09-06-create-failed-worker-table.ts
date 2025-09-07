@@ -1,6 +1,6 @@
-import FailedWorkerModel from "@src/core/domains/events/models/FailedWorkerModel";
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
-import DataTypes from "@src/core/domains/migrations/schema/DataTypes";
+import FailedWorkerModel from "@/core/domains/events/models/FailedWorkerModel.js";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
+import DataTypes from "@/core/domains/migrations/schema/DataTypes.js";
 
 export class CreateFailedWorkerTableMigration extends BaseMigration {
 

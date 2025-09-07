@@ -1,7 +1,7 @@
+import { queryBuilder } from "@/core/services/QueryBuilder.js";
 import { IApiTokenAttributes, IApiTokenModel, IApiTokenRepository } from "@larascript-framework/larascript-auth";
 import { Repository } from "@larascript-framework/larascript-database";
-import { queryBuilder } from "@src/core/services/QueryBuilder";
-import ApiToken from "../../models/auth/ApiToken";
+import ApiToken from "../../models/auth/ApiToken.js";
 
 
 class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenRepository {

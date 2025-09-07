@@ -1,5 +1,5 @@
-import BaseMakeFileCommand from "@src/core/domains/make/base/BaseMakeFileCommand";
-import MigrationFileService from "@src/core/domains/migrations/services/MigrationFilesService";
+import BaseMakeFileCommand from "@/core/domains/make/base/BaseMakeFileCommand.js";
+import MigrationFileService from "@/core/domains/migrations/services/MigrationFilesService.js";
 
 export default class MakeSeederCommand extends BaseMakeFileCommand {
 

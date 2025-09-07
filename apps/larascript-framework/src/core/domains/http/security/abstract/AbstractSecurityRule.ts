@@ -1,6 +1,6 @@
-import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { ISecurityRule } from "@src/core/domains/http/interfaces/ISecurity";
+import ResourceException from "@/core/domains/express/exceptions/ResourceException.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { ISecurityRule } from "@/core/domains/http/interfaces/ISecurity.js";
 
 /**
  * AbstractSecurityRule is a base class for implementing security rules in HTTP requests.

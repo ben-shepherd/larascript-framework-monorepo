@@ -1,5 +1,5 @@
-import User from "@src/app/models/auth/User";
-import AuthenticableUserFactory from "./AuthenticableUserFactory";
+import User from "@/app/models/auth/User.js";
+import AuthenticableUserFactory from "./AuthenticableUserFactory.js";
 
 class UserFactory extends AuthenticableUserFactory<User> {
 

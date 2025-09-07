@@ -1,9 +1,9 @@
+import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
+import buildQuestionDTOs from "@/core/domains/setup/utils/buildQuestionDTOs.js";
+import { app } from "@/core/services/App.js";
 import { BaseCommand } from "@larascript-framework/larascript-console";
 import { IEnvService } from "@larascript-framework/larascript-core";
-import QuestionDTO from '@src/core/domains/setup/DTOs/QuestionDTO';
-import { ISetupCommand } from '@src/core/domains/setup/interfaces/ISetupCommand';
-import buildQuestionDTOs from '@src/core/domains/setup/utils/buildQuestionDTOs';
-import { app } from "@src/core/services/App";
 /**
  * Command to run the setup process
  */

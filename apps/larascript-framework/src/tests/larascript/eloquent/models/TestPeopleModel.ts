@@ -1,6 +1,6 @@
+import { app } from "@/core/services/App.js";
+import { forEveryConnection } from "@/tests/testHelper.js";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { app } from "@src/core/services/App";
-import { forEveryConnection } from "@src/tests/testHelper";
 import { DataTypes } from "sequelize";
 
 const tableName = Model.formatTableName('testsPeople')

@@ -1,9 +1,9 @@
 
-import { TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@src/core/domains/http/interfaces/IRouter";
-import { ISecurityRule } from "@src/core/domains/http/interfaces/ISecurity";
-import ResourceController from "@src/core/domains/http/resources/controller/ResourceController";
-import Route from "@src/core/domains/http/router/Route";
-import Router from "@src/core/domains/http/router/Router";
+import { TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@/core/domains/http/interfaces/IRouter.js";
+import { ISecurityRule } from "@/core/domains/http/interfaces/ISecurity.js";
+import ResourceController from "@/core/domains/http/resources/controller/ResourceController.js";
+import Route from "@/core/domains/http/router/Route.js";
+import Router from "@/core/domains/http/router/Router.js";
 
 /**
  * Resource types that can be utilized when adding Security to a route

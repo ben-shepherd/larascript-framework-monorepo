@@ -1,5 +1,5 @@
-import Controller from "@src/core/domains/http/base/Controller";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
+import Controller from "@/core/domains/http/base/Controller.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
 
 class WelcomeController extends Controller {
 

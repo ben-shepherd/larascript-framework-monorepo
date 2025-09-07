@@ -1,8 +1,8 @@
-import authRoutes from "@src/app/routes/auth";
-import { authConfig, IExtendedAuthConfig } from "@src/config/auth.config";
-import BaseRoutesProvider from "@src/core/domains/http/providers/BaseRoutesProvider";
-import healthRoutes from "@src/core/domains/http/routes/healthRoutes";
-import { app } from "@src/core/services/App";
+import authRoutes from "@/app/routes/auth.js";
+import { authConfig, IExtendedAuthConfig } from "@/config/auth.config.js";
+import BaseRoutesProvider from "@/core/domains/http/providers/BaseRoutesProvider.js";
+import healthRoutes from "@/core/domains/http/routes/healthRoutes.js";
+import { app } from "@/core/services/App.js";
 
 
 class RoutesProvider extends BaseRoutesProvider {

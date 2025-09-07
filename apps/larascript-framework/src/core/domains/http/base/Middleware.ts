@@ -1,11 +1,11 @@
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import { TBaseRequest } from "@src/core/domains/http/interfaces/BaseRequest";
-import { IExpressable } from "@src/core/domains/http/interfaces/IExpressable";
-import { IMiddleware, MiddlewareConstructor, TExpressMiddlewareFn } from "@src/core/domains/http/interfaces/IMiddleware";
-import { TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
+import { IExpressable } from "@/core/domains/http/interfaces/IExpressable.js";
+import { IHttpContext } from "@/core/domains/http/interfaces/IHttpContext.js";
+import { IMiddleware, MiddlewareConstructor, TExpressMiddlewareFn } from "@/core/domains/http/interfaces/IMiddleware.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
 import { NextFunction, Request, Response } from "express";
-import { IHttpContext } from "@src/core/domains/http/interfaces/IHttpContext";
 
 /**
  * Abstract base class that transforms Express middleware into a class-based format.

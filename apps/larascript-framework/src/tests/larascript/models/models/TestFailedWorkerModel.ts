@@ -1,6 +1,5 @@
-
-import FailedWorkerModel from "@src/core/domains/events/models/FailedWorkerModel";
-import { WorkerModelAttributes } from "@src/core/domains/events/models/WorkerModel";
+import FailedWorkerModel from "@/core/domains/events/models/FailedWorkerModel.js";
+import { WorkerModelAttributes } from "@/core/domains/events/models/WorkerModel.js";
 
 export default class TestFailedWorkerModel extends FailedWorkerModel {
 

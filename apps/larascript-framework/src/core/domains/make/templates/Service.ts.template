@@ -1,4 +1,4 @@
-import Service from "@src/core/base/Service";
+import Service from "@/core/base/Service";
 
 export interface I#name#Data {
 

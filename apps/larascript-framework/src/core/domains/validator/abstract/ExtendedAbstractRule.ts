@@ -1,6 +1,6 @@
 import { AbstractRule, ValidatorException } from "@larascript-framework/larascript-validator";
 
-import HttpContext from "../../http/context/HttpContext";
+import HttpContext from "../../http/context/HttpContext.js";
 
 abstract class ExtendedAbstractRule<TOptions extends object = object> extends AbstractRule<TOptions> {
 

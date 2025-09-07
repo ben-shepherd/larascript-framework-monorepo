@@ -1,18 +1,18 @@
+import ACLProvider from "@/core/providers/ACLProvider.js";
+import AsyncSessionProvider from "@/core/providers/AsyncSessionProvider.js";
+import EventProvider from "@/core/providers/EventProvider.js";
+import LoggerProvider from "@/core/providers/LoggerProvider.js";
+import ValidatorProvider from "@/core/providers/ValidatorProvider.js";
+import { app } from "@/core/services/App.js";
+import TestApiTokenModel from "@/tests/larascript/models/models/TestApiTokenModel.js";
+import TestUser from "@/tests/larascript/models/models/TestUser.js";
+import TestAuthProvider from "@/tests/larascript/providers/TestAuthProvider.js";
+import TestConsoleProvider from "@/tests/larascript/providers/TestConsoleProvider.js";
+import TestCryptoProvider from "@/tests/larascript/providers/TestCryptoProvider.js";
+import TestDatabaseProvider, { testDbName } from "@/tests/larascript/providers/TestDatabaseProvider.js";
+import TestMigrationProvider from "@/tests/larascript/providers/TestMigrationProvider.js";
+import TestViewProvider from "@/tests/larascript/providers/TestViewProvider.js";
 import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
-import ACLProvider from "@src/core/providers/ACLProvider";
-import AsyncSessionProvider from "@src/core/providers/AsyncSessionProvider";
-import EventProvider from "@src/core/providers/EventProvider";
-import LoggerProvider from "@src/core/providers/LoggerProvider";
-import ValidatorProvider from "@src/core/providers/ValidatorProvider";
-import { app } from "@src/core/services/App";
-import TestApiTokenModel from "@src/tests/larascript/models/models/TestApiTokenModel";
-import TestUser from "@src/tests/larascript/models/models/TestUser";
-import TestAuthProvider from "@src/tests/larascript/providers/TestAuthProvider";
-import TestConsoleProvider from "@src/tests/larascript/providers/TestConsoleProvider";
-import TestCryptoProvider from "@src/tests/larascript/providers/TestCryptoProvider";
-import TestDatabaseProvider, { testDbName } from "@src/tests/larascript/providers/TestDatabaseProvider";
-import TestMigrationProvider from "@src/tests/larascript/providers/TestMigrationProvider";
-import TestViewProvider from "@src/tests/larascript/providers/TestViewProvider";
 import { DataTypes } from "sequelize";
 
 export const getTestDbName = () => testDbName

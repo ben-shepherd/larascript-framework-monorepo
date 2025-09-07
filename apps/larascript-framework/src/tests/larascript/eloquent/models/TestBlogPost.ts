@@ -1,6 +1,6 @@
+import { app } from "@/core/services/App.js";
+import testHelper from "@/tests/testHelper.js";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { app } from "@src/core/services/App";
-import testHelper from "@src/tests/testHelper";
 import { DataTypes } from "sequelize";
 
 const tableName = 'testsBlogPosts'

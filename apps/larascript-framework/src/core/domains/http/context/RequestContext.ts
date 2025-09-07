@@ -1,8 +1,8 @@
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
+import { IPContextData, IRequestContext, IRequestContextData } from "@/core/domains/http/interfaces/IRequestContext.js";
+import getIpAddress from "@/core/domains/http/utils/getIpAddress.js";
+import { app } from "@/core/services/App.js";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { TBaseRequest } from "@src/core/domains/http/interfaces/BaseRequest";
-import { IPContextData, IRequestContext, IRequestContextData } from "@src/core/domains/http/interfaces/IRequestContext";
-import getIpAddress from "@src/core/domains/http/utils/getIpAddress";
-import { app } from "@src/core/services/App";
 
 /**
  * Short hand for `app('requestContext')`

@@ -3,25 +3,26 @@ import fs from "fs";
 import path from "path";
 
 const ROOT_DIRS = [
-  "libs/async-session/src",
-  "libs/cast-js/src",
-  "libs/crypto-js/src",
-  "libs/dot-notation-extractor/src",
-  "libs/larascript-acl/src",
-  "libs/larascript-auth/src",
-  "libs/larascript-collection/src",
-  "libs/larascript-console/src",
-  "libs/larascript-core/src",
-  "libs/larascript-database/src",
-  "libs/larascript-events/src",
-  "libs/larascript-logger/src",
-  "libs/larascript-mail/src",
-  "libs/larascript-observer/src",
-  "libs/larascript-storage/src",
-  "libs/larascript-utils/src",
-  "libs/larascript-validator/src",
-  "libs/larascript-views/src",
-  "libs/test-helpers/src"
+  "apps/larascript-framework/src",
+  // "libs/async-session/src",
+  // "libs/cast-js/src",
+  // "libs/crypto-js/src",
+  // "libs/dot-notation-extractor/src",
+  // "libs/larascript-acl/src",
+  // "libs/larascript-auth/src",
+  // "libs/larascript-collection/src",
+  // "libs/larascript-console/src",
+  // "libs/larascript-core/src",
+  // "libs/larascript-database/src",
+  // "libs/larascript-events/src",
+  // "libs/larascript-logger/src",
+  // "libs/larascript-mail/src",
+  // "libs/larascript-observer/src",
+  // "libs/larascript-storage/src",
+  // "libs/larascript-utils/src",
+  // "libs/larascript-validator/src",
+  // "libs/larascript-views/src",
+  // "libs/test-helpers/src"
 ];
 
 /**

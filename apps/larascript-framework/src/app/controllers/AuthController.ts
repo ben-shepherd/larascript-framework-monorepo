@@ -1,16 +1,16 @@
+import LoginUseCase from "@/app/usecase/auth/LoginUseCase.js";
+import LogoutUseCase from "@/app/usecase/auth/LogoutUseCase.js";
+import RefreshUseCase from "@/app/usecase/auth/RefreshUseCase.js";
+import RegisterUseCase from "@/app/usecase/auth/RegisterUseCase.js";
+import UpdateUseCase from "@/app/usecase/auth/UpdateUseCase.js";
+import UserUseCase from "@/app/usecase/auth/UserUseCase.js";
+import Controller from "@/core/domains/http/base/Controller.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { ForbiddenResourceError } from "@/core/domains/http/exceptions/ForbiddenResourceError.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { ValidatorException } from "@larascript-framework/larascript-validator";
-import LoginUseCase from "@src/app/usecase/auth/LoginUseCase";
-import LogoutUseCase from "@src/app/usecase/auth/LogoutUseCase";
-import RefreshUseCase from "@src/app/usecase/auth/RefreshUseCase";
-import RegisterUseCase from "@src/app/usecase/auth/RegisterUseCase";
-import UpdateUseCase from "@src/app/usecase/auth/UpdateUseCase";
-import UserUseCase from "@src/app/usecase/auth/UserUseCase";
-import Controller from "@src/core/domains/http/base/Controller";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { ForbiddenResourceError } from "@src/core/domains/http/exceptions/ForbiddenResourceError";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import ApiResponse from "@src/core/domains/http/response/ApiResponse";
 
 /**
  * Controller handling authentication-related HTTP endpoints.

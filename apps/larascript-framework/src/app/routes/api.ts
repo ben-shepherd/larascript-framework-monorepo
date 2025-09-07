@@ -1,5 +1,5 @@
-import WelcomeController from "@src/app/controllers/WelcomeController"
-import Route from "@src/core/domains/http/router/Route"
+import WelcomeController from "@/app/controllers/WelcomeController.js"
+import Route from "@/core/domains/http/router/Route.js"
 
 export default Route.group(router => {
 

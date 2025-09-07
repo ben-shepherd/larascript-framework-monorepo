@@ -1,5 +1,5 @@
+import ViewProvider from "@/core/providers/ViewProvider.js";
 import { IViewServiceConfig } from "@larascript-framework/larascript-views";
-import ViewProvider from "@src/core/providers/ViewProvider";
 import path from "path";
 class TestViewProvider extends ViewProvider {
 

@@ -1,9 +1,9 @@
+import ApiTokenFactory from '@/app/factory/ApiTokenFactory.js';
+import UserFactory from '@/app/factory/UserFactory.js';
+import ApiTokenRepository from '@/app/repositories/auth/ApiTokenRepository.js';
+import UserRepository from '@/app/repositories/UserRepository.js';
 import { IAuthConfig } from '@larascript-framework/larascript-auth';
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
-import ApiTokenFactory from '@src/app/factory/ApiTokenFactory';
-import UserFactory from '@src/app/factory/UserFactory';
-import ApiTokenRepository from '@src/app/repositories/auth/ApiTokenRepository';
-import UserRepository from '@src/app/repositories/UserRepository';
 
 export interface IExtendedAuthConfig extends IAuthConfig {
     http: {

@@ -1,5 +1,5 @@
+import { app } from "@/core/services/App.js";
 import { appEnv } from '@larascript-framework/larascript-core';
-import { app } from '@src/core/services/App';
 import { Request, Response } from 'express';
 
 /**

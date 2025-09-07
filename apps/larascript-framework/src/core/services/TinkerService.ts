@@ -1,8 +1,8 @@
+import appConfig from "@/config/app.config.js";
+import providers from "@/config/providers.config.js";
+import { app } from "@/core/services/App.js";
+import testHelper from "@/tests/testHelper.js";
 import { AppSingleton, BaseSingleton, EnvironmentProduction, Kernel } from "@larascript-framework/larascript-core";
-import appConfig from "@src/config/app.config";
-import providers from "@src/config/providers.config";
-import { app } from "@src/core/services/App";
-import testHelper from "@src/tests/testHelper";
 
 export type TinkerServiceConfig = {
     useTestDb: boolean

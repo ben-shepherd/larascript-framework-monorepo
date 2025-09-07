@@ -1,5 +1,5 @@
+import testHelper from "@/tests/testHelper.js";
 import { IPostgresConfig, ParsePostgresConnectionUrl, PostgresAdapter } from "@larascript-framework/larascript-database";
-import testHelper from "@src/tests/testHelper";
 import pg from 'pg';
 
 (async () => {

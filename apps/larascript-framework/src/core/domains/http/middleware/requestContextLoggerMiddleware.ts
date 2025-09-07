@@ -1,7 +1,7 @@
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { app, appEnv } from "@/core/services/App.js";
 import { EnvironmentDevelopment } from "@larascript-framework/larascript-core";
-import Middleware from "@src/core/domains/http/base/Middleware";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { app, appEnv } from "@src/core/services/App";
 
 /**
  * Middleware to log the request context

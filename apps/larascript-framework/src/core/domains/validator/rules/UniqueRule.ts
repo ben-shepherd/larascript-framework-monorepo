@@ -1,6 +1,6 @@
+import AbstractDatabaseRule from "@/core/domains/validator/abstract/AbstractDatabaseRule.js";
 import { ModelConstructor, TWhereClauseValue } from "@larascript-framework/larascript-database";
 import { IRule } from "@larascript-framework/larascript-validator";
-import AbstractDatabaseRule from "@src/core/domains/validator/abstract/AbstractDatabaseRule";
 
 type UniqueRuleOptions = {
     modelConstructor: ModelConstructor;

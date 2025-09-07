@@ -1,5 +1,4 @@
 /* eslint-disable no-undef */
-import { describe } from '@jest/globals';
 import { AppSingleton, BaseProvider, EnvironmentTesting, Kernel } from '@larascript-framework/larascript-core';
 import { BaseEvent, EventRegistry, EventService, TSerializableValues } from "../../events/index.js";
 import { IWorkerAttributes, IWorkerModel, WorkerService } from "../../worker/index.js";

@@ -1,11 +1,11 @@
 /* eslint-disable no-undef */
+import { app } from '@/core/services/App.js';
+import { db } from '@/core/services/Database.js';
+import { queryBuilder } from '@/core/services/QueryBuilder.js';
+import TestMigrationModel from '@/tests/larascript/migration/models/TestMigrationModel.js';
+import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
 import { IModelAttributes, Model } from '@larascript-framework/larascript-database';
-import { app } from '@src/core/services/App';
-import { db } from '@src/core/services/Database';
-import { queryBuilder } from '@src/core/services/QueryBuilder';
-import TestMigrationModel from '@src/tests/larascript/migration/models/TestMigrationModel';
-import testHelper from '@src/tests/testHelper';
 import { DataTypes } from 'sequelize';
 
 export interface SeederTestModelAttributes extends IModelAttributes {

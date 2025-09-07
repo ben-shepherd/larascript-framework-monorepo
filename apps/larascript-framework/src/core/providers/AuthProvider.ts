@@ -1,12 +1,12 @@
 
 
+import { aclConfig } from "@/config/acl.config.js";
+import { authConfig, IExtendedAuthConfig } from "@/config/auth.config.js";
+import GenerateJwtSecret from "@/core/commands/GenerateJwtSecret.js";
+import { app } from "@/core/services/App.js";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { AuthService } from "@larascript-framework/larascript-auth";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { aclConfig } from "@src/config/acl.config";
-import { authConfig, IExtendedAuthConfig } from "@src/config/auth.config";
-import GenerateJwtSecret from "@src/core/commands/GenerateJwtSecret";
-import { app } from "@src/core/services/App";
 
 class AuthProvider extends BaseProvider {
 

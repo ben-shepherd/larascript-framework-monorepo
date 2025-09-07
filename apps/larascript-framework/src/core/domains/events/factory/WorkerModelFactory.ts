@@ -1,6 +1,6 @@
 import { IWorkerAttributes, IWorkerModel, IWorkerModelFactory } from "@larascript-framework/larascript-events";
-import FailedWorkerModel from "../models/FailedWorkerModel";
-import WorkerModel, { WorkerModelAttributes } from "../models/WorkerModel";
+import FailedWorkerModel from "../models/FailedWorkerModel.js";
+import WorkerModel, { WorkerModelAttributes } from "../models/WorkerModel.js";
 
 export class WorkerModelFactory implements IWorkerModelFactory {
 

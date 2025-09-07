@@ -1,10 +1,10 @@
 /* eslint-disable no-undef */
+import UniqueRule from '@/core/domains/validator/rules/UniqueRule.js';
+import { queryBuilder } from '@/core/services/QueryBuilder.js';
+import TestEmailModel, { resetEmailTable } from '@/tests/larascript/eloquent/models/TestEmailModel.js';
+import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
 import { EmailRule, RequiredRule, Validator } from '@larascript-framework/larascript-validator';
-import UniqueRule from '@src/core/domains/validator/rules/UniqueRule';
-import { queryBuilder } from '@src/core/services/QueryBuilder';
-import TestEmailModel, { resetEmailTable } from '@src/tests/larascript/eloquent/models/TestEmailModel';
-import testHelper from '@src/tests/testHelper';
 
 
 describe('test validation', () => {

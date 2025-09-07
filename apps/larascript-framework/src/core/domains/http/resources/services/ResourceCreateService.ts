@@ -1,13 +1,13 @@
+import ResourceException from "@/core/domains/express/exceptions/ResourceException.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { TResponseErrorMessages } from "@/core/domains/http/interfaces/ErrorResponse.t.js";
+import AbastractBaseResourceService from "@/core/domains/http/resources/abstract/AbastractBaseResourceService.js";
+import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
+import { RouteResourceTypes } from "@/core/domains/http/router/RouterResource.js";
+import stripGuardedResourceProperties from "@/core/domains/http/utils/stripGuardedResourceProperties.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { IModelAttributes } from "@larascript-framework/larascript-database";
-import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { TResponseErrorMessages } from "@src/core/domains/http/interfaces/ErrorResponse.t";
-import AbastractBaseResourceService from "@src/core/domains/http/resources/abstract/AbastractBaseResourceService";
-import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { RouteResourceTypes } from "@src/core/domains/http/router/RouterResource";
-import stripGuardedResourceProperties from "@src/core/domains/http/utils/stripGuardedResourceProperties";
-import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
+import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 
 /**
  * Service class that handles creating new resources through HTTP requests

@@ -1,7 +1,7 @@
 
-import Middleware from '@src/core/domains/http/base/Middleware';
-import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from '@src/core/domains/http/interfaces/IMiddleware';
-import { TRouteItem } from '@src/core/domains/http/interfaces/IRouter';
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from "@/core/domains/http/interfaces/IMiddleware.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
 import express from "express";
 
 /**

@@ -1,6 +1,6 @@
-import Middleware from "@src/core/domains/http/base/Middleware";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { app } from "@src/core/services/App";
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { app } from "@/core/services/App.js";
 
 /**
  * Middleware that ends the current request context and removes all associated values.

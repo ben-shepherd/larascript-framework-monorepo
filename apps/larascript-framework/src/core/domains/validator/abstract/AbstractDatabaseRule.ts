@@ -1,8 +1,8 @@
 import { IRule } from "@larascript-framework/larascript-validator";
 
+import { queryBuilder } from "@/core/services/QueryBuilder.js";
 import { IEloquent, ModelConstructor, TOperator, TWhereClause, TWhereClauseValue } from "@larascript-framework/larascript-database";
-import { queryBuilder } from "@src/core/services/QueryBuilder";
-import ExtendedAbstractRule from "./ExtendedAbstractRule";
+import ExtendedAbstractRule from "./ExtendedAbstractRule.js";
 
 /**
  * Options for configuring an AbstractDatabaseRule

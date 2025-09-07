@@ -1,4 +1,4 @@
-import BaseProvider from "@src/core/base/Provider";
+import BaseProvider from "@/core/base/Provider";
 
 export interface #name#Config {}
 
@@ -7,12 +7,12 @@ export interface #name#Config {}
  * Use this class to set up any initial configurations or services
  * 
  * Note:
- * Remember to update your @src/config/app.ts 'providers' array.
+ * Remember to update your @/config/app.ts 'providers' array.
  * 
  */
 export default class #name# extends BaseProvider {
 
-    // Important: Recommended storing config in @src/config (If no config required, leave as an empty object) 
+    // Important: Recommended storing config in @/config (If no config required, leave as an empty object) 
     protected config: #name#Config = {}; 
 
     /**

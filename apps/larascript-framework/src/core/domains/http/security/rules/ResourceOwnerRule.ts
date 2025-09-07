@@ -1,10 +1,10 @@
 
+import ResourceException from "@/core/domains/express/exceptions/ResourceException.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { SecurityEnum } from "@/core/domains/http/enums/SecurityEnum.js";
+import { RouteResourceTypes } from "@/core/domains/http/router/RouterResource.js";
+import AbstractSecurityRule from "@/core/domains/http/security/abstract/AbstractSecurityRule.js";
 import { IModel } from "@larascript-framework/larascript-database";
-import ResourceException from "@src/core/domains/express/exceptions/ResourceException";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
-import { RouteResourceTypes } from "@src/core/domains/http/router/RouterResource";
-import AbstractSecurityRule from "@src/core/domains/http/security/abstract/AbstractSecurityRule";
 
 type TResourceOwnerRuleOptions = {
     attribute: string;

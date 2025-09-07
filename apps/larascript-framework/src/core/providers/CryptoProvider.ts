@@ -1,6 +1,6 @@
+import appConfig, { IAppConfig } from "@/config/app.config.js";
 import { CryptoService } from "@larascript-framework/crypto-js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import appConfig, { IAppConfig } from "@src/config/app.config";
 
 class CryptoProvider extends BaseProvider {
 

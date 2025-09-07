@@ -1,14 +1,14 @@
+import Controller from "@/core/domains/http/base/Controller.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import AbastractBaseResourceService from "@/core/domains/http/resources/abstract/AbastractBaseResourceService.js";
+import ResourceCreateService from "@/core/domains/http/resources/services/ResourceCreateService.js";
+import ResourceDeleteService from "@/core/domains/http/resources/services/ResourceDeleteService.js";
+import ResourceIndexService from "@/core/domains/http/resources/services/ResourceIndexService.js";
+import ResourceShowService from "@/core/domains/http/resources/services/ResourceShowService.js";
+import ResourceUpdateService from "@/core/domains/http/resources/services/ResourceUpdateService.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
-import Controller from "@src/core/domains/http/base/Controller";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import AbastractBaseResourceService from "@src/core/domains/http/resources/abstract/AbastractBaseResourceService";
-import ResourceCreateService from "@src/core/domains/http/resources/services/ResourceCreateService";
-import ResourceDeleteService from "@src/core/domains/http/resources/services/ResourceDeleteService";
-import ResourceIndexService from "@src/core/domains/http/resources/services/ResourceIndexService";
-import ResourceShowService from "@src/core/domains/http/resources/services/ResourceShowService";
-import ResourceUpdateService from "@src/core/domains/http/resources/services/ResourceUpdateService";
-import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError";
+import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 
 /**
  * ResourceController handles CRUD operations for resources (database models)

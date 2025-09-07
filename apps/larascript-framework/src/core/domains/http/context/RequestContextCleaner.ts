@@ -1,7 +1,7 @@
+import { IPContextData, IPDatesArrayTTL } from "@/core/domains/http/interfaces/IRequestContext.js";
+import { IRequestContextCleanUpConfig } from "@/core/domains/http/interfaces/IRequestContextCleanUpConfig.js";
+import { app } from "@/core/services/App.js";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { IPContextData, IPDatesArrayTTL } from "@src/core/domains/http/interfaces/IRequestContext";
-import { IRequestContextCleanUpConfig } from "@src/core/domains/http/interfaces/IRequestContextCleanUpConfig";
-import { app } from "@src/core/services/App";
 
 /**
  * A class that handles cleaning up expired items from the current IP context.

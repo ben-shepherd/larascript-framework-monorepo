@@ -1,5 +1,5 @@
+import { app } from "@/core/services/App.js";
 import { BaseCommand } from "@larascript-framework/larascript-console";
-import { app } from "@src/core/services/App";
 
 class GenerateJwtSecret extends BaseCommand {
 

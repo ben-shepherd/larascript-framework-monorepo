@@ -1,4 +1,4 @@
-import Route from "@src/core/domains/http/router/Route";
+import Route from "@/core/domains/http/router/Route";
 
 export default Route.group({
     prefix: '/<CHANGEME>',

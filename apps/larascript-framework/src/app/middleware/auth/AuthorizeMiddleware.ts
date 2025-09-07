@@ -1,10 +1,10 @@
+import Middleware from '@/core/domains/http/base/Middleware.js';
+import HttpContext from '@/core/domains/http/context/HttpContext.js';
+import { ForbiddenResourceError } from '@/core/domains/http/exceptions/ForbiddenResourceError.js';
+import responseError from '@/core/domains/http/handlers/responseError.js';
+import { TBaseRequest } from '@/core/domains/http/interfaces/BaseRequest.js';
+import { auth } from '@/core/services/AuthService.js';
 import { UnauthorizedException } from '@larascript-framework/larascript-auth';
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import { ForbiddenResourceError } from '@src/core/domains/http/exceptions/ForbiddenResourceError';
-import responseError from '@src/core/domains/http/handlers/responseError';
-import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
-import { auth } from '@src/core/services/AuthService';
 
 /**
  * AuthorizeMiddleware handles authentication and authorization for HTTP requests

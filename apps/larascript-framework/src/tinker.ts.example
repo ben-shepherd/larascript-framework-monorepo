@@ -3,8 +3,8 @@
 import 'dotenv/config';
 import 'tsconfig-paths/register';
 
-import TinkerService from '@src/core/domains/tinker/services/TinkerService';
-import { app } from '@src/core/services/App';
+import TinkerService from '@/core/domains/tinker/services/TinkerService';
+import { app } from '@/core/services/App';
 
 (async () => {
 

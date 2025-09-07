@@ -1,6 +1,6 @@
+import responseError from "@/core/domains/http/handlers/responseError.js";
+import { app } from "@/core/services/App.js";
 import { MongoDbAdapter, PostgresAdapter } from "@larascript-framework/larascript-database";
-import responseError from "@src/core/domains/http/handlers/responseError";
-import { app } from "@src/core/services/App";
 import { Request, Response } from "express";
 import { MongoClient } from "mongodb";
 import { Sequelize } from "sequelize";

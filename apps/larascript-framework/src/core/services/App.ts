@@ -1,5 +1,5 @@
+import { Providers } from '@/config/providers.config.js';
 import { AppSingleton } from '@larascript-framework/larascript-core';
-import { Providers } from '@src/config/providers.config';
 
 /**
  * The App service allows you to access kernel containers and configure the app environment

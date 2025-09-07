@@ -1,6 +1,6 @@
-import BaseEventSubscriber from "@src/core/domains/events/base/BaseEventSubciber";
-import SyncDriver from "@src/core/domains/events/drivers/SyncDriver";
-import EventRegistry from "@src/core/domains/events/registry/EventRegistry";
+import BaseEventSubscriber from "@/core/domains/events/base/BaseEventSubciber";
+import SyncDriver from "@/core/domains/events/drivers/SyncDriver";
+import EventRegistry from "@/core/domains/events/registry/EventRegistry";
 
 type #name#Payload = {
     // ...

@@ -1,6 +1,6 @@
+import { aclConfig } from "@/config/acl.config.js";
 import { BasicACLService, IAclConfig } from "@larascript-framework/larascript-acl";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { aclConfig } from "@src/config/acl.config";
 
 class ACLProvider extends BaseProvider {
 

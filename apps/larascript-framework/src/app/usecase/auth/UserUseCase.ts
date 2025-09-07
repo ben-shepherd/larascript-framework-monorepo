@@ -1,9 +1,8 @@
-
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
+import { auth } from "@/core/services/AuthService.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { IModel } from "@larascript-framework/larascript-database";
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import ApiResponse from "@src/core/domains/http/response/ApiResponse";
-import { auth } from "@src/core/services/AuthService";
 
 /**
  * UserUseCase handles retrieving the authenticated user's profile

@@ -1,6 +1,6 @@
  
+import { app } from "@/core/services/App.js";
 import { IBaseEvent } from "@larascript-framework/larascript-events";
-import { app } from "@src/core/services/App";
 
 export const events = () => app('events');
 

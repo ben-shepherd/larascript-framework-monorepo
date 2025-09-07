@@ -1,7 +1,7 @@
-import { TExpressMiddlewareFnOrClass } from "@src/core/domains/http/interfaces/IMiddleware";
-import { IRouteGroupOptions, IRouter, TPartialRouteItemOptions, TRouteGroupFn, TRouteItem, TRouteResourceOptions, TRouterMethodOptions } from "@src/core/domains/http/interfaces/IRouter";
-import ResourceRouter from "@src/core/domains/http/router/RouterResource";
-import SecurityRules from "@src/core/domains/http/security/services/SecurityRules";
+import { TExpressMiddlewareFnOrClass } from "@/core/domains/http/interfaces/IMiddleware.js";
+import { IRouteGroupOptions, IRouter, TPartialRouteItemOptions, TRouteGroupFn, TRouteItem, TRouteResourceOptions, TRouterMethodOptions } from "@/core/domains/http/interfaces/IRouter.js";
+import ResourceRouter from "@/core/domains/http/router/RouterResource.js";
+import SecurityRules from "@/core/domains/http/security/services/SecurityRules.js";
 
 /**
  * Router handles registration and organization of Express routes

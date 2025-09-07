@@ -1,6 +1,6 @@
+import { app } from "@/core/services/App.js";
+import { cryptoService } from "@/core/services/CryptoService.js";
 import { BaseCommand } from "@larascript-framework/larascript-console";
-import { app } from "@src/core/services/App";
-import { cryptoService } from "@src/core/services/CryptoService";
 
 class GenerateAppKey extends BaseCommand {
 

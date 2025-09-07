@@ -1,7 +1,7 @@
-import QuestionDTO from "@src/core/domains/setup/DTOs/QuestionDTO";
-import { IAction } from "@src/core/domains/setup/interfaces/IAction";
-import { ISetupCommand } from "@src/core/domains/setup/interfaces/ISetupCommand";
-import { cryptoService } from "@src/core/services/CryptoService";
+import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
+import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
+import { cryptoService } from "@/core/services/CryptoService.js";
 
 class GenerateAppKeyAction implements IAction {
 

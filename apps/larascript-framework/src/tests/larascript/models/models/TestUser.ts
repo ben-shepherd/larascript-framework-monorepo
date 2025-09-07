@@ -1,7 +1,7 @@
+import { UserAttributes } from "@/app/models/auth/User.js";
 import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
 import { IModelEvents } from "@larascript-framework/larascript-database";
-import { UserAttributes } from "@src/app/models/auth/User";
-import TestUserCreatedListener from "../../events/TestUserCreatedListener";
+import TestUserCreatedListener from "../../events/TestUserCreatedListener.js";
 
 
 export interface TestUserAttributes extends AuthenticableUserModelAttributes {

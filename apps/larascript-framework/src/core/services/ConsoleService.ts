@@ -1,3 +1,3 @@
-import { app } from "@src/core/services/App";
+import { app } from "@/core/services/App.js";
 
 export const console = () => app('console');

@@ -1,8 +1,8 @@
+import httpConfig from "@/config/http.config.js";
+import IHttpConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
+import errorHandler from "@/core/domains/http/middleware/errorHandler.js";
+import { app } from "@/core/services/App.js";
 import { AppSingleton, BaseProvider } from '@larascript-framework/larascript-core';
-import httpConfig from '@src/config/http.config';
-import IHttpConfig from '@src/core/domains/http/interfaces/IHttpConfig';
-import errorHandler from '@src/core/domains/http/middleware/errorHandler';
-import { app } from "@src/core/services/App";
 
 
 export default class HttpErrorHandlerProvider extends BaseProvider {

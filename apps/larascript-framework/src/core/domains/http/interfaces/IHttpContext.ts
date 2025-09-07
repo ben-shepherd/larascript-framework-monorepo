@@ -1,9 +1,9 @@
 /* eslint-disable no-unused-vars */
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
+import { TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
+import { TUploadedFile } from "@/core/domains/http/interfaces/UploadedFile.js";
 import { IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { IStorageFile } from '@larascript-framework/larascript-storage';
-import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
-import { TRouteItem } from '@src/core/domains/http/interfaces/IRouter';
-import { TUploadedFile } from '@src/core/domains/http/interfaces/UploadedFile';
 import { NextFunction, Response } from 'express';
 
 export interface IHttpContext {

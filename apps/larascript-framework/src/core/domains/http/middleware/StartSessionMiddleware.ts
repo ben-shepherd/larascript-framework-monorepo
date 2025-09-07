@@ -1,6 +1,6 @@
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import { asyncSession } from '@src/core/services/AsyncSession';
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { asyncSession } from "@/core/services/AsyncSession.js";
 
 /**
  * Middleware that initializes a session context for each HTTP request.

@@ -1,5 +1,5 @@
 
-import BaseMigrationCommand from "@src/core/domains/migrations/base/BaseMigrationCommand";
+import BaseMigrationCommand from "@/core/domains/migrations/base/BaseMigrationCommand.js";
 
 /**
  * MigrateUpCommand class handles running up migrations

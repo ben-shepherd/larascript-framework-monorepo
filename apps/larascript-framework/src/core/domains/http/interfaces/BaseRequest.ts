@@ -1,9 +1,9 @@
-import IAuthorizedRequest from "@src/core/domains/http/interfaces/IAuthorizedRequest";
-import { IRequestIdentifiable } from "@src/core/domains/http/interfaces/IRequestIdentifable";
-import { ISecurityRequest } from "@src/core/domains/http/interfaces/ISecurity";
-import { IValidatorRequest } from "@src/core/domains/http/interfaces/IValidatorRequest";
+import IAuthorizedRequest from "@/core/domains/http/interfaces/IAuthorizedRequest.js";
+import { IRequestIdentifiable } from "@/core/domains/http/interfaces/IRequestIdentifable.js";
+import { ISecurityRequest } from "@/core/domains/http/interfaces/ISecurity.js";
+import { IValidatorRequest } from "@/core/domains/http/interfaces/IValidatorRequest.js";
+import { TUploadedFile } from "@/core/domains/http/interfaces/UploadedFile.js";
 import { Request } from "express";
-import { TUploadedFile } from "@src/core/domains/http/interfaces/UploadedFile";
 
 /**
  * TBaseRequest combines multiple request interfaces to create a comprehensive request type.

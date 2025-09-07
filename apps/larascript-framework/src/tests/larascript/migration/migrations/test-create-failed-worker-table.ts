@@ -1,5 +1,5 @@
-import FailedWorkerModel from "@src/core/domains/events/models/FailedWorkerModel";
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
+import FailedWorkerModel from "@/core/domains/events/models/FailedWorkerModel.js";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
 import { DataTypes } from "sequelize";
 
 export class CreateFailedWorkerTableMigration extends BaseMigration {

@@ -1,14 +1,14 @@
-import RouteException from '@src/core/domains/express/exceptions/RouteException';
-import Controller from '@src/core/domains/http/base/Controller';
-import Middleware from '@src/core/domains/http/base/Middleware';
-import HttpContext from '@src/core/domains/http/context/HttpContext';
-import { TBaseRequest } from '@src/core/domains/http/interfaces/BaseRequest';
-import { ControllerConstructor } from '@src/core/domains/http/interfaces/IController';
-import IExpressConfig from '@src/core/domains/http/interfaces/IHttpConfig';
-import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from '@src/core/domains/http/interfaces/IMiddleware';
-import { IRouter, TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
-import MiddlewareUtil from '@src/core/domains/http/utils/middlewareUtil';
-import { logger } from '@src/core/services/Logger';
+import RouteException from "@/core/domains/express/exceptions/RouteException.js";
+import Controller from "@/core/domains/http/base/Controller.js";
+import Middleware from "@/core/domains/http/base/Middleware.js";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
+import { ControllerConstructor } from "@/core/domains/http/interfaces/IController.js";
+import IExpressConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
+import { MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass } from "@/core/domains/http/interfaces/IMiddleware.js";
+import { IRouter, TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
+import MiddlewareUtil from "@/core/domains/http/utils/middlewareUtil.js";
+import { logger } from "@/core/services/Logger.js";
 import { default as express, default as expressClient } from 'express';
 
 // eslint-disable-next-line no-unused-vars

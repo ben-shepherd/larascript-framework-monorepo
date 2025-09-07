@@ -1,5 +1,5 @@
-import health from '@src/app/routes/health';
-import Route from '@src/core/domains/http/router/Route';
+import health from "@/app/routes/health.js";
+import Route from "@/core/domains/http/router/Route.js";
 
 /**
  * Health routes

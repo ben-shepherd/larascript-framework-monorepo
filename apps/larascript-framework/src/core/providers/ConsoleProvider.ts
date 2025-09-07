@@ -1,7 +1,7 @@
+import commandsConfig from "@/config/commands.config.js";
 import { ConsoleProvider as ConsoleProviderBase } from "@larascript-framework/larascript-console";
-import commandsConfig from "@src/config/commands.config";
-import RouteListCommand from "../commands/RouteListCommand";
-import { app } from "../services/App";
+import RouteListCommand from "../commands/RouteListCommand.js";
+import { app } from "../services/App.js";
 
 export default class ConsoleProvider extends ConsoleProviderBase {
 
@@ -21,7 +21,7 @@ export default class ConsoleProvider extends ConsoleProviderBase {
         ]);
         
         /**
-         * Register commands from @src/config/app
+         * Register commands from @/config/app
          */
         app('console').registerService().registerAll(commandsConfig)
     }

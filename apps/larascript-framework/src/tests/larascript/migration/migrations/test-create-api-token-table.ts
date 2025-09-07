@@ -1,6 +1,6 @@
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
 import { DataTypes } from "sequelize";
-import TestApiTokenModel from "../../models/models/TestApiTokenModel";
+import TestApiTokenModel from "../../models/models/TestApiTokenModel.js";
 
 export class CreateApiTokenMigration extends BaseMigration {
 

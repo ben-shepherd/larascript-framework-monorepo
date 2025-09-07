@@ -1,8 +1,8 @@
+import appConfig, { IAppConfig } from "@/config/app.config.js";
+import { mailConfig } from "@/config/mail.config.js";
+import { app } from "@/core/services/App.js";
 import { AppSingleton, BaseProvider } from "@larascript-framework/larascript-core";
 import { IMailConfig, MailService } from "@larascript-framework/larascript-mail";
-import appConfig, { IAppConfig } from "@src/config/app.config";
-import { mailConfig } from "@src/config/mail.config";
-import { app } from "@src/core/services/App";
 
 class MailProvider extends BaseProvider {
 

@@ -1,4 +1,4 @@
-import BaseMigration from "@src/core/domains/migrations/base/BaseMigration";
+import BaseMigration from "@/core/domains/migrations/base/BaseMigration";
 import { DataTypes } from "sequelize";
 
 export class #name#Migration extends BaseMigration {

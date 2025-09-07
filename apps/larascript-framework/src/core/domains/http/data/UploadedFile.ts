@@ -1,5 +1,5 @@
+import { TUploadedFile, TUploadedFileData } from "@/core/domains/http/interfaces/UploadedFile.js";
 import fs from 'fs';
-import { TUploadedFile, TUploadedFileData } from "@src/core/domains/http/interfaces/UploadedFile";
 
 class UploadedFile implements TUploadedFile {
 

@@ -1,13 +1,13 @@
+import CopyEnvExampleAction from "@/core/domains/setup/actions/CopyEnvExampleAction.js";
+import EnableExpress from "@/core/domains/setup/actions/EnableExpress.js";
+import GenerateAppKeyAction from "@/core/domains/setup/actions/GenerateAppKeyAction.js";
+import GenerateJwtSecretAction from "@/core/domains/setup/actions/GenerateJwtSecretAction.js";
+import SetupDefaultDatabase from "@/core/domains/setup/actions/SetupDefaultDatabase.js";
+import SetupDockerDatabaseScripts from "@/core/domains/setup/actions/SetupDockerDatabaseScripts.js";
+import { QuestionIDs } from "@/core/domains/setup/consts/QuestionConsts.js";
+import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import { app } from "@/core/services/App.js";
 import { DatabaseAdapter } from "@larascript-framework/larascript-database";
-import CopyEnvExampleAction from "@src/core/domains/setup/actions/CopyEnvExampleAction";
-import EnableExpress from "@src/core/domains/setup/actions/EnableExpress";
-import GenerateAppKeyAction from "@src/core/domains/setup/actions/GenerateAppKeyAction";
-import GenerateJwtSecretAction from "@src/core/domains/setup/actions/GenerateJwtSecretAction";
-import SetupDefaultDatabase from "@src/core/domains/setup/actions/SetupDefaultDatabase";
-import SetupDockerDatabaseScripts from "@src/core/domains/setup/actions/SetupDockerDatabaseScripts";
-import { QuestionIDs } from "@src/core/domains/setup/consts/QuestionConsts";
-import QuestionDTO from "@src/core/domains/setup/DTOs/QuestionDTO";
-import { app } from "@src/core/services/App";
 
 const ENV_OVERWRITE_WARNING = 'This step will overwrite your .env file.';
 const acceptedAnswersBoolean = ['yes', 'no', 'y', 'n', ''];

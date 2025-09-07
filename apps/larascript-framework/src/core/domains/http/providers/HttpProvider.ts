@@ -1,10 +1,10 @@
+import httpConfig from "@/config/http.config.js";
+import RequestContext from "@/core/domains/http/context/RequestContext.js";
+import RequestContextCleaner from "@/core/domains/http/context/RequestContextCleaner.js";
+import IHttpConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
+import HttpService from "@/core/domains/http/services/HttpService.js";
+import { app } from "@/core/services/App.js";
 import { BaseProvider } from '@larascript-framework/larascript-core';
-import httpConfig from '@src/config/http.config';
-import RequestContext from '@src/core/domains/http/context/RequestContext';
-import RequestContextCleaner from '@src/core/domains/http/context/RequestContextCleaner';
-import IHttpConfig from '@src/core/domains/http/interfaces/IHttpConfig';
-import HttpService from '@src/core/domains/http/services/HttpService';
-import { app } from "@src/core/services/App";
 import expressLayouts from 'express-ejs-layouts';
 
 export default class HttpProvider extends BaseProvider {

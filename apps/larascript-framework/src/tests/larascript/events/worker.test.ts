@@ -1,8 +1,8 @@
 /* eslint-disable no-undef */
+import { app } from '@/core/services/App.js';
+import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
 import { BaseEvent, EventRegistry, EventService, FailedWorkerModel, IEventService, IWorkerService, WorkerModel, WorkerService } from '@larascript-framework/larascript-events';
-import { app } from '@src/core/services/App';
-import testHelper from '@src/tests/testHelper';
 
 class TestEvent extends BaseEvent<{ foo: string, bar?: object, arr?: string[] }> {
 

@@ -1,10 +1,10 @@
 
-import { TSecurityRuleConstructor } from "@src/core/domains/http/interfaces/ISecurity";
-import AbstractSecurityRule from "@src/core/domains/http/security/abstract/AbstractSecurityRule";
-import HasRoleRule from "@src/core/domains/http/security/rules/HasRoleRule";
-import RateLimitedRule from "@src/core/domains/http/security/rules/RateLimitedRule";
-import ResourceOwnerRule from "@src/core/domains/http/security/rules/ResourceOwnerRule";
-import ScopeRule from "@src/core/domains/http/security/rules/ScopeRule";
+import { TSecurityRuleConstructor } from "@/core/domains/http/interfaces/ISecurity.js";
+import AbstractSecurityRule from "@/core/domains/http/security/abstract/AbstractSecurityRule.js";
+import HasRoleRule from "@/core/domains/http/security/rules/HasRoleRule.js";
+import RateLimitedRule from "@/core/domains/http/security/rules/RateLimitedRule.js";
+import ResourceOwnerRule from "@/core/domains/http/security/rules/ResourceOwnerRule.js";
+import ScopeRule from "@/core/domains/http/security/rules/ScopeRule.js";
 
 class SecurityRules {
 

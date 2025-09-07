@@ -1,6 +1,6 @@
 import { IRule, IRuleError } from "@larascript-framework/larascript-validator";
 
-import ExtendedAbstractRule from "../abstract/ExtendedAbstractRule";
+import ExtendedAbstractRule from "../abstract/ExtendedAbstractRule.js";
 
 
 class SingleFileRule extends ExtendedAbstractRule implements IRule {

@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
-import IExpressConfig from "@src/core/domains/http/interfaces/IHttpConfig";
-import { IRoute, IRouter, TRouteItem } from "@src/core/domains/http/interfaces/IRouter";
+import IExpressConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
+import { IRoute, IRouter, TRouteItem } from "@/core/domains/http/interfaces/IRouter.js";
 import express from "express";
 
 export default interface IHttpService {

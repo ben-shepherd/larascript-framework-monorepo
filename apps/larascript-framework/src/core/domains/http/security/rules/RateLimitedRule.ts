@@ -1,11 +1,11 @@
-import HttpContext from "@src/core/domains/http/context/HttpContext";
-import { requestContext } from "@src/core/domains/http/context/RequestContext";
-import { SecurityEnum } from "@src/core/domains/http/enums/SecurityEnum";
-import { TBaseRequest } from "@src/core/domains/http/interfaces/BaseRequest";
-import { IPDatesArrayTTL } from "@src/core/domains/http/interfaces/IRequestContext";
-import AbstractSecurityRule from "@src/core/domains/http/security/abstract/AbstractSecurityRule";
+import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { requestContext } from "@/core/domains/http/context/RequestContext.js";
+import { SecurityEnum } from "@/core/domains/http/enums/SecurityEnum.js";
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
+import { IPDatesArrayTTL } from "@/core/domains/http/interfaces/IRequestContext.js";
+import AbstractSecurityRule from "@/core/domains/http/security/abstract/AbstractSecurityRule.js";
 import { Request } from "express";
-import { RateLimitedExceededError } from "../../exceptions/RateLimitedExceededError";
+import { RateLimitedExceededError } from "../../exceptions/RateLimitedExceededError.js";
 
 type TRateLimitedRuleOptions = {
     limit: number;

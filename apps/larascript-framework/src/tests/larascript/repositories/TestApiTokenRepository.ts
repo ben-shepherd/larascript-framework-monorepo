@@ -1,5 +1,4 @@
-
-import ApiTokenRepository from "@src/app/repositories/auth/ApiTokenRepository";
+import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
 
 
 export default class TestApiTokenRepository extends ApiTokenRepository {

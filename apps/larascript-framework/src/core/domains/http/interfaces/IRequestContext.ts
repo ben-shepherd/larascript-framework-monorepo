@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { TBaseRequest } from "@src/core/domains/http/interfaces/BaseRequest";
+import { TBaseRequest } from "@/core/domains/http/interfaces/BaseRequest.js";
 
 export interface IRequestContextData extends Map<string, Map<string, unknown>> {}
 

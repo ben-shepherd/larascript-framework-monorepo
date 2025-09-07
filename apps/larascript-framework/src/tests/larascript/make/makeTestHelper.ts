@@ -1,24 +1,24 @@
  
+import BaseMakeFileCommand from '@/core/domains/make/base/BaseMakeFileCommand.js';
+import MakeCmdCommand from '@/core/domains/make/commands/MakeCmdCommand.js';
+import MakeController from '@/core/domains/make/commands/MakeControllerCommand.js';
+import MakeFactoryCommand from '@/core/domains/make/commands/MakeFactoryCommand.js';
+import MakeListenerCommand from '@/core/domains/make/commands/MakeListenerCommand.js';
+import MakeMiddlewareCommand from '@/core/domains/make/commands/MakeMiddlewareCommand.js';
+import MakeMigrationCommand from '@/core/domains/make/commands/MakeMigrationCommand.js';
+import MakeModelCommand from '@/core/domains/make/commands/MakeModelCommand.js';
+import MakeObserverCommand from '@/core/domains/make/commands/MakeObserverCommand.js';
+import MakeProviderCommand from '@/core/domains/make/commands/MakeProviderCommand.js';
+import MakeRepositoryCommand from '@/core/domains/make/commands/MakeRepositoryCommand.js';
+import MakeRouteResourceCommand from '@/core/domains/make/commands/MakeRouteResourceCommand.js';
+import MakeRoutesCommand from '@/core/domains/make/commands/MakeRoutesCommand.js';
+import MakeSeederCommand from '@/core/domains/make/commands/MakeSeederCommand.js';
+import MakeServiceCommand from '@/core/domains/make/commands/MakeServiceCommand.js';
+import MakeSingletonCommand from '@/core/domains/make/commands/MakeSingletonCommand.js';
+import MakeSubscriberCommand from '@/core/domains/make/commands/MakeSubscriberCommand.js';
+import MakeValidatorCommand from '@/core/domains/make/commands/MakeValidatorCommand.js';
+import { targetDirectories } from '@/core/domains/make/consts/MakeTypes.js';
 import { KeyPair, ParsedArgumentsArray } from '@larascript-framework/larascript-console';
-import BaseMakeFileCommand from '@src/core/domains/make/base/BaseMakeFileCommand';
-import MakeCmdCommand from '@src/core/domains/make/commands/MakeCmdCommand';
-import MakeController from '@src/core/domains/make/commands/MakeControllerCommand';
-import MakeFactoryCommand from '@src/core/domains/make/commands/MakeFactoryCommand';
-import MakeListenerCommand from '@src/core/domains/make/commands/MakeListenerCommand';
-import MakeMiddlewareCommand from '@src/core/domains/make/commands/MakeMiddlewareCommand';
-import MakeMigrationCommand from '@src/core/domains/make/commands/MakeMigrationCommand';
-import MakeModelCommand from '@src/core/domains/make/commands/MakeModelCommand';
-import MakeObserverCommand from '@src/core/domains/make/commands/MakeObserverCommand';
-import MakeProviderCommand from '@src/core/domains/make/commands/MakeProviderCommand';
-import MakeRepositoryCommand from '@src/core/domains/make/commands/MakeRepositoryCommand';
-import MakeRouteResourceCommand from '@src/core/domains/make/commands/MakeRouteResourceCommand';
-import MakeRoutesCommand from '@src/core/domains/make/commands/MakeRoutesCommand';
-import MakeSeederCommand from '@src/core/domains/make/commands/MakeSeederCommand';
-import MakeServiceCommand from '@src/core/domains/make/commands/MakeServiceCommand';
-import MakeSingletonCommand from '@src/core/domains/make/commands/MakeSingletonCommand';
-import MakeSubscriberCommand from '@src/core/domains/make/commands/MakeSubscriberCommand';
-import MakeValidatorCommand from '@src/core/domains/make/commands/MakeValidatorCommand';
-import { targetDirectories } from '@src/core/domains/make/consts/MakeTypes';
 
 // eslint-disable-next-line no-unused-vars
 export type CommandCtor<T extends BaseMakeFileCommand = BaseMakeFileCommand> = new (...args: any[]) => T;

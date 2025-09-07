@@ -1,5 +1,5 @@
-import User from "@src/app/models/auth/User";
-import AuthenticationUserRepository from "@src/app/repositories/auth/AuthenticationUserRepository";
+import User from "@/app/models/auth/User.js";
+import AuthenticationUserRepository from "@/app/repositories/auth/AuthenticationUserRepository.js";
 
 
 export default class UserRepository extends AuthenticationUserRepository<User> {

@@ -155,7 +155,7 @@ importers:
         version: 4.1.5
       terser-webpack-plugin:
         specifier: ^5.3.10
-        version: 5.3.14(webpack@5.101.2)
+        version: 5.3.14(webpack@5.101.2(webpack-cli@5.1.4(webpack@5.101.2)))
       ts-loader:
         specifier: ^9.5.1
         version: 9.5.2(typescript@5.9.2)(webpack@5.101.2)
@@ -176,7 +176,7 @@ importers:
         version: 5.9.2
       webpack:
         specifier: ^5.92.1
-        version: 5.101.2(webpack-cli@5.1.4)
+        version: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
       webpack-cli:
         specifier: ^5.1.4
         version: 5.1.4(webpack@5.101.2)
@@ -333,13 +333,13 @@ importers:
         version: 4.1.5
       terser-webpack-plugin:
         specifier: ^5.3.10
-        version: 5.3.14(webpack@5.101.2)
+        version: 5.3.14(webpack@5.101.2(webpack-cli@5.1.4(webpack@5.101.2)))
       tsc-alias:
         specifier: ^1.8.10
         version: 1.8.16
       webpack:
         specifier: ^5.92.1
-        version: 5.101.2(webpack-cli@5.1.4)
+        version: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
 
   libs/async-session:
     dependencies:
@@ -672,11 +672,11 @@ importers:
         specifier: workspace:*
         version: link:../larascript-core
       '@larascript-framework/larascript-logger':
-        specifier: github:ben-shepherd/larascript-logger
-        version: '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21'
+        specifier: workspace:*
+        version: link:../larascript-logger
       '@larascript-framework/larascript-views':
-        specifier: github:ben-shepherd/larascript-views
-        version: '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6'
+        specifier: workspace:*
+        version: link:../larascript-views
       nodemailer:
         specifier: ^7.0.5
         version: 7.0.5
@@ -1021,14 +1021,6 @@ packages:
 
   '@bcoe/v8-coverage@0.2.3':
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
-
-  '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21}
-    version: 1.0.1
-
-  '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
-    resolution: {tarball: https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6}
-    version: 1.0.0
 
   '@colors/colors@1.6.0':
     resolution: {integrity: sha512-Ir+AOibqzrIsL6ajt3Rz3LskB7OiMVHqltZmspbW/TJuTVuyOMirVqAkjfY6JISiLHgyNqicAC8AyHHGzNd/dA==}
@@ -4781,14 +4773,6 @@ snapshots:
 
   '@bcoe/v8-coverage@0.2.3': {}
 
-  '@ben-shepherd/larascript-logger@https://codeload.github.com/ben-shepherd/larascript-logger/tar.gz/dae138fef348838b62ba69694a8a1b63fa0d3c21':
-    dependencies:
-      winston: 3.17.0
-
-  '@ben-shepherd/larascript-views@https://codeload.github.com/ben-shepherd/larascript-views/tar.gz/dac9d75cc1cf92b59113915ad91a30f69e9780f6':
-    dependencies:
-      ejs: 3.1.10
-
   '@colors/colors@1.6.0': {}
 
   '@cspotcode/source-map-support@0.8.1':
@@ -5579,19 +5563,19 @@ snapshots:
       '@webassemblyjs/ast': 1.14.1
       '@xtuc/long': 4.2.2
 
-  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4)(webpack@5.101.2)':
+  '@webpack-cli/configtest@2.1.1(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)':
     dependencies:
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
       webpack-cli: 5.1.4(webpack@5.101.2)
 
-  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4)(webpack@5.101.2)':
+  '@webpack-cli/info@2.0.2(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)':
     dependencies:
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
       webpack-cli: 5.1.4(webpack@5.101.2)
 
-  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4)(webpack@5.101.2)':
+  '@webpack-cli/serve@2.0.5(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)':
     dependencies:
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
       webpack-cli: 5.1.4(webpack@5.101.2)
 
   '@xtuc/ieee754@1.2.0': {}
@@ -8363,14 +8347,14 @@ snapshots:
 
   tapable@2.2.2: {}
 
-  terser-webpack-plugin@5.3.14(webpack@5.101.2):
+  terser-webpack-plugin@5.3.14(webpack@5.101.2(webpack-cli@5.1.4(webpack@5.101.2))):
     dependencies:
       '@jridgewell/trace-mapping': 0.3.30
       jest-worker: 27.5.1
       schema-utils: 4.3.2
       serialize-javascript: 6.0.2
       terser: 5.43.1
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
 
   terser@5.43.1:
     dependencies:
@@ -8437,7 +8421,7 @@ snapshots:
       semver: 7.7.2
       source-map: 0.7.6
       typescript: 5.9.2
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
 
   ts-node@10.9.2(@types/node@22.17.2)(typescript@5.9.2):
     dependencies:
@@ -8714,9 +8698,9 @@ snapshots:
   webpack-cli@5.1.4(webpack@5.101.2):
     dependencies:
       '@discoveryjs/json-ext': 0.5.7
-      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4)(webpack@5.101.2)
-      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4)(webpack@5.101.2)
-      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4)(webpack@5.101.2)
+      '@webpack-cli/configtest': 2.1.1(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)
+      '@webpack-cli/info': 2.0.2(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)
+      '@webpack-cli/serve': 2.0.5(webpack-cli@5.1.4(webpack@5.101.2))(webpack@5.101.2)
       colorette: 2.0.20
       commander: 10.0.1
       cross-spawn: 7.0.6
@@ -8725,7 +8709,7 @@ snapshots:
       import-local: 3.2.0
       interpret: 3.1.1
       rechoir: 0.8.0
-      webpack: 5.101.2(webpack-cli@5.1.4)
+      webpack: 5.101.2(webpack-cli@5.1.4(webpack@5.101.2))
       webpack-merge: 5.10.0
 
   webpack-merge@5.10.0:
@@ -8736,7 +8720,7 @@ snapshots:
 
   webpack-sources@3.3.3: {}
 
-  webpack@5.101.2(webpack-cli@5.1.4):
+  webpack@5.101.2(webpack-cli@5.1.4(webpack@5.101.2)):
     dependencies:
       '@types/eslint-scope': 3.7.7
       '@types/estree': 1.0.8
@@ -8760,7 +8744,7 @@ snapshots:
       neo-async: 2.6.2
       schema-utils: 4.3.2
       tapable: 2.2.2
-      terser-webpack-plugin: 5.3.14(webpack@5.101.2)
+      terser-webpack-plugin: 5.3.14(webpack@5.101.2(webpack-cli@5.1.4(webpack@5.101.2)))
       watchpack: 2.4.4
       webpack-sources: 3.3.3
     optionalDependencies:

@@ -8,7 +8,7 @@ import {
   captureError,
   generateUuidV4,
 } from "@larascript-framework/larascript-utils";
-import { bindAll } from "lodash";
+import * as _lodash from "lodash";
 import pg, { QueryResult } from "pg";
 import DB from "../../database/services/DB.js";
 import Eloquent from "../../eloquent/Eloquent.js";
@@ -789,7 +789,7 @@ class PostgresEloquent<Model extends IModel> extends Eloquent<
       const pool = this.getDatabaseAdapter<PostgresAdapter>().getPool();
       const pgClient = await pool.connect();
       // Bind all methods
-      boundPgClient = bindAll(pgClient, ["query", "release"]);
+      boundPgClient = _lodash.bindAll(pgClient, ["query", "release"]);
 
       // Begin the transaction
       await boundPgClient.query("BEGIN");

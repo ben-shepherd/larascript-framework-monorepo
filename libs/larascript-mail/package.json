@@ -39,8 +39,8 @@
   },
   "dependencies": {
     "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-logger": "github:ben-shepherd/larascript-logger",
-    "@larascript-framework/larascript-views": "github:ben-shepherd/larascript-views",
+    "@larascript-framework/larascript-logger": "workspace:*",
+    "@larascript-framework/larascript-views": "workspace:*",
     "nodemailer": "^7.0.5",
     "resend": "^6.0.1"
   },

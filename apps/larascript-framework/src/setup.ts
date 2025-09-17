@@ -1,5 +1,3 @@
-import 'tsconfig-paths/register';
-
 import appConfig from '@/config/app.config.js';
 import SetupProvider from '@/core/domains/setup/providers/SetupProvider.js';
 import ConsoleProvider from '@/core/providers/ConsoleProvider.js';
@@ -8,12 +6,14 @@ import LoggerProvider from '@/core/providers/LoggerProvider.js';
 import { app } from '@/core/services/App.js';
 import { Kernel } from '@larascript-framework/larascript-core';
 
+import dotenv from 'dotenv';
 import DatabaseSetupProvider from "./core/providers/DatabaseSetupProvider.js";
 import EnvServiceProvider from "./core/providers/EnvServiceProvider.js";
 import PackageJsonProvider from "./core/providers/PackageJsonProvider.js";
 
+
 (async () => {
-    require('dotenv').config();
+    dotenv.config();
 
     await Kernel.boot({
         ...appConfig,

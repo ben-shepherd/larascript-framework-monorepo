@@ -1,3 +1,4 @@
+import SetupProvider from "@/core/domains/setup/providers/SetupProvider.js";
 import ACLProvider from "@/core/providers/ACLProvider.js";
 import AsyncSessionProvider from "@/core/providers/AsyncSessionProvider.js";
 import EventProvider from "@/core/providers/EventProvider.js";
@@ -10,6 +11,7 @@ import TestAuthProvider from "@/tests/larascript/providers/TestAuthProvider.js";
 import TestConsoleProvider from "@/tests/larascript/providers/TestConsoleProvider.js";
 import TestCryptoProvider from "@/tests/larascript/providers/TestCryptoProvider.js";
 import TestDatabaseProvider, { testDbName } from "@/tests/larascript/providers/TestDatabaseProvider.js";
+import TestEnvServiceProvider from "@/tests/larascript/providers/TestEnvServiceProvider.js";
 import TestMigrationProvider from "@/tests/larascript/providers/TestMigrationProvider.js";
 import TestViewProvider from "@/tests/larascript/providers/TestViewProvider.js";
 import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
@@ -41,6 +43,8 @@ const testBootApp = async () => {
             new TestMigrationProvider(),
             new ValidatorProvider(),
             new TestViewProvider(),
+            new TestEnvServiceProvider(),
+            new SetupProvider(),
         ]
     }
 

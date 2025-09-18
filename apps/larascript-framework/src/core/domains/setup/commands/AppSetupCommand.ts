@@ -1,13 +1,10 @@
+import { BaseSetupCommand } from "@/core/domains/setup/base/BaseSetupCommand.js";
 import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
-import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import buildQuestionDTOs from "@/core/domains/setup/utils/buildQuestionDTOs.js";
-import { app } from "@/core/services/App.js";
-import { BaseCommand } from "@larascript-framework/larascript-console";
-import { IEnvService } from "@larascript-framework/larascript-core";
 /**
  * Command to run the setup process
  */
-class AppSetupCommand extends BaseCommand implements ISetupCommand {
+class AppSetupCommand extends BaseSetupCommand {
 
     /**
      * The command signature
@@ -20,19 +17,9 @@ class AppSetupCommand extends BaseCommand implements ISetupCommand {
     public description = 'Runs the app setup process.';
 
     /**
-     * The environment service
-     */
-    env!: IEnvService;
-
-    /**
      * The questions to ask the user
      */
     protected questions!: QuestionDTO[];
-
-    constructor() {
-        super()
-        this.env = app('envService')
-    }
 
     /**
      * Writes a line to the console

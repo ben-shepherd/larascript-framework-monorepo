@@ -12,7 +12,7 @@ export default class ConsoleProvider extends ConsoleProviderBase {
      */
     async register(): Promise<void> {
         super.register();
-
+        
         /**
          * Register internal commands
          */

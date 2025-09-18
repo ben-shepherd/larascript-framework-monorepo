@@ -1,6 +1,6 @@
 /* eslint-disable no-undef */
+import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
-import testHelper from '@/tests/testHelper';
 
 describe('describe your test', () => {
 

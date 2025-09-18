@@ -1,5 +1,6 @@
 /* eslint-disable no-undef */
 import CopyEnvExampleAction from '@/core/domains/setup/actions/CopyEnvExampleAction.js';
+import GenerateAppKeyAction from '@/core/domains/setup/actions/GenerateAppKeyAction.js';
 import AppSetupCommand from '@/core/domains/setup/commands/AppSetupCommand.js';
 import { QuestionIDs } from '@/core/domains/setup/consts/QuestionConsts.js';
 import QuestionDTO from '@/core/domains/setup/DTOs/QuestionDTO.js';
@@ -15,6 +16,7 @@ import fs from 'fs';
 describe('describe your test', () => {
     let questionDTOs: QuestionDTO[];
     let setupCommand: ISetupCommand;
+    let questionAnsweredYes: QuestionDTO;
 
     beforeAll(async () => {
         resetOutput();
@@ -43,4 +45,27 @@ describe('describe your test', () => {
             expect(fs.readFileSync(getOutputPath('.env'), 'utf8')).toBe('TEST_ENV=test');
         });
     })
+
+    describe("appKey action", () => {
+        test("should generate a new app key", async () => {
+            
+            // Create the .env file
+            fs.writeFileSync(getOutputPath('.env'), 'APP_KEY=');
+
+            const questionDTO = questionDTOs.find(questionDTO => questionDTO.id === QuestionIDs.appKey);
+            const actionConstructor = questionDTO?.actionCtor as new () => IAction;
+            
+            questionAnsweredYes = QuestionDTO.createYesQuestionDTO(QuestionIDs.appKey)
+                .withQuestionDTO(questionDTO!);
+
+            expect(questionDTO).toBeDefined();
+            expect(questionDTO?.actionCtor).toBe(GenerateAppKeyAction);
+
+            const action = new actionConstructor();
+            await action.handle(setupCommand, questionAnsweredYes);
+
+            expect(fs.existsSync(getOutputPath('.env'))).toBe(true);
+            expect(fs.readFileSync(getOutputPath('.env'), 'utf8')).toContain('APP_KEY=');
+        });
+    });
 })

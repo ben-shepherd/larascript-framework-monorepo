@@ -92,7 +92,7 @@ class QuestionDTO {
         acceptedAnswers = null,
         applicableOnly = null
     }: Props) {
-        if(!question && !statement) {
+        if(typeof question !== 'string' && typeof statement !== 'string') {
             throw new Error('Missing question or statement')
         }
 
@@ -106,6 +106,27 @@ class QuestionDTO {
         this.actionCtors = actionCtors;
         this.acceptedAnswers = acceptedAnswers;
         this.applicableOnly = applicableOnly
+    }
+
+    static createYesQuestionDTO(id: string): QuestionDTO {
+        return new QuestionDTO({
+            id,
+            question: '',
+            statement: '',
+            answer: 'y'
+        })
+    }
+
+    /**
+     * Creates a new QuestionDTO with the answer of the given QuestionDTO.
+     * @param questionDTO The QuestionDTO to create a new QuestionDTO from.
+     * @returns {QuestionDTO} The new QuestionDTO.
+     */
+    withQuestionDTO(questionDTO: QuestionDTO): QuestionDTO {
+        return new QuestionDTO({
+            ...questionDTO,
+            answer: questionDTO.getAnswer()
+        })
     }
 
     /**

@@ -9,11 +9,14 @@ class SetupProvider extends BaseProvider {
         this.log('Registering SetupProvider');
 
         /**
-         * Initialize the setup service with the env service
-         * - This will be available within the setup commands
+         * Initialize the setup service with the env service and package json service
+         * - These services are required for the setup commands
+         * - The package json service is required for the setup commands to update the package.json file
+         * - The env service is required for setting values in the .env file
          */
         SetupService.init({
-            envService: app('envService')
+            envService: app('envService'),
+            packageJsonService: app('packageJsonService')
         });
 
         // Register the setup commands

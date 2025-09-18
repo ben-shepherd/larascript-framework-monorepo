@@ -1,5 +1,5 @@
 import { BaseCommand } from "@larascript-framework/larascript-console";
-import { IEnvService } from "@larascript-framework/larascript-core";
+import { IEnvService, IPackageJsonService } from "@larascript-framework/larascript-core";
 import { ISetupCommand } from "../interfaces/ISetupCommand.js";
 import { SetupService } from "../providers/SetupService.js";
 
@@ -13,8 +13,21 @@ export abstract class BaseSetupCommand extends BaseCommand implements ISetupComm
         return SetupService.getInstance().getEnvService();
     }
 
+    get packageJson(): IPackageJsonService {
+        return SetupService.getInstance().getPackageJsonService();
+    }
+
     setEnvService(envService: IEnvService) {
         SetupService.getInstance().getEnvService();
     }
 
+    getPackageJsonService(): IPackageJsonService {
+        return SetupService.getInstance().getPackageJsonService();
+    }
+
+    setPackageJsonService(packageJsonService: IPackageJsonService) {
+        SetupService.getInstance().setPackageJsonService(packageJsonService);
+    }
+
+    execute(...args: any[]): any {}
 }

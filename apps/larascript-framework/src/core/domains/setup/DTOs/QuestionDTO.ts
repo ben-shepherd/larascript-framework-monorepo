@@ -108,12 +108,32 @@ class QuestionDTO {
         this.applicableOnly = applicableOnly
     }
 
+    /**
+     * Creates a new QuestionDTO with the answer of 'y'.
+     * @param id The id of the question.
+     * @returns {QuestionDTO} The new QuestionDTO.
+     */
     static createYesQuestionDTO(id: string): QuestionDTO {
         return new QuestionDTO({
             id,
             question: '',
             statement: '',
             answer: 'y'
+        })
+    }
+
+    /**
+     * Creates a new QuestionDTO with the given answer.
+     * @param id The id of the question.
+     * @param answer The answer to the question.
+     * @returns {QuestionDTO} The new QuestionDTO.
+     */
+    static createWithAnswer(id: string, answer: string): QuestionDTO {
+        return new QuestionDTO({
+            id,
+            question: '',
+            statement: '',
+            answer
         })
     }
 
@@ -128,6 +148,8 @@ class QuestionDTO {
             answer: questionDTO.getAnswer()
         })
     }
+
+
 
     /**
      * Gets the text of the question. If the question is null, the statement is used.

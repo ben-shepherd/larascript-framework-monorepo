@@ -16,11 +16,48 @@ class SetupDefaultDatabase implements IAction {
         const adapterName = question.getAnswer() as string;
 
         if (adapterName === 'all') {
-            return;
+            return await this.updateEnvForAllDatabases(ref);
         }
 
         ref.writeLine('Updating .env');
         await this.updateEnv(adapterName, ref);
+        await this.updateEnvDefaultConnection(adapterName, ref);
+    }
+
+    /**
+     * Update the .env for all databases
+     * @param ref 
+     */
+    private async updateEnvForAllDatabases(ref: ISetupCommand) {
+        ref.writeLine('Updating .env for all databases');
+        const adaptersNames = app('db').getAvailableAdaptersNames();
+
+        for (const adapter of adaptersNames) {
+            await this.updateEnv(adapter, ref);
+
+        }
+        await this.updateEnvDefaultConnection('postgres', ref);
+        return;
+    }
+
+    /**
+     * Update the .env for the default connection
+     * @param adapterName 
+     * @param ref 
+     */
+    async updateEnvDefaultConnection(adapterName: string, ref: ISetupCommand) {
+        ref.env.copyFileFromEnvExample();
+
+        const credentials = app('db').getDefaultCredentials(adapterName);
+
+        if (!credentials) {
+            throw new InvalidDefaultCredentialsError(`The default credentials are invalid or could not be found for adapter '${adapterName}'`);
+        }
+
+        const env: Record<string, string> = {
+            DATABASE_DEFAULT_CONNECTION: adapterName,
+        }
+        await ref.env.updateValues(env);
     }
 
     /**
@@ -37,9 +74,7 @@ class SetupDefaultDatabase implements IAction {
             throw new InvalidDefaultCredentialsError(`The default credentials are invalid or could not be found for adapter '${adapterName}'`);
         }
 
-        const env: Record<string, string> = {
-            DATABASE_DEFAULT_CONNECTION: adapterName,
-        }
+        const env: Record<string, string> = {}
 
         if (adapterName === 'postgres') {
             env.DATABASE_POSTGRES_CONNECTION = adapterName;

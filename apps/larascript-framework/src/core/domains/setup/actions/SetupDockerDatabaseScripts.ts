@@ -1,17 +1,10 @@
 import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
-import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import { app } from "@/core/services/App.js";
-import { IPackageJsonService } from '@larascript-framework/larascript-core';
 import { DatabaseAdapter } from '@larascript-framework/larascript-database';
+import { BaseSetupCommand } from "../base/BaseSetupCommand.js";
 
-class SetupDockerDatabaseScripts implements IAction {
-
-    protected packageJson!: IPackageJsonService;
-
-    constructor() {
-        this.packageJson = app('packageJsonService');
-    }
+class SetupDockerDatabaseScripts extends BaseSetupCommand {
 
     /**
      * Handle the action 
@@ -59,9 +52,12 @@ class SetupDockerDatabaseScripts implements IAction {
     private buildDatabaseDirectionScript(dockerComposeNames: string[], direction: 'up' | 'down') {
         let scriptValue = '';
 
+        // Value will be either yarn, npm, or pnpm
+        const packageManager = this.packageJson.getPackageManagerAsCommand();
+
         for(let i = 0; i < dockerComposeNames.length; i++) {
             const composeName = dockerComposeNames[i];
-            scriptValue += `yarn db:${composeName}:${direction} `;
+            scriptValue += `${packageManager} db:${composeName}:${direction} `;
 
             if(i < dockerComposeNames.length - 1) {
                 scriptValue += '&& ';

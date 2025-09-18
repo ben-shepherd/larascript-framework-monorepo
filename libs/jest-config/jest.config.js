@@ -26,7 +26,6 @@ export const jestConfig = {
     "^@/(.*)$": "<rootDir>/src/$1",
     "^(\\.{1,2}/.*)\\.js$": "$1",
   },
-  setupFilesAfterEnv: ["<rootDir>/src/jest-setup.js"],
   testMatch: ["<rootDir>/src/tests/**/*.test.ts"],
   collectCoverageFrom: [
     "src/**/*.{ts,js}",

@@ -18,11 +18,15 @@ export interface IPackageJsonService {
   installPackage(name: string): Promise<void>;
   uninstallPackage(name: string): Promise<void>;
   getJson(): Promise<IPackageJson>;
+  getJsonSync(): IPackageJson;
   writeFileContents(contents: string, filePath?: string): Promise<void>;
   readFileContents(filePath?: string): Promise<string>;
+  readFileContentsSync(filePath?: string): string;
+  getPackageManagerAsCommand(defaultPackageManager?: string): string;
 }
 
 export interface IPackageJson {
+  packageManager: string;
   scripts: Record<string, string>;
   dependencies: Record<string, string>;
 }
@@ -79,6 +83,14 @@ export class PackageJsonService implements IPackageJsonService {
   };
 
   /**
+   * Reads the package.json file and returns its contents as an object
+   * @returns the package.json contents
+   */
+  getJsonSync = (): IPackageJson => {
+    return JSON.parse(this.readFileContentsSync()) as IPackageJson;
+  };
+
+  /**
    * Writes the contents to the package.json file
    * @param contents - contents to write to the file
    * @param filePath - path to the file to write to (defaults to packageJsonPath)
@@ -115,4 +127,29 @@ export class PackageJsonService implements IPackageJsonService {
       });
     });
   };
+
+  readFileContentsSync(filePath: string = this.packageJsonPath): string {
+    return fs.readFileSync(filePath, "utf8");
+  }
+
+  /**
+   * Gets the package manager as a command
+   * @returns the package manager as a command
+   */
+  getPackageManagerAsCommand(defaultPackageManager: string = 'npm'): string {
+    const packageJson = JSON.parse(this.readFileContentsSync()) as IPackageJson;
+    const packageManager = packageJson?.packageManager ?? 'npm';
+
+    if(packageManager.includes('yarn')) {
+      return 'yarn';
+    }
+    else if(packageManager.includes('npm')) {
+      return 'npm';
+    }
+    else if(packageManager.includes('pnpm')) {
+      return 'pnpm';
+    }
+
+    return defaultPackageManager;
+  }
 }

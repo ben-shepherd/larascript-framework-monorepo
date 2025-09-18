@@ -39,4 +39,6 @@ export interface IDatabaseService {
   postgres(connectionName?: string): IPostgresAdapter;
 
   mongodb(connectionName?: string): IMongoDbAdapter;
+
+  getAvailableAdaptersNames(): string[];
 }

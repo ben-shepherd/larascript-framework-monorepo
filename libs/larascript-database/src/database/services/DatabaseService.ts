@@ -353,6 +353,16 @@ export class DatabaseService implements IDatabaseService, RequiresDependency {
 
     return adapter as unknown as IMongoDbAdapter;
   }
+
+  /**
+   * Get the available adapters names
+   * @returns
+   */
+  getAvailableAdaptersNames(): string[] {
+    // TODO: This should come from the adapter classes themselves. 
+    // Ideally, it should be using the _adapter_type_ property.
+    return ['postgres', 'mongodb'];
+  }
 }
 
 export default DatabaseService;

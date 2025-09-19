@@ -5,6 +5,7 @@ export const isTruthy = (value: unknown): boolean => {
     value === 1 ||
     value === "1" ||
     value === "yes" ||
+    value === "y" ||
     value === "on"
   );
 };

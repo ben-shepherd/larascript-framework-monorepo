@@ -86,12 +86,7 @@ export class EnvService implements IEnvService {
    */
   public readFileContents = (filePath): Promise<string> => {
     return new Promise((resolve, reject) => {
-      fs.readFile(filePath, "utf8", (err, data) => {
-        if (err) {
-          reject(err);
-        }
-        resolve(data);
-      });
+      fs.readFileSync(filePath, "utf8")
     });
   };
 

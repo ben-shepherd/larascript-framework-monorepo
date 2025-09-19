@@ -16,7 +16,8 @@ class SetupProvider extends BaseProvider {
          */
         SetupService.init({
             envService: app('envService'),
-            packageJsonService: app('packageJsonService')
+            packageJsonService: app('packageJsonService'),
+            cryptoService: app('crypto')
         });
 
         // Register the setup commands

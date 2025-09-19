@@ -1,10 +1,18 @@
+import { ICryptoService } from "@larascript-framework/crypto-js";
 import { BaseSingleton, IEnvService, IPackageJsonService } from "@larascript-framework/larascript-core";
 
 type SetupServiceConfig = {
     envService: IEnvService;
     packageJsonService: IPackageJsonService;
+    cryptoService: ICryptoService;
 }
 
+/**
+ * Service dependencies for the setup process
+ * - EnvService: Service for the environment variables
+ * - PackageJsonService: Service for the package.json file
+ * - CryptoService: Service for the crypto operations
+ */
 export class SetupService extends BaseSingleton<SetupServiceConfig> {
 
     static init(config: SetupServiceConfig) {
@@ -19,6 +27,10 @@ export class SetupService extends BaseSingleton<SetupServiceConfig> {
         this.config!.packageJsonService = packageJsonService;
     }
 
+    setCryptoService(cryptoService: ICryptoService) {
+        this.config!.cryptoService = cryptoService;
+    }
+
     getEnvService(): IEnvService {
         if(!this.config?.envService) {
             throw new Error('EnvService has not been initialized');
@@ -31,6 +43,13 @@ export class SetupService extends BaseSingleton<SetupServiceConfig> {
             throw new Error('PackageJsonService has not been initialized');
         }
         return this.config?.packageJsonService;
+    }
+
+    getCryptoService(): ICryptoService {
+        if(!this.config?.cryptoService) {
+            throw new Error('CryptoService has not been initialized');
+        }
+        return this.config?.cryptoService;
     }
 
 }

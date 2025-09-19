@@ -120,6 +120,11 @@ class QuestionData {
         })
     }
 
+    /**
+     * Creates a new QuestionDTO with the answer of 'no'.
+     * @param questionDTO The QuestionDTO to create a new QuestionDTO from.
+     * @returns {QuestionData} The new QuestionDTO.
+     */
     static createAnsweredNo(questionDTO: QuestionData): QuestionData {
         return new QuestionData({
             ...questionDTO,

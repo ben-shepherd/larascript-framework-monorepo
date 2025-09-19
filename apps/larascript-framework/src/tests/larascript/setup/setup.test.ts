@@ -72,6 +72,28 @@ ENABLE_AUTH_ROUTES=`);
         });
     });
 
+    describe("crypto service", () => {
+        test('services should be defined', () => {
+            const cryptoService = SetupService.getInstance().getCryptoService();
+            const envService = SetupService.getInstance().getEnvService();
+            const packageJsonService = SetupService.getInstance().getPackageJsonService();
+
+            expect(cryptoService).toBeDefined();
+            expect(envService).toBeDefined();
+            expect(packageJsonService).toBeDefined();
+        });
+
+        test("should generate a random string (mocked)", () => {
+            const cryptoService = SetupService.getInstance().getCryptoService();
+            const randomString = cryptoService.generateBytesAsString(64);
+            const randomString2 = cryptoService.generateBytesAsString(64);
+
+            expect(randomString).toBeDefined();
+            expect(randomString.length).toBeGreaterThanOrEqual(64);
+            expect(randomString).not.toBe(randomString2);
+        });
+    });
+
     describe("copyEnvExample action", () => {
         test("should copy the .env.example file to .env with no answer required", async () => {
 

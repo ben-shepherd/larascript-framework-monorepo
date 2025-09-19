@@ -2,6 +2,7 @@ import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import { isTruthy } from "@larascript-framework/larascript-validator";
+import { SetupService } from "../providers/SetupService.js";
 
 class GenerateJwtSecretAction implements IAction {
 
@@ -13,7 +14,7 @@ class GenerateJwtSecretAction implements IAction {
             return;
         }
 
-        const secret = require('crypto').randomBytes(64).toString('hex');
+        const secret = SetupService.getInstance().getCryptoService().generateBytesAsString(64);
 
         await ref.env.updateValues({ JWT_SECRET: secret });
 

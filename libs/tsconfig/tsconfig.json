@@ -17,8 +17,12 @@
       "declarationMap": true,
       "sourceMap": true,
       "lib": ["es2022"],
-      "isolatedModules": true
+      "isolatedModules": true,
+      "skipLibCheck": true
     },
-    "exclude": ["node_modules", "dist", "src/**/*.test.ts"]
+    "exclude": ["node_modules", "dist", "src/**/*.test.ts"],
+    "tsc-alias": {
+      "fileExtensions": [".ts"]
+    }
   }
   

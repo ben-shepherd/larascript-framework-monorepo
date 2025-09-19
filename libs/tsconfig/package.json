@@ -6,6 +6,10 @@
     "exports": {
         ".": "./tsconfig.json"
     },
+    "scripts": {
+        "build": "tsc --skipLibCheck && npx tsc-alias",
+        "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\""
+    },
     "devDependencies": {
         "@types/node": "^22.13.10",
         "typescript": "^5.8.2"

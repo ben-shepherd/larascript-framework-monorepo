@@ -3,19 +3,19 @@ import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import { isTruthy } from "@larascript-framework/larascript-validator";
 
-class EnableExpress implements IAction {
+class AuthEnableRoutes implements IAction {
 
     async handle(ref: ISetupCommand, question: QuestionData): Promise<void> {
         const answer = question.getUserAnswerOrDefaultAnswer()
         let value: string = isTruthy(answer) ? 'true' : 'false'
 
-        if(answer === null || answer?.length === 0) {
-            ref.writeLine(`Using default answer: ${value}`)
+        if(value === 'false') {
+            value = 'false';
         }
 
-        await ref.env.updateValues({ EXPRESS_ENABLED: value });
+        await ref.env.updateValues({ ENABLE_AUTH_ROUTES: value });
     }
 
 }
 
-export default EnableExpress
+export default AuthEnableRoutes

@@ -1,21 +1,27 @@
 import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
-import { isTruthy } from "@larascript-framework/larascript-validator";
 
-class EnableExpress implements IAction {
+class AppPort implements IAction {
 
     async handle(ref: ISetupCommand, question: QuestionData): Promise<void> {
         const answer = question.getUserAnswerOrDefaultAnswer()
-        let value: string = isTruthy(answer) ? 'true' : 'false'
+        let port = 5000
 
         if(answer === null || answer?.length === 0) {
-            ref.writeLine(`Using default answer: ${value}`)
+            ref.writeLine(`Using default port: ${port}`)
         }
 
-        await ref.env.updateValues({ EXPRESS_ENABLED: value });
+        if(isNaN(parseInt(answer ?? ''))) {
+            ref.writeLine(`Invalid port: ${answer}, using default port: ${port}`)
+        }
+        else if (answer) {
+            port = parseInt(answer)
+        }
+
+        await ref.env.updateValues({ APP_PORT: port.toString() });
     }
 
 }
 
-export default EnableExpress
+export default AppPort

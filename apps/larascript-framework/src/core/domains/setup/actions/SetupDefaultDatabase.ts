@@ -1,4 +1,4 @@
-import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import InvalidDefaultCredentialsError from "@/core/domains/setup/exceptions/InvalidDefaultCredentialsError.js";
 import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
@@ -12,8 +12,8 @@ class SetupDefaultDatabase implements IAction {
      * @param ref 
      * @param question 
      */
-    async handle(ref: ISetupCommand, question: QuestionDTO): Promise<any> {
-        const adapterName = question.getAnswer() as string;
+    async handle(ref: ISetupCommand, question: QuestionData): Promise<any> {
+        const adapterName = question.getUserAnswerOrDefaultAnswer() as string;
 
         if (adapterName === 'all') {
             return await this.updateEnvForAllDatabases(ref);

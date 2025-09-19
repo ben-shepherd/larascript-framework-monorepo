@@ -1,3 +1,5 @@
+import AppPort from "@/core/domains/setup/actions/AppPort.js";
+import AuthEnableRoutes from "@/core/domains/setup/actions/AuthEnableRoutes.js";
 import CopyEnvExampleAction from "@/core/domains/setup/actions/CopyEnvExampleAction.js";
 import EnableExpress from "@/core/domains/setup/actions/EnableExpress.js";
 import GenerateAppKeyAction from "@/core/domains/setup/actions/GenerateAppKeyAction.js";
@@ -5,7 +7,7 @@ import GenerateJwtSecretAction from "@/core/domains/setup/actions/GenerateJwtSec
 import SetupDefaultDatabase from "@/core/domains/setup/actions/SetupDefaultDatabase.js";
 import SetupDockerDatabaseScripts from "@/core/domains/setup/actions/SetupDockerDatabaseScripts.js";
 import { QuestionIDs } from "@/core/domains/setup/consts/QuestionConsts.js";
-import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import { app } from "@/core/services/App.js";
 import { DatabaseAdapter } from "@larascript-framework/larascript-database";
 
@@ -16,15 +18,15 @@ const acceptedDatabaseAdaptersAnswers = (() => {
     return ['all', '', ...DatabaseAdapter.getComposerShortFileNames(app('db'))]
 });
 
-const buildQuestionDTOs = (): QuestionDTO[] => {
+const buildQuestionDTOs = (): QuestionData[] => {
     return [
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.copyEnvExample,
             statement: `The .env.example file will be copied to .env if no .env file exists.`,
             previewText: 'Setup Environment File',
             actionCtor: CopyEnvExampleAction
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.appKey,
             question: `Would you like to generate a new app key? ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Generate New App Key',
@@ -32,7 +34,7 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
             acceptedAnswers: acceptedAnswersBoolean,
             actionCtor: GenerateAppKeyAction,
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.jwtSecret,
             question: `Would you like to generate a new JWT secret? ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Generate New JWT Secret',
@@ -40,7 +42,7 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
             acceptedAnswers: acceptedAnswersBoolean,
             actionCtor: GenerateJwtSecretAction,
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.selectDb,
             question: `Select database docker containers to setup (options: all, mongodb, postgres). ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Select Database Adapters',
@@ -48,7 +50,7 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
             acceptedAnswers: acceptedDatabaseAdaptersAnswers(),
             actionCtors: [SetupDockerDatabaseScripts, SetupDefaultDatabase]
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.selectDefaultDb,
             question: `Please select your primary database system (mongodb/postgres). ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Set Primary Database',
@@ -60,7 +62,7 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
                 answerIncludes: ['all']
             }
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.enableExpress,
             question: `Would you like to enable the Express server? (yes/no) ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Enable Express Server',
@@ -68,17 +70,18 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
             acceptedAnswers: acceptedAnswersBoolean,
             actionCtor: EnableExpress,
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.appPort,
             question: `Which port should the application listen on? ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Set Server Port',
             defaultValue: '5000',
             applicableOnly: {
                 ifId: QuestionIDs.enableExpress,
-                answerIncludes: ['yes', 'y']
-            }
+                answerIncludes: ['yes', 'y'],
+            },
+            actionCtor: AppPort,
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.enableAuthRoutes,
             question: `Would you like to enable authentication routes? (yes/no) ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Enable Authentication',
@@ -87,9 +90,10 @@ const buildQuestionDTOs = (): QuestionDTO[] => {
             applicableOnly: {
                 ifId: QuestionIDs.enableExpress,
                 answerIncludes: ['yes', 'y']
-            }
+            },
+            actionCtor: AuthEnableRoutes
         }),
-        new QuestionDTO({
+        new QuestionData({
             id: QuestionIDs.enableAuthRoutesAllowCreate,
             question: `Should users be allowed to create new accounts? (yes/no) ${ENV_OVERWRITE_WARNING}`,
             previewText: 'Allow User Registration',

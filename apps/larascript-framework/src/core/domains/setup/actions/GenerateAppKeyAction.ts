@@ -1,14 +1,16 @@
-import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import { IAction } from "@/core/domains/setup/interfaces/IAction.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import { cryptoService } from "@/core/services/CryptoService.js";
+import { isTruthy } from "@larascript-framework/larascript-validator";
 
 class GenerateAppKeyAction implements IAction {
 
-    async handle(ref: ISetupCommand, question: QuestionDTO): Promise<any> {
-        const answerIsYes = question.getAnswer() === 'y' || question.getAnswer() === 'yes';
+    async handle(ref: ISetupCommand, question: QuestionData): Promise<any> {
+        const answer = question.getUserAnswerOrDefaultAnswer();
+        let value: string = isTruthy(answer) ? 'true' : 'false'
 
-        if(!answerIsYes) {
+        if(value === 'false') {
             return;
         }
 

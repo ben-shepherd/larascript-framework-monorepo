@@ -22,7 +22,7 @@ type Props = {
 /**
  * Data Transfer Object for questions in the setup process
  */
-class QuestionDTO {
+class QuestionData {
 
     /**
      * Unique identifier for the question
@@ -111,14 +111,19 @@ class QuestionDTO {
     /**
      * Creates a new QuestionDTO with the answer of 'y'.
      * @param id The id of the question.
-     * @returns {QuestionDTO} The new QuestionDTO.
+     * @returns {QuestionData} The new QuestionDTO.
      */
-    static createYesQuestionDTO(id: string): QuestionDTO {
-        return new QuestionDTO({
-            id,
-            question: '',
-            statement: '',
-            answer: 'y'
+    static createAnsweredYes(questionDTO: QuestionData): QuestionData {
+        return new QuestionData({
+            ...questionDTO,
+            answer: 'yes'
+        })
+    }
+
+    static createAnsweredNo(questionDTO: QuestionData): QuestionData {
+        return new QuestionData({
+            ...questionDTO,
+            answer: 'no'
         })
     }
 
@@ -126,26 +131,37 @@ class QuestionDTO {
      * Creates a new QuestionDTO with the given answer.
      * @param id The id of the question.
      * @param answer The answer to the question.
-     * @returns {QuestionDTO} The new QuestionDTO.
+     * @returns {QuestionData} The new QuestionDTO.
      */
-    static createWithAnswer(id: string, answer: string): QuestionDTO {
-        return new QuestionDTO({
-            id,
-            question: '',
-            statement: '',
+    static createWithDefinedAnswer(questionDTO: QuestionData, answer: string | null = null): QuestionData {
+        return new QuestionData({
+            ...questionDTO,
             answer
+        })
+    }
+
+    /**
+     * Creates a new QuestionDTO with the given answer.
+     * @param id The id of the question.
+     * @param answer The answer to the question.
+     * @returns {QuestionData} The new QuestionDTO.
+     */
+    static createAnswerNull(questionDTO: QuestionData): QuestionData {
+        return new QuestionData({
+            ...questionDTO,
+            answer: null
         })
     }
 
     /**
      * Creates a new QuestionDTO with the answer of the given QuestionDTO.
      * @param questionDTO The QuestionDTO to create a new QuestionDTO from.
-     * @returns {QuestionDTO} The new QuestionDTO.
+     * @returns {QuestionData} The new QuestionDTO.
      */
-    withQuestionDTO(questionDTO: QuestionDTO): QuestionDTO {
-        return new QuestionDTO({
+    withQuestionDTO(questionDTO: QuestionData): QuestionData {
+        return new QuestionData({
             ...questionDTO,
-            answer: questionDTO.getAnswer()
+            answer: questionDTO.getUserAnswerOrDefaultAnswer()
         })
     }
 
@@ -166,8 +182,8 @@ class QuestionDTO {
      * Gets the answer of the question. If the answer is null, the default value is used.
      * @returns {string | null} The answer of the question
      */
-    public getAnswer(): string | null {
-        if(this.answer?.length === 0) {
+    public getUserAnswerOrDefaultAnswer(): string | null {
+        if(this.answer === null || this.answer?.length === 0) {
             return this.defaultValue
         }
         return this.answer
@@ -186,4 +202,4 @@ class QuestionDTO {
 
 }
 
-export default QuestionDTO
+export default QuestionData

@@ -1,5 +1,5 @@
 import { BaseSetupCommand } from "@/core/domains/setup/base/BaseSetupCommand.js";
-import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import buildQuestionDTOs from "@/core/domains/setup/utils/buildQuestionDTOs.js";
 /**
  * Command to run the setup process
@@ -19,7 +19,7 @@ class AppSetupCommand extends BaseSetupCommand {
     /**
      * The questions to ask the user
      */
-    protected questions!: QuestionDTO[];
+    protected questions!: QuestionData[];
 
     /**
      * Writes a line to the console
@@ -81,15 +81,15 @@ class AppSetupCommand extends BaseSetupCommand {
      * @param previousQuestion 
      * @returns 
      */
-    questionIsApplicable = (question: QuestionDTO): boolean =>{
+    questionIsApplicable = (question: QuestionData): boolean =>{
 
         if(!question.applicableOnly) {
             return true;
         }
         
         const ifId = question.applicableOnly.ifId;
-        const ifIdQuestion = this.questions.find(q => q.id === ifId) as QuestionDTO;
-        const matchesAnswer = question.applicableOnly.answerIncludes.includes(ifIdQuestion.getAnswer() as string)
+        const ifIdQuestion = this.questions.find(q => q.id === ifId) as QuestionData;
+        const matchesAnswer = question.applicableOnly.answerIncludes.includes(ifIdQuestion.getUserAnswerOrDefaultAnswer() as string)
 
         if(!matchesAnswer) {
             return false;
@@ -103,7 +103,7 @@ class AppSetupCommand extends BaseSetupCommand {
      * 
      * @param question 
      */
-    processQuestionDTO = async (count: number, question: QuestionDTO) =>{
+    processQuestionDTO = async (count: number, question: QuestionData) =>{
 
         if(!this.questionIsApplicable(question)) {
             return;
@@ -121,7 +121,7 @@ class AppSetupCommand extends BaseSetupCommand {
      * @param question 
      * @returns 
      */
-    processStatement = async (count: number, question: QuestionDTO) => {
+    processStatement = async (count: number, question: QuestionData) => {
         if (!question.statement) {
             return;
         }
@@ -137,7 +137,7 @@ class AppSetupCommand extends BaseSetupCommand {
      * @param question 
      * @returns 
      */
-    processQuestion = async (count: number, question: QuestionDTO) => {
+    processQuestion = async (count: number, question: QuestionData) => {
         if (question.statement) {
             return;
         }
@@ -167,7 +167,7 @@ class AppSetupCommand extends BaseSetupCommand {
      * @param question 
      * @returns 
      */
-    processAction = async (question: QuestionDTO) => {
+    processAction = async (question: QuestionData) => {
         if (!question.actionCtor) {
             return;
         }
@@ -182,7 +182,7 @@ class AppSetupCommand extends BaseSetupCommand {
      * @param question 
      * @returns 
      */
-    processMultipleActions = async (question: QuestionDTO) => {
+    processMultipleActions = async (question: QuestionData) => {
         if (!question.actionCtors) {
             return;
         }

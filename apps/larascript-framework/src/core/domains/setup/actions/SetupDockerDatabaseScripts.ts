@@ -1,4 +1,4 @@
-import QuestionDTO from "@/core/domains/setup/DTOs/QuestionDTO.js";
+import QuestionData from "@/core/domains/setup/DTOs/QuestionData.js";
 import { ISetupCommand } from "@/core/domains/setup/interfaces/ISetupCommand.js";
 import { app } from "@/core/services/App.js";
 import { DatabaseAdapter } from '@larascript-framework/larascript-database';
@@ -12,8 +12,8 @@ class SetupDockerDatabaseScripts extends BaseSetupCommand {
      * @param ref 
      * @param question 
      */
-    async handle(ref: ISetupCommand, question: QuestionDTO): Promise<any> {
-        const dbType = question.getAnswer() as string;
+    async handle(ref: ISetupCommand, question: QuestionData): Promise<any> {
+        const dbType = question.getUserAnswerOrDefaultAnswer() as string;
 
         ref.writeLine('Updating package.json');
         await this.updatePackageJsonUpScript(dbType);

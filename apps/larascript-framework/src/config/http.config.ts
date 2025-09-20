@@ -1,7 +1,7 @@
 import IHttpConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
 import BasicLoggerMiddleware from "@/core/domains/http/middleware/BasicLoggerMiddleware.js";
 import SecurityMiddleware from "@/core/domains/http/middleware/SecurityMiddleware.js";
-import ValidatorMiddleware from "@/core/domains/validator/middleware/ValidatorMiddleware.js";
+import ValidatorMiddleware from "@/core/middleware/ValidatorMiddleware.js";
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
 import cors from 'cors';
 import expressBusboy from 'express-busboy';

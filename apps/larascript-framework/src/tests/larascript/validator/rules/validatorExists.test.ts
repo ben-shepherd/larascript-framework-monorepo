@@ -1,10 +1,9 @@
 /* eslint-disable no-undef */
-import ExistsRule from '@/core/domains/validator/rules/ExistsRule.js';
 import { queryBuilder } from '@/core/services/QueryBuilder.js';
 import TestEmailModel, { resetEmailTable } from '@/tests/larascript/eloquent/models/TestEmailModel.js';
 import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
-import { EmailRule, RequiredRule, Validator } from '@larascript-framework/larascript-validator';
+import { EmailRule, ExistsRule, RequiredRule, Validator } from '@larascript-framework/larascript-validator';
 
 
 describe('test validation', () => {

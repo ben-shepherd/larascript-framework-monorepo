@@ -1,6 +1,5 @@
-import { validatorFn } from "@/core/domains/validator/service/validatorFn.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
-import { ValidatorServices } from "@larascript-framework/larascript-validator";
+import { ValidatorServices, validatorFn } from "@larascript-framework/larascript-validator";
 import { app } from "../services/App.js";
 
 class ValidatorProvider extends BaseProvider {

@@ -1,7 +1,5 @@
 import User from "@/app/models/auth/User.js";
-import UniqueRule from "@/core/domains/validator/rules/UniqueRule.js";
-import { BaseCustomValidator, EmailRule, IRulesObject, IValidatorAttributes, MinRule, RequiredRule, StringRule } from "@larascript-framework/larascript-validator";
-
+import { BaseCustomValidator, EmailRule, IRulesObject, IValidatorAttributes, MinRule, RequiredRule, StringRule, UniqueRule } from "@larascript-framework/larascript-validator";
 class TestCreateUserValidator extends BaseCustomValidator {
 
     protected rules: IRulesObject = {

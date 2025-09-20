@@ -24,7 +24,7 @@
     "test:watch": "npm run db:restart && jest --runInBand --watch --passWithNoTests && npm run db:down",
     "test:coverage": "npm run db:restart && jest --runInBand --coverage --passWithNoTests && npm run db:down",
     "build": "tsc --skipLibCheck && npx tsc-alias",
-    "build:watch": "tsc --watch --skipLibCheck",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "typecheck": "tsc --noEmit",

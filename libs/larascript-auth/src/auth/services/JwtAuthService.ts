@@ -1,7 +1,7 @@
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
-import { JsonWebTokenError } from "jsonwebtoken";
+import jwt from "jsonwebtoken";
 import BaseAuthAdapter from "../base/BaseAuthAdapter.js";
 import { JwtFactory } from "../factory/JwtFactory.js";
 import {
@@ -296,7 +296,7 @@ export class JwtAuthService
 
       return apiToken;
     } catch (err) {
-      if (err instanceof JsonWebTokenError) {
+      if (err instanceof jwt.JsonWebTokenError) {
         throw new UnauthorizedException();
       }
     }

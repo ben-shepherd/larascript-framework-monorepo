@@ -11,7 +11,7 @@
     "fix-eslint": "npx eslint --fix src",
     "fix": "yarn run fix-imports && yarn run fix-eslint",
     "start": "node ./dist/app.js",
-    "dev": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register ./src/app.ts",
+    "dev": "nodemon --watch src --ext ts --exec tsx ./src/app.ts",
     "tinker": "nodemon --watch src --ext ts --exec ts-node -r tsconfig-paths/register ./src/tinker.ts",
     "postinstall": "pnpm run build",
     "test:jest": "jest --runInBand --detectOpenHandles",
@@ -35,6 +35,7 @@
   "dependencies": {
     "@larascript-framework/async-session": "workspace:*",
     "@larascript-framework/crypto-js": "workspace:*",
+    "@larascript-framework/cast-js": "workspace:*",
     "@larascript-framework/larascript-acl": "workspace:*",
     "@larascript-framework/larascript-auth": "workspace:*",
     "@larascript-framework/larascript-collection": "workspace:*",

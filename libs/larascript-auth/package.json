@@ -21,7 +21,7 @@
     "test:watch": "jest --watch --passWithNoTests",
     "test:coverage": "jest --coverage --passWithNoTests",
     "build": "tsc --skipLibCheck && npx tsc-alias",
-    "build:watch": "tsc --watch --skipLibCheck",
+    "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "lint:fix": "eslint --fix --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
     "typecheck": "tsc --noEmit",
@@ -37,17 +37,21 @@
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
     "depcheck": "depcheck"
   },
+  "dependencies": {
+    "crypto": "^1.0.1",
+    "jsonwebtoken": "^9.0.2"
+  },
   "devDependencies": {
+    "@larascript-framework/async-session": "workspace:*",
     "@larascript-framework/check-exports": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/crypto-js": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-acl": "workspace:*",
-    "@larascript-framework/async-session": "workspace:*",
-    "@larascript-framework/crypto-js": "workspace:*",
-    "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-database": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

@@ -27,7 +27,7 @@ import ViewProvider from "@/core/providers/ViewProvider.js";
 import { IAsyncSessionService } from '@larascript-framework/async-session';
 import { ICryptoService } from '@larascript-framework/crypto-js';
 import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-acl';
-import { IAuthService, IJwtAuthService } from '@larascript-framework/larascript-auth';
+import { IAuthService } from '@larascript-framework/larascript-auth';
 import { ICommandService } from '@larascript-framework/larascript-console';
 import { IEnvService, IPackageJsonService, IProvider } from '@larascript-framework/larascript-core';
 import { IDatabaseService, IEloquentQueryBuilderService } from '@larascript-framework/larascript-database';
@@ -37,7 +37,6 @@ import { IMailService } from '@larascript-framework/larascript-mail';
 import { IStorageService } from '@larascript-framework/larascript-storage';
 import { IValidatorFn } from '@larascript-framework/larascript-validator';
 import { IViewRenderService, IViewService } from '@larascript-framework/larascript-views';
-import readline from 'node:readline';
 
 /**
  * Interface defining all available service providers in the application.
@@ -52,7 +51,6 @@ export interface Providers {
     "events": IEventService;
     "events.worker": IWorkerService;
     "auth": IAuthService;
-    "auth.jwt": IJwtAuthService;
     "acl.basic": IBasicACLService;
     "acl.basic.config": IAclConfig;
     "db": IDatabaseService;
@@ -60,7 +58,6 @@ export interface Providers {
     "http": IHttpService;
     "requestContext": IRequestContext;
     "console": ICommandService;
-    "readline": readline.Interface;
     "validatorFn": IValidatorFn;
     "logger": ILoggerService;
     "crypto": ICryptoService;

@@ -1,3 +1,7 @@
+import { BaseAdapter } from "@larascript-framework/larascript-core";
+import path from "path";
+import StorageFile from "../data/StorageFile.js";
+import { StorageTypes } from "../enums/StorageTypes.js";
 import {
   FileSystemMeta,
   IGenericStorage,
@@ -5,11 +9,7 @@ import {
   IStorageConfig,
   IStorageFile,
   IStorageService,
-  StorageFile,
-  StorageTypes,
-} from "@/index.js";
-import { BaseAdapter } from "@larascript-framework/larascript-core";
-import path from "path";
+} from "../interfaces/index.js";
 import { IUploadedFile } from "../interfaces/IUploadedFile.t.js";
 import AmazonS3StorageService from "./AmazonS3StorageService.js";
 import FileSystemStorageService from "./FileSystemStorageService.js";

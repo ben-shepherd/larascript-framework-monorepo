@@ -55,6 +55,7 @@ export default class MakeFileService {
         const filePath = templates[this.options.makeType]
         const fullPath = this.replaceSrcDir(filePath);
 
+        const test = process.cwd()
         if (!fs.existsSync(fullPath)) {
             throw new Error(`File not found: ${fullPath}`)
         }

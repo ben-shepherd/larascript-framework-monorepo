@@ -1,6 +1,5 @@
-
-const APP_PATH = '@/app';
-const TEMPLATE_PATH = '@/core/domains/make/templates';
+const APP_PATH = 'src/app';
+const TEMPLATE_PATH = 'src/core/domains/make/templates';
 
 /**
  * Where the generated files should be placed

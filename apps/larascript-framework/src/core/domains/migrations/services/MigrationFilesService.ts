@@ -3,13 +3,14 @@ import FileNotFoundError from "@/core/exceptions/FileNotFoundError.js";
 import { Str, checksumFile } from '@larascript-framework/larascript-utils';
 import fs from 'fs';
 import path from 'path';
+import { IMigrationFileService } from "../interfaces/IMigrationFileService.js";
 
 const APP_MIGRATIONS_DIR = '@/../src/app/migrations';
 
 /**
  * Handles file operations for migrations
  */
-class MigrationFileService {
+class MigrationFileService implements IMigrationFileService {
 
     appMigrationsDir!: string;
 

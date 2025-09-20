@@ -1,8 +1,8 @@
 import UserFactory from "@/app/factory/UserFactory.js";
 import UserObserver from "@/app/observers/UserObserver.js";
+import { TCastableType } from "@larascript-framework/cast-js";
 import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
 import { IModelFactory } from "@larascript-framework/larascript-database";
-import { TCastableType } from "@larascript-framework/larascript-utils";
 
 /**
  * User structure

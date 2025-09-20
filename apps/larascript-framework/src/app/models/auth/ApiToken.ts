@@ -1,10 +1,10 @@
 import User from '@/app/models/auth/User.js';
 import ApiTokenObserver from '@/app/observers/ApiTokenObserver.js';
 import { auth } from '@/core/services/AuthService.js';
+import { TCastableType } from '@larascript-framework/cast-js';
 import { BasicACLScope } from '@larascript-framework/larascript-acl';
 import { IApiTokenAttributes, IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { BelongsTo, IModelAttributes, Model } from '@larascript-framework/larascript-database';
-import { TCastableType } from '@larascript-framework/larascript-utils';
 
 export interface ApiTokenAttributes extends IModelAttributes, IApiTokenAttributes {}
 

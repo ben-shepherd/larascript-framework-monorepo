@@ -1,6 +1,6 @@
+import { TCastableType } from "@larascript-framework/cast-js";
 import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
 import { IWorkerAttributes, IWorkerModel } from "@larascript-framework/larascript-events";
-import { TCastableType } from "@larascript-framework/larascript-utils";
 
 export type WorkerModelAttributes = IWorkerAttributes & IModelAttributes
 

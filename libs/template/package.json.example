@@ -43,6 +43,7 @@
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
+    "@larascript-framework/larascript-core": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

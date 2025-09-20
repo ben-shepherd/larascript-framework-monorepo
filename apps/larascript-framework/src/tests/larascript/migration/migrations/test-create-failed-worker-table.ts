@@ -1,6 +1,5 @@
-import FailedWorkerModel from "@/core/domains/events/models/FailedWorkerModel.js";
 import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
-import { DataTypes } from "sequelize";
+import { FailedWorkerModel, WorkerSchema } from "@larascript-framework/larascript-events";
 
 export class CreateFailedWorkerTableMigration extends BaseMigration {
 
@@ -14,12 +13,7 @@ export class CreateFailedWorkerTableMigration extends BaseMigration {
     table = FailedWorkerModel.getTable();
 
     async up(): Promise<void> {
-        await this.schema.createTable(this.table, {
-            eventName: DataTypes.STRING,
-            payload: DataTypes.JSON,
-            error: DataTypes.STRING,
-            createdAt: DataTypes.DATE
-        })
+        await this.schema.createTable(this.table, WorkerSchema.getSequelizeSchema())
     }
 
     async down(): Promise<void> {

@@ -1,5 +1,4 @@
-import FailedWorkerModel from "@/core/domains/events/models/FailedWorkerModel.js";
-import { WorkerModelAttributes } from "@/core/domains/events/models/WorkerModel.js";
+import { FailedWorkerModel, WorkerModelAttributes } from "@larascript-framework/larascript-events";
 
 export default class TestFailedWorkerModel extends FailedWorkerModel {
 

@@ -7,18 +7,9 @@ import {
   IRulesObject,
   IValidator,
   IValidatorAttributes,
-  IValidatorFn,
   IValidatorMessages,
-  IValidatorResult,
+  IValidatorResult
 } from "../interfaces/index.js";
-
-/**
- * Short hand for creating a new validator on the fly
- */
-export const validatorFn: IValidatorFn = (
-  rules: IRulesObject,
-  messages: IValidatorMessages = {},
-) => Validator.make(rules, messages);
 
 /**
  * Validator class provides data validation functionality with support for custom rules and error messages.

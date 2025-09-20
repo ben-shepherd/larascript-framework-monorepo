@@ -1,3 +1,1 @@
-export * from "./IRule.js";
-export * from "./IValidator.js";
-export * from "./IValidatorResult.js";
+export * from "@larascript-framework/contracts/validator";

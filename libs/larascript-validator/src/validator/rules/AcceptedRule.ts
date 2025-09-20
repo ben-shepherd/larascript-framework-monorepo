@@ -1,5 +1,5 @@
 import AbstractRule from "../abstract/AbstractRule.js";
-import { IRule } from "../interfaces/IRule.js";
+import { IRule } from "../interfaces/index.js";
 import isTruthy from "../utils/isTruthy.js";
 
 class AcceptedRule extends AbstractRule implements IRule {

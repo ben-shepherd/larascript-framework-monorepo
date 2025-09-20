@@ -39,9 +39,11 @@
   },
   "dependencies": {
     "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "devDependencies": {
+    "@larascript-framework/contracts": "workspace:*",
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",

@@ -1,5 +1,5 @@
 import AbstractRule from "../abstract/AbstractRule.js";
-import { IRule } from "../interfaces/IRule.js";
+import { IRule } from "../interfaces/index.js";
 
 class StringRule extends AbstractRule implements IRule {
   protected name: string = "string";

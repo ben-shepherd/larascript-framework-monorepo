@@ -1,5 +1,5 @@
 import AbstractRule from "@/validator/abstract/AbstractRule.js";
-import { IRule } from "@/validator/interfaces/IRule.js";
+import { IRule } from "@/validator/interfaces/index.js";
 import Validator from "@/validator/service/Validator.js";
 import { describe } from "@jest/globals";
 

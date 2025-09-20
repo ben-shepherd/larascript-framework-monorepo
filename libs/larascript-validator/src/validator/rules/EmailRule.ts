@@ -1,5 +1,5 @@
 import AbstractRule from "../abstract/AbstractRule.js";
-import { IRule, IRuleError } from "../interfaces/IRule.js";
+import { IRule, IRuleError } from "../interfaces/index.js";
 
 class EmailRule extends AbstractRule<object> implements IRule {
   protected name: string = "email";

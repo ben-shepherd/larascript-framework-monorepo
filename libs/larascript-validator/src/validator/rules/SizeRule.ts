@@ -1,5 +1,5 @@
 import AbstractRule from "../abstract/AbstractRule.js";
-import { IRule, IRuleError } from "../interfaces/IRule.js";
+import { IRule, IRuleError } from "../interfaces/index.js";
 
 type TSizeOptions = {
   size: number;

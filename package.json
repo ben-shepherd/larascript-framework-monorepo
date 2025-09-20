@@ -3,12 +3,12 @@
 	"packageManager": "pnpm@10.14.0",
 	"scripts": {
 		"depcheck": "depcheck",
-		"apps:watch": "turbo build:watch --filter=\"./apps/*\" --concurrency=100%",
-		"apps:build": "turbo build --filter=\"./apps/*\" --concurrency=100%",
-		"libs:watch": "turbo build:watch --filter=\"./libs/*\" --concurrency=100%",
-		"libs:build": "turbo build --filter=\"./libs/*\" --concurrency=100%",
-		"watch": "turbo build:watch --concurrency=100%",
-		"build": "turbo build --concurrency=100%"
+		"apps:watch": "turbo build:watch --filter=\"./apps/*\" --concurrency=25",
+		"apps:build": "turbo build --filter=\"./apps/*\" --concurrency=25",
+		"libs:watch": "turbo build:watch --filter=\"./libs/*\" --concurrency=25",
+		"libs:build": "turbo build --filter=\"./libs/*\" --concurrency=25",
+		"watch": "turbo build:watch --concurrency=25",
+		"build": "turbo build --concurrency=25"
 	},
 	"dependencies": {
 		"@larascript-framework/async-session": "workspace:*",

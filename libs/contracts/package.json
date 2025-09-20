@@ -47,6 +47,14 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./validator": {
+      "types": "./dist/validator/index.d.ts",
+      "default": "./dist/validator/index.js"
+    },
+    "./http": {
+      "types": "./dist/http/index.d.ts",
+      "default": "./dist/http/index.js"
     }
   },
   "dependencies": {

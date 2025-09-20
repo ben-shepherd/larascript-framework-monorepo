@@ -1,5 +1,5 @@
 /* eslint-disable no-unused-vars */
-import { CustomValidatorConstructor } from "@/validation/index.js";
+import { CustomValidatorConstructor } from "@/validator/IValidator.js";
 import { IModel, ModelConstructor } from "@larascript-framework/larascript-database";
 import { ControllerConstructor } from "./IController.js";
 import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";

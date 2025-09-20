@@ -1,4 +1,4 @@
-import { CustomValidatorConstructor } from "@/validation/index.js";
+import { CustomValidatorConstructor } from "@/validator/IValidator.js";
 
 export interface IValidatorRequest {
     validator?: CustomValidatorConstructor

@@ -1,7 +1,7 @@
 import { IRule, IRuleError } from "@larascript-framework/contracts/validator";
 import AbstractRuleHttpContext from "../../abstract/AbstractRuleHttpContext.js";
 
-class SingleFileRule extends AbstractRuleHttpContext implements IRule {
+export class SingleFileRule extends AbstractRuleHttpContext implements IRule {
 
     protected name: string = 'singleFile'
 

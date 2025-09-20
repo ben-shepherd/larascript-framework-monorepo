@@ -7,7 +7,7 @@ type Options = {
     ext: string | string[]
 }
 
-class FileExtensionRule extends AbstractRuleHttpContext<Options> implements IRule {
+export class FileExtensionRule extends AbstractRuleHttpContext<Options> implements IRule {
 
     protected name: string = 'fileExtension'
 

@@ -1,7 +1,7 @@
 import { IRule } from "@larascript-framework/contracts/validator";
 import AbstractRuleHttpContext from "../../abstract/AbstractRuleHttpContext.js";
 
-class MultipleFilesRule extends AbstractRuleHttpContext implements IRule {
+export class MultipleFilesRule extends AbstractRuleHttpContext implements IRule {
 
     protected name: string = 'multipleFiles'
 

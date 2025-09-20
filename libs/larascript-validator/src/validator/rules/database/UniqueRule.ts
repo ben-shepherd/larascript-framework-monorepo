@@ -7,7 +7,7 @@ type UniqueRuleOptions = {
     column: string;
 }
 
-class UniqueRule extends AbstractDatabaseRule<UniqueRuleOptions> implements IRule {
+export class UniqueRule extends AbstractDatabaseRule<UniqueRuleOptions> implements IRule {
 
     protected name: string = 'unique';
 

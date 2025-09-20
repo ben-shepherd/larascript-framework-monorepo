@@ -10,7 +10,7 @@ type ExistsRuleOptions = {
     callback?: (builder: IEloquent, context: IHttpContext) => IEloquent | null;
 }
 
-class ExistsRule extends AbstractDatabaseRule<ExistsRuleOptions> implements IRule {
+export class ExistsRule extends AbstractDatabaseRule<ExistsRuleOptions> implements IRule {
 
     protected name: string = 'exists';
 

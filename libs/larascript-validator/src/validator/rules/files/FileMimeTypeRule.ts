@@ -7,7 +7,7 @@ type Options = {
     mimeType?: string | string[]
 }
 
-class FileMimeType extends AbstractRuleHttpContext<Options> implements IRule {
+export class FileMimeType extends AbstractRuleHttpContext<Options> implements IRule {
 
     protected name: string = 'fileMimeType'
 

@@ -1,5 +1,6 @@
 import { IHttpContext } from "@larascript-framework/contracts/http";
-import { AbstractRule, ValidatorException } from "@larascript-framework/larascript-validator";
+import ValidatorException from "../exceptions/ValidatorException.js";
+import AbstractRule from "./AbstractRule.js";
 
 /**
  * Abstract rule with HTTP context

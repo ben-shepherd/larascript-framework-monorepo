@@ -55,6 +55,10 @@
     "./http": {
       "types": "./dist/http/index.d.ts",
       "default": "./dist/http/index.js"
+    },
+    "./migrations": {
+      "types": "./dist/migrations/index.d.ts",
+      "default": "./dist/migrations/index.js"
     }
   },
   "dependencies": {

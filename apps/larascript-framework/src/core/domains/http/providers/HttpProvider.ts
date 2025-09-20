@@ -6,6 +6,7 @@ import HttpService from "@/core/domains/http/services/HttpService.js";
 import { app } from "@/core/services/App.js";
 import { BaseProvider } from '@larascript-framework/larascript-core';
 import expressLayouts from 'express-ejs-layouts';
+import path from 'path';
 
 export default class HttpProvider extends BaseProvider {
 
@@ -66,9 +67,9 @@ export default class HttpProvider extends BaseProvider {
          * Setup view engine, views, layouts directories
          */
         http.getExpress().set('view engine', 'ejs')
-        http.getExpress().set('views', require('path').join(process.cwd(), 'src', 'app', 'resources', 'views'))
+        http.getExpress().set('views', path.join(process.cwd(), 'src', 'app', 'resources', 'views'))
         http.getExpress().use(expressLayouts);
-        http.getExpress().set('layout', require('path').join(process.cwd(), 'src', 'app', 'resources', 'layouts', 'base-view.ejs'));
+        http.getExpress().set('layout', path.join(process.cwd(), 'src', 'app', 'resources', 'layouts', 'base-view.ejs'));
 
         /**
          * Start listening for connections

@@ -50,7 +50,7 @@ const config: IHttpConfig = {
     extendExpress: (app) => {
         expressBusboy.extend(app, {
             upload: true,
-            path: path.join(__dirname, '../../storage/tmp'),
+            path: path.join(process.cwd(), 'storage', 'tmp'),
             allowedPath: /./
         })
     },

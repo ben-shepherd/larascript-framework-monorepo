@@ -76,7 +76,7 @@ class ResourceCreateService extends AbastractBaseResourceService {
                 throw new ForbiddenResourceError()
             }
 
-            model.setAttribute(attribute, user.getId())
+            await model.setAttribute(attribute, user.getId())
         }
 
         // Validate the request body

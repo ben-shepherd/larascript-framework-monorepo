@@ -43,7 +43,7 @@ class UpdateUseCase {
         const user = await auth().getUserRepository().findByIdOrFail(userId);
 
         // Update the user and save
-        (user as unknown as IModel).fill(context.getBody());
+        await (user as unknown as IModel).fill(context.getBody());
         await (user as unknown as IModel).save();
 
 

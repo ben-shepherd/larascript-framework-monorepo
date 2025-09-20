@@ -11,7 +11,7 @@ export default class ConsoleProvider extends ConsoleProviderBase {
      * Use this method to set up any initial configurations or services
      */
     async register(): Promise<void> {
-        super.register();
+        await super.register();
         
         /**
          * Register internal commands

@@ -7,6 +7,9 @@
         "lint:fix": {
             "dependsOn": ["^lint:fix"]
         },
+        "tslint": {
+            "dependsOn": ["^tslint"]
+        },
         "check": {
             "dependsOn": ["^check"]
         },

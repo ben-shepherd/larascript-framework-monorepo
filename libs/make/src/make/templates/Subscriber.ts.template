@@ -1,0 +1,29 @@
+import BaseEventSubscriber from "@/core/domains/events/base/BaseEventSubciber";
+import SyncDriver from "@/core/domains/events/drivers/SyncDriver";
+import EventRegistry from "@/core/domains/events/registry/EventRegistry";
+
+type #name#Payload = {
+    // ...
+}
+
+class #name# extends BaseEventSubscriber<#name#Payload> {
+
+    protected namespace: string = 'default';
+
+    constructor(payload) {
+        super(payload, SyncDriver);
+    }
+
+    getQueueName(): string {
+        return 'default';
+    }
+
+    async execute(): Promise<void> {
+        const payload = this.getPayload();
+        
+        // Handle logic
+    }
+
+}
+
+export default EventRegistry.registerSubscriber(#name#)

@@ -1,0 +1,17 @@
+import BaseCustomValidator from "@/core/domains/validator/base/BaseCustomValidator";
+import { IRulesObject } from "@/core/domains/validator/interfaces/IRule";
+import RequiredRule from "@/core/domains/validator/rules/RequiredRule";
+
+class #name# extends BaseCustomValidator {
+
+    protected rules: IRulesObject = {
+        id: [new RequiredRule()],
+    }
+
+    protected messages: Record<string, string> = {
+        'id.required': 'The id is required.',
+    }
+
+}
+
+export default #name#

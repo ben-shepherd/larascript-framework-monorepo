@@ -24,7 +24,7 @@ class SetupDockerDatabaseScripts extends BaseSetupCommand {
      * @param dbType 
      */
     async updatePackageJsonUpScript(dbType: string) {
-        const packageJson = await this.packageJson.getJson();
+        const packageJson = this.packageJson.getJsonSync();
         let dockerComposeNames: string[] = [];
 
         if(dbType === 'all') {

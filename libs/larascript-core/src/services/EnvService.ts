@@ -9,7 +9,7 @@ export interface IEnvService {
     filePath: string,
     props: Record<string, string>,
   ): Promise<string>;
-  readFileContents(filePath: string): Promise<string>;
+  readFileContentsSync(filePath: string): string;
   copyFileFromEnvExample(from?: string, to?: string): void;
 }
 
@@ -37,6 +37,9 @@ export class EnvService implements IEnvService {
   constructor(protected readonly config: IEnvServiceConfig) {
     this.envPath = config.envPath;
     this.envExamplePath = config.envExamplePath;
+  }
+  readFileContents(filePath: string): Promise<string> {
+    throw new Error("Method not implemented.");
   }
 
   /**
@@ -69,7 +72,7 @@ export class EnvService implements IEnvService {
   ): Promise<string> => {
     let contents: string = "";
 
-    contents = await this.readFileContents(filePath);
+    contents = this.readFileContentsSync(filePath);
 
     // Replace properties
     for (const [key, value] of Object.entries(props)) {
@@ -79,15 +82,8 @@ export class EnvService implements IEnvService {
     return contents;
   };
 
-  /**
-   * Reads the contents of the file
-   * @param filePath - path to the file to read
-   * @returns the contents of the file
-   */
-  public readFileContents = (filePath): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      fs.readFileSync(filePath, "utf8")
-    });
+  public readFileContentsSync = (filePath: string = this.envPath): string => {
+    return fs.readFileSync(filePath, "utf8");
   };
 
   /**

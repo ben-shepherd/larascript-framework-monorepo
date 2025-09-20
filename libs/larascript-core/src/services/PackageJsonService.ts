@@ -17,7 +17,6 @@ export interface IPackageJsonService {
   packageJsonPath: string;
   installPackage(name: string): Promise<void>;
   uninstallPackage(name: string): Promise<void>;
-  getJson(): Promise<IPackageJson>;
   getJsonSync(): IPackageJson;
   writeFileContents(contents: string, filePath?: string): Promise<void>;
   readFileContents(filePath?: string): Promise<string>;
@@ -42,6 +41,9 @@ export class PackageJsonService implements IPackageJsonService {
   constructor(protected readonly config: PackageJsonServiceConfig) {
     this.packageJsonPath = config.packageJsonPath;
   }
+  readFileContents(filePath?: string): Promise<string> {
+    throw new Error("Method not implemented.");
+  }
 
   /**
    * Install a package using yarn
@@ -60,7 +62,7 @@ export class PackageJsonService implements IPackageJsonService {
    * @returns a promise that resolves when the package is uninstalled
    */
   async uninstallPackage(name: string) {
-    const packageJson = await this.getJson();
+    const packageJson = this.getJsonSync();
     const containsPackage = Object.keys(packageJson.dependencies).includes(
       name,
     );
@@ -73,14 +75,6 @@ export class PackageJsonService implements IPackageJsonService {
     console.log("Running command: ", cmd);
     await execPromise(cmd);
   }
-
-  /**
-   * Reads the package.json file and returns its contents as an object
-   * @returns a promise that resolves with the package.json contents
-   */
-  getJson = async (): Promise<IPackageJson> => {
-    return JSON.parse(await this.readFileContents()) as IPackageJson;
-  };
 
   /**
    * Reads the package.json file and returns its contents as an object
@@ -113,16 +107,8 @@ export class PackageJsonService implements IPackageJsonService {
   /**
    * Reads the contents of the package.json file
    * @param filePath - path to the file to read from (defaults to packageJsonPath)
-   * @returns a promise that resolves with the contents of the file
+   * @returns the contents of the file
    */
-  readFileContents = (
-    filePath: string = this.packageJsonPath,
-  ): Promise<string> => {
-    return new Promise((resolve, reject) => {
-      return fs.readFileSync(filePath, "utf8");
-    });
-  };
-
   readFileContentsSync(filePath: string = this.packageJsonPath): string {
     return fs.readFileSync(filePath, "utf8");
   }

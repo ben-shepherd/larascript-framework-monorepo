@@ -4,18 +4,12 @@ import path from 'path';
 import FileNotFoundError from '../exceptions/FileNotFoundError.js';
 import { IMigration } from '../interfaces/IMigration.js';
 
-const APP_MIGRATIONS_DIR = '@src/../src/app/migrations';
-
 /**
  * Handles file operations for migrations
  */
 export class MigrationFileService {
 
-    appMigrationsDir!: string;
-
-    constructor(appMigrationsDir?: string) {
-        this.appMigrationsDir = path.resolve(appMigrationsDir ?? APP_MIGRATIONS_DIR);
-    }
+    constructor(protected appMigrationsDir: string) {}
 
     /**
      * Get the checksum of the specified file
@@ -40,13 +34,13 @@ export class MigrationFileService {
             fileName = `${fileName}.ts`;
         }
 
-        const absolutePath = path.resolve(this.appMigrationsDir, fileName);
+        const importPath = path.join(this.appMigrationsDir, fileName);
 
-        if(!fs.existsSync(absolutePath)) {
-            throw new FileNotFoundError(`File ${absolutePath} does not exist`);
+        if(!fs.existsSync(importPath)) {
+            throw new FileNotFoundError(`File ${importPath} does not exist`);
         }
 
-        const importedModule = await import(absolutePath);
+        const importedModule = await import(importPath);
 
         if(importedModule.default) {
             return new importedModule.default() as IMigration;
@@ -59,7 +53,7 @@ export class MigrationFileService {
         );
 
         if(!exportedClass) {
-            throw new Error(`File ${absolutePath} does not export expected class which implements IMigration`);
+            throw new Error(`File ${importPath} does not export expected class which implements IMigration`);
         }
 
         return new exportedClass();

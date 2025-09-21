@@ -1,7 +1,7 @@
 import BaseMakeFileCommand from "../base/BaseMakeFileCommand.js";
 import MakeServices from "../services/MakeServices.js";
 
-export default class MakeMigrationCommand extends BaseMakeFileCommand {
+export class MakeMigrationCommand extends BaseMakeFileCommand {
 
     constructor() {
         super({
@@ -16,3 +16,5 @@ export default class MakeMigrationCommand extends BaseMakeFileCommand {
     }
 
 }
+
+export default MakeMigrationCommand;

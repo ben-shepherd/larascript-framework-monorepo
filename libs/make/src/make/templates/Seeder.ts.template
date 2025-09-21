@@ -1,10 +1,10 @@
+import User from "@/app/models/auth/User.js";
+import { GROUPS, ROLES } from "@/config/acl.config.js";
+import { app } from "@/core/services/App.js";
 import { faker } from "@faker-js/faker";
-import User from "@/app/models/auth/User";
-import { GROUPS, ROLES } from "@/config/acl.config";
-import hashPassword from "@/core/domains/auth/utils/hashPassword";
-import BaseSeeder from "@/core/domains/migrations/base/BaseSeeder";
+import { BaseSeeder } from "@larascript-framework/migrations";
 
-export class #name# extends BaseSeeder {
+export class Seeder extends BaseSeeder {
 
     async up(): Promise < void> {
 
@@ -13,7 +13,7 @@ export class #name# extends BaseSeeder {
             {
                 email: faker.internet.email(),
                 password: faker.internet.password(),
-                hashedPassword: hashPassword(faker.internet.password()),
+                hashedPassword: app('auth').getJwt().hashPassword(faker.internet.password()),
                 groups: [GROUPS.USER],
                 roles: [ROLES.USER],
                 firstName: faker.person.firstName(),
@@ -25,4 +25,4 @@ export class #name# extends BaseSeeder {
 
 }
 
-export default #name#
+export default Seeder

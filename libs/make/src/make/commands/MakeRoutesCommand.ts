@@ -1,6 +1,6 @@
 import BaseMakeFileCommand from "../base/BaseMakeFileCommand.js";
 
-export default class MakeRoutesCommand extends BaseMakeFileCommand {
+export class MakeRoutesCommand extends BaseMakeFileCommand {
 
     constructor() {
         super({
@@ -14,3 +14,5 @@ export default class MakeRoutesCommand extends BaseMakeFileCommand {
     }
 
 }
+
+export default MakeRoutesCommand;

@@ -1,4 +1,4 @@
-import Route from "@/core/domains/http/router/Route";
+import { Route } from "@larascript-framework/http";
 
 export default Route.group({
     prefix: '/<CHANGEME>',

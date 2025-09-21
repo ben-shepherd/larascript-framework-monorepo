@@ -1,6 +1,6 @@
 import BaseMakeFileCommand from "../base/BaseMakeFileCommand.js";
 
-export default class MakeSingletonCommand extends BaseMakeFileCommand {
+export class MakeSingletonCommand extends BaseMakeFileCommand {
 
     constructor() {
         super({
@@ -13,3 +13,5 @@ export default class MakeSingletonCommand extends BaseMakeFileCommand {
     }
 
 }
+
+export default MakeSingletonCommand;

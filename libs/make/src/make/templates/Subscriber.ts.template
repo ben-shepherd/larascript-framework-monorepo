@@ -1,17 +1,15 @@
-import BaseEventSubscriber from "@/core/domains/events/base/BaseEventSubciber";
-import SyncDriver from "@/core/domains/events/drivers/SyncDriver";
-import EventRegistry from "@/core/domains/events/registry/EventRegistry";
+import { BaseEventSubscriber, EventRegistry, SyncDriver } from "@larascript-framework/larascript-events";
 
-type #name#Payload = {
+type SubscriberEventPayload = {
     // ...
 }
 
-class #name# extends BaseEventSubscriber<#name#Payload> {
+class SubscriberEvent extends BaseEventSubscriber<SubscriberEventPayload> {
 
     protected namespace: string = 'default';
 
     constructor(payload) {
-        super(payload, SyncDriver);
+        super(payload, SyncDriver.name);
     }
 
     getQueueName(): string {
@@ -26,4 +24,4 @@ class #name# extends BaseEventSubscriber<#name#Payload> {
 
 }
 
-export default EventRegistry.registerSubscriber(#name#)
+export default EventRegistry.registerSubscriber(SubscriberEvent)

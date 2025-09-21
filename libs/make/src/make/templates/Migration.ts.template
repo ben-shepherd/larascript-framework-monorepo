@@ -1,7 +1,7 @@
-import BaseMigration from "@/core/domains/migrations/base/BaseMigration";
+import { BaseMigration } from "@larascript-framework/migration";
 import { DataTypes } from "sequelize";
 
-export class #name#Migration extends BaseMigration {
+export class Migration extends BaseMigration {
 
     // Specify the database provider if this migration should run on a particular database.
     // Uncomment and set to 'mongodb', 'postgres', or another supported provider.

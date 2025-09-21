@@ -13,7 +13,7 @@ const DefaultOptions: Partial<IMakeOptions> = {
 /**
  * Base logic for making a new file
  */
-export default class BaseMakeFileCommand extends BaseCommand {
+export class BaseMakeFileCommand extends BaseCommand {
 
     public keepProcessAlive = false;
 
@@ -165,3 +165,4 @@ export default class BaseMakeFileCommand extends BaseCommand {
 
 }
 
+export default BaseMakeFileCommand;

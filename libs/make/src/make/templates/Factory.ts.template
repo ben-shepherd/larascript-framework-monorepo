@@ -1,11 +1,12 @@
-import Factory from "@/core/base/Factory";
-import { IModelAttributes } from "@/core/domains/models/interfaces/IModel";
+import { BaseFactory } from "@larascript-framework/larascript-core";
 
-class #name# extends Factory {
+type FactoryDefinition = {
+    name: string;
+}
 
-    protected model = Model;
+class Factory extends BaseFactory<FactoryDefinition> {
 
-    getDefinition(): IModelAttributes | null {
+    getDefinition(): FactoryDefinition | null {
         return {
             name: this.faker.word.words(2)
         }
@@ -13,4 +14,4 @@ class #name# extends Factory {
 
 }
 
-export default #name#;
+export default Factory;

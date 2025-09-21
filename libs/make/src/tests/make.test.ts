@@ -5,9 +5,9 @@ import { IMigrationFileService } from '@larascript-framework/contracts/migration
 import * as OutputHelper from '@larascript-framework/test-helpers/output';
 import fs from 'fs';
 import path from 'path';
-import makeTestHelper from './makeTestHelper.js';
+import makeTestHelper from '../test-helper/makeTestHelper.js';
 
-beforeEach(() => {
+beforeAll(() => {
     OutputHelper.clearOutputFiles();
 })
 

@@ -1,11 +1,10 @@
-import Middleware from "@/core/domains/http/base/Middleware";
-import HttpContext from "@/core/domains/http/context/HttpContext";
+import { HttpContext, Middleware } from "@larascript-framework/http";
 
-export type T#name#Config = {
+export type TMiddlewareConfig = {
     // ...
 }
 
-class #name# extends Middleware<T#name#Config> {
+class Middleware extends Middleware<TMiddlewareConfig> {
 
     /**
      * Executes the validator middleware
@@ -24,4 +23,4 @@ class #name# extends Middleware<T#name#Config> {
 
 }
 
-export default #name#;
+export default Middleware;

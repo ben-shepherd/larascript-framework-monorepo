@@ -29,7 +29,7 @@ export type CommandCtor<T extends BaseMakeFileCommand = BaseMakeFileCommand> = n
  * 
  * @returns 
  */
-const getArrayOfCommandTypes = (): string[] => {
+export const getArrayOfCommandTypes = (): string[] => {
     return Object.keys(targetDirectories())
 }
 
@@ -40,7 +40,7 @@ const getArrayOfCommandTypes = (): string[] => {
  * @param collectionName 
  * @returns 
  */
-const getParsedArguments = (fileName: string, collectionName: string): ParsedArgumentsArray => {
+export const getParsedArguments = (fileName: string, collectionName: string): ParsedArgumentsArray => {
     return [
         {
             type: KeyPair,
@@ -61,7 +61,7 @@ const getParsedArguments = (fileName: string, collectionName: string): ParsedArg
  * @param type 
  * @returns 
  */
-const getCommandCtorByType = (type: string): CommandCtor<BaseMakeFileCommand> => {
+export const getCommandCtorByType = (type: string): CommandCtor<BaseMakeFileCommand> => {
     switch(type) {
     case 'Repository':
         return MakeRepositoryCommand;

@@ -1,8 +1,8 @@
-import BaseCommand from "@/core/domains/console/base/BaseCommand";
+import { BaseCommand } from "@larascript-framework/larascript-console";
 
-class #name# extends BaseCommand {
+class #name#Command extends BaseCommand {
 
-    signature: string = 'app:#name#';
+    signature: string = 'app:#name#Command';
 
     description = '<enter description>';
 
@@ -22,4 +22,4 @@ class #name# extends BaseCommand {
 
 }
 
-export default #name#
+export default #name#Command

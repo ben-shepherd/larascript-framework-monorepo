@@ -1,6 +1,6 @@
 import BaseMakeFileCommand from "../base/BaseMakeFileCommand.js";
 
-export default class MakeServiceCommand extends BaseMakeFileCommand {
+export class MakeServiceCommand extends BaseMakeFileCommand {
 
     constructor() {
         super({
@@ -13,3 +13,5 @@ export default class MakeServiceCommand extends BaseMakeFileCommand {
     }
 
 }
+
+export default MakeServiceCommand;

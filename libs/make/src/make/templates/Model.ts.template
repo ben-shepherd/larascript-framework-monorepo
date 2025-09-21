@@ -1,14 +1,13 @@
-import Model from "@/core/domains/models/base/Model";
-import { IModelAttributes } from "@/core/domains/models/interfaces/IModel";
+import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
 
 // Attribute type hinting
-export interface #name#Attributes extends IModelAttributes {
+export interface #name#ModelAttributes extends IModelAttributes {
     id: string;
     createdAt: Date;
     updatedAt: Date;
 }
 
-class #name# extends Model<#name#Attributes> {
+class #name#Model extends Model<#name#ModelAttributes> {
 
     // Add your models fields here, e.g: ['foo', 'bar', 'baz']
     fields: string[] = [
@@ -37,4 +36,4 @@ class #name# extends Model<#name#Attributes> {
 
 }
 
-export default #name#
+export default #name#Model

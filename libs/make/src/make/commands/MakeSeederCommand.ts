@@ -1,7 +1,7 @@
 import BaseMakeFileCommand from "../base/BaseMakeFileCommand.js";
 import MakeServices from "../services/MakeServices.js";
 
-export default class MakeSeederCommand extends BaseMakeFileCommand {
+export class MakeSeederCommand extends BaseMakeFileCommand {
 
     constructor() {
         super({
@@ -17,3 +17,5 @@ export default class MakeSeederCommand extends BaseMakeFileCommand {
     }
 
 }
+
+export default MakeSeederCommand;

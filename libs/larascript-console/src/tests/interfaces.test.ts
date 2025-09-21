@@ -6,8 +6,8 @@ import {
   ICommandRegister,
   Registered,
 } from "@/console/interfaces/ICommandRegister.js";
-import ICommandService from "@/console/interfaces/ICommandService.js";
 import { IConsoleInputService } from "@/console/interfaces/IConsoleInputService.js";
+import IConsoleService from "@/console/interfaces/IConsoleService.js";
 import { describe, expect, test } from "@jest/globals";
 import { KernelOptions } from "@larascript-framework/larascript-core";
 
@@ -68,7 +68,7 @@ class MockCommandRegister implements ICommandRegister {
   }
 }
 
-class MockCommandService implements ICommandService {
+class MockCommandService implements IConsoleService {
   protected commandRegister: ICommandRegister = new MockCommandRegister();
 
   readerService(argv: string[]): ICommandReader {

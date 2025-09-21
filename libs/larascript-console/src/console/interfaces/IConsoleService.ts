@@ -6,9 +6,9 @@ import { ICommandRegister } from "./ICommandRegister.js";
 /**
  * Service that provides methods for registering and executing console commands
  *
- * @interface ICommandService
+ * @interface IConsoleService
  */
-export interface ICommandService {
+export interface IConsoleService {
   /**
    * Creates a new ICommandReader instance with given argv
    *
@@ -32,4 +32,4 @@ export interface ICommandService {
   register: (cmdCtor: ICommandConstructor, config?: object) => void;
 }
 
-export default ICommandService;
+export default IConsoleService;

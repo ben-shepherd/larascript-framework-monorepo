@@ -2,7 +2,7 @@ import BaseCommand from "../base/BaseCommand.js";
 import { ICommandConstructor } from "../interfaces/ICommand.js";
 import CommandRegister from "../service/CommandRegister.js";
 
-export default class HelpCommand extends BaseCommand {
+export class HelpCommand extends BaseCommand {
   signature: string = "help";
 
   description = "List all available commands";
@@ -39,3 +39,5 @@ export default class HelpCommand extends BaseCommand {
     });
   }
 }
+
+export default HelpCommand;

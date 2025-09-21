@@ -49,6 +49,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./output": {
+      "types": "./dist/output/index.d.ts",
+      "default": "./dist/output/index.js"
     }
   },
   "dependencies": {

@@ -50,6 +50,8 @@
     "@larascript-framework/larascript-views": "workspace:*",
     "@larascript-framework/larascript-console": "workspace:*",
     "@larascript-framework/make": "workspace:*",
+    "@larascript-framework/contracts": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
     "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "collect.js": "^4.36.1",

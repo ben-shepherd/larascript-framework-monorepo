@@ -1,4 +1,4 @@
-import { BaseMigration } from "@larascript-framework/migration";
+import { BaseMigration } from "@larascript-framework/database";
 import { DataTypes } from "sequelize";
 
 export class Migration extends BaseMigration {

@@ -878,6 +878,9 @@ importers:
       '@larascript-framework/larascript-observer':
         specifier: workspace:*
         version: link:../larascript-observer
+      '@larascript-framework/test-helpers':
+        specifier: workspace:*
+        version: link:../test-helpers
       '@larascript-framework/tsconfig':
         specifier: workspace:*
         version: link:../tsconfig

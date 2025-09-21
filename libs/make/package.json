@@ -44,6 +44,7 @@
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-observer": "workspace:*",
     "@larascript-framework/contracts": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

@@ -3,8 +3,10 @@ import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 
 export type MakeServicesConfig = {
-    logger: ILoggerService;
+    logger?: ILoggerService;
     migrationFileService: IMigrationFileService;
+    pathToApp: string;
+    pathToTemplates: string;
 }
 
 export default class MakeServices extends BaseSingleton<MakeServicesConfig> {
@@ -12,10 +14,14 @@ export default class MakeServices extends BaseSingleton<MakeServicesConfig> {
     static init({
         logger,
         migrationFileService,
+        pathToApp,
+        pathToTemplates,
     }: MakeServicesConfig): void {
         MakeServices.getInstance({
             logger,
             migrationFileService,
+            pathToApp,
+            pathToTemplates,
         });
     }
 
@@ -28,5 +34,19 @@ export default class MakeServices extends BaseSingleton<MakeServicesConfig> {
             throw new Error('Migration file service not found');
         }
         return this.getConfig()?.migrationFileService!;
+    }
+
+    public getPathToApp(): string {
+        if(!this.getConfig()?.pathToApp) {
+            throw new Error('Path to app not found');
+        }
+        return this.getConfig()?.pathToApp!;
+    }
+
+    public getPathToTemplates(): string {
+        if(!this.getConfig()?.pathToTemplates) {
+            throw new Error('Path to templates not found');
+        }
+        return this.getConfig()?.pathToTemplates!;
     }
 }

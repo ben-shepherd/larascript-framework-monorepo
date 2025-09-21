@@ -1,24 +1,24 @@
  
-import BaseMakeFileCommand from '@/core/domains/make/base/BaseMakeFileCommand.js';
-import MakeCmdCommand from '@/core/domains/make/commands/MakeCmdCommand.js';
-import MakeController from '@/core/domains/make/commands/MakeControllerCommand.js';
-import MakeFactoryCommand from '@/core/domains/make/commands/MakeFactoryCommand.js';
-import MakeListenerCommand from '@/core/domains/make/commands/MakeListenerCommand.js';
-import MakeMiddlewareCommand from '@/core/domains/make/commands/MakeMiddlewareCommand.js';
-import MakeMigrationCommand from '@/core/domains/make/commands/MakeMigrationCommand.js';
-import MakeModelCommand from '@/core/domains/make/commands/MakeModelCommand.js';
-import MakeObserverCommand from '@/core/domains/make/commands/MakeObserverCommand.js';
-import MakeProviderCommand from '@/core/domains/make/commands/MakeProviderCommand.js';
-import MakeRepositoryCommand from '@/core/domains/make/commands/MakeRepositoryCommand.js';
-import MakeRouteResourceCommand from '@/core/domains/make/commands/MakeRouteResourceCommand.js';
-import MakeRoutesCommand from '@/core/domains/make/commands/MakeRoutesCommand.js';
-import MakeSeederCommand from '@/core/domains/make/commands/MakeSeederCommand.js';
-import MakeServiceCommand from '@/core/domains/make/commands/MakeServiceCommand.js';
-import MakeSingletonCommand from '@/core/domains/make/commands/MakeSingletonCommand.js';
-import MakeSubscriberCommand from '@/core/domains/make/commands/MakeSubscriberCommand.js';
-import MakeValidatorCommand from '@/core/domains/make/commands/MakeValidatorCommand.js';
-import { targetDirectories } from '@/core/domains/make/consts/MakeTypes.js';
 import { KeyPair, ParsedArgumentsArray } from '@larascript-framework/larascript-console';
+import BaseMakeFileCommand from '../make/base/BaseMakeFileCommand.js';
+import MakeCmdCommand from '../make/commands/MakeCmdCommand.js';
+import MakeController from '../make/commands/MakeControllerCommand.js';
+import MakeFactoryCommand from '../make/commands/MakeFactoryCommand.js';
+import MakeListenerCommand from '../make/commands/MakeListenerCommand.js';
+import MakeMiddlewareCommand from '../make/commands/MakeMiddlewareCommand.js';
+import MakeMigrationCommand from '../make/commands/MakeMigrationCommand.js';
+import MakeModelCommand from '../make/commands/MakeModelCommand.js';
+import MakeObserverCommand from '../make/commands/MakeObserverCommand.js';
+import MakeProviderCommand from '../make/commands/MakeProviderCommand.js';
+import MakeRepositoryCommand from '../make/commands/MakeRepositoryCommand.js';
+import MakeRouteResourceCommand from '../make/commands/MakeRouteResourceCommand.js';
+import MakeRoutesCommand from '../make/commands/MakeRoutesCommand.js';
+import MakeSeederCommand from '../make/commands/MakeSeederCommand.js';
+import MakeServiceCommand from '../make/commands/MakeServiceCommand.js';
+import MakeSingletonCommand from '../make/commands/MakeSingletonCommand.js';
+import MakeSubscriberCommand from '../make/commands/MakeSubscriberCommand.js';
+import MakeValidatorCommand from '../make/commands/MakeValidatorCommand.js';
+import { targetDirectories } from '../make/consts/MakeTypes.js';
 
 // eslint-disable-next-line no-unused-vars
 export type CommandCtor<T extends BaseMakeFileCommand = BaseMakeFileCommand> = new (...args: any[]) => T;
@@ -30,7 +30,7 @@ export type CommandCtor<T extends BaseMakeFileCommand = BaseMakeFileCommand> = n
  * @returns 
  */
 const getArrayOfCommandTypes = (): string[] => {
-    return Object.keys(targetDirectories)
+    return Object.keys(targetDirectories())
 }
 
 /**
@@ -61,7 +61,7 @@ const getParsedArguments = (fileName: string, collectionName: string): ParsedArg
  * @param type 
  * @returns 
  */
-const getCommandCtorByType = (type: typeof targetDirectories[string]): CommandCtor<BaseMakeFileCommand> => {
+const getCommandCtorByType = (type: string): CommandCtor<BaseMakeFileCommand> => {
     switch(type) {
     case 'Repository':
         return MakeRepositoryCommand;

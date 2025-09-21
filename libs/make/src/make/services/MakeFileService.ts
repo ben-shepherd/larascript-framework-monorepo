@@ -39,10 +39,9 @@ export default class MakeFileService {
      * @returns True if the file already exists, false otherwise
      */
     existsInTargetDirectory(): boolean {
-        const filePath = targetDirectories[this.options.makeType]
-        const fullPath = this.replaceSrcDir(filePath);
+        const filePath = targetDirectories()[this.options.makeType]
         const futureFileName = this.makeFutureFilename();
-        const futureFilePath = path.resolve(fullPath, futureFileName)
+        const futureFilePath = path.resolve(filePath, futureFileName)
 
         return fs.existsSync(futureFilePath)
     }
@@ -52,15 +51,14 @@ export default class MakeFileService {
      * @returns Template contents
      */
     async getTemplateContents(): Promise<string> {
-        const filePath = templates[this.options.makeType]
-        const fullPath = this.replaceSrcDir(filePath);
+        const filePath = templates()[this.options.makeType]
 
         const test = process.cwd()
-        if (!fs.existsSync(fullPath)) {
-            throw new Error(`File not found: ${fullPath}`)
+        if (!fs.existsSync(filePath)) {
+            throw new Error(`File not found: ${filePath}`)
         }
 
-        return fs.readFileSync(fullPath, 'utf8')
+        return fs.readFileSync(filePath, 'utf8')
     }
 
     /**
@@ -69,8 +67,8 @@ export default class MakeFileService {
      */
     public getTargetDirFullPath = (): string => {
         const futureFileName = this.makeFutureFilename();
-        const targetDir = targetDirectories[this.options.makeType]
-        const targetDirFullPath = path.resolve(this.replaceSrcDir(targetDir), futureFileName)
+        const targetDir = targetDirectories()[this.options.makeType]
+        const targetDirFullPath = path.resolve(targetDir, futureFileName)
 
         return targetDirFullPath;
     }
@@ -102,20 +100,6 @@ export default class MakeFileService {
     // use negative lookup to determine the last string after the last '/'
         return originalPath.replace(/\/(?!.*\/)(.+)$/, `/${fileName}.ts`)
     }
-
-    /**
-     * Replaces @src with the src/ directory
-     * @param targetDir 
-     * @returns Updated path
-     */
-    replaceSrcDir(targetDir: string) {
-        if(typeof targetDir !== 'string') {
-            throw new Error('Expected targetDir to be a string, received: ' + typeof targetDir)
-        }
-
-        return targetDir.replace(/^@src\//, 'src/');
-    }
-
 
     /**
      * Makes a future filename

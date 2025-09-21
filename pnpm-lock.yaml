@@ -659,6 +659,9 @@ importers:
       '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
+      '@larascript-framework/larascript-console':
+        specifier: workspace:*
+        version: link:../larascript-console
       '@larascript-framework/test-helpers':
         specifier: workspace:*
         version: link:../test-helpers

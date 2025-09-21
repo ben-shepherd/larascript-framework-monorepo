@@ -240,6 +240,9 @@ importers:
       '@larascript-framework/larascript-views':
         specifier: workspace:*
         version: link:../../libs/larascript-views
+      '@larascript-framework/make':
+        specifier: workspace:*
+        version: link:../../libs/make
       aws-sdk:
         specifier: ^2.1692.0
         version: 2.1692.0

@@ -7,21 +7,24 @@ export type MakeServicesConfig = {
     migrationFileService: IMigrationFileService;
     pathToApp: string;
     pathToTemplates: string;
+    processExit?: boolean;
 }
 
-export default class MakeServices extends BaseSingleton<MakeServicesConfig> {
+export class MakeServices extends BaseSingleton<MakeServicesConfig> {
 
     static init({
         logger,
         migrationFileService,
         pathToApp,
         pathToTemplates,
+        processExit,
     }: MakeServicesConfig): void {
         MakeServices.getInstance({
             logger,
             migrationFileService,
             pathToApp,
             pathToTemplates,
+            processExit,
         });
     }
 
@@ -49,4 +52,10 @@ export default class MakeServices extends BaseSingleton<MakeServicesConfig> {
         }
         return this.getConfig()?.pathToTemplates!;
     }
+
+    public getProcessExit(): boolean {
+        return this.getConfig()?.processExit ?? false;
+    }
 }
+
+export default MakeServices;

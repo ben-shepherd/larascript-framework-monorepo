@@ -109,6 +109,10 @@ export default class BaseMakeFileCommand extends BaseCommand {
         this.makeFileService.writeContent(template);
 
         MakeServices.getInstance().getLoggerService()?.info(`Created ${this.options.makeType}: ` + this.makeFileService.getTargetDirFullPath());
+
+        if(MakeServices.getInstance().getProcessExit()) {
+            process.exit(0);
+        }
     }
 
     /**

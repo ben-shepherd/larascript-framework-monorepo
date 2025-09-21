@@ -16,12 +16,11 @@ import { IMakeOptions } from "../interfaces/IMakeOptions.js";
  * - Replacing @src with the src/ directory
  * - Creating a future filename
  */
-export default class MakeFileService {
+export class MakeFileService {
     
     public options!: IMakeOptions;
 
     protected arguments!: IMakeFileArguments;
-
 
     /**
      * Constructor
@@ -120,3 +119,5 @@ export default class MakeFileService {
     }
 
 }
+
+export default MakeFileService;

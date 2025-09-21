@@ -20,7 +20,7 @@ import MakeValidatorCommand from "../commands/MakeValidatorCommand.js";
 
 type Constructor<T> = new (...args: any[]) => T;
 
-export default class AvailableMakeCommands {
+export class AvailableMakeCommands {
 
     public static getCommands(): Constructor<ICommand>[] {
         return [
@@ -45,3 +45,5 @@ export default class AvailableMakeCommands {
         ]
     }
 }
+
+export default AvailableMakeCommands;

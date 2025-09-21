@@ -8,6 +8,7 @@ import { extractDefaultMongoCredentials } from "@/mongodb-adapter/utils/extractD
 import { PostgresAdapter } from "@/postgres-adapter/adapters/index.js";
 import { extractDefaultPostgresCredentials } from "@/postgres-adapter/utils/extractDefaultPostgresCredentials.js";
 import { CryptoService } from "@larascript-framework/crypto-js";
+import { ConsoleService } from "@larascript-framework/larascript-console";
 import {
   AppSingleton,
   BaseProvider,
@@ -58,6 +59,7 @@ class TestDatabaseProvider extends BaseProvider {
       cryptoService,
       dispatcher,
       logger,
+      console: new ConsoleService(),
     });
 
     this.bind("dispatcher", dispatcher);

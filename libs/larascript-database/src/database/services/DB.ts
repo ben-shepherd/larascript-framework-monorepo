@@ -1,4 +1,5 @@
 import { ICryptoService } from "@larascript-framework/crypto-js";
+import { IConsoleService } from "@larascript-framework/larascript-console";
 import {
   BaseSingleton,
   CreateDependencyLoader,
@@ -17,6 +18,7 @@ export type InitTypes = {
   cryptoService: ICryptoService;
   dispatcher: (...args: any[]) => Promise<void>;
   logger?: ILoggerService;
+  console: IConsoleService;
 };
 
 export class DB extends BaseSingleton implements RequiresDependency {
@@ -30,12 +32,15 @@ export class DB extends BaseSingleton implements RequiresDependency {
 
   protected _logger?: ILoggerService;
 
+  protected _console!: IConsoleService;
+
   public static init({
     databaseService,
     eloquentQueryBuilder,
     cryptoService,
     dispatcher,
     logger,
+    console,
   }: InitTypes) {
     DB.getInstance().setDependencyLoader(
       CreateDependencyLoader.create({
@@ -44,6 +49,7 @@ export class DB extends BaseSingleton implements RequiresDependency {
         cryptoService,
         dispatcher,
         logger,
+        console,
       }),
     );
   }
@@ -65,11 +71,16 @@ export class DB extends BaseSingleton implements RequiresDependency {
       throw new Error("Dispatcher is not a valid dependency");
     }
 
+    if (typeof loader("console") === "undefined") {
+      throw new Error("ConsoleService is not a valid dependency");
+    }
+
     this._databaseService = loader("databaseService");
     this._eloquentQueryBuilderService = loader("eloquentQueryBuilder");
     this._cryptoService = loader("cryptoService");
     this._dispatcher = loader("dispatcher");
     this._logger = loader("logger");
+    this._console = loader("console");
   }
 
   databaseService(): IDatabaseService {
@@ -122,6 +133,13 @@ export class DB extends BaseSingleton implements RequiresDependency {
     }
 
     return this._logger;
+  }
+
+  console(): IConsoleService {
+    if (!this._console) {
+      throw new Error("ConsoleService is not initialized");
+    }
+    return this._console;
   }
 }
 

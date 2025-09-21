@@ -1,6 +1,5 @@
-
-import BaseMigrationCommand from "@src/core/domains/migrations/base/BaseMigrationCommand";
-import { app } from "@src/core/services/App";
+import { DB } from "@larascript-framework/larascript-database";
+import BaseMigrationCommand from "../base/BaseMigrationCommand.js";
 
 /**
  * MigrateFresh class handles running fresh migrations
@@ -27,13 +26,13 @@ class MigrateFreshCommand extends BaseMigrationCommand {
         const seed: boolean = typeof this.getArguementByKey('seed')?.value === 'string';
 
         // Get the db schema helper
-        const schema = app('db').schema();
+        const schema = DB.getInstance().databaseService().schema();
 
         // Drop all tables
         await schema.dropAllTables();
 
         // Handle migrate:up
-        const console = app('console');
+        const console = DB.getInstance().console();
         await console.readerService(['migrate:up', '--keep-alive']).handle();
 
         if (seed) {

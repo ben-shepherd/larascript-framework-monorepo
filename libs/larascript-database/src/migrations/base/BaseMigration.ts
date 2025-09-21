@@ -1,13 +1,13 @@
-import { DB, IDatabaseAdapter, IDatabaseSchema } from "@/database";
+import { DB, IDatabaseAdapter, IDatabaseSchema } from "@/database/index.js";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
-import { IMigration, MigrationType } from "../interfaces/IMigration";
+import { IMigration, MigrationType } from "../interfaces/IMigration.js";
 
 /**
  * BaseMigration class serves as the foundation for all database migrations.
  * It implements the IMigration interface and provides core functionality
  * for database operations and migration control.
  */
-abstract class BaseMigration implements IMigration {
+export abstract class BaseMigration implements IMigration {
 
     /**
      * schema is used for database table operations like creating, altering, or dropping tables.

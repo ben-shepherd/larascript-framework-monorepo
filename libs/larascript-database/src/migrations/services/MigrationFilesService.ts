@@ -1,8 +1,8 @@
 import { Str, checksumFile } from '@larascript-framework/larascript-utils';
-import { IMigration } from '@src/core/domains/migrations/interfaces/IMigration';
-import FileNotFoundError from '@src/core/exceptions/FileNotFoundError';
 import fs from 'fs';
 import path from 'path';
+import FileNotFoundError from '../exceptions/FileNotFoundError.js';
+import { IMigration } from '../interfaces/IMigration.js';
 
 const APP_MIGRATIONS_DIR = '@src/../src/app/migrations';
 

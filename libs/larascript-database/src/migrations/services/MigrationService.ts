@@ -1,14 +1,12 @@
-import { IRepository, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
-import MigrationTypeEnum from "@src/core/domains/migrations/enums/MigrationTypeEnum";
-import MigrationFactory from "@src/core/domains/migrations/factory/MigrationFactory";
-import { IMigration, MigrationType } from "@src/core/domains/migrations/interfaces/IMigration";
-import { IMigrationConfig } from "@src/core/domains/migrations/interfaces/IMigrationConfig";
-import { IMigrationService, IMigrationServiceOptions } from "@src/core/domains/migrations/interfaces/IMigrationService";
-import MigrationModel from "@src/core/domains/migrations/models/MigrationModel";
-import MigrationFileService from "@src/core/domains/migrations/services/MigrationFilesService";
-import FileNotFoundError from "@src/core/exceptions/FileNotFoundError";
-import { app } from "@src/core/services/App";
-import { logger } from "@src/core/services/Logger";
+import { DB, IRepository, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
+import MigrationTypeEnum from "../enums/MigrationTypeEnum.js";
+import FileNotFoundError from "../exceptions/FileNotFoundError.js";
+import MigrationFactory from "../factory/MigrationFactory.js";
+import { IMigration, MigrationType } from "../interfaces/IMigration.js";
+import { IMigrationConfig } from "../interfaces/IMigrationConfig.js";
+import { IMigrationService, IMigrationServiceOptions } from "../interfaces/IMigrationService.js";
+import MigrationModel from "../models/MigrationModel.js";
+import MigrationFileService from "./MigrationFilesService.js";
 
 
 interface MigrationDetail {
@@ -124,12 +122,12 @@ class MigrationService implements IMigrationService {
         const newBatchCount = (await this.getCurrentBatchCount()) + 1;
 
         if (!migrationsDetails.length) {
-            logger().info(this.emptyMigrationsMessage);
+            DB.getInstance().logger()?.info(this.emptyMigrationsMessage);
         }
 
         // Run the migrations for every file
         for (const migrationDetail of migrationsDetails) {
-            logger().info('[Migration] up -> ' + migrationDetail.fileName);
+            DB.getInstance().logger()?.info('[Migration] up -> ' + migrationDetail.fileName);
 
             await this.handleFileUp(migrationDetail, newBatchCount);
         }
@@ -162,7 +160,7 @@ class MigrationService implements IMigrationService {
         });
 
         if (!results.length) {
-            logger().info(this.emptyMigrationsMessage);
+            DB.getInstance().logger()?.info(this.emptyMigrationsMessage);
         }
 
         // Run the migrations
@@ -172,7 +170,7 @@ class MigrationService implements IMigrationService {
                 const migration = await this.fileService.getImportMigrationClass(fileName);
 
                 // Run the down method
-                logger().info(`[Migration] down -> ${fileName}`);
+                DB.getInstance().logger()?.info(`[Migration] down -> ${fileName}`);
                 await migration.down();
 
                 // Delete the migration document
@@ -203,16 +201,16 @@ class MigrationService implements IMigrationService {
         });
 
         if (migrationDocument) {
-            logger().info(`[Migration] ${fileName} already applied`);
+            DB.getInstance().logger()?.info(`[Migration] ${fileName} already applied`);
             return;
         }
 
         if (!migration.shouldUp()) {
-            logger().info(`[Migration] Skipping (Provider mismatch) -> ${fileName}`);
+            DB.getInstance().logger()?.info(`[Migration] Skipping (Provider mismatch) -> ${fileName}`);
             return;
         }
 
-        logger().info(`[Migration] up -> ${fileName}`);
+        DB.getInstance().logger()?.info(`[Migration] up -> ${fileName}`);
         await migration.up();
 
         const model = (new MigrationFactory).create({
@@ -261,13 +259,13 @@ class MigrationService implements IMigrationService {
         try {
             const tableName = this.modelCtor.getTable()
 
-            await app('db').createMigrationSchema(tableName)
+            await DB.getInstance().databaseService().createMigrationSchema(tableName)
         }
         catch (err) {
-            logger().info('[Migration] createSchema', err)
+            DB.getInstance().logger()?.info('[Migration] createSchema', err)
 
             if (err instanceof Error) {
-                logger().exception(err)
+                DB.getInstance().logger()?.exception(err)
             }
         }
     }

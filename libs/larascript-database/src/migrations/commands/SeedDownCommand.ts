@@ -1,7 +1,6 @@
+import BaseMigrationCommand from "../base/BaseMigrationCommand.js";
 
-import BaseMigrationCommand from "@src/core/domains/migrations/base/BaseMigrationCommand";
-
-class SeedCommand extends BaseMigrationCommand {
+class SeedDownCommand extends BaseMigrationCommand {
 
     /**
      * The signature of the command
@@ -30,4 +29,4 @@ class SeedCommand extends BaseMigrationCommand {
 
 }
 
-export default SeedCommand
+export default SeedDownCommand

@@ -55,6 +55,7 @@
     "@larascript-framework/jest-config": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/larascript-console": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

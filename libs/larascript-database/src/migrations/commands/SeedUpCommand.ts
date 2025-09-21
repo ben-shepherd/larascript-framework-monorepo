@@ -1,5 +1,4 @@
-
-import BaseMigrationCommand from "@src/core/domains/migrations/base/BaseMigrationCommand";
+import BaseMigrationCommand from "../base/BaseMigrationCommand.js";
 
 class SeedUpCommand extends BaseMigrationCommand {
 

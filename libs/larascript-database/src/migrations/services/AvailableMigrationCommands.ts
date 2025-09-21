@@ -7,7 +7,7 @@ import SeedUpCommand from "../commands/SeedUpCommand.js";
 
 type Constructor<T> = new (...args: any[]) => T;
 
-export class MigrationCommands {
+export class AvailableMigrationCommands {
 
     public static getCommands(): Constructor<ICommand>[] {
         return [
@@ -21,4 +21,4 @@ export class MigrationCommands {
 
 }
 
-export default MigrationCommands;
+export default AvailableMigrationCommands;

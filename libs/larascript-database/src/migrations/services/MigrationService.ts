@@ -24,7 +24,7 @@ type ConstructorProps = {
  * It creates a MigrationRepository and a MigrationFileService.
  * It also provides methods to get the current batch count, to run up and down migrations.
  */
-class MigrationService implements IMigrationService {
+export class MigrationService implements IMigrationService {
 
     private readonly fileService!: MigrationFileService;
 

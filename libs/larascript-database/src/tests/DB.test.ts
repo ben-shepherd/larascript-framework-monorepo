@@ -1,5 +1,6 @@
 import { beforeEach, describe, test } from "@jest/globals";
 import { ICryptoService } from "@larascript-framework/crypto-js";
+import { ConsoleService } from "@larascript-framework/larascript-console";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
 import { IDatabaseService } from "../database/interfaces/service.t.js";
@@ -52,6 +53,7 @@ describe("Example Test Suite", () => {
         cryptoService: cryptoServiceMock(),
         dispatcher: () => Promise.resolve(),
         logger: logger,
+        console: new ConsoleService(),
       });
     });
 

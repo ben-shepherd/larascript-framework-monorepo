@@ -195,6 +195,9 @@ importers:
       '@larascript-framework/cast-js':
         specifier: workspace:*
         version: link:../../libs/cast-js
+      '@larascript-framework/contracts':
+        specifier: workspace:*
+        version: link:../../libs/contracts
       '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:../../libs/crypto-js
@@ -243,6 +246,9 @@ importers:
       '@larascript-framework/make':
         specifier: workspace:*
         version: link:../../libs/make
+      '@larascript-framework/test-helpers':
+        specifier: workspace:*
+        version: link:../../libs/test-helpers
       aws-sdk:
         specifier: ^2.1692.0
         version: 2.1692.0

@@ -6,12 +6,10 @@ import IHttpService from "@/core/domains/http/interfaces/IHttpService.js";
 import { IRequestContext } from "@/core/domains/http/interfaces/IRequestContext.js";
 import HttpErrorHandlerProvider from "@/core/domains/http/providers/HttpErrorHandlerProvider.js";
 import HttpProvider from "@/core/domains/http/providers/HttpProvider.js";
-import MigrationProvider from "@/core/domains/migrations/providers/MigrationProvider.js";
 import SetupProvider from "@/core/domains/setup/providers/SetupProvider.js";
 import ACLProvider from "@/core/providers/ACLProvider.js";
 import AsyncSessionProvider from "@/core/providers/AsyncSessionProvider.js";
 import AuthProvider from "@/core/providers/AuthProvider.js";
-import CommandsProvider from "@/core/providers/CommandsProvider.js";
 import ConsoleProvider from "@/core/providers/ConsoleProvider.js";
 import CryptoProvider from "@/core/providers/CryptoProvider.js";
 import DatabaseProvider from "@/core/providers/DatabaseProvider.js";
@@ -20,6 +18,7 @@ import EventProvider from "@/core/providers/EventProvider.js";
 import LoggerProvider from "@/core/providers/LoggerProvider.js";
 import MailProvider from "@/core/providers/MailProvider.js";
 import MakeProvider from "@/core/providers/MakeProvider.js";
+import MigrationProvider from "@/core/providers/MigrationProvider.js";
 import PackageJsonProvider from "@/core/providers/PackageJsonProvider.js";
 import StorageProvider from "@/core/providers/StorageProvider.js";
 import ValidatorProvider from "@/core/providers/ValidatorProvider.js";
@@ -28,7 +27,7 @@ import { IAsyncSessionService } from '@larascript-framework/async-session';
 import { ICryptoService } from '@larascript-framework/crypto-js';
 import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-acl';
 import { IAuthService } from '@larascript-framework/larascript-auth';
-import { ICommandService } from '@larascript-framework/larascript-console';
+import { IConsoleService } from '@larascript-framework/larascript-console';
 import { IEnvService, IPackageJsonService, IProvider } from '@larascript-framework/larascript-core';
 import { IDatabaseService, IEloquentQueryBuilderService } from '@larascript-framework/larascript-database';
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
@@ -57,7 +56,7 @@ export interface Providers {
     "query": IEloquentQueryBuilderService;
     "http": IHttpService;
     "requestContext": IRequestContext;
-    "console": ICommandService;
+    "console": IConsoleService;
     "validatorFn": IValidatorFn;
     "logger": ILoggerService;
     "crypto": ICryptoService;
@@ -92,7 +91,6 @@ const providers: IProvider[] = [
     new MakeProvider(),
     new ValidatorProvider(),
     new SetupProvider(),
-    new CommandsProvider(),
     new StorageProvider(),
     new ViewProvider(),
     new MailProvider(),

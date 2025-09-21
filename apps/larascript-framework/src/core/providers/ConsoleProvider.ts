@@ -1,9 +1,10 @@
 import commandsConfig from "@/config/commands.config.js";
-import { ConsoleProvider as ConsoleProviderBase } from "@larascript-framework/larascript-console";
+import { ConsoleService, HelpCommand } from "@larascript-framework/larascript-console";
+import { BaseProvider } from "@larascript-framework/larascript-core";
+import GenerateAppKey from "../commands/GenerateAppKey.js";
 import RouteListCommand from "../commands/RouteListCommand.js";
-import { app } from "../services/App.js";
 
-export default class ConsoleProvider extends ConsoleProviderBase {
+export default class ConsoleProvider extends BaseProvider {
 
     /**
      * Register method
@@ -12,18 +13,20 @@ export default class ConsoleProvider extends ConsoleProviderBase {
      */
     async register(): Promise<void> {
         await super.register();
+
+        const console = new ConsoleService();
         
-        /**
-         * Register internal commands
-         */
-        app('console').registerService().registerAll([
+        // Register internal commands
+        // Register commands from @/config/commands.config.ts
+        console.registerService().registerAll([
+            GenerateAppKey,
+            HelpCommand,
             RouteListCommand
         ]);
-        
-        /**
-         * Register commands from @/config/app
-         */
-        app('console').registerService().registerAll(commandsConfig)
+        console.registerService().registerAll(commandsConfig)
+
+        // Add the console service to the container
+        this.bind("console", console);
     }
 
 }

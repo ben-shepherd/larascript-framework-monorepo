@@ -23,6 +23,7 @@ export default class TestDatabaseProvider extends BaseProvider {
             cryptoService: app('crypto'),
             dispatcher: (...args: any[]) => app('events').dispatch(...args) as Promise<void>,
             logger: app('logger'),
+            console: app('console'),
         });
 
         this.bind("db", DB.getInstance().databaseService());

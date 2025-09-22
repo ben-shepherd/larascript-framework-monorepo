@@ -415,6 +415,12 @@ importers:
       express:
         specifier: ^4.21.2
         version: 4.21.2
+      mongodb:
+        specifier: ^6.20.0
+        version: 6.20.0
+      sequelize:
+        specifier: ^6.37.7
+        version: 6.37.7(pg@8.16.3)
     devDependencies:
       '@larascript-framework/check-exports':
         specifier: workspace:*
@@ -425,12 +431,6 @@ importers:
       '@larascript-framework/jest-config':
         specifier: workspace:*
         version: link:../jest-config
-      '@larascript-framework/larascript-auth':
-        specifier: workspace:*
-        version: link:../larascript-auth
-      '@larascript-framework/larascript-database':
-        specifier: workspace:*
-        version: link:../larascript-database
       '@larascript-framework/larascript-storage':
         specifier: workspace:*
         version: link:../larascript-storage
@@ -533,6 +533,9 @@ importers:
       '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports
+      '@larascript-framework/contracts':
+        specifier: workspace:*
+        version: link:../contracts
       '@larascript-framework/crypto-js':
         specifier: workspace:*
         version: link:../crypto-js
@@ -647,12 +650,15 @@ importers:
         specifier: workspace:*
         version: link:../larascript-utils
       mongodb:
-        specifier: ^6.18.0
-        version: 6.18.0
+        specifier: ^6.20.0
+        version: 6.20.0
     devDependencies:
       '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports
+      '@larascript-framework/contracts':
+        specifier: workspace:*
+        version: link:../contracts
       '@larascript-framework/eslint-config':
         specifier: workspace:*
         version: link:../eslint-config
@@ -3551,6 +3557,33 @@ packages:
       kerberos: ^2.0.1
       mongodb-client-encryption: '>=6.0.0 <7'
       snappy: ^7.2.2
+      socks: ^2.7.1
+    peerDependenciesMeta:
+      '@aws-sdk/credential-providers':
+        optional: true
+      '@mongodb-js/zstd':
+        optional: true
+      gcp-metadata:
+        optional: true
+      kerberos:
+        optional: true
+      mongodb-client-encryption:
+        optional: true
+      snappy:
+        optional: true
+      socks:
+        optional: true
+
+  mongodb@6.20.0:
+    resolution: {integrity: sha512-Tl6MEIU3K4Rq3TSHd+sZQqRBoGlFsOgNrH5ltAcFBV62Re3Fd+FcaVf8uSEQFOJ51SDowDVttBTONMfoYWrWlQ==}
+    engines: {node: '>=16.20.1'}
+    peerDependencies:
+      '@aws-sdk/credential-providers': ^3.188.0
+      '@mongodb-js/zstd': ^1.1.0 || ^2.0.0
+      gcp-metadata: ^5.2.0
+      kerberos: ^2.0.1
+      mongodb-client-encryption: '>=6.0.0 <7'
+      snappy: ^7.3.2
       socks: ^2.7.1
     peerDependenciesMeta:
       '@aws-sdk/credential-providers':
@@ -7950,6 +7983,12 @@ snapshots:
       whatwg-url: 14.2.0
 
   mongodb@6.18.0:
+    dependencies:
+      '@mongodb-js/saslprep': 1.3.0
+      bson: 6.10.4
+      mongodb-connection-string-url: 3.0.2
+
+  mongodb@6.20.0:
     dependencies:
       '@mongodb-js/saslprep': 1.3.0
       bson: 6.10.4

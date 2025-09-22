@@ -1,8 +1,7 @@
 import { BaseCommand } from "@larascript-framework/larascript-console";
 import MigrationTypeEnum from "../enums/MigrationTypeEnum.js";
 import MigrationError from "../exceptions/MigrationError.js";
-import { IMigrationConfig } from "../interfaces/IMigrationConfig.js";
-import { IMigrationService } from "../interfaces/IMigrationService.js";
+import { IMigrationConfig, IMigrationService } from "../interfaces/index.js";
 import MigrationService from "../services/MigrationService.js";
 
 export abstract class BaseMigrationCommand extends BaseCommand {

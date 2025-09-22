@@ -3,8 +3,8 @@ import { PostgresAdapter } from "../../postgres-adapter/index.js";
 import {
   IDatabaseAdapter,
   IDatabaseAdapterConstructor,
-} from "../interfaces/adapter.t.js";
-import { IDatabaseGenericConnectionConfig } from "../interfaces/config.t.js";
+  IDatabaseGenericConnectionConfig,
+} from "../interfaces/index.js";
 
 export class DatabaseConfig {
 

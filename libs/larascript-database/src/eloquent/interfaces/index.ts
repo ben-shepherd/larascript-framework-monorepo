@@ -1,4 +1,1 @@
-export * from "./eloquent.t.js";
-export * from "./expressions.t.js";
-export * from "./relationships.t.js";
-export * from "./services.t.js";
+export * from "@larascript-framework/contracts/database/eloquent";

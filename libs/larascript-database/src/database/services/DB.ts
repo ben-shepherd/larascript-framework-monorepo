@@ -9,7 +9,7 @@ import {
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { IEloquent, IEloquentQueryBuilderService } from "../../eloquent/index.js";
 import { IModel, ModelConstructor } from "../../model/index.js";
-import { IDatabaseService } from "../interfaces/service.t.js";
+import { IDatabaseService } from "../interfaces/index.js";
 
 export type InitTypes = {
   app?: (name: string) => unknown;

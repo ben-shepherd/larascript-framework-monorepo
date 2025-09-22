@@ -1,8 +1,8 @@
-import { Str, checksumFile } from '@larascript-framework/larascript-utils';
+import { checksumFile } from '@larascript-framework/larascript-utils';
 import fs from 'fs';
 import path from 'path';
 import FileNotFoundError from '../exceptions/FileNotFoundError.js';
-import { IMigration } from '../interfaces/IMigration.js';
+import { IMigration } from '../interfaces/index.js';
 
 /**
  * Handles file operations for migrations
@@ -69,18 +69,6 @@ export class MigrationFileService {
             .map((file) => file.replace('.ts', ''))
 
         return files;
-    }
-
-    /**
-     * Create a date filename
-     * @param name 
-     * @returns 
-     */
-    createDateFilename(name: string) {
-        const date = new Date();
-        const dateString = date.toISOString().split('T')[0]
-
-        return `${dateString}-${Str.convertToSafeFileName(name.toLowerCase())}.ts`;
     }
 
     /**

@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import DatabaseConnectionException from "../../database/exceptions/DatabaseConnectionException.js";
-import { IDatabaseConfig } from "../../database/interfaces/config.t.js";
+import { IDatabaseConfig } from "../../database/index.js";
 import DatabaseConfig from "../../database/services/DatabaseConfig.js";
 import DatabaseService from "../../database/services/DatabaseService.js";
 import {

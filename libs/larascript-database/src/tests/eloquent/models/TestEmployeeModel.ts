@@ -1,7 +1,6 @@
-import DB from "@/database/services/DB.js";
+import { DB } from "@/database/index.js";
 import BelongsTo from "@/eloquent/relational/BelongsTo.js";
-import Model from "@/model/base/Model.js";
-import { IModelAttributes } from "@/model/index.js";
+import { IModelAttributes, Model } from "@/model/index.js";
 import { testHelper } from "@/tests/tests-helper/testHelper.js";
 import { DataTypes } from "sequelize";
 import TestDepartmentModel from "./TestDepartmentModel.js";

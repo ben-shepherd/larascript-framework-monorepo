@@ -1,4 +1,4 @@
-import DB from "@/database/services/DB.js";
+import { DB } from "@/database/index.js";
 import { describe, expect, test } from "@jest/globals";
 import { testHelper } from "../tests-helper/testHelper.js";
 import {

@@ -3,14 +3,14 @@ import { ICryptoService } from "@larascript-framework/crypto-js";
 import { ConsoleService } from "@larascript-framework/larascript-console";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
-import { IDatabaseService } from "../database/interfaces/service.t.js";
+import { IDatabaseService } from "../database/index.js";
 import DB from "../database/services/DB.js";
 import { IEloquent, IEloquentQueryBuilderService } from "../eloquent/index.js";
 import {
   IModel,
   IModelAttributes,
   ModelConstructor,
-} from "../model/interfaces/model.t.js";
+} from "../model/index.js";
 
 describe("Example Test Suite", () => {
   let mockModel: ModelConstructor<IModel<IModelAttributes>>;

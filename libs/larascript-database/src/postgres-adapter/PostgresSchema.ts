@@ -8,7 +8,7 @@ import { ModelAttributes } from "sequelize/types/model";
 import BaseSchema from "../database/base/BaseSchema.js";
 import DB from "../database/services/DB.js";
 import { PostgresAdapter } from "./adapters/index.js";
-import { IAlterTableOptions } from "./interfaces/IPostgresAlterTableOptions.js";
+import { IAlterTableOptions } from "./index.js";
 
 class PostgresSchema extends BaseSchema<PostgresAdapter> {
   /**

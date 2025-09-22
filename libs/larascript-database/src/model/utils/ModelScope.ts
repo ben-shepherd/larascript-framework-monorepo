@@ -1,6 +1,4 @@
-import { ModelConstructor } from "../interfaces/model.t.js";
-
-export type TModelScope = "read" | "write" | "create" | "delete" | "all";
+import { ModelConstructor, TModelScope } from "../index.js";
 
 /**
  * ModelScopes is a utility class that helps generate standardized scope strings for model-based permissions.

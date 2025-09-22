@@ -1,4 +1,4 @@
-import Model from "@/model/base/Model.js";
+import { Model } from "@/model/index.js";
 import { testHelper } from "../tests-helper/testHelper.js";
 import TestEncryptionModel, {
   resetEncryptionTable,

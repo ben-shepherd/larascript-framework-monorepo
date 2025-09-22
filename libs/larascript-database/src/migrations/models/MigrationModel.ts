@@ -1,6 +1,4 @@
-import Model from "@/model/base/Model.js";
-import { IModelAttributes } from "@/model/interfaces/model.t.js";
-
+import { IModelAttributes, Model } from "@/model/index.js";
 
 /**
  * Represents a migration stored in the database.

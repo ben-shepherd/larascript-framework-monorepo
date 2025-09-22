@@ -2,8 +2,8 @@ import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import {
   IAdapterComposerFileName,
   IDatabaseAdapter,
-} from "../interfaces/adapter.t.js";
-import { IDatabaseService } from "../interfaces/service.t.js";
+  IDatabaseService,
+} from "../interfaces/index.js";
 
 export class DatabaseAdapter {
   public static getName(adapter: TClassConstructor<IDatabaseAdapter>): string {

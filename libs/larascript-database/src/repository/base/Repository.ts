@@ -1,8 +1,9 @@
+import { IRepository } from "@larascript-framework/contracts/database/repository";
 import { Collection, ICollection, collect } from "@larascript-framework/larascript-collection";
 import DB from "../../database/services/DB.js";
 import { IEloquent, ModelNotFound } from "../../eloquent/index.js";
 import { IModel, ModelConstructor } from "../../model/index.js";
-import { IRepository } from "../types/repository.t.js";
+
 /**
  * Base class for repositories
  */

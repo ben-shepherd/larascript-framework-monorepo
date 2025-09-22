@@ -1,4 +1,4 @@
-import { ModelWithAttributes } from "@/model/interfaces/model.t.js";
+import { ModelWithAttributes } from "@/model/index.js";
 import { describe } from "@jest/globals";
 import pg from "pg";
 import { forEveryConnection } from "../tests-helper/forEveryConnection.js";

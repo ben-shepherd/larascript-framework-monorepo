@@ -17,11 +17,11 @@ import ModelNotFoundException from "../../eloquent/exceptions/ModelNotFoundExcep
 import UpdateException from "../../eloquent/exceptions/UpdateException.js";
 import {
   IEloquent,
+  IEloquentExpression,
   IdGeneratorFn,
   SetModelColumnsOptions,
   TransactionFn,
 } from "../../eloquent/index.js";
-import IEloquentExpression from "../../eloquent/interfaces/expressions.t.js";
 import { IModel, ModelConstructor } from "../../model/index.js";
 import { PostgresAdapter } from "../adapters/index.js";
 import SqlExpression, {

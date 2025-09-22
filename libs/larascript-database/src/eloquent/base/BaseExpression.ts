@@ -1,5 +1,6 @@
 import { deepClone } from "@larascript-framework/larascript-utils";
 import {
+  IEloquentExpression,
   TColumnOption,
   TGroupBy,
   TJoin,
@@ -10,8 +11,7 @@ import {
   TWhereClause,
   TWhereClauseValue,
   TWith,
-} from "../interfaces/eloquent.t.js";
-import IEloquentExpression from "../interfaces/expressions.t.js";
+} from "../interfaces/index.js";
 
 export type BuildType = "select" | "insert" | "update" | "delete";
 export type NullableObjectOrArray = object | object[] | null;

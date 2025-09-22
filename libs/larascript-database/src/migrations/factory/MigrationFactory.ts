@@ -1,5 +1,5 @@
 import { IModel, ModelConstructor } from "@larascript-framework/larascript-database";
-import { MigrationType } from "../interfaces/IMigration.js";
+import { MigrationType } from "../interfaces/index.js";
 import MigrationModel from "../models/MigrationModel.js";
 
 

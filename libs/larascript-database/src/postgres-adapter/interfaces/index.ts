@@ -1,3 +1,1 @@
-export * from "./IPostgresAlterTableOptions.js";
-export * from "./IPostgresConfig.js";
-export * from "./postgres.t.js";
+export * from "@larascript-framework/contracts/database/postgres-adapter";

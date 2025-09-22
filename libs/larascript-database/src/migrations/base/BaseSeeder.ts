@@ -1,4 +1,4 @@
-import { MigrationType } from "../interfaces/IMigration.js";
+import { MigrationType } from "../interfaces/index.js";
 import BaseMigration from "./BaseMigration.js";
 
 /**

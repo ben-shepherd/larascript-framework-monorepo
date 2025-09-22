@@ -1,5 +1,5 @@
 import { describe, expect, test } from "@jest/globals";
-import { IDatabaseService } from "../../database/interfaces/service.t.js";
+import { IDatabaseService } from "../../database/index.js";
 import DatabaseAdapter from "../../database/services/DatabaseAdapter.js";
 import { MockSQLAdapter } from "./mocks/MockSQLAdapter.js";
 

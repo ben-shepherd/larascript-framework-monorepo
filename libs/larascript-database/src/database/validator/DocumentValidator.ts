@@ -4,7 +4,7 @@ import UnidentifiableDocumentException from "../exceptions/UnidentifiableDocumen
 import {
   IDatabaseDocument,
   IDocumentValidator,
-} from "../interfaces/validator.t.js";
+} from "../interfaces/index.js";
 
 class DocumentValidator implements IDocumentValidator {
   /**

@@ -1,5 +1,5 @@
+import { IEloquent } from "@/eloquent/index.js";
 import { describe } from "@jest/globals";
-import { IEloquent } from "../../eloquent/interfaces/eloquent.t.js";
 import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
 import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
 import TestPeopleModel, { resetPeopleTable } from "./models/TestPeopleModel.js";

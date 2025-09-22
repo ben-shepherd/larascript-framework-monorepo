@@ -1,4 +1,4 @@
-import DB from "@/database/services/DB.js";
+import { DB } from "@/database/index.js";
 import { forEveryConnection } from "../tests-helper/forEveryConnection.js";
 import { queryBuilder, testHelper } from "../tests-helper/testHelper.js";
 import TestDirtyModel, { resetDirtyTable } from "./models/TestDirtyModel.js";

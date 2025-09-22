@@ -1,2 +1,1 @@
-export * from "./factory.t.js";
-export * from "./model.t.js";
+export * from "@larascript-framework/contracts/database/model";

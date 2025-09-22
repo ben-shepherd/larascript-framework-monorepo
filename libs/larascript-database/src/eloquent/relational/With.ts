@@ -1,6 +1,6 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import DB from "../../database/services/DB.js";
-import { IEloquent } from "../../eloquent/interfaces/eloquent.t.js";
+import { IEloquent } from "../../eloquent/index.js";
 import { IModel } from "../../model/index.js";
 import BaseRelationshipResolver from "../base/BaseRelationshipResolver.js";
 

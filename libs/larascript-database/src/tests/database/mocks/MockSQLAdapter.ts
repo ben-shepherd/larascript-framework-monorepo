@@ -1,9 +1,7 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import BaseDatabaseAdapter from "../../../database/base/BaseDatabaseAdapter.js";
-import { IPrepareOptions } from "../../../database/interfaces/options.t.js";
-import { IDatabaseSchema } from "../../../database/interfaces/schema.t.js";
-import { IEloquent } from "../../../eloquent/interfaces/eloquent.t.js";
-import { IRelationshipResolver } from "../../../eloquent/interfaces/relationships.t.js";
+import { IDatabaseSchema, IPrepareOptions } from "../../../database/index.js";
+import { IEloquent, IRelationshipResolver } from "../../../eloquent/index.js";
 import { IModel } from "../../../model/index.js";
 
 // Mock schema implementation

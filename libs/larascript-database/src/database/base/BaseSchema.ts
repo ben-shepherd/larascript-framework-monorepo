@@ -1,5 +1,4 @@
-import { IDatabaseAdapter } from "../interfaces/adapter.t.js";
-import { IDatabaseSchema } from "../interfaces/schema.t.js";
+import { IDatabaseAdapter, IDatabaseSchema } from "../interfaces/index.js";
 import DB from "../services/DB.js";
 
 abstract class BaseSchema<Adapter extends IDatabaseAdapter = IDatabaseAdapter>

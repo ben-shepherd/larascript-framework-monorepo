@@ -1,4 +1,5 @@
 import { Castable, TCastableType } from "@larascript-framework/cast-js";
+import { TModelScope } from "@larascript-framework/contracts/database/model";
 import { Collection } from "@larascript-framework/larascript-collection";
 import {
   IObserver,
@@ -9,7 +10,7 @@ import {
   Str,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
-import { IDatabaseSchema } from "../../database/interfaces/schema.t.js";
+import { IDatabaseSchema } from "../../database/index.js";
 import DB from "../../database/services/DB.js";
 import BaseRelationshipResolver from "../../eloquent/base/BaseRelationshipResolver.js";
 import {
@@ -33,7 +34,7 @@ import {
   ModelWithAttributes,
 } from "../index.js";
 import ProxyModelHandler from "../proxy/ProxyModelHandler.js";
-import { ModelScopes, TModelScope } from "../utils/index.js";
+import { ModelScopes } from "../utils/index.js";
 
 /**
  * Abstract base class for database models.

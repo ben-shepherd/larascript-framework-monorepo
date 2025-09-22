@@ -1,2 +1,2 @@
-export * from "./IMongoConfig.js";
-export * from "./mongodb.t.js";
+export * from "@larascript-framework/contracts/database/mongodb-adapter";
+

@@ -3,7 +3,7 @@ import {
   deepClone,
   TClassConstructor,
 } from "@larascript-framework/larascript-utils";
-import { IDatabaseAdapter } from "../database/interfaces/adapter.t.js";
+import { IDatabaseAdapter } from "../database/index.js";
 import DB from "../database/services/DB.js";
 import { IModel, ModelConstructor } from "../model/index.js";
 import Direction from "./enums/Direction.js";
@@ -12,10 +12,10 @@ import ExpressionException from "./exceptions/ExpressionException.js";
 import InvalidMethodException from "./exceptions/InvalidMethodException.js";
 import MissingTableException from "./exceptions/MissingTableException.js";
 import QueryBuilderException from "./exceptions/QueryBuilderException.js";
-import IEloquentExpression from "./interfaces/expressions.t.js";
 import {
   IdGeneratorFn,
   IEloquent,
+  IEloquentExpression,
   LogicalOperators,
   OperatorArray,
   SetModelColumnsOptions,

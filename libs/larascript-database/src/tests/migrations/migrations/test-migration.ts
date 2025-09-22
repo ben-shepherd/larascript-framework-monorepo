@@ -1,4 +1,4 @@
-import DB from "@/database/services/DB.js";
+import { DB } from "@/database/index.js";
 import BaseMigration from "@/migrations/base/BaseMigration.js";
 import { DataTypes } from "sequelize";
 import { TestMigrationModel } from "../models/TestMigrationModel.js";

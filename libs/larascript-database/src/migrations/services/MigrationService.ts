@@ -1,10 +1,9 @@
-import { DB, IRepository, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
+import { IRepository } from "@larascript-framework/contracts/database/repository";
+import { IMigration, IMigrationConfig, IMigrationService, IMigrationServiceOptions, MigrationType } from "@larascript-framework/contracts/migrations";
+import { DB, ModelConstructor, Repository } from "@larascript-framework/larascript-database";
 import MigrationTypeEnum from "../enums/MigrationTypeEnum.js";
 import FileNotFoundError from "../exceptions/FileNotFoundError.js";
 import MigrationFactory from "../factory/MigrationFactory.js";
-import { IMigration, MigrationType } from "../interfaces/IMigration.js";
-import { IMigrationConfig } from "../interfaces/IMigrationConfig.js";
-import { IMigrationService, IMigrationServiceOptions } from "../interfaces/IMigrationService.js";
 import MigrationModel from "../models/MigrationModel.js";
 import MigrationFileService from "./MigrationFilesService.js";
 

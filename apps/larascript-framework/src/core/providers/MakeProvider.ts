@@ -1,8 +1,8 @@
 import { app } from "@/core/services/App.js";
 import { BaseProvider } from "@larascript-framework/larascript-core";
+import { MigrationCreateFileNameService } from "@larascript-framework/larascript-database";
 import { AvailableMakeCommands, MakeServices } from "@larascript-framework/make";
 import path from "path";
-import MigrationFileService from "../domains/migrations/services/MigrationFilesService.js";
 
 export default class MakeProvider extends BaseProvider {
 
@@ -16,7 +16,7 @@ export default class MakeProvider extends BaseProvider {
             pathToApp,
             pathToTemplates,
             logger: app('logger'),
-            migrationFileService: new MigrationFileService(),
+            migrationCreateFileService: new MigrationCreateFileNameService(),
         })
 
         // Register the make commands

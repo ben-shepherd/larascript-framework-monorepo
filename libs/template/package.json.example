@@ -1,19 +1,14 @@
 {
   "name": "@larascript-framework/template",
   "type": "module",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "PLACEHOLDER DESCRIPTION",
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/ben-shepherd/PLACEHOLDER_REPOSITORY"
-  },
   "license": "ISC",
   "author": "ben.shepherd@gmx.com",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "publishConfig": {
-    "access": "public",
-    "registry": "https://npm.pkg.github.com"
+    "access": "public"
   },
   "scripts": {
     "prepare": "npm run build",
@@ -42,8 +37,10 @@
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/contracts": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

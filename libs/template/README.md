@@ -75,7 +75,7 @@ If your package has build/test/lint scripts, add it to the root `turbo.json` pip
 
 ```bash
 # From the monorepo root, install dependencies
-pnpm install
+pnpm install --ignore-scripts
 
 # Run tests to ensure everything works
 pnpm test
@@ -94,7 +94,7 @@ pnpm build
 
 ### Export Guidelines
 
-**No Default Exports**: All exports should be named exports. Avoid using `export default`.
+**Default Exports**: All exports should be named exports.
 
 **Index Files**: Create an `index.ts` file in every directory you create and export all files from that directory.
 
@@ -149,12 +149,13 @@ No additional configuration is needed unless you have package-specific requireme
 This template includes several helpful scripts:
 
 - `pnpm build` - Build the TypeScript code
+- `pnpm dev` - Run the TypeScript code in development mode
 - `pnpm test` - Run tests
 - `pnpm lint` - Check code style
 - `pnpm lint:fix` - Fix code style issues
 - `pnpm format` - Format code with Prettier
 
-### Setting up Lefthook
+### Setting up Lefthook (optional)
 
 This project uses Lefthook for pre-commit hooks. To set it up:
 
@@ -189,7 +190,3 @@ When ready to publish:
 - Branch name validation
 - Pre-commit hooks with Lefthook
 - Monorepo workspace integration
-
-## Support
-
-For questions about this template or Larascript packages in general, please refer to the main Larascript documentation or create an issue in the repository.

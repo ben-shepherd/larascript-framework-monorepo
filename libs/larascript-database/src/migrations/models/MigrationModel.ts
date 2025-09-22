@@ -35,7 +35,7 @@ export interface MigrationModelData extends IModelAttributes {
 /**
  * Model for migrations stored in the database.
  */
-class MigrationModel extends Model<MigrationModelData> {
+export class MigrationModel extends Model<MigrationModelData> {
 
     public table: string = 'migrations';
 

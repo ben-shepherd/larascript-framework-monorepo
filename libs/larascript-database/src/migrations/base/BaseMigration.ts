@@ -12,9 +12,10 @@ export abstract class BaseMigration implements IMigration {
     /**
      * schema is used for database table operations like creating, altering, or dropping tables.
      * It's retrieved from the database connection in the App container.
-     * @deprecated Use DB.getInstance().schema() instead
      */
-    protected readonly schema = null as unknown as IDatabaseSchema;
+    get schema(): IDatabaseSchema {
+        return DB.getInstance().databaseService().schema();
+    }
 
     /**
      * Define the type of migration.

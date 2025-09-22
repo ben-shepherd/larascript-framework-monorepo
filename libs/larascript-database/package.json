@@ -71,7 +71,6 @@
     "@larascript-framework/larascript-collection": "workspace:*",
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-observer": "workspace:*",
-    "@larascript-framework/larascript-utils": "workspace:*",
-    "mongodb": "^6.20.0"
+    "@larascript-framework/larascript-utils": "workspace:*"
   }
 }

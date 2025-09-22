@@ -15,7 +15,7 @@ describe(`make test suite`, () => {
     MakeServices.init({
         pathToApp: OutputHelper.getOutputPath('app'),
         pathToTemplates: path.join(process.cwd(), 'src/make/templates'),
-        migrationFileService: {
+        migrationCreateFileService: {
             createDateFilename: (name: string) => name
         } as unknown as IMigrationFileService,
     })

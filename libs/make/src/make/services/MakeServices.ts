@@ -1,10 +1,10 @@
-import { IMigrationFileService } from "@larascript-framework/contracts/migrations";
+import { IMigrationCreateFileNameService } from "@larascript-framework/contracts/migrations";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 
 export type MakeServicesConfig = {
     logger?: ILoggerService;
-    migrationFileService: IMigrationFileService;
+    migrationCreateFileService: IMigrationCreateFileNameService;
     pathToApp: string;
     pathToTemplates: string;
     processExit?: boolean;
@@ -14,14 +14,14 @@ export class MakeServices extends BaseSingleton<MakeServicesConfig> {
 
     static init({
         logger,
-        migrationFileService,
+        migrationCreateFileService,
         pathToApp,
         pathToTemplates,
         processExit,
     }: MakeServicesConfig): void {
         MakeServices.getInstance({
             logger,
-            migrationFileService,
+            migrationCreateFileService,
             pathToApp,
             pathToTemplates,
             processExit,
@@ -32,11 +32,11 @@ export class MakeServices extends BaseSingleton<MakeServicesConfig> {
         return this.getConfig()?.logger;
     }
 
-    public getMigrationFileService(): IMigrationFileService {
-        if(!this.getConfig()?.migrationFileService) {
+    public getMigrationCreateFileService(): IMigrationCreateFileNameService {
+        if(!this.getConfig()?.migrationCreateFileService) {
             throw new Error('Migration file service not found');
         }
-        return this.getConfig()?.migrationFileService!;
+        return this.getConfig()?.migrationCreateFileService!;
     }
 
     public getPathToApp(): string {

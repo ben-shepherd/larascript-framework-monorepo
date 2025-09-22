@@ -11,7 +11,7 @@ export class MakeSeederCommand extends BaseMakeFileCommand {
             args: ['name'],
             endsWith: 'Seeder',
             customFilename: (name: string) => {
-                return (MakeServices.getInstance().getMigrationFileService()).createDateFilename(name)
+                return (MakeServices.getInstance().getMigrationCreateFileService()).createDateFilename(name)
             }
         })
     }

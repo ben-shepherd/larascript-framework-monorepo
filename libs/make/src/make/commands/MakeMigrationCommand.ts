@@ -10,7 +10,7 @@ export class MakeMigrationCommand extends BaseMakeFileCommand {
             makeType: 'Migration',
             args: ['name'],
             customFilename: (name: string) => {
-                return (MakeServices.getInstance().getMigrationFileService()).createDateFilename(name)
+                return (MakeServices.getInstance().getMigrationCreateFileService()).createDateFilename(name)
             }
         })
     }

@@ -82,10 +82,6 @@
       "types": "./dist/database/repository/index.d.ts",
       "default": "./dist/database/repository/index.js"
     },
-    "./database/migrations": {
-      "types": "./dist/database/migrations/index.d.ts",
-      "default": "./dist/database/migrations/index.js"
-    },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "default": "./dist/auth/index.js"

@@ -6,6 +6,7 @@ import { IModel } from "../model/model.t.js";
 
 import { IEloquent } from "../eloquent/eloquent.t.js";
 import { IMongoConfig } from "./IMongoConfig.js";
+
 export interface IMongoDbAdapter {
   _adapter_type_: string;
 

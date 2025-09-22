@@ -1,4 +1,4 @@
-import { ModelConstructor } from "@larascript-framework/larascript-database";
+import { ModelConstructor } from "@/database/index.js";
 
 export interface IMigrationConfig
 {

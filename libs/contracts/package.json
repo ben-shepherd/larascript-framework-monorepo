@@ -37,8 +37,6 @@
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-database": "workspace:*",
-    "@larascript-framework/larascript-auth": "workspace:*",
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
@@ -59,9 +57,43 @@
     "./migrations": {
       "types": "./dist/migrations/index.d.ts",
       "default": "./dist/migrations/index.js"
+    },
+    "./database/database": {
+      "types": "./dist/database/database/index.d.ts",
+      "default": "./dist/database/database/index.js"
+    },
+    "./database/eloquent": {
+      "types": "./dist/database/eloquent/index.d.ts",
+      "default": "./dist/database/eloquent/index.js"
+    },
+    "./database/model": {
+      "types": "./dist/database/model/index.d.ts",
+      "default": "./dist/database/model/index.js"
+    },
+    "./database/mongodb-adapter": {
+      "types": "./dist/database/mongodb-adapter/index.d.ts",
+      "default": "./dist/database/mongodb-adapter/index.js"
+    },
+    "./database/postgres-adapter": {
+      "types": "./dist/database/postgres-adapter/index.d.ts",
+      "default": "./dist/database/postgres-adapter/index.js"
+    },
+    "./database/repository": {
+      "types": "./dist/database/repository/index.d.ts",
+      "default": "./dist/database/repository/index.js"
+    },
+    "./database/migrations": {
+      "types": "./dist/database/migrations/index.d.ts",
+      "default": "./dist/database/migrations/index.js"
+    },
+    "./auth": {
+      "types": "./dist/auth/index.d.ts",
+      "default": "./dist/auth/index.js"
     }
   },
   "dependencies": {
-    "express": "^4.21.2"
+    "express": "^4.21.2",
+    "mongodb": "^6.20.0",
+    "sequelize": "^6.37.7"
   }
 }

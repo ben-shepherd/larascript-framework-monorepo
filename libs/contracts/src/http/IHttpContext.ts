@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { IStorageFile } from '@larascript-framework/larascript-storage';
 import { NextFunction, Response } from 'express';
+import { IApiTokenModel, IUserModel } from '../auth/index.js';
 import { TBaseRequest } from "./BaseRequest.js";
 import { TRouteItem } from "./IRouter.js";
 import { TUploadedFile } from "./UploadedFile.js";

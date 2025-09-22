@@ -1,4 +1,4 @@
-import MigrationModel, { MigrationModelData } from "@/core/domains/migrations/models/MigrationModel.js";
+import { MigrationModel, MigrationModelData } from "@larascript-framework/larascript-database";
 
 /**
  * Model for test migrations stored in the database.

@@ -1,4 +1,4 @@
-import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
+import { BaseMigration } from "@larascript-framework/larascript-database";
 import { WorkerModel, WorkerSchema } from "@larascript-framework/larascript-events";
 
 export class CreateWorkerTableMigration extends BaseMigration {

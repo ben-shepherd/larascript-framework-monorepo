@@ -1,6 +1,6 @@
-import { IMigrationConfig } from "@/core/domains/migrations/interfaces/IMigrationConfig.js";
 import MigrationProvider from "@/core/providers/MigrationProvider.js";
 import TestMigrationModel from "@/tests/larascript/migration/models/TestMigrationModel.js";
+import { IMigrationConfig } from "@larascript-framework/contracts/migrations";
 import path from "path";
 
 class TestMigrationProvider extends MigrationProvider {

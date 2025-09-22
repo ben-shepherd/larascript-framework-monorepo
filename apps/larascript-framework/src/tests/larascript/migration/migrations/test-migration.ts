@@ -1,5 +1,5 @@
-import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
 import { app } from "@/core/services/App.js";
+import { BaseMigration } from "@larascript-framework/larascript-database";
 import { DataTypes } from "sequelize";
 
 class TestMigration extends BaseMigration {

@@ -1,6 +1,7 @@
 import ApiToken from "@/app/models/auth/ApiToken.js";
-import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
+import { BaseMigration } from "@larascript-framework/larascript-database";
 import { DataTypes } from "sequelize";
+;
 
 export class CreateApiTokenMigration extends BaseMigration {
 

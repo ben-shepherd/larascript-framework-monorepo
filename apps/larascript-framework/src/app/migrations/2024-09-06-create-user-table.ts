@@ -1,6 +1,6 @@
 import User from "@/app/models/auth/User.js";
-import BaseMigration from "@/core/domains/migrations/base/BaseMigration.js";
-import DataTypes from "@/core/domains/migrations/schema/DataTypes.js";
+import { BaseMigration } from "@larascript-framework/larascript-database";
+import { DataTypes } from "sequelize";
 
 export class CreateUserModelMigration extends BaseMigration {
 

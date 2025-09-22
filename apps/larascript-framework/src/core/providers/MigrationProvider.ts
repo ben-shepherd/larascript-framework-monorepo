@@ -1,5 +1,5 @@
-import { IMigrationConfig } from "@/core/domains/migrations/interfaces/IMigrationConfig.js";
 import { app } from "@/core/services/App.js";
+import { IMigrationConfig } from "@larascript-framework/contracts/migrations";
 import { BaseProvider } from "@larascript-framework/larascript-core";
 import { AvailableMigrationCommands } from "@larascript-framework/larascript-database";
 

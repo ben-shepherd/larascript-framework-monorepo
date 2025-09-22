@@ -1,8 +1,8 @@
 import appConfig from '@/config/app.config.js';
-import SetupProvider from '@/core/domains/setup/providers/SetupProvider.js';
 import ConsoleProvider from '@/core/providers/ConsoleProvider.js';
 import CryptoProvider from '@/core/providers/CryptoProvider.js';
 import LoggerProvider from '@/core/providers/LoggerProvider.js';
+import SetupProvider from '@/core/providers/SetupProvider.js';
 import { app } from '@/core/services/App.js';
 import { Kernel } from '@larascript-framework/larascript-core';
 

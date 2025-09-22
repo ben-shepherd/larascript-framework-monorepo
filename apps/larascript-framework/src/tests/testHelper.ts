@@ -1,8 +1,8 @@
-import SetupProvider from "@/core/domains/setup/providers/SetupProvider.js";
 import ACLProvider from "@/core/providers/ACLProvider.js";
 import AsyncSessionProvider from "@/core/providers/AsyncSessionProvider.js";
 import EventProvider from "@/core/providers/EventProvider.js";
 import LoggerProvider from "@/core/providers/LoggerProvider.js";
+import SetupProvider from "@/core/providers/SetupProvider.js";
 import ValidatorProvider from "@/core/providers/ValidatorProvider.js";
 import { app } from "@/core/services/App.js";
 import TestApiTokenModel from "@/tests/larascript/models/models/TestApiTokenModel.js";

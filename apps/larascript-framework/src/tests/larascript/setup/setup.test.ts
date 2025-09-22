@@ -1,20 +1,10 @@
 /* eslint-disable no-undef */
-import CopyEnvExampleAction from '@/core/domains/setup/actions/CopyEnvExampleAction.js';
-import GenerateAppKeyAction from '@/core/domains/setup/actions/GenerateAppKeyAction.js';
-import GenerateJwtSecretAction from '@/core/domains/setup/actions/GenerateJwtSecretAction.js';
-import SetupDockerDatabaseScripts from '@/core/domains/setup/actions/SetupDockerDatabaseScripts.js';
-import AppSetupCommand from '@/core/domains/setup/commands/AppSetupCommand.js';
-import { QuestionIDs } from '@/core/domains/setup/consts/QuestionConsts.js';
-import QuestionData from '@/core/domains/setup/DTOs/QuestionData.js';
-import { IAction } from '@/core/domains/setup/interfaces/IAction.js';
-import { ISetupCommand } from '@/core/domains/setup/interfaces/ISetupCommand.js';
-import { SetupService } from '@/core/domains/setup/providers/SetupService.js';
-import buildQuestionDTOs from '@/core/domains/setup/utils/buildQuestionDTOs.js';
 import { clearOutputFiles } from '@/tests/larascript/test-helper/clearOutputFiles.js';
 import { getOutputPath } from '@/tests/larascript/test-helper/getOutputPath.js';
 import testHelper from '@/tests/testHelper.js';
 import { describe } from '@jest/globals';
 import { isTruthy } from '@larascript-framework/larascript-validator';
+import { AppSetupCommand, CopyEnvExampleAction, GenerateAppKeyAction, GenerateJwtSecretAction, IAction, ISetupCommand, QuestionData, QuestionIDs, SetupDockerDatabaseScripts, SetupService, buildQuestionDTOs } from '@larascript-framework/setup';
 import fs from 'fs';
 
 describe('setup test suite', () => {

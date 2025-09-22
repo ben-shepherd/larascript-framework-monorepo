@@ -1,20 +1,21 @@
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import {
+  BaseAuthAdapterTypes,
+  IApiTokenFactory,
+  IApiTokenRepository,
+  IAuthConfig,
+  IAuthService,
+  IJwtAuthService,
+  IUserFactory,
+  IUserModel,
+  IUserRepository,
+} from "@larascript-framework/contracts/auth";
+import {
   BasicACLService,
   IAclConfig,
   IBasicACLService,
 } from "@larascript-framework/larascript-acl";
 import { BaseAdapter } from "@larascript-framework/larascript-core";
-import {
-  BaseAuthAdapterTypes,
-  IApiTokenRepository,
-  IAuthConfig,
-  IAuthService,
-  IJwtAuthService,
-  IUserModel,
-  IUserRepository,
-} from "../index.js";
-import { IApiTokenFactory, IUserFactory } from "../interfaces/factory.js";
 import JwtAuthService from "./JwtAuthService.js";
 
 /**

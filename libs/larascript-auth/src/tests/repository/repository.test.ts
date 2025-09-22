@@ -1,5 +1,5 @@
-import { IApiTokenModel, IUserModel } from "@/auth/index.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
+import { IApiTokenModel, IUserModel } from "@larascript-framework/contracts/auth";
 import TestUserModel from "../model/TestUserModel.js";
 import { InMemoryApiTokenRepository } from "./InMemoryApiTokenRepository.js";
 import { InMemoryUserRepository } from "./InMemoryUserRepository.js";

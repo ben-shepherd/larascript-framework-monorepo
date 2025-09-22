@@ -1,13 +1,13 @@
+import AuthService from "@/auth/services/AuthService.js";
+import OneTimeAuthenticationService from "@/auth/services/OneTimeAuthenticationService.js";
+import { AsyncSessionService } from "@larascript-framework/async-session";
 import {
   IApiTokenModel,
   IAuthConfig,
   IJwtAuthService,
   IUserModel,
   IUserRepository,
-} from "@/auth/index.js";
-import AuthService from "@/auth/services/AuthService.js";
-import OneTimeAuthenticationService from "@/auth/services/OneTimeAuthenticationService.js";
-import { AsyncSessionService } from "@larascript-framework/async-session";
+} from "@larascript-framework/contracts/auth";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
 import { TestUserFactory } from "./factory/TestUserFactory.js";

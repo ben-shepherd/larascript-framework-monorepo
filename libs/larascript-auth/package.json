@@ -53,6 +53,7 @@
     "@larascript-framework/larascript-database": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/contracts": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {

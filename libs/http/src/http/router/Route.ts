@@ -1,6 +1,6 @@
 import { IRoute, IRouteGroupOptions, IRouter, TRouteGroupFn, TRouteResourceOptions } from "@larascript-framework/contracts/http";
 import SecurityRules from "../security/services/SecurityRules.js";
-import Router from "./Router.js";
+import HttpRouter from "./HttpRouter.js";
 import ResourceRouter from "./RouterResource.js";
 
 /**
@@ -30,35 +30,35 @@ class Route implements IRoute {
     /**
      * Create a new group of routes.
      */
-    public static group(routeGroupOptions: IRouteGroupOptions | TRouteGroupFn, routesFn?: TRouteGroupFn, router: IRouter = new Router()): IRouter {
+    public static group(routeGroupOptions: IRouteGroupOptions | TRouteGroupFn, routesFn?: TRouteGroupFn, router: IRouter = new HttpRouter()): IRouter {
         return router.group(routeGroupOptions, routesFn);
     }
 
     /**
      * Create a new group of routes.
      */
-    public group(optionsOrFn?: IRouteGroupOptions | TRouteGroupFn, routesFn?: TRouteGroupFn, router: IRouter = new Router()): IRouter {
+    public group(optionsOrFn?: IRouteGroupOptions | TRouteGroupFn, routesFn?: TRouteGroupFn, router: IRouter = new HttpRouter()): IRouter {
         return router.group(optionsOrFn as any, routesFn);
     }
 
     /**
      * Add resource routes to the router.
      */
-    public static resource(options: TRouteResourceOptions, router: Router = new Router()): IRouter {
+    public static resource(options: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): IRouter {
         return ResourceRouter.resource(options, router);
     }
 
     /**
      * Add resource routes to the router.
      */
-    public resource(options: TRouteResourceOptions, router: Router = new Router()): IRouter {
+    public resource(options: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): IRouter {
         return ResourceRouter.resource(options, router);
     }
 
     /**
      * Get the security rules for the router.
      */
-    public static security(router: IRouter = new Router()): typeof SecurityRules {
+    public static security(router: IRouter = new HttpRouter()): typeof SecurityRules {
         return router.security() as typeof SecurityRules;
     }
 

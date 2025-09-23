@@ -1,7 +1,7 @@
 import { ISecurityRule, TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@larascript-framework/contracts/http"
 import ResourceController from "../resources/controller/ResourceController.js"
+import HttpRouter from "./HttpRouter.js"
 import Route from "./Route.js"
-import Router from "./Router.js"
 
 
 /**
@@ -57,7 +57,7 @@ class ResourceRouter {
     /**
      * Add resource routes to the router.
      */
-    public static resource({ prefix, resource, scopes, filters, searching, paginate, sorting, validation, security, ...rest }: TRouteResourceOptions, router: Router = new Router()): Router {
+    public static resource({ prefix, resource, scopes, filters, searching, paginate, sorting, validation, security, ...rest }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
 
         const routeItemOptions: TPartialRouteItemOptions = {
             prefix,

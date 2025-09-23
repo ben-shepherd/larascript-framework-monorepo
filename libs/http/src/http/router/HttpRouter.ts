@@ -38,7 +38,7 @@ import ResourceRouter from "./RouterResource.js";
  * - Applies middleware and security rules
  * - Manages route prefixing and naming
  */
-class Router implements IRouter {
+class HttpRouter implements IRouter {
 
     /**
      * The route group options.
@@ -222,13 +222,9 @@ class Router implements IRouter {
      * Register a route.
      */
     public register({ path, method, action, ...options }: Partial<TRouteItem> & TPartialRouteItemOptions): void {
-
-        const optionsMiddleware = options?.middlewares ?? [] as TExpressMiddlewareFnOrClass[];
-        const optionsMiddlewareArray = Array.isArray(optionsMiddleware) ? optionsMiddleware : [optionsMiddleware];
-
-        const currentMiddleware = (Array.isArray(this.baseOptions?.middlewares) ? this.baseOptions?.middlewares : [this.baseOptions?.middlewares]) as TExpressMiddlewareFnOrClass[];
-        const currentMiddlewareArray = Array.isArray(currentMiddleware) ? currentMiddleware : [currentMiddleware];
-
+        const optionsMiddlewareArray = this.getRouteItemMiddlewareArray(options);
+        const currentMiddlewareArray = this.getBaseMiddlewareArray();
+        
         const routeItem = {
             ...this.baseOptions,
             path: this.getPath(path ?? ''),
@@ -241,6 +237,21 @@ class Router implements IRouter {
         }
 
         this.registered.push(routeItem);
+    }
+
+    private getRouteItemMiddlewareArray(options: TPartialRouteItemOptions): TExpressMiddlewareFnOrClass[] {
+        const optionsMiddleware = options?.middlewares ?? [] as TExpressMiddlewareFnOrClass[];
+        const optionsMiddlewareArray = Array.isArray(optionsMiddleware) ? optionsMiddleware : [optionsMiddleware];
+        return optionsMiddlewareArray;
+    }
+
+    private getBaseMiddlewareArray() {
+        const currentMiddleware = (() => {
+            const baseOptionsMiddleware = this.baseOptions?.middlewares ?? [] as TExpressMiddlewareFnOrClass[];
+            return (Array.isArray(baseOptionsMiddleware) ? baseOptionsMiddleware : [baseOptionsMiddleware]) as TExpressMiddlewareFnOrClass[];
+        })();
+        const currentMiddlewareArray = Array.isArray(currentMiddleware) ? currentMiddleware : [currentMiddleware];
+        return currentMiddlewareArray;
     }
 
     protected getPrefix(prefix: string): string {
@@ -269,4 +280,4 @@ class Router implements IRouter {
 
 }
 
-export default Router
+export default HttpRouter

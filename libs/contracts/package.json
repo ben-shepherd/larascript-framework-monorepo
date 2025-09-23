@@ -37,7 +37,6 @@
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
@@ -85,6 +84,10 @@
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "default": "./dist/auth/index.js"
+    },
+    "./storage": {
+      "types": "./dist/storage/index.d.ts",
+      "default": "./dist/storage/index.js"
     }
   },
   "dependencies": {

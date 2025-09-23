@@ -2,7 +2,7 @@ import fs from "fs";
 import StorageFile from "../data/StorageFile.js";
 import { FileNotFoundException } from "../exceptions/FileNotFoundException.js";
 import { InvalidStorageFileException } from "../exceptions/InvalidStorageFileException.js";
-import { FileSystemMeta, S3Meta } from "../interfaces/meta.js";
+import { FileSystemMeta, IStorageFile, S3Meta } from "../interfaces/index.js";
 import {
   createFileSystemStorageFile,
   toAbsolutePath,
@@ -37,7 +37,7 @@ class FileSystemStorageFileParser {
    * If the input is a string, attempts to resolve it to a StorageFile.
    */
   public parseStorageFileOrString(
-    file: StorageFile | string,
+    file: IStorageFile | string,
     storageDirectory: string,
   ): StorageFile<FileSystemMeta> {
     if (typeof file === "object") {

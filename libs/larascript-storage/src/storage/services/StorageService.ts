@@ -9,8 +9,8 @@ import {
   IStorageConfig,
   IStorageFile,
   IStorageService,
+  IUploadedFile,
 } from "../interfaces/index.js";
-import { IUploadedFile } from "../interfaces/IUploadedFile.t.js";
 import AmazonS3StorageService from "./AmazonS3StorageService.js";
 import FileSystemStorageService from "./FileSystemStorageService.js";
 
@@ -135,7 +135,7 @@ export class StorageService
    * @param {string} fullPath - The absolute path to the file.
    * @returns {StorageFile} The created StorageFile instance.
    */
-  public toStorageFile(fullPath: string): StorageFile<FileSystemMeta> {
+  public toStorageFile(fullPath: string): IStorageFile<FileSystemMeta> {
     return new StorageFile({
       key: fullPath.replace(this.getStorageDirectory(), ""),
       meta: {

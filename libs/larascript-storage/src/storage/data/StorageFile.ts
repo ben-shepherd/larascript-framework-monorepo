@@ -1,23 +1,11 @@
-import { IStorageFile } from "../interfaces/IStorageFile.js";
+import { IStorageFile, IStorageFileOptions } from "../interfaces/index.js";
 
-/**
- * Configuration options for creating a StorageFile instance
- */
-export type StorageFileOptions<Meta extends object = object> = {
-  /** The URL where the file can be accessed */
-  key: string;
 
-  /** Optional source identifier or path of the file */
-  source?: string;
-
-  /** Meta description for this object */
-  meta?: Meta;
-};
 
 /**
  * Represents a file stored in the storage system with its URL and source information.
  */
-export class StorageFile<Meta extends object = object> implements IStorageFile {
+export class StorageFile<Meta extends object = object> implements IStorageFile<Meta> {
   /** The URL where the file can be accessed */
   key: string;
 
@@ -31,7 +19,7 @@ export class StorageFile<Meta extends object = object> implements IStorageFile {
    * Creates a new StorageFile instance
    * @param options - Configuration options for the storage file
    */
-  constructor(options: StorageFileOptions<Meta>) {
+  constructor(options: IStorageFileOptions<Meta>) {
     this.key = options?.key;
     this.source = options?.source;
     this.meta = options?.meta;
@@ -88,7 +76,7 @@ export class StorageFile<Meta extends object = object> implements IStorageFile {
    * @returns The meta information object, or undefined if not set
    */
   getMeta(): Meta | undefined {
-    return this.meta;
+    return this.meta as Meta;
   }
 
   /**
@@ -124,12 +112,12 @@ export class StorageFile<Meta extends object = object> implements IStorageFile {
    * Converts the StorageFile instance to a plain object representation.
    * @returns An object containing the url and source of the storage file.
    */
-  toObject(): StorageFileOptions<Meta> {
+  toObject(): IStorageFileOptions<Meta> {
     return {
       key: this.key,
       source: this.source,
-      meta: this.meta,
-    };
+      meta: this.meta as Meta,
+    }
   }
 }
 

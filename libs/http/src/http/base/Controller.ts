@@ -1,5 +1,4 @@
-
-import { IController, TRouteItem } from "@/index.js";
+import { IController, IHttpContext, TRouteItem } from "@larascript-framework/contracts/http";
 import { appEnv } from "@larascript-framework/larascript-core";
 import HttpContext from "../context/HttpContext.js";
 import responseError from "../handlers/responseError.js";
@@ -9,14 +8,14 @@ class Controller implements IController {
     /** 
      * The context of the controller.
      */
-    protected context!: HttpContext;
+    protected context!: IHttpContext;
 
     /**
      * The constructor of the controller.
      * @param context The context of the controller.
      * @param options The route item options.
      */
-    constructor(context: HttpContext) {
+    constructor(context: IHttpContext) {
         this.context = context
     }
 

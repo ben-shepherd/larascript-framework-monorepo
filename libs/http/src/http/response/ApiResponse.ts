@@ -1,5 +1,4 @@
-import { IApiResponse, TApiResponse } from "@/core/domains/http/interfaces/IApiResponse.js";
-import { TPagination } from "@/core/domains/http/interfaces/Pagination.t.js";
+import { IApiResponse, TApiResponse, TPagination } from "@larascript-framework/contracts/http";
 
 /**
  * ApiResponse is a class that builds standardized HTTP API responses.

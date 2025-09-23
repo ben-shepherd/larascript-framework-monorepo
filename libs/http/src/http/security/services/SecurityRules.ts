@@ -1,5 +1,4 @@
-import { TSecurityRuleConstructor } from "@larascript-framework/contracts/http";
-import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
+import { ISecurityRule, TSecurityRuleConstructor } from "@larascript-framework/contracts/http";
 import HasRoleRule from "../rules/HasRoleRule.js";
 import RateLimitedRule from "../rules/RateLimitedRule.js";
 import ResourceOwnerRule from "../rules/ResourceOwnerRule.js";
@@ -14,7 +13,7 @@ class SecurityRules {
      * @param options The options for the security rule
      * @returns The security rule
      */
-    public static create<Rule extends AbstractSecurityRule = AbstractSecurityRule>(ruleConstructor: TSecurityRuleConstructor<Rule>, options?: Rule['options']): Rule {
+    public static create<Rule extends ISecurityRule = ISecurityRule>(ruleConstructor: TSecurityRuleConstructor<Rule>, options?: Rule extends ISecurityRule<infer O> ? O : object): Rule {
         return new ruleConstructor().setRuleOptions(options ?? {}) as Rule;
     }
 

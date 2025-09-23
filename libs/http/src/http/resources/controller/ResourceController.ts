@@ -2,6 +2,7 @@ import Controller from "@/http/base/Controller.js";
 import HttpContext from "@/http/context/HttpContext.js";
 import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import responseError from "@/http/handlers/responseError.js";
+import { IHttpContext } from "@larascript-framework/contracts/http";
 import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 import ResourceCreateService from "../services/ResourceCreateService.js";
@@ -94,7 +95,7 @@ class ResourceController  extends Controller {
      * @param {AbastractBaseResourceService} service - The service
      * @returns {Promise<void>}
      */
-    protected async handler(context: HttpContext, service: AbastractBaseResourceService) {
+    protected async handler(context: IHttpContext, service: AbastractBaseResourceService) {
         try {
             const apiResponse = await service.handler(context)
             this.jsonResponse(apiResponse.build(), apiResponse.getCode())

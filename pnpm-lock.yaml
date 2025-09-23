@@ -512,6 +512,9 @@ importers:
       '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:../larascript-logger
+      '@larascript-framework/larascript-storage':
+        specifier: workspace:*
+        version: link:../larascript-storage
       '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils

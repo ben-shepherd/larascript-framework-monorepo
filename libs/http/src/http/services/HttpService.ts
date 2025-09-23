@@ -146,6 +146,21 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
     }
 
     /**
+     * Returns the port the server is listening on.
+     * @returns the port number or null if server is not listening.
+     */
+    public getPort(): number | null {
+        if (!this.server) {
+            return null;
+        }
+        const address = this.server.address();
+        if (typeof address === 'object' && address !== null) {
+            return address.port;
+        }
+        return null;
+    }
+
+    /**
      * Closes the server.
      */
     public close(): void {

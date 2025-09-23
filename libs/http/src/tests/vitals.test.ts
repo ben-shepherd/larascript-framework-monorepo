@@ -39,12 +39,12 @@ class MiddlewareSingleton extends BaseSingleton {
 
 describe("httpService test suite", () => {
     let httpService: HttpService;
+    let serverPort: number;
 
     beforeEach(async () => {
-
         httpService = new HttpService({
             enabled: true,
-            port: 3000, 
+            port: 0, // Use dynamic port allocation
             beforeAllMiddlewares: [],
         });
         
@@ -59,7 +59,7 @@ describe("httpService test suite", () => {
             environment: EnvironmentTesting,
             httpConfig: {
                 enabled: true,
-                port: 3000, 
+                port: 0, // Use dynamic port allocation
             },
             storage: {} as unknown as IStorageService,
             requestContext: new RequestContext(),
@@ -73,6 +73,9 @@ describe("httpService test suite", () => {
 
         await new Promise(resolve => setTimeout(resolve, 100));
         await httpService.listen();
+        
+        // Get the actual port the server is listening on
+        serverPort = httpService.getPort()!;
 
         MiddlewareSingleton.getInstance().resetCounter();
     });
@@ -94,7 +97,7 @@ describe("httpService test suite", () => {
             httpService.bindRoutes(router);
             await httpService.listen();
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };
@@ -118,7 +121,7 @@ describe("httpService test suite", () => {
             httpService.bindRoutes(router);
             await httpService.listen();
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };
@@ -142,7 +145,7 @@ describe("httpService test suite", () => {
             httpService.bindRoutes(router);
             await httpService.listen();
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };
@@ -179,12 +182,15 @@ describe("httpService test suite", () => {
             httpService.close();
             httpService = new HttpService({
                 enabled: true,
-                port: 3000, 
+                port: 0, // Use dynamic port allocation
                 beforeAllMiddlewares: [beforeAllMiddleware],
                 afterAllMiddlewares: [afterAllMiddleware],
             });
             httpService.init();
             await httpService.listen();
+            
+            // Update the server port for this test
+            serverPort = httpService.getPort()!;
 
             const router = new HttpRouter();
             router.get('/test', (req: Request, res: Response) => {
@@ -196,7 +202,7 @@ describe("httpService test suite", () => {
             });
 
             httpService.bindRoutes(router);
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };
@@ -235,7 +241,7 @@ describe("httpService test suite", () => {
 
             httpService.bindRoutes(router);
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };
@@ -261,7 +267,7 @@ describe("httpService test suite", () => {
 
             httpService.bindRoutes(router);
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string, id: string };
@@ -297,7 +303,7 @@ describe("httpService test suite", () => {
 
             httpService.bindRoutes(router);
 
-            const response = await fetch('http://localhost:3000/test', {
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };

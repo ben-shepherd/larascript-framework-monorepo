@@ -12,6 +12,7 @@ export interface IHttpService {
     getConfig(): IExpressConfig | null;
     isEnabled(): boolean;
     route(): IRoute;
+    getPort(): number | null;
     getRegisteredRoutes(): TRouteItem[];
     getServer(): http.Server | null;
     close(): void;

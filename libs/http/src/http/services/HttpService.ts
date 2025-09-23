@@ -1,14 +1,14 @@
 import { IHttpConfig, IHttpService, IRoute, IRouter, MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
 import { BaseService } from '@larascript-framework/larascript-core';
 import expressClient from 'express';
+import http from 'http';
 import Middleware from '../base/Middleware.js';
 import EndRequestContextMiddleware from '../middleware/EndRequestContextMiddleware.js';
 import RequestIdMiddleware from '../middleware/RequestIdMiddleware.js';
 import StartSessionMiddleware from '../middleware/StartSessionMiddleware.js';
 import Route from '../router/Route.js';
 import RouterBindService from '../router/RouterBindService.js';
-import Http from './Http.js';
-
+import { default as HttpSingleton } from './Http.js';
 /**
  * ExpressService class
  * Responsible for initializing and configuring ExpressJS
@@ -19,6 +19,8 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
     declare config: IHttpConfig | null;
 
     private readonly app: expressClient.Express
+
+    private server: http.Server | null = null
 
     private routerBindService!: RouterBindService;
 
@@ -79,7 +81,7 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
             this.app.use(middleware as TExpressMiddlewareFn)
         }
 
-        Http.getInstance().getLoggerService()?.info('[ExpressService] middleware: ' + middleware.name)
+        HttpSingleton.getInstance().getLoggerService()?.info('[ExpressService] middleware: ' + middleware.name)
     }
 
     /**
@@ -90,7 +92,7 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
         const port = this.config?.port
 
         return new Promise(resolve => {
-            this.app.listen(port, () => resolve())
+            this.server = this.app.listen(port, () => resolve())
         })
     }
 
@@ -133,6 +135,21 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
      */
     public isEnabled(): boolean {
         return this.config?.enabled ?? false
+    }
+
+    /**
+     * Returns the server.
+     * @returns the server.
+     */
+    public getServer(): http.Server | null {
+        return this.server
+    }
+
+    /**
+     * Closes the server.
+     */
+    public close(): void {
+        this.server?.close()
     }
 
 }

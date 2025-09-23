@@ -1,7 +1,7 @@
-import { IGenericStorage } from "./IGenericStorage.t.js";
-import { IStorageConfig } from "./IStorageConfig.t.js";
+import { IGenericStorage } from "./IGenericStorage.js";
+import { IStorageConfig } from "./IStorageConfig.js";
 import { IStorageFile } from "./IStorageFile.js";
-import { IUploadedFile } from "./IUploadedFile.t.js";
+import { IUploadedFile } from "./IUploadedFile.js";
 import { FileSystemMeta } from "./meta.js";
 
 /**

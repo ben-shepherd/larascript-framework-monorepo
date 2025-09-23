@@ -9,7 +9,7 @@ import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IModel, ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IApiResponse, TRouteItem } from "@larascript-framework/contracts/http";
+import { IApiResponse, IHttpContext, TRouteItem } from "@larascript-framework/contracts/http";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 
 type TResponseOptions = {
@@ -43,7 +43,7 @@ abstract class AbastractBaseResourceService {
     abstract routeResourceType: string;
 
     // eslint-disable-next-line no-unused-vars
-    abstract handler(context: HttpContext): Promise<IApiResponse>;
+    abstract handler(context: IHttpContext): Promise<IApiResponse>;
 
     /**
      * Gets the normalized database primary key

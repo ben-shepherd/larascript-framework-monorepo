@@ -59,7 +59,7 @@ class Route implements IRoute {
      * Get the security rules for the router.
      */
     public static security(router: IRouter = new Router()): typeof SecurityRules {
-        return router.security();
+        return router.security() as typeof SecurityRules;
     }
 
 }

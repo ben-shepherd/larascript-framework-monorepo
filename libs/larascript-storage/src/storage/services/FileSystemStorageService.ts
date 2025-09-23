@@ -6,8 +6,7 @@ import {
   FileNotFoundException,
   InvalidStorageFileException,
 } from "../exceptions/index.js";
-import { FileSystemMeta, IGenericStorage } from "../interfaces/index.js";
-import { IUploadedFile } from "../interfaces/IUploadedFile.t.js";
+import { FileSystemMeta, IGenericStorage, IUploadedFile } from "../interfaces/index.js";
 import FileSystemStorageFileParser from "../parser/FileSystemStorageFileParser.js";
 import { createFileSystemStorageFile } from "../utils/index.js";
 

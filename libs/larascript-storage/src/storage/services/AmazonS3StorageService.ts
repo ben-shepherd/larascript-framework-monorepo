@@ -11,6 +11,7 @@ import {
 import {
   FileSystemMeta,
   IGenericStorage,
+  IStorageFile,
   IStorageService,
   S3Meta,
 } from "../interfaces/index.js";
@@ -119,7 +120,7 @@ export class AmazonS3StorageService
    * @throws {FileNotFoundException} When the source file does not exist
    */
   async put(
-    file: StorageFile<FileSystemMeta> | string,
+    file: IStorageFile<FileSystemMeta> | string,
     destination?: string,
   ): Promise<StorageFile<S3Meta>> {
     const parsedFile = this.parser.parseStorageFileOrString(

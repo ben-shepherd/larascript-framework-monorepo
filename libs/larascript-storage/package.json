@@ -40,6 +40,7 @@
   },
   "devDependencies": {
     "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/contracts": "workspace:*",
     "@larascript-framework/check-exports": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",

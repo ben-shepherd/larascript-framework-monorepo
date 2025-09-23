@@ -42,6 +42,7 @@
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-logger": "workspace:*",
     "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@types/body-parser": "^1.19.6",

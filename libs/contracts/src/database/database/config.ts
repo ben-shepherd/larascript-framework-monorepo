@@ -1,4 +1,4 @@
-import { IDatabaseAdapter, IDatabaseAdapterConstructor } from "./adapter.t.js";
+import { IDatabaseAdapter, IDatabaseAdapterConstructor } from "./adapter.js";
 
 export interface IDatabaseGenericConnectionConfig<
   Adapter extends IDatabaseAdapter = IDatabaseAdapter,

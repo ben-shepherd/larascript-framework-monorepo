@@ -1,4 +1,4 @@
-export type S3Meta = {
+ export type S3Meta = {
   Bucket?: string;
   ETag?: string;
   Key?: string;

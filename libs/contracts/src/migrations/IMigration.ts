@@ -1,4 +1,4 @@
-import { IDatabaseAdapter } from "../../../../../../../../dist/database/database/adapter.t.js";
+import { IDatabaseAdapter } from "@/database/database/adapter.js";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 
 /**

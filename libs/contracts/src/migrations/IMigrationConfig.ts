@@ -1,4 +1,4 @@
-import { ModelConstructor } from "../../../../../../../../dist/database/model/model.t.js";
+import { ModelConstructor } from "@/database/index.js";
 
 export interface IMigrationConfig
 {

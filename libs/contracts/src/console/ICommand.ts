@@ -1,5 +1,15 @@
- 
-import { ParsedArgumentsArray } from "../parsers/CommandArgumentParser.js";
+export const KeyPair = "KeyPair";
+export type KeyPairArguementType = {
+  type: typeof KeyPair;
+  key: string;
+  value: string;
+};
+
+export const ValueOnly = "OnlyValue";
+export type OnlyArguementType = { type: typeof ValueOnly; value: string };
+
+export type ParsedArguement = OnlyArguementType | KeyPairArguementType;
+export type ParsedArgumentsArray = Array<ParsedArguement>;
 
 export type ICommandConstructor<T extends ICommand = ICommand> = new (
   ...args: any[]

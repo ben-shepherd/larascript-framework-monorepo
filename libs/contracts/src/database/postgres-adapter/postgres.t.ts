@@ -1,8 +1,8 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import pg from "pg";
 import { QueryInterface, Sequelize } from "sequelize";
-import { IDatabaseAdapter } from "../database/adapter.t.js";
-import { IDatabaseSchema } from "../database/schema.t.js";
+import { IDatabaseAdapter } from "../database/adapter.js";
+import { IDatabaseSchema } from "../database/schema.js";
 import { IEloquent } from "../eloquent/eloquent.t.js";
 import { IModel } from "../model/model.t.js";
 import { IPostgresConfig } from "./IPostgresConfig.js";

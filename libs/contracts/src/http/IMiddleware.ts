@@ -1,5 +1,5 @@
 import { NextFunction, Request, Response } from "express";
-import { IExpressable, IHttpContext } from "./index.js";
+import { ICreateExpressHandler, IHttpContext } from "./index.js";
 import { TRouteItem } from "./IRouter.js";
 
 
@@ -31,7 +31,7 @@ export type MiddlewareConstructor = {
  * This allows middleware to be defined as classes while still being compatible
  * with Express's middleware system through the createExpressMiddleware conversion.
  */
-export interface IMiddleware<Config extends unknown = unknown> extends IExpressable<TExpressMiddlewareFn> {
+export interface IMiddleware<Config extends unknown = unknown> extends ICreateExpressHandler<TExpressMiddlewareFn> {
     config: Config;
     getContext(): IHttpContext;
     setConfig(config: Config): IMiddleware;

@@ -1,5 +1,6 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
+import { ForbiddenResourceError } from "@/http/exceptions/ForbiddenResourceError.js";
 import SecurityException from "@/http/exceptions/SecurityException.js";
 import AbstractSecurityRule from "@/http/security/abstract/AbstractSecurityRule.js";
 
@@ -30,7 +31,13 @@ class HasRoleRule extends AbstractSecurityRule<HasRoleConfig> {
             throw new SecurityException('No roles provided');
         }
 
-        return user.getAclRoles()?.some(role => rolesArr.includes(role)) ?? false;
+        const containsRoles = user.getAclRoles()?.some(role => rolesArr.includes(role)) ?? false;
+
+        if(!containsRoles) {
+            throw new ForbiddenResourceError('User does not have the required roles');
+        }
+
+        return true;
     }
 
 }

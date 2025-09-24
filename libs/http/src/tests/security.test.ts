@@ -14,6 +14,7 @@ import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/da
 import { EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import { IStorageService } from "@larascript-framework/larascript-storage";
+import { Request, Response } from "express";
 import path from "path";
 
 describe("httpService test suite", () => {
@@ -93,5 +94,35 @@ describe("httpService test suite", () => {
             expect(body.exactMatch).toBe(true);
             expect(httpService.getRegisteredRoutes()).not.toBeNull();
         })
+    })
+
+    test("rate limited rule", async () => {
+        const router = new HttpRouter();
+        const security = [
+            router.security().rateLimited(1, 60),
+        ];
+        router.get('/test', (req: Request, res: Response) => {
+            res.send({
+                message: 'test',
+            });
+        }, {
+            security: security,
+        });
+
+        httpService.bindRoutes(router);
+        await httpService.listen();
+
+        const response = await fetch(`http://localhost:${serverPort}/test`, {
+            method: 'GET',
+        });
+        const body = await response.json() as { message: string };
+        expect(response.status).toBe(200);
+
+        const response2 = await fetch(`http://localhost:${serverPort}/test`, {
+            method: 'GET',
+        });
+        const status = response2.status;
+        const body2 = await response2.json() as { message: string };
+        expect(response2.status).toBe(429);
     })
 });

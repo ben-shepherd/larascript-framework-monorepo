@@ -2,7 +2,6 @@ import Middleware from "../base/Middleware.js";
 import HttpContext from "../context/HttpContext.js";
 import { SecurityEnum } from "../enums/SecurityEnum.js";
 import { ForbiddenResourceError } from "../exceptions/ForbiddenResourceError.js";
-import { RateLimitedExceededError } from "../exceptions/RateLimitedExceededError.js";
 import SecurityException from "../exceptions/SecurityException.js";
 import responseError from "../handlers/responseError.js";
 import HasRoleRule from "../security/rules/HasRoleRule.js";
@@ -84,7 +83,7 @@ class SecurityMiddleware extends Middleware {
         if (await this.applyHasScopeSecurity(context) === null) {
             return;
         }
-                
+   
         this.next();
     }
 
@@ -114,10 +113,7 @@ class SecurityMiddleware extends Middleware {
         const securityHasRoles = SecurityReader.findMany(routeOptions, SecurityEnum.HAS_ROLE) as HasRoleRule[];
  
         for(const securityHasRole of securityHasRoles) {
-            if (!(await securityHasRole.execute(context))) {
-                responseError(context.getRequest(), context.getResponse(), new ForbiddenResourceError(), 403)
-                return null;
-            }
+            await securityHasRole.execute(context)
         }
     
     }
@@ -160,12 +156,9 @@ class SecurityMiddleware extends Middleware {
     
         // Find the rate limited security
         const securityRateLimits = SecurityReader.findMany(routeOptions, SecurityEnum.RATE_LIMITED) as RateLimitedRule[];
-    
+
         for(const securityRateLimit of securityRateLimits) {
-            if (!(await securityRateLimit.execute(context))) {
-                responseError(context.getRequest(), context.getResponse(), new RateLimitedExceededError(), 429)
-                return null;
-            }
+            await securityRateLimit.execute(context)
         }
     }
 

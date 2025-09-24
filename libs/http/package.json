@@ -12,7 +12,7 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "jest --passWithNoTests",
+    "test": "npm run db:postgres:restart && jest --passWithNoTests && npm run db:postgres:down",
     "test:watch": "jest --watch --passWithNoTests",
     "test:coverage": "jest --coverage --passWithNoTests",
     "build": "tsc --skipLibCheck && npx tsc-alias",
@@ -31,7 +31,10 @@
     "upstream:fetch": "git fetch upstream",
     "upstream:merge": "git fetch upstream && git merge upstream/main",
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
-    "depcheck": "depcheck"
+    "depcheck": "depcheck",
+    "db:postgres:restart": "npm run db:postgres:down && npm run db:postgres:up",
+    "db:postgres:down": "cd ./docker && docker-compose -f docker-compose.postgres.yml down -v",
+    "db:postgres:up": "cd ./docker && docker-compose -f docker-compose.postgres.yml up -d"
   },
   "devDependencies": {
     "@larascript-framework/async-session": "workspace:*",
@@ -45,6 +48,7 @@
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*",
     "@types/body-parser": "^1.19.6",
     "tsc-alias": "^1.8.16"
   },

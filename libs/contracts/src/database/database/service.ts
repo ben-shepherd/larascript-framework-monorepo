@@ -1,8 +1,8 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IMongoDbAdapter } from "../mongodb-adapter/mongodb.t.js";
 import { IPostgresAdapter } from "../postgres-adapter/postgres.t.js";
-import { IDatabaseAdapter } from "./adapter.t.js";
-import { IDatabaseSchema } from "./schema.t.js";
+import { IDatabaseAdapter } from "./adapter.js";
+import { IDatabaseSchema } from "./schema.js";
 
 export interface IConnectionTypes extends Record<string, IDatabaseAdapter> {}
 

@@ -1,5 +1,5 @@
 import { IStorageFile } from "./IStorageFile.js";
-import { IStorageService } from "./IStorageService.t.js";
+import { IStorageService } from "./IStorageService.js";
 
 export interface IGenericStorage {
   getStorageService(): IStorageService;

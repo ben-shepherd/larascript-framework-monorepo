@@ -2,8 +2,8 @@ import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IEloquent } from "../eloquent/eloquent.t.js";
 import { IRelationshipResolver } from "../eloquent/relationships.t.js";
 import { IModel } from "../model/model.t.js";
-import { IPrepareOptions } from "./options.t.js";
-import { IDatabaseSchema } from "./schema.t.js";
+import { IPrepareOptions } from "./options.js";
+import { IDatabaseSchema } from "./schema.js";
 
 export interface IAdapterComposerFileName {
   fullName: string;

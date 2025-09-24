@@ -1,6 +1,7 @@
-export * from "./adapter.t.js";
-export * from "./config.t.js";
-export * from "./options.t.js";
-export * from "./schema.t.js";
-export * from "./service.t.js";
-export * from "./validator.t.js";
+export * from "./adapter.js";
+export * from "./config.js";
+export * from "./options.js";
+export * from "./schema.js";
+export * from "./service.js";
+export * from "./validator.js";
+

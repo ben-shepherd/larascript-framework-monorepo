@@ -1,6 +1,6 @@
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { Db, MongoClient } from "mongodb";
-import { IDatabaseSchema } from "../database/schema.t.js";
+import { IDatabaseSchema } from "../database/schema.js";
 import { IRelationshipResolver } from "../eloquent/relationships.t.js";
 import { IModel } from "../model/model.t.js";
 

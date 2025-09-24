@@ -2,7 +2,8 @@
 import { NextFunction, Request, Response } from "express";
 import HttpContext from "../context/HttpContext.js";
 import responseError from "../handlers/responseError.js";
-import { IExpressable, IHttpContext, IMiddleware, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TRouteItem } from "../interfaces/index.js";
+import { ICreateExpressHandler, IHttpContext, IMiddleware, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TRouteItem } from "../interfaces/index.js";
+import { AbstractMiddlewareException } from "./AbstractMiddlewareException.js";
 ;
 
 /**
@@ -35,7 +36,7 @@ import { IExpressable, IHttpContext, IMiddleware, MiddlewareConstructor, TBaseRe
  * while maintaining full compatibility with Express's middleware system.
  */
 
-abstract class Middleware<Config extends unknown = unknown> implements IMiddleware, IExpressable<TExpressMiddlewareFn> {
+abstract class Middleware<Config extends unknown = unknown> implements IMiddleware, ICreateExpressHandler<TExpressMiddlewareFn> {
 
     /**
      * @type {Config}
@@ -69,7 +70,7 @@ abstract class Middleware<Config extends unknown = unknown> implements IMiddlewa
             middleware.setConfig(config)
         }
 
-        return middleware.toExpressable(routeItem)
+        return middleware.toExpressHandler(routeItem)
     }
 
     /**
@@ -117,7 +118,7 @@ abstract class Middleware<Config extends unknown = unknown> implements IMiddlewa
     /**
      * @returns {TExpressMiddlewareFn}
      */
-    public toExpressable(routeItem?: TRouteItem): TExpressMiddlewareFn {
+    public toExpressHandler(routeItem?: TRouteItem): TExpressMiddlewareFn {
         return async (req: Request, res: Response, next: NextFunction | undefined) => {
             try {
                 const context = new HttpContext(req as TBaseRequest, res, next, routeItem)
@@ -126,7 +127,7 @@ abstract class Middleware<Config extends unknown = unknown> implements IMiddlewa
 
             }
             catch(err) {
-                responseError(req, res, err as Error)
+                responseError(req, res, err as Error, (err as AbstractMiddlewareException)?.code ?? 500)
             }
         }
     }

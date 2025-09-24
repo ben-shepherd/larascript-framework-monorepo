@@ -4,6 +4,7 @@ import Controller from '../base/Controller.js';
 import Middleware from '../base/Middleware.js';
 import HttpContext from '../context/HttpContext.js';
 import RouteException from '../exceptions/RouteException.js';
+import SecurityMiddleware from '../middleware/SecurityMiddleware.js';
 import Http from '../services/Http.js';
 import MiddlewareUtil from '../utils/middlewareUtil.js';
 
@@ -81,6 +82,9 @@ class RouterBindService {
     public bindRoutes(router: IRouter): void {
         router.getRegisteredRoutes().forEach(routeItem => {
 
+            // Apply security middleware
+            this.applySecurityMiddleware(routeItem)
+
             // Add the route
             this.bindRoute(routeItem)
 
@@ -92,6 +96,24 @@ class RouterBindService {
         })
     }
 
+
+    /**
+     * Applies the security middleware to the given route item.
+     * 
+     * @param routeItem The route item to apply the security middleware to
+     */
+    protected applySecurityMiddleware(routeItem: TRouteItem): void {
+        const undefinedOrEmptySecurityRules = routeItem.security?.length === 0 || routeItem.security === undefined
+
+        if(undefinedOrEmptySecurityRules) {
+            return
+        }
+        if(!routeItem.middlewares) {
+            routeItem.middlewares = []
+        }
+        
+        (routeItem as TRouteItem & { middlewares: TExpressMiddlewareFnOrClass[] }).middlewares.push(SecurityMiddleware.create(undefined, routeItem))
+    }
     /**
      * Binds the OPTIONS route for the given route item.
      * 

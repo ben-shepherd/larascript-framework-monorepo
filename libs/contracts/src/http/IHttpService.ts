@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import express from "express";
-import http from "http";
+import http from "../../../../../../../../dist/http";
 import IExpressConfig from "./IHttpConfig.js";
 import { IRoute, IRouter, TRouteItem } from "./IRouter.js";
 

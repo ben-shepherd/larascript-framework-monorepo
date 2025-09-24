@@ -89,8 +89,8 @@ abstract class AbstractSecurityRule<
      * 
      * @returns The rule options
      */
-    public getRuleOptions(): RuleOptions {
-        return this.options as RuleOptions;
+    public getRuleOptions<T = RuleOptions>(): T {
+        return this.options as T;
     }
 
     /**

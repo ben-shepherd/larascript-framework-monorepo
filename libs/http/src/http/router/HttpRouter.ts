@@ -239,12 +239,18 @@ class HttpRouter implements IRouter {
         this.registered.push(routeItem);
     }
 
+    /**
+     * Get the middleware array for the route item.
+     */
     private getRouteItemMiddlewareArray(options: TPartialRouteItemOptions): TExpressMiddlewareFnOrClass[] {
         const optionsMiddleware = options?.middlewares ?? [] as TExpressMiddlewareFnOrClass[];
         const optionsMiddlewareArray = Array.isArray(optionsMiddleware) ? optionsMiddleware : [optionsMiddleware];
         return optionsMiddlewareArray;
     }
 
+    /**
+     * Get the middleware array for the base options.
+     */
     private getBaseMiddlewareArray() {
         const currentMiddleware = (() => {
             const baseOptionsMiddleware = this.baseOptions?.middlewares ?? [] as TExpressMiddlewareFnOrClass[];
@@ -254,6 +260,9 @@ class HttpRouter implements IRouter {
         return currentMiddlewareArray;
     }
 
+    /**
+     * Get the prefix without the prefix forward slash.
+     */
     protected getPrefix(prefix: string): string {
         const prefixWithoutPrefixForwardSlash = prefix.startsWith('/') ? prefix.slice(1) : prefix;
         return prefixWithoutPrefixForwardSlash;

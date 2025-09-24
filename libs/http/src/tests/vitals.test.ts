@@ -70,8 +70,6 @@ describe("httpService test suite", () => {
             queryBuilderService: {} as unknown as IEloquentQueryBuilderService,
         });
         httpService.init()
-
-        await new Promise(resolve => setTimeout(resolve, 100));
         await httpService.listen();
         
         // Get the actual port the server is listening on
@@ -79,10 +77,9 @@ describe("httpService test suite", () => {
 
         MiddlewareSingleton.getInstance().resetCounter();
     });
-
+    
     afterEach(async () => {
         httpService.close();
-        await new Promise(resolve => setTimeout(resolve, 100));
     });
 
     describe("routes", () => {

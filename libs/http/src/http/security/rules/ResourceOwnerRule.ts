@@ -5,13 +5,11 @@ import { RouteResourceTypes } from "@/http/router/RouterResource.js";
 import { IModel } from "@larascript-framework/contracts/database/model";
 import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
 
-type TResourceOwnerRuleOptions = {
+type ResourceOwnerConfig = {
     attribute: string;
 }
 
-export type TRouteResourceTypes = (typeof RouteResourceTypes)[keyof typeof RouteResourceTypes]
-
-class ResourceOwnerRule extends AbstractSecurityRule<TResourceOwnerRuleOptions, TRouteResourceTypes, TRouteResourceTypes> {
+class ResourceOwnerRule extends AbstractSecurityRule<ResourceOwnerConfig, RouteResourceTypes, RouteResourceTypes> {
 
     protected readonly id = SecurityEnum.RESOURCE_OWNER;
 

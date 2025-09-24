@@ -1,5 +1,5 @@
 {
-  "name": "@larascript-framework/http",
+  "name": "@larascript-framework/larascript-http",
   "type": "module",
   "version": "0.1.0",
   "description": "HTTP module for the Larascript Framework.",
@@ -33,8 +33,8 @@
     "upstream:rebase": "git fetch upstream && git rebase upstream/main",
     "depcheck": "depcheck",
     "db:postgres:restart": "npm run db:postgres:down && npm run db:postgres:up",
-    "db:postgres:down": "cd ./docker && docker-compose -f docker-compose.postgres.yml down -v",
-    "db:postgres:up": "cd ./docker && docker-compose -f docker-compose.postgres.yml up -d"
+    "db:postgres:down": "cd ./docker && docker-compose -f ../../test-database/docker/docker-compose.postgres.yml down -v",
+    "db:postgres:up": "cd ./docker && docker-compose -f ../../test-database/docker/docker-compose.postgres.yml up -d"
   },
   "devDependencies": {
     "@larascript-framework/async-session": "workspace:*",
@@ -47,6 +47,7 @@
     "@larascript-framework/larascript-utils": "workspace:*",
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/test-database": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/larascript-database": "workspace:*",
     "@types/body-parser": "^1.19.6",

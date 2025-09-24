@@ -1,15 +1,10 @@
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import Http from "@/http/services/Http.js";
 import { IEloquent } from "@larascript-framework/contracts/database/eloquent";
-import { IModel, ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IResourceData, IResourceRepository, IResourceRepositoryConfig } from "@larascript-framework/contracts/http";
+import { IModel } from "@larascript-framework/contracts/database/model";
+import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData } from "@larascript-framework/contracts/http";
 import { AbstractResourceRepository } from "../abstract/AbstractResourceRepository.js";
 
-type DatabaseResourceRepositoryConfig<M extends IModel = IModel> = IResourceRepositoryConfig & {
-    modelConstructor: ModelConstructor<M>;
-}
-
-export type IDatabaseResourceRepository<M extends IModel = IModel> = IResourceRepository<IResourceData, DatabaseResourceRepositoryConfig<M>>;
 
 export class DatabaseResourceRepository extends AbstractResourceRepository implements IDatabaseResourceRepository
 {
@@ -76,8 +71,17 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
         return this.queryBuilder.where(query).count();
     }
     
-    getResourcesPage(query: object, page: number, limit: number): Promise<IResourceData[]> {
-        throw new Error("Method not implemented.");
+    async getResourcesPage(query: object, page: number, limit: number): Promise<IResourceData[]> {
+        const skip = (page - 1) * limit;
+        return await this.toObjectArray(
+            (
+                await this.queryBuilder
+                .where(query)
+                .skip(skip)
+                .take(limit)
+                .get()
+            ).toArray()
+        ) as IResourceData[];
     }
     
     private async toObject(model?: IModel): Promise<IResourceData | undefined> {

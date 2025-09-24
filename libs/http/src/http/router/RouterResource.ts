@@ -3,6 +3,8 @@ import ResourceController from "../resources/controller/ResourceController.js"
 import HttpRouter from "./HttpRouter.js"
 import Route from "./Route.js"
 
+export type RouteResourceTypes = (typeof RouteResourceTypes)[keyof typeof RouteResourceTypes]
+
 
 /**
  * Resource types that can be utilized when adding Security to a route

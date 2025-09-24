@@ -5,12 +5,12 @@ import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.j
 import Http from "@/http/services/Http.js";
 import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
 
-type TEnableScopeRuleOptions = {
+export type ScopeRuleConfig = {
     scopes: string | string[];
     exactMatch: boolean
 }
 
-class ScopeRule extends AbstractSecurityRule<TEnableScopeRuleOptions> {
+class ScopeRule extends AbstractSecurityRule<ScopeRuleConfig> {
 
     protected readonly id = SecurityEnum.ENABLE_SCOPES;
     

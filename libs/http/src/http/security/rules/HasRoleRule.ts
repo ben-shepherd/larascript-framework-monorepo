@@ -3,11 +3,11 @@ import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
 import SecurityException from "@/http/exceptions/SecurityException.js";
 import AbstractSecurityRule from "@/http/security/abstract/AbstractSecurityRule.js";
 
-type THasRoleRuleOptions = {
+type HasRoleConfig = {
     roles: string | string[];
 }
 
-class HasRoleRule extends AbstractSecurityRule<THasRoleRuleOptions> {
+class HasRoleRule extends AbstractSecurityRule<HasRoleConfig> {
 
     protected readonly id = SecurityEnum.HAS_ROLE;
 

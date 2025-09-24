@@ -6,12 +6,12 @@ import { Request } from "express";
 import { RateLimitedExceededError } from "../../exceptions/RateLimitedExceededError.js";
 import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
 
-type TRateLimitedRuleOptions = {
+type RateLimitedConfig = {
     limit: number;
     perMinuteAmount: number;
 }
 
-class RateLimitedRule extends AbstractSecurityRule<TRateLimitedRuleOptions> {
+class RateLimitedRule extends AbstractSecurityRule<RateLimitedConfig> {
 
     protected id = SecurityEnum.RATE_LIMITED;
 

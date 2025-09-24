@@ -16,7 +16,7 @@ export type TSecurityRuleConstructor<Rule extends ISecurityRule = ISecurityRule>
 
 export interface ISecurityRule<RuleOptions extends object = object> {
     setRuleOptions(options: RuleOptions): ISecurityRule<RuleOptions>;
-    getRuleOptions(): RuleOptions
+    getRuleOptions<T = RuleOptions>(): T
     getId(): string
     getWhen(): string[] | null
     getNever(): string[] | null

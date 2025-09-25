@@ -46,7 +46,7 @@ export class TestAuthEnvironment extends BaseSingleton<Config> {
     }
 
     static create(config?: Partial<Config>, _authConfig: IAuthConfig = authConfig, _aclConfig: IAclConfig = aclConfig) {
-        TestAuthEnvironment.getInstance(config))
+        TestAuthEnvironment.getInstance(config)
         TestAuthEnvironment.getInstance().authConfig = _authConfig;
         TestAuthEnvironment.getInstance().aclConfig = _aclConfig;
         return TestAuthEnvironment.getInstance();

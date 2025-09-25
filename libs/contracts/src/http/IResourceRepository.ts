@@ -19,10 +19,13 @@ export interface IResourceRepository<
     getConfig(): C;
     getResource(id: string): Promise<T | undefined>;
     createResource(data: T): Promise<T>;
-    updateResource(id: string, data: T): Promise<T>;
+    createResourceWithoutSaving(data: T): Promise<T>;
+    updateResource(data: T): Promise<T>;
     deleteResource(id: string): Promise<void>;
     getResources(query: object): Promise<T[]>;
     getResourcesCount(query: object): Promise<number>;
     getResourcesPage(query: object, page: number, limit: number): Promise<T[]>;
+    getResourceOwnerAttribute(): string;
+    stripSensitiveData(data: T): Promise<T>;
 }
 

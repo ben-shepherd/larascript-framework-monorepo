@@ -26,7 +26,7 @@ export const DEFAULTS: Options = {
     withEloquentQueryBuilder: true,
 }
 
-export class TestEnvironment extends BaseSingleton<Options>{
+export class TestDatabaseEnvironment extends BaseSingleton<Options>{
     databaseService!: DatabaseService;
     logger: LoggerService | undefined;
     console: IConsoleService | undefined;
@@ -41,8 +41,8 @@ export class TestEnvironment extends BaseSingleton<Options>{
         });
     }
 
-    static create(options: Options = {} as Options) {
-        return TestEnvironment.getInstance(options);
+    static create(options: Partial<Options> = {} as Partial<Options>) {
+        return TestDatabaseEnvironment.getInstance(options);
     }
     
     withLogger() {

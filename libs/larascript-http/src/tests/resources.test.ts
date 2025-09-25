@@ -178,8 +178,76 @@ describe("resources test suite", () => {
     });
 
     describe("update resource", () => {
-        test("should be able to update a resource", async () => {
+        test("should not be able to update a resource while not being authorized", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+            })
+            httpService.bindRoutes(router);
     
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test Updated',
+                    age: 20
+                }),
+            })
+
+            expect(response.status).toBe(401)
+        })
+
+        test("should be able to update a resource while being authorized", async () => {
+            /**
+             * Unfinished: Update ResourceUpdateService
+             */
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+    
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test Updated',
+                    age: 20
+                }),
+            })
+
+            const body = await response.json() as { 
+                data: {
+                    id: string,
+                    name: string,
+                    userId: string,
+                    age: number
+                }
+             }
+
+            expect(response.status).toBe(200)
+            expect(body.data.name).toBe('Test Updated')
         })
 
         test("should fail if validation fails", async () => {

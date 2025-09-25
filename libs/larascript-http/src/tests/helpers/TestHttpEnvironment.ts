@@ -80,6 +80,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
         return class extends Middleware {
             async execute(context: IHttpContext): Promise<void> {
                 await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authorizeUser(user);
+                context.getRequest().user = user;
                 this.next();
             }
         }

@@ -2,14 +2,11 @@ import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
-import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import QueryFilters from "@/http/utils/QueryFilters.js";
 import SortOptions from "@/http/utils/SortOptions.js";
-import stripGuardedResourceProperties from "@/http/utils/stripGuardedResourceProperties.js";
-import { IEloquent } from "@larascript-framework/contracts/database/eloquent";
 import { IModelAttributes } from "@larascript-framework/contracts/database/model";
-import { IPageOptions, TRouteItem } from "@larascript-framework/contracts/http";
+import { IPageOptions, ISortOption, TRouteItem } from "@larascript-framework/contracts/http";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 
 /**
@@ -50,73 +47,36 @@ class ResourceIndexService extends AbastractBaseResourceService {
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes[]>> {
 
-
         // Get the route options
         const routeOptions = context.getRouteItem()
 
         if(!routeOptions) {
             throw new ResourceException('Route options are required')
         }
+
+        const repository = context.resourceContext.repository;
         
         // Build the page options, filters
         const pageOptions = this.buildPageOptions(context);
         const filters = this.getQueryFilters(context);
-
-        // Create a query builder
-        const builder = Http.getInstance().getQueryBuilderService().builder(this.getModelConstructor(context));
-
-        // Apply the filters
-        this.applyFilters(builder, filters);
-        
-        // Apply the page options
-        if(typeof pageOptions.pageSize === 'number' && typeof pageOptions.skip === 'number') {
-            builder.take(pageOptions.pageSize ?? null)
-                .skip(pageOptions.skip)
-        }
-
-        // Apply the sort options
         const sortOptions = this.buildSortOptions(context);
 
-        if(sortOptions) {
-            builder.orderBy(sortOptions.field, sortOptions.sortDirection)
-        }
-
-
-        // Check if the resource owner security applies to this route and it is valid
+            // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters
         if(await this.validateResourceOwnerApplicable(context)) {
-            const attribute = this.getResourceAttribute(routeOptions);
-            const userId = context.getRequest().user?.getId() as string
-            builder.where(attribute, '=', userId)
+            const userId = context.getUserOrFail().getId()
+            filters[repository.getResourceOwnerAttribute()] = userId
         }
 
-        // Fetch the results
-        const results  = (await builder.get()).toArray()
-        const attributes = await stripGuardedResourceProperties(results)
+        let resultDataArray = await repository.getResourcesPage(filters, pageOptions.page, pageOptions.pageSize ?? 10, sortOptions);
+
+        // Strip the sensitive data
+        resultDataArray = await Promise.all(resultDataArray.map(resultData => repository.stripSensitiveData(resultData)))
 
         // Send the results
-        return this.apiResponse<IModelAttributes[]>(context, attributes, 200, {
+        return this.apiResponse<IModelAttributes[]>(context, resultDataArray, 200, {
             showPagination: true
         })
-    }
-
-    /**
-     * Applies the filters to the builder
-     * @param builder The builder
-     * @param filters The filters
-     */
-    applyFilters(builder: IEloquent<any, any>, filters: object) {
-        if(Object.keys(filters).length > 0) {
-
-            for(const [key, value] of Object.entries(filters)) {
-                if(value === 'true' || value === 'false') {
-                    builder.where(key, '=', value === 'true')
-                }
-                else {
-                    builder.where(key, 'like', '%' + value + '%')
-                }
-            }
-        }
     }
 
     /**
@@ -141,31 +101,33 @@ class ResourceIndexService extends AbastractBaseResourceService {
         const baseFilters = options?.resource?.filters ?? {};
         const allowedFields = options?.resource?.searching?.fields ?? []
         const requestFilters = (new QueryFilters).parseRequest(req, { allowedFields: allowedFields }).getFilters();
+        const filters = {
+            ...baseFilters,
+            ...requestFilters
+        }
 
         // Build the filters with percent signs
         // Example: { title: 'foo' } becomes { title: '%foo%' }
-        const filters = this.filtersWithPercentSigns({
-            ...baseFilters,
-            ...requestFilters
-        })
+        // Note: LIKE queries are not supported for now (they would  need to be implemented in the repository)
+        // const filters = this.filtersWithPercentSigns({
+        //     ...baseFilters,
+        //     ...requestFilters
+        // })
 
         // Strip the non-resource fields from the filters
         // Example: { title: 'foo', badProperty: '123' } becomes { title: 'foo' }
-        const filtersStrippedNonResourceFields = this.stripNonResourceFields(context, filters)
-        
-        return filtersStrippedNonResourceFields
+        return this.stripNonResourceFields(filters, allowedFields)
     }
 
     /**
      * Strips the non-resource fields from the filters
      * 
      * @param {object} filters - The filters object
+     * @param {string[]} allowedFields - The allowed fields
      * @returns {object} - The stripped filters object
      */
-    stripNonResourceFields(context: HttpContext, filters: object): object {
-        const resourceFields = this.getModelConstructor(context).getFields()
-
-        return Object.keys(filters).filter(key => resourceFields.includes(key)).reduce((acc, key) => {
+    stripNonResourceFields(filters: object, allowedFields: string[]): object {
+        return Object.keys(filters).filter(key => allowedFields.includes(key)).reduce((acc, key) => {
             acc[key] = filters[key];
             return acc;
         }, {});
@@ -223,23 +185,19 @@ class ResourceIndexService extends AbastractBaseResourceService {
      * Builds the sort options
      * 
      * @param {BaseRequest} req - The request object
-     * @returns {SortOptions} - The sort options
+     * @returns {ISortOption[]} - The sort options
      */
-    buildSortOptions(context: HttpContext): SortOptions | undefined {
-        const req = context.getRequest()
-        const routeOptions = context.getRouteItem() as TRouteItem
-        const sortOptions = routeOptions.resource?.sorting;
-        const result = SortOptions.parseRequest(req, sortOptions);
-        
-        // Check if the sorting field is a valid field on the model
-        if(!this.getModelConstructor(context).getFields().includes(result.field)) {
-            return undefined
-        }
+    buildSortOptions(context: HttpContext): ISortOption[] {
+        const sortOptions = SortOptions.parseRequest(
+            context.getRequest(),
+            context.resourceContext.options.sorting
+        );
 
-        return result
+        return [{
+            field: sortOptions.field,
+            sortDirection: sortOptions.sortDirection
+        }];
     }
-
-
 
 }
 

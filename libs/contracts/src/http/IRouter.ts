@@ -1,7 +1,7 @@
 /* eslint-disable no-unused-vars */
-import { IModel, ModelConstructor } from "../database/index.js";
 import { CustomValidatorConstructor } from "../validator/index.js";
 import { ControllerConstructor } from "./IController.js";
+import { TDataSource } from "./IDataSource.js";
 import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";
 import { ISecurityRule, ISecurityRules } from "./ISecurity.js";
 import { TSortDirection } from "./ISorting.js";
@@ -74,36 +74,14 @@ export type TRouteItem = {
     validator?: CustomValidatorConstructor | CustomValidatorConstructor[];
     resource?: {
         type: TResourceType
-        modelConstructor: ModelConstructor<IModel>;
-
-        filters?: object;
-        scopes?: string[];
-        searching?: {
-            fields?: string[];
-        },
-        paginate?: {
-            pageSize?: number;
-            allowPageSizeOverride?: boolean;
-        },
-        sorting?: {
-            fieldKey: string;
-            directionKey: string;
-            defaultField?: string;
-            defaultDirection?: TSortDirection;
-        },
-        validation?: {
-            create?: CustomValidatorConstructor;
-            update?: CustomValidatorConstructor;
-            delete?: CustomValidatorConstructor;
-        }
-    }
+    } & TRouteResourceOptions
 }
 
 export type TRouteResourceOptions = {
     prefix: string;
-    resource: ModelConstructor<IModel>;
     security?: ISecurityRule[];
     middlewares?: TExpressMiddlewareFnOrClass | TExpressMiddlewareFnOrClass[];
+    datasource?: TDataSource;
     scopes?: {
         index?: string[];
         show?: string[];

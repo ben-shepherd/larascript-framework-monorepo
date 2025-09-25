@@ -2,7 +2,7 @@ import ResourceException from "@/http/exceptions/ResourceException.js";
 import Http from "@/http/services/Http.js";
 import { IEloquent, TWhereClauseValue } from "@larascript-framework/contracts/database/eloquent";
 import { IModel } from "@larascript-framework/contracts/database/model";
-import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData } from "@larascript-framework/contracts/http";
+import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData, ISortOption } from "@larascript-framework/contracts/http";
 import { Model } from "@larascript-framework/larascript-database";
 import { AbstractResourceRepository } from "../abstract/AbstractResourceRepository.js";
 
@@ -133,9 +133,17 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param query Filter conditions.
      * @returns Array of matching resources as plain objects.
      */
-    async getResources(query: object): Promise<IResourceData[]> {
+    async getResources(query: object, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
+        const builder = this.queryBuilder.where(query);
+
+        if(sortOptions) {
+            sortOptions.forEach(sortOption => {
+                builder.orderBy(sortOption.field, sortOption.sortDirection);
+            });
+        }
+
         return await this.toObjectArray(
-            (await this.queryBuilder.where(query).get()).toArray()
+            (await builder.get()).toArray()
         ) as IResourceData[];
     }
 
@@ -155,16 +163,19 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param limit Number of items per page.
      * @returns Resources for the requested page as plain objects.
      */
-    async getResourcesPage(query: object, page: number, limit: number): Promise<IResourceData[]> {
+    async getResourcesPage(query: object, page: number, limit: number, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
+        
         const skip = (page - 1) * limit;
+        const builder = this.queryBuilder.where(query).skip(skip).take(limit);
+
+        if(sortOptions) {
+            sortOptions.forEach(sortOption => {
+                builder.orderBy(sortOption.field, sortOption.sortDirection);
+            });
+        }
+        
         return await this.toObjectArray(
-            (
-                await this.queryBuilder
-                .where(query)
-                .skip(skip)
-                .take(limit)
-                .get()
-            ).toArray()
+            (await builder.get()).toArray()
         ) as IResourceData[];
     }
     

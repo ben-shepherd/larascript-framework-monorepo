@@ -12,7 +12,8 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "npm run db:postgres:restart && jest --passWithNoTests && npm run db:postgres:down",
+    "test": "npm run db:postgres:restart && jest --runInBand --passWithNoTests && npm run db:postgres:down",
+    "test:nodb": "jest --runInBand --passWithNoTests",
     "test:watch": "jest --watch --passWithNoTests",
     "test:coverage": "jest --coverage --passWithNoTests",
     "build": "tsc --skipLibCheck && npx tsc-alias -p tsconfig.json -o dist -D dist",
@@ -42,16 +43,16 @@
     "@larascript-framework/contracts": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-logger": "workspace:*",
-    "@larascript-framework/larascript-utils": "workspace:*",
-    "@larascript-framework/larascript-storage": "workspace:*",
-    "@larascript-framework/test-helpers": "workspace:*",
-    "@larascript-framework/test-database": "workspace:*",
-    "@larascript-framework/test-auth": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
-    "@larascript-framework/larascript-database": "workspace:*",
     "@larascript-framework/larascript-auth": "workspace:*",
+    "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/larascript-database": "workspace:*",
+    "@larascript-framework/larascript-logger": "workspace:*",
+    "@larascript-framework/larascript-storage": "workspace:*",
+    "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/test-auth": "workspace:*",
+    "@larascript-framework/test-database": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "@types/body-parser": "^1.19.6",
     "tsc-alias": "^1.8.16"
   },
@@ -62,6 +63,8 @@
     }
   },
   "dependencies": {
-    "express": "^4.21.0"
+    "cors": "^2.8.5",
+    "express": "^4.21.0",
+    "express-busboy": "^10.1.0"
   }
 }

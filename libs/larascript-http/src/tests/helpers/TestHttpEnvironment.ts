@@ -2,7 +2,6 @@ import RequestContext from "@/http/context/RequestContext.js";
 import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { IAuthService } from "@larascript-framework/contracts/auth";
 import { IHttpService } from "@larascript-framework/contracts/http";
 import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
@@ -54,7 +53,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
             requestContext: new RequestContext(),
             logger: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
             asyncSession: this.asyncSession,
-            authService: {} as unknown as IAuthService,
+            authService: TestAuthEnvironment.getInstance().authService,
             databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : {} as unknown as IDatabaseService,
             queryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
         });

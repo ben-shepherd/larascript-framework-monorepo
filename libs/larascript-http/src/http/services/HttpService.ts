@@ -3,12 +3,14 @@ import { BaseService } from '@larascript-framework/larascript-core';
 import expressClient from 'express';
 import http from 'http';
 import Middleware from '../base/Middleware.js';
+import { baseConfig } from '../config/base.config.js';
 import EndRequestContextMiddleware from '../middleware/EndRequestContextMiddleware.js';
 import RequestIdMiddleware from '../middleware/RequestIdMiddleware.js';
 import StartSessionMiddleware from '../middleware/StartSessionMiddleware.js';
 import Route from '../router/Route.js';
 import RouterBindService from '../router/RouterBindService.js';
 import { default as HttpSingleton } from './Http.js';
+
 /**
  * ExpressService class
  * Responsible for initializing and configuring ExpressJS
@@ -30,17 +32,46 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
      * Config defined in @/config/http/express.ts
      * @param config 
      */
-    constructor(config: IHttpConfig | null = null) {
-        super(config)
+    constructor(config: Partial<IHttpConfig> | null = null) {
+        super(config as IHttpConfig)
+        this.config = this.getConfigWithDefaults(config)
         this.routerBindService = new RouterBindService()
         this.app = expressClient()
     }
 
+    /**
+     * Returns the config with the defaults
+     * @param config - The config
+     * @returns The config with the defaults
+     */
+    public getConfigWithDefaults(config: Partial<IHttpConfig> | null = null): IHttpConfig {
+        return {
+            ...baseConfig,
+            beforeAllMiddlewares: [
+                ...(baseConfig.beforeAllMiddlewares ?? []),
+                ...(this.config?.beforeAllMiddlewares ?? []),
+            ],
+            afterAllMiddlewares: [
+                ...(baseConfig.afterAllMiddlewares ?? []),
+                ...(this.config?.afterAllMiddlewares ?? []),
+            ],
+            extendExpress: (app) => {
+                baseConfig?.extendExpress?.(app)
+                config?.extendExpress?.(app)
+            },
+            ...(config ?? {}),
+        }
+    }
+
+    /**
+     * Initializes the HttpService
+     */
     public init() {
         if (!this.config) {
             throw new Error('Config not provided');
         }
 
+        // Execute the extendExpress config option
         this.extendExpress()        
     }
 

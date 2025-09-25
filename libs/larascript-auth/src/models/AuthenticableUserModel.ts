@@ -6,8 +6,8 @@ export interface AuthenticableUserModelAttributes extends IModelAttributes {
     id: string;
     email: string;
     hashedPassword: string;
-    roles: string[];
-    groups: string[];
+    aclRoles: string[];
+    aclGroups: string[];
 }
 
 /**
@@ -29,9 +29,9 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
 
     public static PASSWORD = 'password';
 
-    public static ROLES = 'roles';
+    public static ACL_ROLES = 'aclRoles';
 
-    public static GROUPS = 'groups';
+    public static ACL_GROUPS = 'aclGroups';
 
     constructor(data: AuthenticableUserModelAttributes | null = null) {
         super(data);
@@ -43,8 +43,8 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
     guarded: string[] = [
         'hashedPassword',
         'password',
-        'roles',
-        'groups',
+        'aclRoles',
+        'aclGroups',
     ];
 
     /**
@@ -92,7 +92,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns Array of role names or null if not set
      */
     getAclRoles(): string[] | null {
-        return this.getAttributeSync('roles') ?? null;
+        return this.getAttributeSync('aclRoles') ?? null;
     }
 
     /**
@@ -100,7 +100,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param roles - Array of role names to set
      */
     async setAclRoles(roles: string[]): Promise<void> {
-        await this.setAttribute('roles', roles);
+        await this.setAttribute('aclRoles', roles);
     }
     
     /**
@@ -108,7 +108,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns Array of group names or null if not set
      */
     getAclGroups(): string[] | null {
-        return this.getAttributeSync('groups') ?? null;
+        return this.getAttributeSync('aclGroups') ?? null;
     }
 
     /**
@@ -116,7 +116,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param groups - Array of group names to set
      */
     async setAclGroups(groups: string[]): Promise<void> {
-        await this.setAttribute('groups', groups);
+        await this.setAttribute('aclGroups', groups);
     }
 
     /**

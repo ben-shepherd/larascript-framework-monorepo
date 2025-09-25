@@ -20,6 +20,7 @@ export class MockModel extends Model<MockModelAttributes> {
         'name',
         'age',
         'secret',
+        'userId',
         'createdAt',
         'updatedAt',
     ]

@@ -751,6 +751,9 @@ importers:
       '@larascript-framework/larascript-utils':
         specifier: workspace:*
         version: link:../larascript-utils
+      '@larascript-framework/larascript-validator':
+        specifier: workspace:*
+        version: link:../larascript-validator
       '@larascript-framework/test-auth':
         specifier: workspace:*
         version: link:../test-auth

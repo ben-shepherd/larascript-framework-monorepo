@@ -53,6 +53,7 @@
     "@larascript-framework/test-database": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
+    "@larascript-framework/larascript-validator": "workspace:*",
     "@types/body-parser": "^1.19.6",
     "tsc-alias": "^1.8.16"
   },

@@ -1,20 +1,13 @@
 import Controller from "@/http/base/Controller.js";
 import Middleware from "@/http/base/Middleware.js";
 import HttpContext from "@/http/context/HttpContext.js";
-import RequestContext from "@/http/context/RequestContext.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
 import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { AsyncSessionService } from "@larascript-framework/async-session";
-import { IAuthService } from "@larascript-framework/contracts/auth";
-import { IDatabaseService } from "@larascript-framework/contracts/database/database";
-import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/database/eloquent";
-import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
-import { LoggerService } from "@larascript-framework/larascript-logger";
-import { IStorageService } from "@larascript-framework/larascript-storage";
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { Request, Response } from "express";
-import path from "path";
+import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
 class MiddlewareSingleton extends BaseSingleton {
     counter = 0;
@@ -42,36 +35,10 @@ describe("httpService test suite", () => {
     let serverPort: number;
 
     beforeEach(async () => {
-        httpService = new HttpService({
-            enabled: true,
-            port: 0, // Use dynamic port allocation
-            beforeAllMiddlewares: [],
-        });
-        
-        const logger = new LoggerService({
-            logPath: path.join(process.cwd(), "storage/logs"),
-        });
-        logger.boot();
+        await TestHttpEnvironment.create().boot();
 
-        const asyncSession = new AsyncSessionService();
+        httpService = TestHttpEnvironment.getInstance().httpService as HttpService;
 
-        Http.init({
-            environment: EnvironmentTesting,
-            httpConfig: {
-                enabled: true,
-                port: 0, // Use dynamic port allocation
-            },
-            storage: {} as unknown as IStorageService,
-            requestContext: new RequestContext(),
-            logger: logger,
-            asyncSession: asyncSession,
-            authService: {} as unknown as IAuthService,
-            databaseService: {} as unknown as IDatabaseService,
-            queryBuilderService: {} as unknown as IEloquentQueryBuilderService,
-        });
-        httpService.init()
-        await httpService.listen();
-        
         // Get the actual port the server is listening on
         serverPort = httpService.getPort()!;
 

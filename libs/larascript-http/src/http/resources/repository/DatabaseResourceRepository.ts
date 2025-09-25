@@ -2,7 +2,7 @@ import ResourceException from "@/http/exceptions/ResourceException.js";
 import Http from "@/http/services/Http.js";
 import { IEloquent, TWhereClauseValue } from "@larascript-framework/contracts/database/eloquent";
 import { IModel } from "@larascript-framework/contracts/database/model";
-import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData, ISortOption } from "@larascript-framework/contracts/http";
+import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData, IResourceQueryCallback, ISortOption } from "@larascript-framework/contracts/http";
 import { Model } from "@larascript-framework/larascript-database";
 import { AbstractResourceRepository } from "../abstract/AbstractResourceRepository.js";
 
@@ -133,8 +133,8 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param query Filter conditions.
      * @returns Array of matching resources as plain objects.
      */
-    async getResources(query: object, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
-        const builder = this.queryBuilder.where(query);
+    async getResources(query: object | null | IResourceQueryCallback, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
+        const builder = this.applyQuery(this.queryBuilder, query);
 
         if(sortOptions) {
             sortOptions.forEach(sortOption => {
@@ -152,8 +152,9 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param query Filter conditions.
      * @returns The total number of matching resources.
      */
-    getResourcesCount(query: object): Promise<number> {
-        return this.queryBuilder.where(query).count();
+    async getResourcesCount(query: object | null | IResourceQueryCallback): Promise<number> {
+        const builder = this.applyQuery(this.queryBuilder, query);
+        return await builder.count();
     }
     
     /**
@@ -163,10 +164,10 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param limit Number of items per page.
      * @returns Resources for the requested page as plain objects.
      */
-    async getResourcesPage(query: object, page: number, limit: number, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
+    async getResourcesPage(query: object | null | IResourceQueryCallback, page: number, limit: number, sortOptions?: ISortOption[]): Promise<IResourceData[]> {
         
         const skip = (page - 1) * limit;
-        const builder = this.queryBuilder.where(query).skip(skip).take(limit);
+        const builder = this.applyQuery(this.queryBuilder, query).skip(skip).take(limit);
 
         if(sortOptions) {
             sortOptions.forEach(sortOption => {
@@ -215,5 +216,22 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
         return this.config.modelConstructor.create(data).toObject({ excludeGuarded: true }) as unknown as IResourceData;
     }
 
-    
+    /**
+     * Applies the query to the builder.
+     * @param builder The builder to apply the query to.
+     * @param query The query to apply.
+     * @returns The builder with the query applied.
+     */
+    private applyQuery(builder: IEloquent, query: object | null | IResourceQueryCallback): IEloquent {
+        if(!query) {
+            return builder;
+        }
+        if(typeof query === 'function') {
+            builder = query(builder);
+        }
+        else if(query) {
+            builder = builder.where(query);
+        }
+        return builder.clone();
+    }
 }

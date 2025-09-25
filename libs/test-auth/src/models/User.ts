@@ -13,8 +13,8 @@ export interface UserAttributes extends AuthenticableUserModelAttributes {
     id: string;
     email: string;
     hashedPassword: string;
-    roles: string[];
-    groups: string[];
+    aclRoles: string[];
+    aclGroups: string[];
 
     // Additional fields
     password?: string;
@@ -56,8 +56,8 @@ export default class User extends AuthenticableUserModel {
     }
     
     protected casts?: Record<string, TCastableType> | undefined = {
-        [User.ROLES]: 'array',
-        [User.GROUPS]: 'array',
+        [User.ACL_ROLES]: 'array',
+        [User.ACL_GROUPS]: 'array',
         [User.CREATED_AT]: 'date',
         [User.UPDATED_AT]: 'date',
     }
@@ -70,8 +70,8 @@ export default class User extends AuthenticableUserModel {
     guarded: string[] = [
         User.HASHED_PASSWORD,
         User.PASSWORD,
-        User.ROLES,
-        User.GROUPS,
+        User.ACL_ROLES,
+        User.ACL_GROUPS,
     ];
 
     /**
@@ -84,8 +84,8 @@ export default class User extends AuthenticableUserModel {
         // fields required by AuthenticableUser
         User.EMAIL,
         User.HASHED_PASSWORD,
-        User.ROLES,
-        User.GROUPS,
+        User.ACL_ROLES,
+        User.ACL_GROUPS,
         
         // fields required by User
         User.PASSWORD, // temporary field

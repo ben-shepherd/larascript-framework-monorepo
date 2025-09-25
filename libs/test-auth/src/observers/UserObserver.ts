@@ -1,5 +1,6 @@
 import { UserAttributes } from "@/models/User.js";
 import { TestAuthEnvironment } from "@/test-auth/TestAuthEnvironment.js";
+import { AuthenticableUserModel } from "@larascript-framework/larascript-auth";
 import { Observer } from "@larascript-framework/larascript-observer";
 
 /**
@@ -38,7 +39,7 @@ export default class UserObserver extends Observer<UserAttributes> {
      */
     async updateRoles(data: UserAttributes): Promise<UserAttributes> {
         let updatedRoles: string[] = [];
-        const groups = data?.groups ?? []
+        const groups = (data?.[AuthenticableUserModel.ACL_GROUPS] ?? []) as string[]
 
         const basicAclService = TestAuthEnvironment.getInstance().aclService
         
@@ -47,12 +48,12 @@ export default class UserObserver extends Observer<UserAttributes> {
             const relatedRolesNames = relatedRoles.map(role => role.name)
 
             updatedRoles = [
-                ...updatedRoles,
+                ...updatedRoles, 
                 ...relatedRolesNames
             ]
         }
 
-        data.roles = updatedRoles
+        data[AuthenticableUserModel.ACL_ROLES] = updatedRoles
 
         return data
     }
@@ -63,15 +64,15 @@ export default class UserObserver extends Observer<UserAttributes> {
      * @returns The processed User data.
      */
     onPasswordChange(data: UserAttributes): UserAttributes {
-        if(!data.password) {
+        if(!data[AuthenticableUserModel.PASSWORD]) {
             return data
         }
         
         // Hash the password
-        data.hashedPassword = TestAuthEnvironment.getInstance().cryptoService.hash(data.password);
+        data[AuthenticableUserModel.HASHED_PASSWORD] = TestAuthEnvironment.getInstance().cryptoService.hash(data[AuthenticableUserModel.PASSWORD] as string);
 
         // Delete the password from the data
-        delete data.password;
+        delete data[AuthenticableUserModel.PASSWORD];
 
         return data
     }

@@ -9,12 +9,12 @@ class AuthenticableUserFactory<T extends AuthenticableUserModel> extends BaseMod
 
     getDefinition(): AuthenticableUserModelAttributes {
         return {
-            id: '',
-            email: '',
-            hashedPassword: '',
-            roles: [],
-            groups: []
-        }
+            [AuthenticableUserModel.ID]: '',
+            [AuthenticableUserModel.EMAIL]: '',
+            [AuthenticableUserModel.HASHED_PASSWORD]: '',
+            [AuthenticableUserModel.ACL_ROLES]: [],
+            [AuthenticableUserModel.ACL_GROUPS]: []
+        } as AuthenticableUserModelAttributes;
     }
 }
 

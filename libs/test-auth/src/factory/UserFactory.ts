@@ -11,12 +11,23 @@ class UserFactory extends AuthenticableUserFactory<User> {
         return {
             // Include AuthenticableUser attributes
             ...super.getDefinition(),
-            firstName: '',
-            lastName: '',
-            createdAt: new Date(),
-            updatedAt: new Date(),
+            [User.FIRST_NAME]: '',
+            [User.LAST_NAME]: '',
+            [User.CREATED_AT]: new Date(),
+            [User.UPDATED_AT]: new Date(),
             
-        }
+        } as NonNullable<User['attributes']>;
+    }
+
+    testDefinition(): NonNullable<User['attributes']> {
+        return {
+            ...this.getDefinition(),
+            [User.FIRST_NAME]: this.faker.person.firstName(),
+            [User.LAST_NAME]: this.faker.person.lastName(),
+            [User.EMAIL]: this.faker.internet.email(),
+            [User.CREATED_AT]: new Date(),
+            [User.UPDATED_AT]: new Date(),
+        } as NonNullable<User['attributes']>;
     }
 
 }

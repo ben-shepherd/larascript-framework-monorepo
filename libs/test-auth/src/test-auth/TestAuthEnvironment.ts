@@ -1,13 +1,16 @@
 import { aclConfig } from "@/config/acl.config.js";
 import { authConfig } from "@/config/auth.config.js";
+import { resetApiTokenTable } from "@/schema/resetApiTokenTable.js";
+import { resetUserTable } from "@/schema/resetUserTable.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
-import { IAuthConfig, IAuthService } from "@larascript-framework/contracts/auth";
+import { IAuthConfig, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
 import { IDatabaseService } from "@larascript-framework/contracts/database/database";
 import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/database/eloquent";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
 import { AuthService } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
+import { IModel } from "@larascript-framework/larascript-database";
 
 type Config = {
     databaseService: IDatabaseService;
@@ -60,5 +63,35 @@ export class TestAuthEnvironment extends BaseSingleton<Config> {
             this.asyncSessionService
         )
         await this.authService.boot();
+        await this.setupTables();
+    }
+
+    async setupTables() {
+        await resetUserTable();
+        await resetApiTokenTable();
+    }
+
+    getUserDefaultAttributes(): IUserAttributes {
+        return this.authService.getUserFactory().getDefinition() as IUserAttributes;
+    }
+
+    async createUser(attributes: Partial<IUserAttributes> & { password: string }) {
+        attributes.hashedPassword = await this.authService.getJwt().hashPassword(attributes.password);
+        const user = this.authService.getUserFactory().create({
+            ...this.getUserDefaultAttributes(),
+            ...attributes,
+        });
+        await (user as unknown as IModel).save();
+        return user;
+    }
+
+    async createAndAuthorizeUser(attributes: Partial<IUserAttributes> & { password: string }) {
+        const user = await this.createUser(attributes);
+        await this.authorizeUser(user);
+        return user;
+    }
+
+    async authorizeUser(user: IUserModel) {
+        await this.authService.getJwt().authorizeUser(user);
     }
 }

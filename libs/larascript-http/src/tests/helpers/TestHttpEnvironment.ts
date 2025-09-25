@@ -1,8 +1,10 @@
+import Middleware from "@/http/base/Middleware.js";
 import RequestContext from "@/http/context/RequestContext.js";
 import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { IHttpService } from "@larascript-framework/contracts/http";
+import { IUserModel } from "@larascript-framework/contracts/auth";
+import { IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
@@ -21,6 +23,14 @@ const DEFAULTS: Options = {
 export class TestHttpEnvironment extends BaseSingleton<Options> {
     httpService!: IHttpService;
     asyncSession!: IAsyncSessionService;
+
+    getAuthTestEnvironment(): TestAuthEnvironment {
+        return TestAuthEnvironment.getInstance();
+    }
+
+    getDatabaseTestEnvironment(): TestDatabaseEnvironment {
+        return TestDatabaseEnvironment.getInstance();
+    }
 
     static create(options: Options = {}) {
         return TestHttpEnvironment.getInstance({
@@ -64,5 +74,14 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
         });
         this.httpService.init()
         await this.httpService.listen()
+    }
+
+    createMockAuthorizeUserMiddleware(user: IUserModel): MiddlewareConstructor {
+        return class extends Middleware {
+            async execute(context: IHttpContext): Promise<void> {
+                await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authorizeUser(user);
+                this.next();
+            }
+        }
     }
 }

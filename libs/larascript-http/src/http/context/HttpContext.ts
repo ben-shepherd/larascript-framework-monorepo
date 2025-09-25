@@ -5,6 +5,7 @@ import { NextFunction, Response } from 'express';
 import UploadedFile from '../data/UploadedFile.js';
 import HttpContextException from '../exceptions/HttpContextException.js';
 import Http from '../services/Http.js';
+import { ResourceContext } from './ResourceContext.js';
 
 class HttpContext implements IHttpContext {
 
@@ -19,6 +20,14 @@ class HttpContext implements IHttpContext {
         protected routeItem?: TRouteItem
 
     ) {
+    }
+
+    /**
+     * Gets the resource context of the request.
+     * @returns {ResourceContext} The resource context of the request.
+     */
+    get resourceContext() {
+        return new ResourceContext(this)
     }
 
     /**

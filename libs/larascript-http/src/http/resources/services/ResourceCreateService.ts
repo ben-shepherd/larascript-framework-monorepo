@@ -56,8 +56,8 @@ class ResourceCreateService extends AbastractBaseResourceService {
         }
 
         // Build the page options, filters
-        const repository = this.getDataSourceRepository(context)
-        let resourceData = await this.getDataSourceRepository(context).createResourceWithoutSaving(req.body)
+        const repository = context.resourceContext.repository
+        let resourceData = await repository.createResourceWithoutSaving(req.body)
 
         // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters

@@ -14,17 +14,24 @@ export type Options = {
     withDatabase?: boolean;
 }
 
+const DEFAULTS: Options = {
+    withDatabase: true,
+}
+
 export class TestHttpEnvironment extends BaseSingleton<Options> {
     httpService!: IHttpService;
     asyncSession!: IAsyncSessionService;
 
     static create(options: Options = {}) {
-        return TestHttpEnvironment.getInstance(options);
+        return TestHttpEnvironment.getInstance({
+            ...DEFAULTS,
+            ...options,
+        });
     }
     
     async boot() {
         await TestDatabaseEnvironment.create({
-            withDatabase: this.config?.withDatabase ?? false,
+            withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
         }).boot();
 
         this.asyncSession = new AsyncSessionService();

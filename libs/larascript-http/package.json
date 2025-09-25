@@ -50,6 +50,7 @@
     "@larascript-framework/test-database": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/larascript-database": "workspace:*",
+    "@larascript-framework/larascript-auth": "workspace:*",
     "@types/body-parser": "^1.19.6",
     "tsc-alias": "^1.8.16"
   },

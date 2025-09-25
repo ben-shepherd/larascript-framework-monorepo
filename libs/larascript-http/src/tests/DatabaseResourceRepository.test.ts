@@ -1,6 +1,6 @@
 import { DatabaseResourceRepository } from "@/http/resources/repository/DatabaseResourceRepository.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { testBootHttpService } from "./helpers/testBootHttpService.js";
+import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 import { MockModel } from "./repository/MockModel.js";
 import { resetMockModelTable } from "./repository/resetMockModelTable.js";
 
@@ -12,9 +12,9 @@ describe("Database Resource Repository", () => {
       modelConstructor: MockModel,
     });
 
-    await testBootHttpService({
+    await TestHttpEnvironment.create({
       withDatabase: true,
-    });
+  }).boot();
 
     await resetMockModelTable();
   });
@@ -32,6 +32,21 @@ describe("Database Resource Repository", () => {
       expect(resource.age).toBe(20);
       expect(resource.createdAt).toBeInstanceOf(Date);
       expect(resource.updatedAt).toBeInstanceOf(Date);
+    })
+  });
+
+  describe("createResourceWithoutSaving", () => {
+    test("should create a resource without saving it", async () => {
+      const resource = await repository.createResourceWithoutSaving({
+        name: "Test",
+        age: 20,
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+
+      expect(resource.id).toBeUndefined();
+      expect(resource.name).toBe("Test");
+      expect(resource.age).toBe(20);
     })
   });
 
@@ -177,5 +192,21 @@ describe("Database Resource Repository", () => {
       expect(resources.length).toBe(1);
       expect(resources[0].name).toBe("Test 2");
     });
+  });
+
+  describe("stripSensitiveData", () => {
+    test("should strip the sensitive data", async () => {
+      const resource = await repository.stripSensitiveData({
+        name: "Test",
+        age: 20,
+        secret: "Secret",
+      });
+
+      const strippedResource = await repository.stripSensitiveData(resource);
+
+      expect(strippedResource.secret).toBeUndefined();
+      expect(strippedResource.name).toBe("Test");
+      expect(strippedResource.age).toBe(20);
+    })
   });
 });

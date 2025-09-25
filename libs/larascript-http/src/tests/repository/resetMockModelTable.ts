@@ -7,6 +7,7 @@ export const resetMockModelTable = async () => {
     const schema = {
         name: DataTypes.STRING,
         age: DataTypes.INTEGER,
+        secret: DataTypes.STRING,
         createdAt: DataTypes.DATE,
         updatedAt: DataTypes.DATE,
     }

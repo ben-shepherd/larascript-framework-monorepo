@@ -5,6 +5,7 @@ export interface MockModelAttributes extends IModelAttributes {
     id: string;
     name: string;
     age: number;
+    secret: string;
     createdAt: Date;
     updatedAt: Date;
 }
@@ -18,7 +19,12 @@ export class MockModel extends Model<MockModelAttributes> {
         'id',
         'name',
         'age',
+        'secret',
         'createdAt',
         'updatedAt',
+    ]
+
+    guarded = [
+        'secret',
     ]
 }

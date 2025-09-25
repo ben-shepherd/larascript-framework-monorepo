@@ -6,6 +6,10 @@ export class ResourceContext {
 
     constructor(private readonly context: HttpContext) {}
 
+    /**
+     * Gets the repository of the resource.
+     * @returns {IResourceRepository} The repository of the resource.
+     */
     get repository(): IResourceRepository {
         const repository = (this.context.getRouteItem()?.resource?.datasource as TDataSourceRepository).repository
 

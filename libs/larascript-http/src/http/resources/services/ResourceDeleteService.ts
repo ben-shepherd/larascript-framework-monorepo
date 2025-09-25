@@ -1,9 +1,10 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
+import { ResourceNotFoundException } from "@/http/exceptions/ResourceNotFoundException.js";
 import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
-import Http from "@/http/services/Http.js";
+import { IResourceData } from "@larascript-framework/contracts/http";
 import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 
@@ -65,24 +66,20 @@ class ResourceDeleteService extends AbastractBaseResourceService {
             }, 422)
         }
 
-        const modelConstructor = this.getModelConstructor(context)
+        const repository = context.resourceContext.repository;
+        const resourceData = await repository.getResource(context.getRequest().params?.id) as IResourceData
 
-        // Normalize the primary key if required
-        const primaryKey = this.getPrimaryKey(modelConstructor)
-
-        const builder = Http.getInstance().getQueryBuilderService().builder(modelConstructor)
-            .where(primaryKey, context.getRequest().params?.id)
-
-        const result = await builder.firstOrFail()
-
+        if (!resourceData) {
+            throw new ResourceNotFoundException('Resource not found')
+        }
 
         // Check if the resource owner security applies to this route and it is valid
-        if (!await this.validateResourceAccess(context, result)) {
+        if (!await this.validateResourceAccess(context, resourceData)) {
             throw new ForbiddenResourceError()
         }
 
         // Delete the resource item
-        await result.delete()
+        await repository.deleteResource(resourceData)
 
         // Send the results
         return this.apiResponse(context, {}, 200)

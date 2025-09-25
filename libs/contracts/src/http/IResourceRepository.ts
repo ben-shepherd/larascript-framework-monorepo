@@ -21,7 +21,7 @@ export interface IResourceRepository<
     createResource(data: T): Promise<T>;
     createResourceWithoutSaving(data: T): Promise<T>;
     updateResource(data: T): Promise<T>;
-    deleteResource(id: string): Promise<void>;
+    deleteResource(data: T): Promise<void>;
     getResources(query: object): Promise<T[]>;
     getResourcesCount(query: object): Promise<number>;
     getResourcesPage(query: object, page: number, limit: number): Promise<T[]>;

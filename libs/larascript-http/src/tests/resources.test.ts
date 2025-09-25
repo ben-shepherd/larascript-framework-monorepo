@@ -75,7 +75,7 @@ describe("resources test suite", () => {
                 }
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
                 headers,
@@ -85,13 +85,13 @@ describe("resources test suite", () => {
                 }),
             })
 
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     id: string,
                     name: string,
                     age: number
                 }
-             }
+            }
             expect(body.data.id).toBeDefined()
             expect(body.data.name).toBe('Test')
             expect(body.data.age).toBe(20)
@@ -102,7 +102,7 @@ describe("resources test suite", () => {
             const createValidator = class extends BaseCustomValidator {
                 protected rules: IRulesObject = {
                     name: [new RequiredRule(), new StringRule()],
-                    age: [new RequiredRule(), new NumberRule()],    
+                    age: [new RequiredRule(), new NumberRule()],
                 }
             }
 
@@ -117,7 +117,7 @@ describe("resources test suite", () => {
                 }
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
                 headers,
@@ -126,7 +126,7 @@ describe("resources test suite", () => {
                     age: undefined,
                 }),
             })
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     errors: Record<string, string[]>
                 }
@@ -153,7 +153,7 @@ describe("resources test suite", () => {
                 ]
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
                 headers,
@@ -162,14 +162,14 @@ describe("resources test suite", () => {
                     age: 20
                 }),
             })
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     id: string,
                     name: string,
                     userId: string,
                     age: number
                 }
-             }
+            }
 
             expect(response.status).toBe(201)
             expect(body.data.name).toBe('Test')
@@ -194,7 +194,7 @@ describe("resources test suite", () => {
                 },
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
                 headers,
@@ -225,7 +225,7 @@ describe("resources test suite", () => {
                 ]
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
                 headers,
@@ -235,14 +235,14 @@ describe("resources test suite", () => {
                 }),
             })
 
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     id: string,
                     name: string,
                     userId: string,
                     age: number
                 }
-             }
+            }
 
             expect(response.status).toBe(200)
             expect(body.data.name).toBe('Test Updated')
@@ -252,7 +252,7 @@ describe("resources test suite", () => {
             const createValidator = class extends BaseCustomValidator {
                 protected rules: IRulesObject = {
                     name: [new RequiredRule(), new StringRule()],
-                    age: [new RequiredRule(), new NumberRule()],    
+                    age: [new RequiredRule(), new NumberRule()],
                 }
             }
 
@@ -276,7 +276,7 @@ describe("resources test suite", () => {
                 }
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
                 headers,
@@ -286,11 +286,11 @@ describe("resources test suite", () => {
                 }),
             })
 
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     errors: Record<string, string[]>
                 }
-             }
+            }
 
             expect(response.status).toBe(HttpCodes.UNPROCESSABLE_ENTITY)
             expect(body.data.errors.name).toBeDefined()
@@ -320,7 +320,7 @@ describe("resources test suite", () => {
                 ],
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
                 headers,
@@ -330,14 +330,14 @@ describe("resources test suite", () => {
                 }),
             })
 
-            const body = await response.json() as { 
+            const body = await response.json() as {
                 data: {
                     id: string,
                     name: string,
                     userId: string,
                     age: number
                 }
-             }
+            }
 
             expect(response.status).toBe(200)
             expect(body.data.name).toBe('Test Updated')
@@ -366,7 +366,7 @@ describe("resources test suite", () => {
                 ],
             })
             httpService.bindRoutes(router);
-    
+
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
                 headers,
@@ -380,49 +380,200 @@ describe("resources test suite", () => {
     })
 
     describe("delete resource", () => {
-        test("should be able to delete a resource", async () => {
-    
+        test("should not be able to delete a resource while not being authorized", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                }
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            const foundModel = await MockModel.query().where('id', model.getId()).first();
+
+            expect(foundModel).toBeDefined()
+            expect(response.status).toBe(HttpCodes.UNAUTHORIZED)
         })
 
-        test("should fail if validation fails", async () => {
-    
+        test("should be able to delete a resourc while being authorized", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            const foundModel = await MockModel.query().where('id', model.getId()).first();
+
+            expect(foundModel).toBeNull()
+            expect(response.status).toBe(200)
         })
 
+        test("should not be able to delete a resource if validation fails", async () => {
+            const createValidator = class extends BaseCustomValidator {
+                protected rules: IRulesObject = {
+                    name: [new RequiredRule(), new StringRule()],
+                    age: [new RequiredRule(), new NumberRule()],
+
+                }
+            }
+
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                validation: {
+                    delete: createValidator,
+                }
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            const body = await response.json() as {
+                data: {
+                    errors: Record<string, string[]>
+                }
+            }
+            const foundModel = await MockModel.query().where('id', model.getId()).first();
+
+            expect(foundModel).toBeDefined()
+            expect(response.status).toBe(HttpCodes.UNPROCESSABLE_ENTITY)
+            expect(body.data.errors.name).toBeDefined()
+            expect(body.data.errors.age).toBeDefined()
+        })
 
         test("should be able to delete a resource if it is owned by the user", async () => {
-    
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: user.getId(),
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            const foundModel = await MockModel.query().where('id', model.getId()).first();
+
+            expect(response.status).toBe(200)
+            expect(foundModel).toBeNull()
         })
 
         test("should not be able to delete a resource if it is not owned by the user", async () => {
-    
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: 'not-user-id',
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            const foundModel = await MockModel.query().where('id', model.getId()).first();
+
+            expect(response.status).toBe(HttpCodes.FORBIDDEN)
+            expect(foundModel).toBeDefined()
         })
     })
 
     describe("show resource", () => {
         test("should be able to show a resource", async () => {
-    
+
         })
 
         test("should be able to show a resource if it is owned by the user", async () => {
-    
+
         })
 
         test("should not be able to show a resource if it is not owned by the user", async () => {
-    
+
         })
     })
 
     describe("index resource", () => {
         test("should be able to index a resource", async () => {
-    
+
         })
 
         test("should not be able to index a resource if it is not owned by the user", async () => {
-    
+
         })
 
         test("should be able to index a resource if it is owned by the user", async () => {
-    
+
         })
     })
 });

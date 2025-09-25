@@ -112,8 +112,14 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param id Resource identifier.
      * @throws {ResourceException} When the resource cannot be found.
      */
-    async deleteResource(id: string): Promise<void> {
-        const resource = await this.queryBuilder.where(this.primaryKey, id).first();
+    async deleteResource(data: IResourceData): Promise<void> {
+        const primaryKeyValue = data[this.primaryKey];
+
+        if(!primaryKeyValue) {
+            throw new ResourceException('Primary key (' + this.primaryKey + ') value is required');
+        }
+
+        const resource = await this.queryBuilder.where(this.primaryKey, primaryKeyValue as unknown as TWhereClauseValue).first();
 
         if(!resource) {
             throw new ResourceException('Resource not found');

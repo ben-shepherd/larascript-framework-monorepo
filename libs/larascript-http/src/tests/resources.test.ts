@@ -207,9 +207,6 @@ describe("resources test suite", () => {
         })
 
         test("should be able to update a resource while being authorized", async () => {
-            /**
-             * Unfinished: Update ResourceUpdateService
-             */
             const model = await MockModel.create({
                 name: 'Test',
                 age: 20,

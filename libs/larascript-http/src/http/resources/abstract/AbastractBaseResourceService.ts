@@ -8,8 +8,8 @@ import SecurityReader from "@/http/security/services/SecurityReader.js";
 import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import { IUserModel } from "@larascript-framework/contracts/auth";
-import { IModel, ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IApiResponse, IHttpContext, IResourceRepository, TDataSourceRepository, TRouteItem } from "@larascript-framework/contracts/http";
+import { ModelConstructor } from "@larascript-framework/contracts/database/model";
+import { IApiResponse, IHttpContext, IResourceData, TRouteItem } from "@larascript-framework/contracts/http";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 
 type TResponseOptions = {
@@ -78,27 +78,6 @@ abstract class AbastractBaseResourceService {
     }
 
     /**
-     * Gets the repository from the route options
-     * @param {HttpContext} context - The HTTP context
-     * @returns {IResourceRepository} - The repository
-     */
-    getDataSourceRepository(context: HttpContext): IResourceRepository {
-        const routeOptions = context.getRouteItem()
-
-        if(!routeOptions) {
-            throw new ResourceException('Route options are required')
-        }
-
-        const repository = (routeOptions.resource?.datasource as TDataSourceRepository).repository
-
-        if(!repository) {
-            throw new ResourceException('Repository is not set')
-        }
-
-        return repository
-    }
-
-    /**
      * Checks if the request is authorized to perform the action
      * 
      * @param {BaseRequest} req - The request object
@@ -140,7 +119,7 @@ abstract class AbastractBaseResourceService {
      * @param {IRouteResourceOptionsLegacy} options - The options object
      * @returns {boolean} - Whether the request is authorized and resource owner security is set
      */
-    async validateResourceAccess(context: HttpContext, resource: IModel): Promise<boolean> {
+    async validateResourceAccess(context: HttpContext, resource: IResourceData): Promise<boolean> {
         const routeOptions = context.getRouteItem()
 
         if (!routeOptions) {
@@ -161,12 +140,12 @@ abstract class AbastractBaseResourceService {
             throw new ResourceException('An attribute is required to check resource owner security')
         }
 
-        if (!resource.getFields().includes(attribute)) {
+        if (!Object.keys(resource).includes(attribute)) {
             throw new ResourceException('The attribute ' + attribute + ' is not a valid attribute for the resource ' + resource.constructor.name)
         }
 
         // Get the resource owner id
-        const resourceOwnerId = resource.getAttributeSync(attribute)
+        const resourceOwnerId = resource?.[attribute]
 
         if (!resourceOwnerId) {
             return false;

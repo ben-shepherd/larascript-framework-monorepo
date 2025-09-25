@@ -1,6 +1,6 @@
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import Http from "@/http/services/Http.js";
-import { IEloquent } from "@larascript-framework/contracts/database/eloquent";
+import { IEloquent, TWhereClauseValue } from "@larascript-framework/contracts/database/eloquent";
 import { IModel } from "@larascript-framework/contracts/database/model";
 import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData } from "@larascript-framework/contracts/http";
 import { Model } from "@larascript-framework/larascript-database";
@@ -87,8 +87,14 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @throws {ResourceException} When the resource cannot be found.
      * @returns Updated resource as a plain object.
      */
-    async updateResource(id: string, data: IResourceData): Promise<IResourceData> {
-        const resource = await this.queryBuilder.where(this.primaryKey, id).first();
+    async updateResource(data: IResourceData): Promise<IResourceData> {
+        const primaryKeyValue = data[this.primaryKey];
+
+        if(!primaryKeyValue) {
+            throw new ResourceException('Primary key (' + this.primaryKey + ') value is required');
+        }
+
+        const resource = await this.queryBuilder.where(this.primaryKey, primaryKeyValue as unknown as TWhereClauseValue).first();
 
         if(!resource) {
             throw new ResourceException('Resource not found');
@@ -96,6 +102,7 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
 
         await resource.fill(data);
         await resource.save();
+        await resource.refresh();
 
         return await this.toObject(resource) as IResourceData;
     }

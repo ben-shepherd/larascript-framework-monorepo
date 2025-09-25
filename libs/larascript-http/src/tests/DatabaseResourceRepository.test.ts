@@ -132,6 +132,39 @@ describe("Database Resource Repository", () => {
       expect(resources[0].name).toBe("Test");
       expect(resources[1].name).toBe("Test 2");
     });
+
+    test("should get the resources sorted by the field", async () => {
+      const model = await MockModel.create({
+        name: "B",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "A",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resourcesSortedByAgeAscending = await repository.getResources({}, [{ field: "age", sortDirection: "asc" }]);
+      expect(resourcesSortedByAgeAscending.length).toBe(2);
+      expect(resourcesSortedByAgeAscending[0].age).toBe(20);
+      expect(resourcesSortedByAgeAscending[1].age).toBe(21);
+
+      const resourcesSortedByAgeDescending = await repository.getResources({}, [{ field: "age", sortDirection: "desc" }]);
+      expect(resourcesSortedByAgeDescending.length).toBe(2);
+      expect(resourcesSortedByAgeDescending[0].age).toBe(21);
+      expect(resourcesSortedByAgeDescending[1].age).toBe(20);
+
+      const resourcesSortedByNameAscending = await repository.getResources({}, [{ field: "name", sortDirection: "asc" }]);
+      expect(resourcesSortedByNameAscending.length).toBe(2);
+      expect(resourcesSortedByNameAscending[0].name).toBe("A");
+      expect(resourcesSortedByNameAscending[1].name).toBe("B");
+
+      const resourcesSortedByNameDescending = await repository.getResources({}, [{ field: "name", sortDirection: "desc" }]);
+      expect(resourcesSortedByNameDescending.length).toBe(2);
+      expect(resourcesSortedByNameDescending[0].name).toBe("B");
+      expect(resourcesSortedByNameDescending[1].name).toBe("A");
+    });
   });
 
   describe("getResourcesCount", () => {
@@ -196,6 +229,39 @@ describe("Database Resource Repository", () => {
 
       expect(resources.length).toBe(1);
       expect(resources[0].name).toBe("Test 2");
+    });
+
+    test("should get the paginated resources sorted by the field", async () => {
+      const model = await MockModel.create({
+        name: "B",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "A",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resourcesSortedByAgeAscending = await repository.getResourcesPage({}, 1, 10, [{ field: "age", sortDirection: "asc" }]);
+      expect(resourcesSortedByAgeAscending.length).toBe(2);
+      expect(resourcesSortedByAgeAscending[0].age).toBe(20);
+      expect(resourcesSortedByAgeAscending[1].age).toBe(21);
+
+      const resourcesSortedByAgeDescending = await repository.getResourcesPage({}, 1, 10, [{ field: "age", sortDirection: "desc" }]);
+      expect(resourcesSortedByAgeDescending.length).toBe(2);
+      expect(resourcesSortedByAgeDescending[0].age).toBe(21);
+      expect(resourcesSortedByAgeDescending[1].age).toBe(20);
+
+      const resourcesSortedByNameAscending = await repository.getResourcesPage({}, 1, 10, [{ field: "name", sortDirection: "asc" }]);
+      expect(resourcesSortedByNameAscending.length).toBe(2);
+      expect(resourcesSortedByNameAscending[0].name).toBe("A");
+      expect(resourcesSortedByNameAscending[1].name).toBe("B");
+
+      const resourcesSortedByNameDescending = await repository.getResourcesPage({}, 1, 10, [{ field: "name", sortDirection: "desc" }]);
+      expect(resourcesSortedByNameDescending.length).toBe(2);
+      expect(resourcesSortedByNameDescending[0].name).toBe("B");
+      expect(resourcesSortedByNameDescending[1].name).toBe("A");
     });
   });
 

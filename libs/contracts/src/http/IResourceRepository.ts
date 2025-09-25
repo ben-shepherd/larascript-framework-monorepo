@@ -11,6 +11,11 @@ T extends IResourceData = IResourceData,
 C extends IResourceRepositoryConfig = IResourceRepositoryConfig
 > = new (config?: C) => IResourceRepository<T, C>;
 
+export type ISortOption = {
+    field: string;
+    sortDirection: 'asc' | 'desc';
+}
+
 export interface IResourceRepository<
     T extends IResourceData = IResourceData,
     C extends IResourceRepositoryConfig = IResourceRepositoryConfig
@@ -22,9 +27,9 @@ export interface IResourceRepository<
     createResourceWithoutSaving(data: T): Promise<T>;
     updateResource(data: T): Promise<T>;
     deleteResource(data: T): Promise<void>;
-    getResources(query: object): Promise<T[]>;
+    getResources(query: object, sortOptions?: ISortOption[]): Promise<T[]>;
     getResourcesCount(query: object): Promise<number>;
-    getResourcesPage(query: object, page: number, limit: number): Promise<T[]>;
+    getResourcesPage(query: object, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
     getResourceOwnerAttribute(): string;
     stripSensitiveData(data: T): Promise<T>;
 }

@@ -79,7 +79,8 @@ describe("Database Resource Repository", () => {
       });
       await model.save();
 
-      const resource = await repository.updateResource(model.id!, {
+      const resource = await repository.updateResource({
+        id: model.id!,
         name: "Test Updated",
         age: 21,
       });
@@ -99,7 +100,11 @@ describe("Database Resource Repository", () => {
       });
       await model.save();
 
-      await repository.deleteResource(model.id!);
+      await repository.deleteResource({
+        id: model.id!,
+        name: "Test",
+        age: 20,
+      });
 
       const resource = await repository.getResource(model.id!);
 

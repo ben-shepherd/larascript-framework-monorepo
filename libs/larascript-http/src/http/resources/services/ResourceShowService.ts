@@ -1,11 +1,10 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
+import { ResourceNotFoundException } from "@/http/exceptions/ResourceNotFoundException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
-import Http from "@/http/services/Http.js";
 import { IModelAttributes } from "@larascript-framework/contracts/database/model";
 import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
-import stripGuardedResourceProperties from "../../utils/stripGuardedResourceProperties.js";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 
 /**
@@ -54,28 +53,22 @@ class ResourceShowService extends AbastractBaseResourceService {
             }, 404)
         }
 
-        const modelConstructor = this.getModelConstructor(context)
+        const repository = context.resourceContext.repository
+        const resourceData = await repository.getResource(id)
 
-        // Query builder
-        const builder = Http.getInstance().getQueryBuilderService().builder(modelConstructor)
-            .limit(1)
-
-        // Normalize the primary key if required
-        const primaryKey = this.getPrimaryKey(modelConstructor)
-
-        // Attach the id to the query
-        builder.where(primaryKey, context.getRequest().params?.id)
-
-        // Fetch the results
-        const result = await builder.firstOrFail()
+        if (!resourceData) {
+            throw new ResourceNotFoundException('Resource not found')
+        }
 
         // Check if the resource owner security applies to this route and it is valid
-        if (!await this.validateResourceAccess(context, result)) {
+        if (!await this.validateResourceAccess(context, resourceData)) {
             throw new ForbiddenResourceError()
         }
 
+        const strippedResourceData = await repository.stripSensitiveData(resourceData)
+
         // Send the results
-        return this.apiResponse<IModelAttributes>(context, (await stripGuardedResourceProperties(result))[0], 200)
+        return this.apiResponse<IModelAttributes>(context, strippedResourceData, 200)
     }
 
     /**

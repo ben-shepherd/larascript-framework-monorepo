@@ -48,6 +48,7 @@
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/test-database": "workspace:*",
+    "@larascript-framework/test-auth": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/larascript-database": "workspace:*",
     "@larascript-framework/larascript-auth": "workspace:*",

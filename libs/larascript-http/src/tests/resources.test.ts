@@ -5,7 +5,7 @@ import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 import { MockModel } from "./repository/MockModel.js";
 import { resetMockModelTable } from "./repository/resetMockModelTable.js";
 
-describe("security test suite", () => {
+describe("resources test suite", () => {
 
     beforeEach(async () => {
         await TestHttpEnvironment.create({

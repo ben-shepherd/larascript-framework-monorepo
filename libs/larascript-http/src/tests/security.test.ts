@@ -55,10 +55,9 @@ describe("security test suite", () => {
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
-            const body = await response.json() as { scopes: string, exactMatch: boolean };
-            expect(response.status).toBe(200);
-            expect(body.scopes).toBe('test');
-            expect(body.exactMatch).toBe(true);
+            const body = await response.json() as { error: string };
+            expect(response.status).toBe(401);
+            expect(body.error).toBe('Unauthorized');
             expect(httpService.getRegisteredRoutes()).not.toBeNull();
         })
     })

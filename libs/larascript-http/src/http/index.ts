@@ -1,4 +1,5 @@
 export * from "./base/index.js";
+export * from "./config/index.js";
 export * from "./context/index.js";
 export * from "./data/index.js";
 export * from "./enums/index.js";
@@ -13,3 +14,4 @@ export * from "./router/index.js";
 export * from "./security/index.js";
 export * from "./services/index.js";
 export * from "./utils/index.js";
+

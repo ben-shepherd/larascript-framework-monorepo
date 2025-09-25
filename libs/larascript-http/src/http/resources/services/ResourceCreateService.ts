@@ -57,7 +57,7 @@ class ResourceCreateService extends AbastractBaseResourceService {
 
         // Build the page options, filters
         const repository = this.getDataSourceRepository(context)
-        const resource = await this.getDataSourceRepository(context).createResourceWithoutSaving(req.body)
+        let resourceData = await this.getDataSourceRepository(context).createResourceWithoutSaving(req.body)
 
         // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters
@@ -73,7 +73,7 @@ class ResourceCreateService extends AbastractBaseResourceService {
                 throw new ForbiddenResourceError()
             }
 
-            resource[repository.getResourceOwnerAttribute()] = user.getId()
+            resourceData[repository.getResourceOwnerAttribute()] = user.getId()
         }
 
         // Validate the request body
@@ -86,11 +86,11 @@ class ResourceCreateService extends AbastractBaseResourceService {
         }
 
         // Fill the model instance with the request body
-        const resourceData = {
-            ...resource,
+        resourceData = {
+            ...resourceData,
             ...req.body
         }
-        await repository.createResource(resourceData);
+        resourceData = await repository.createResource(resourceData);
 
         // Strip the guarded properties from the model instance
         const attributes = await repository.stripSensitiveData(resourceData)

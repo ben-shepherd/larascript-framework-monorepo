@@ -8,6 +8,7 @@ import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { TestAuthEnvironment } from "@larascript-framework/test-auth";
 import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
 
 export type Options = {
@@ -35,6 +36,13 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
         }).boot();
 
         this.asyncSession = new AsyncSessionService();
+
+        await TestAuthEnvironment.create({
+            databaseService: TestDatabaseEnvironment.getInstance().databaseService,
+            eloquentQueryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder,
+            asyncSessionService: this.asyncSession,
+        }).boot();
+
         
         Http.init({
             environment: EnvironmentTesting,

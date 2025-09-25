@@ -68,7 +68,7 @@ abstract class AbastractBaseResourceService {
             throw new ResourceException('Route options are required')
         }
 
-        const modelConstructor = routeOptions?.resource?.modelConstructor
+        const modelConstructor = (routeOptions?.resource as any)?.modelConstructor as ModelConstructor
 
         if (!modelConstructor) {
             throw new ResourceException('Model constructor is not set')

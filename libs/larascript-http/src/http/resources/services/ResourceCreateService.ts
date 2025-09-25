@@ -3,7 +3,6 @@ import ResourceException from "@/http/exceptions/ResourceException.js";
 import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
-import stripGuardedResourceProperties from "@/http/utils/stripGuardedResourceProperties.js";
 import { IModelAttributes } from "@larascript-framework/contracts/database/model";
 import { TResponseErrorMessages } from "@larascript-framework/contracts/http";
 import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
@@ -49,7 +48,6 @@ class ResourceCreateService extends AbastractBaseResourceService {
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes | TResponseErrorMessages>> {
 
-
         const req = context.getRequest()
         const routeOptions = context.getRouteItem()
 
@@ -58,8 +56,8 @@ class ResourceCreateService extends AbastractBaseResourceService {
         }
 
         // Build the page options, filters
-        const modelConstructor = this.getModelConstructor(context)
-        const model = modelConstructor.create()
+        const repository = this.getDataSourceRepository(context)
+        const resource = await this.getDataSourceRepository(context).createResourceWithoutSaving(req.body)
 
         // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters
@@ -69,14 +67,13 @@ class ResourceCreateService extends AbastractBaseResourceService {
                 throw new UnauthorizedException()
             }
 
-            const attribute = this.getResourceAttribute(routeOptions, 'userId');
             const user = await this.getUser()
 
             if (!user) {
                 throw new ForbiddenResourceError()
             }
 
-            await model.setAttribute(attribute, user.getId())
+            resource[repository.getResourceOwnerAttribute()] = user.getId()
         }
 
         // Validate the request body
@@ -89,14 +86,17 @@ class ResourceCreateService extends AbastractBaseResourceService {
         }
 
         // Fill the model instance with the request body
-        await model.fill(req.body)
-        await model.save();
+        const resourceData = {
+            ...resource,
+            ...req.body
+        }
+        await repository.createResource(resourceData);
 
         // Strip the guarded properties from the model instance
-        const attributes = await stripGuardedResourceProperties(model)
+        const attributes = await repository.stripSensitiveData(resourceData)
 
         // Send the results
-        return this.apiResponse(context, attributes[0], 201)
+        return this.apiResponse(context, attributes, 201)
     }
 
 }

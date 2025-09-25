@@ -9,7 +9,7 @@ import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IModel, ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IApiResponse, IHttpContext, TRouteItem } from "@larascript-framework/contracts/http";
+import { IApiResponse, IHttpContext, IResourceRepository, TDataSourceRepository, TRouteItem } from "@larascript-framework/contracts/http";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 
 type TResponseOptions = {
@@ -59,6 +59,7 @@ abstract class AbastractBaseResourceService {
      * @param {HttpContext} context - The HTTP context
      * @returns {ModelConstructor} - The model constructor
      * @throws {ResourceException} - If the route options are not found
+     * @deprecated Use getDataSourceRepository instead
      */
     getModelConstructor(context: HttpContext): ModelConstructor {
         const routeOptions = context.getRouteItem()
@@ -74,6 +75,27 @@ abstract class AbastractBaseResourceService {
         }
 
         return modelConstructor
+    }
+
+    /**
+     * Gets the repository from the route options
+     * @param {HttpContext} context - The HTTP context
+     * @returns {IResourceRepository} - The repository
+     */
+    getDataSourceRepository(context: HttpContext): IResourceRepository {
+        const routeOptions = context.getRouteItem()
+
+        if(!routeOptions) {
+            throw new ResourceException('Route options are required')
+        }
+
+        const repository = (routeOptions.resource?.datasource as TDataSourceRepository).repository
+
+        if(!repository) {
+            throw new ResourceException('Repository is not set')
+        }
+
+        return repository
     }
 
     /**

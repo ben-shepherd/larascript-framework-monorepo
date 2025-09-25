@@ -1,4 +1,5 @@
 import { ISecurityRule, TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@larascript-framework/contracts/http"
+import { DataSourceResolver } from "../resolver/DataSourceResolver.js"
 import ResourceController from "../resources/controller/ResourceController.js"
 import HttpRouter from "./HttpRouter.js"
 import Route from "./Route.js"
@@ -59,7 +60,7 @@ class ResourceRouter {
     /**
      * Add resource routes to the router.
      */
-    public static resource({ prefix, resource, scopes, filters, searching, paginate, sorting, validation, security, ...rest }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
+    public static resource({ prefix, datasource, scopes, filters, searching, paginate, sorting, validation, security, ...rest }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
 
         const routeItemOptions: TPartialRouteItemOptions = {
             prefix,
@@ -72,6 +73,9 @@ class ResourceRouter {
         const registerUpdate = this.shouldRegisterType(RouteResourceTypes.UPDATE, rest.only)
         const registerDelete = this.shouldRegisterType(RouteResourceTypes.DELETE, rest.only)
 
+        // Resolve the datasource as a repository
+        const datasourceRepository = DataSourceResolver.resolveDatasourceAsRepository(datasource)
+
         router.group({
             prefix,
             controller: ResourceController,
@@ -83,7 +87,7 @@ class ResourceRouter {
                     ...routeItemOptions,
                     resource: {
                         type: RouteResourceTypes.INDEX,
-                        modelConstructor: resource,
+                        datasource: datasourceRepository,
                         filters: filters ?? {},
                         searching: searching ?? {},
                         paginate: paginate ?? {},
@@ -99,7 +103,7 @@ class ResourceRouter {
                     resource: {
 
                         type: RouteResourceTypes.SHOW,
-                        modelConstructor: resource,
+                        datasource: datasourceRepository,
                         filters: filters ?? {},
                         searching: searching ?? {},
                     },
@@ -112,7 +116,7 @@ class ResourceRouter {
                     ...routeItemOptions,
                     resource: {
                         type: RouteResourceTypes.CREATE,
-                        modelConstructor: resource,
+                        datasource: datasourceRepository,
                         searching: searching ?? {},
                         validation: validation ?? {}
                     },
@@ -125,7 +129,7 @@ class ResourceRouter {
                     ...routeItemOptions,
                     resource: {
                         type: RouteResourceTypes.UPDATE,
-                        modelConstructor: resource,
+                        datasource: datasourceRepository,
                         searching: searching ?? {},
                         validation: validation ?? {}
                     },
@@ -138,7 +142,7 @@ class ResourceRouter {
                     ...routeItemOptions,
                     resource: {
                         type: RouteResourceTypes.DELETE,
-                        modelConstructor: resource,
+                        datasource: datasourceRepository,
                         searching: searching ?? {},
                         validation: validation ?? {}
                     },
@@ -174,7 +178,6 @@ class ResourceRouter {
         }
         return only.includes(type)
     }
-
 }
 
 export default ResourceRouter

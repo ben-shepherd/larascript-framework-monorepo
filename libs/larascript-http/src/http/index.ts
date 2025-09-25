@@ -6,6 +6,7 @@ export * from "./exceptions/index.js";
 export * from "./handlers/index.js";
 export * from "./interfaces/index.js";
 export * from "./middleware/index.js";
+export * from "./resolver/index.js";
 export * from "./resources/index.js";
 export * from "./response/index.js";
 export * from "./router/index.js";

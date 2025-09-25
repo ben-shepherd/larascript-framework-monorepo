@@ -1,3 +1,4 @@
+import HttpCodes from "@/http/data/HttpCodes.js";
 import { DatabaseResourceRepository } from "@/http/resources/repository/DatabaseResourceRepository.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
 import { beforeEach, describe, test } from "@jest/globals";
@@ -247,17 +248,134 @@ describe("resources test suite", () => {
             expect(body.data.name).toBe('Test Updated')
         })
 
-        test("should fail if validation fails", async () => {
+        test("should not be able to update a resource if validation fails", async () => {
+            const createValidator = class extends BaseCustomValidator {
+                protected rules: IRulesObject = {
+                    name: [new RequiredRule(), new StringRule()],
+                    age: [new RequiredRule(), new NumberRule()],    
+                }
+            }
+
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                validation: {
+                    update: createValidator,
+                }
+            })
+            httpService.bindRoutes(router);
     
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    name: undefined,
+                    age: undefined,
+                }),
+            })
+
+            const body = await response.json() as { 
+                data: {
+                    errors: Record<string, string[]>
+                }
+             }
+
+            expect(response.status).toBe(HttpCodes.UNPROCESSABLE_ENTITY)
+            expect(body.data.errors.name).toBeDefined()
+            expect(body.data.errors.age).toBeDefined()
         })
 
 
         test("should be able to update a resource if it is owned by the user", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: user.getId(),
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
     
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test Updated',
+                    age: 20
+                }),
+            })
+
+            const body = await response.json() as { 
+                data: {
+                    id: string,
+                    name: string,
+                    userId: string,
+                    age: number
+                }
+             }
+
+            expect(response.status).toBe(200)
+            expect(body.data.name).toBe('Test Updated')
+            expect(body.data.userId).toBe(user.getId())
         })
 
         test("should not be able to update a resource if it is not owned by the user", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: 'not-user-id',
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
     
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'PUT',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test Updated',
+                    age: 20
+                }),
+            })
+            expect(response.status).toBe(HttpCodes.FORBIDDEN)
         })
     })
 

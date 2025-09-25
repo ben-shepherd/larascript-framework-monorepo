@@ -693,11 +693,83 @@ describe("resources test suite", () => {
         })
 
         test("should not be able to index a resource if it is not owned by the user", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: 'not-user-id',
+            });
+            await model.save();
 
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+            const body = await response.json() as {
+                data: {
+                    id: string,
+                    name: string,
+                    age: number
+                }[]
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.data.length).toBe(0)
         })
 
         test("should be able to index a resource if it is owned by the user", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: user.getId(),
+            });
+            await model.save();
 
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+            const body = await response.json() as {
+                data: {
+                    id: string,
+                    name: string,
+                    age: number,
+                    userId: string
+                }[]
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.data.length).toBe(1)
+            expect(body.data[0].id).toBe(model.getId())
+            expect(body.data[0].name).toBe(model.name)
+            expect(body.data[0].age).toBe(model.age)
+            expect(body.data[0].userId).toBe(user.getId())
         })
 
         test("should be able to filter resources", async () => {

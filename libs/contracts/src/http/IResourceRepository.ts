@@ -19,6 +19,7 @@ export type ISortOption = {
 }
 
 export type IResourceQueryCallback = (query: IEloquent) => IEloquent;
+export type IResourceQuery = object | null | IResourceQueryCallback; 
 
 export interface IResourceRepository<
     T extends IResourceData = IResourceData,
@@ -31,9 +32,9 @@ export interface IResourceRepository<
     createResourceWithoutSaving(data: T): Promise<T>;
     updateResource(data: T): Promise<T>;
     deleteResource(data: T): Promise<void>;
-    getResources(query: object | null | IResourceQueryCallback, sortOptions?: ISortOption[]): Promise<T[]>;
-    getResourcesCount(query: object | null | IResourceQueryCallback): Promise<number>;
-    getResourcesPage(query: object | null | IResourceQueryCallback, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
+    getResources(query: IResourceQuery, sortOptions?: ISortOption[]): Promise<T[]>;
+    getResourcesCount(query: IResourceQuery): Promise<number>;
+    getResourcesPage(query: IResourceQuery, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
     getResourceOwnerAttribute(): string;
     stripSensitiveData(data: T): Promise<T>;
 }

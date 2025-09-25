@@ -1,10 +1,26 @@
-import { IResourceRepository, TDataSourceRepository } from "@larascript-framework/contracts/http";
+import { IResourceRepository, TDataSourceRepository, TRouteResourceOptions } from "@larascript-framework/contracts/http";
 import RouteConfigException from "../exceptions/RouteConfigException.js";
 import HttpContext from "./HttpContext.js";
 
 export class ResourceContext {
 
     constructor(private readonly context: HttpContext) {}
+
+    /**
+     * Gets the options of the resource.
+     * @returns {TRouteResourceOptions} The options of the resource.
+     */
+    get options(): TRouteResourceOptions {
+        if(!this.context.getRouteItem()) {
+            throw new RouteConfigException('Route item is not set')
+        }
+
+        if(!this.context.getRouteItem()?.resource) {
+            throw new RouteConfigException('Resource is not set')
+        }
+
+        return this.context.getRouteItem()?.resource!
+    }
 
     /**
      * Gets the repository of the resource.

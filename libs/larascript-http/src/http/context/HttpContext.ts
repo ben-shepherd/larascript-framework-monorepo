@@ -47,6 +47,18 @@ class HttpContext implements IHttpContext {
     }
 
     /**
+     * Gets the user of the request.
+     * @returns {IUserModel} The user of the request.
+     */
+    public getUserOrFail(): IUserModel {
+        const user = this.getUser()
+        if(!user) {
+            throw new HttpContextException('User not found')
+        }
+        return user
+    }
+
+    /**
      * Gets the API token of the request.
      * @returns {IApiTokenModel | undefined} The API token of the request.
      */

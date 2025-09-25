@@ -1,13 +1,13 @@
 import Controller from "@/http/base/Controller.js";
 import Middleware from "@/http/base/Middleware.js";
 import HttpContext from "@/http/context/HttpContext.js";
+import HttpCodes from "@/http/data/HttpCodes.js";
 import { ALWAYS, ScopeRuleConfig, SecurityEnum } from "@/http/index.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
 import SecurityReader from "@/http/security/services/SecurityReader.js";
 import HttpService from "@/http/services/HttpService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import { IUserModel } from "@larascript-framework/contracts/auth";
-import { Request, Response } from "express";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
 describe("security test suite", () => {
@@ -28,7 +28,11 @@ describe("security test suite", () => {
             const controller = class extends Controller {
                 async invoke(context: HttpContext) {
                     const routeItem = context.getRouteItem();
-                    const securityRule = SecurityReader.find(routeItem!, SecurityEnum.ENABLE_SCOPES, [ALWAYS])
+                    const securityRule = SecurityReader.find(
+                        routeItem!,
+                        SecurityEnum.ENABLE_SCOPES,
+                        [ALWAYS]
+                    )
                     const options = securityRule?.getRuleOptions() as ScopeRuleConfig;
 
                     expect(securityRule).not.toBeNull();
@@ -63,37 +67,36 @@ describe("security test suite", () => {
     })
 
     describe("rateLimited rule", () => {
-        test("rate limited rule", async () => {
-            const router = new HttpRouter();
-            const security = [
-                router.security().rateLimited(1, 60),
-            ];
-            router.get('/test', (req: Request, res: Response) => {
-                res.send({
-                    message: 'test',
-                });
-            }, {
-                security: security,
-            });
+        test("should fail when the limit is exceeded", async () => {
+            
+            const controller = class extends Controller {
+                async invoke(context: HttpContext) {
+                    return context.getResponse().send({
+                        message: 'test',
+                    });
+                }
+            }
 
+            const router = new HttpRouter();
+            router.get('/test', controller, {
+                security: [router.security().rateLimited(1, 60)]
+            });
             httpService.bindRoutes(router);
-            await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
-            expect(response.status).toBe(200);
-
             const response2 = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
             });
-            expect(response2.status).toBe(429);
-        })
 
+            expect(response.status).toBe(HttpCodes.OK);
+            expect(response2.status).toBe(HttpCodes.TOO_MANY_REQUESTS);
+        })
     })
 
     describe("hasRole rule", () => {
-        test("has role rule, passes when user has role", async () => {
+        test("should pass when user has role", async () => {
             const FakeUserMiddleware = class extends Middleware {
                 async execute(context: HttpContext) {
                     context.getRequest().user = {

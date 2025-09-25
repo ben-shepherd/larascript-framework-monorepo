@@ -176,4 +176,70 @@ describe("resources test suite", () => {
             expect(body.data.userId).toBe(user.getId())
         })
     });
+
+    describe("update resource", () => {
+        test("should be able to update a resource", async () => {
+    
+        })
+
+        test("should fail if validation fails", async () => {
+    
+        })
+
+
+        test("should be able to update a resource if it is owned by the user", async () => {
+    
+        })
+
+        test("should not be able to update a resource if it is not owned by the user", async () => {
+    
+        })
+    })
+
+    describe("delete resource", () => {
+        test("should be able to delete a resource", async () => {
+    
+        })
+
+        test("should fail if validation fails", async () => {
+    
+        })
+
+
+        test("should be able to delete a resource if it is owned by the user", async () => {
+    
+        })
+
+        test("should not be able to delete a resource if it is not owned by the user", async () => {
+    
+        })
+    })
+
+    describe("show resource", () => {
+        test("should be able to show a resource", async () => {
+    
+        })
+
+        test("should be able to show a resource if it is owned by the user", async () => {
+    
+        })
+
+        test("should not be able to show a resource if it is not owned by the user", async () => {
+    
+        })
+    })
+
+    describe("index resource", () => {
+        test("should be able to index a resource", async () => {
+    
+        })
+
+        test("should not be able to index a resource if it is not owned by the user", async () => {
+    
+        })
+
+        test("should be able to index a resource if it is owned by the user", async () => {
+    
+        })
+    })
 });

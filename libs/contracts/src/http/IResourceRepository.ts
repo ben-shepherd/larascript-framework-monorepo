@@ -1,3 +1,5 @@
+import { IEloquent } from "@/database/index.js";
+
 export type IResourceData = {
     [key: string]: unknown;
 } & Record<string, unknown>;
@@ -16,6 +18,8 @@ export type ISortOption = {
     sortDirection: 'asc' | 'desc';
 }
 
+export type IResourceQueryCallback = (query: IEloquent) => IEloquent;
+
 export interface IResourceRepository<
     T extends IResourceData = IResourceData,
     C extends IResourceRepositoryConfig = IResourceRepositoryConfig
@@ -27,9 +31,9 @@ export interface IResourceRepository<
     createResourceWithoutSaving(data: T): Promise<T>;
     updateResource(data: T): Promise<T>;
     deleteResource(data: T): Promise<void>;
-    getResources(query: object, sortOptions?: ISortOption[]): Promise<T[]>;
-    getResourcesCount(query: object): Promise<number>;
-    getResourcesPage(query: object, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
+    getResources(query: object | null | IResourceQueryCallback, sortOptions?: ISortOption[]): Promise<T[]>;
+    getResourcesCount(query: object | null | IResourceQueryCallback): Promise<number>;
+    getResourcesPage(query: object | null | IResourceQueryCallback, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
     getResourceOwnerAttribute(): string;
     stripSensitiveData(data: T): Promise<T>;
 }

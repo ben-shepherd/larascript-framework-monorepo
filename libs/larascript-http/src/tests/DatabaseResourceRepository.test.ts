@@ -14,7 +14,7 @@ describe("Database Resource Repository", () => {
 
     await TestHttpEnvironment.create({
       withDatabase: true,
-  }).boot();
+    }).boot();
 
     await resetMockModelTable();
   });
@@ -165,6 +165,64 @@ describe("Database Resource Repository", () => {
       expect(resourcesSortedByNameDescending[0].name).toBe("B");
       expect(resourcesSortedByNameDescending[1].name).toBe("A");
     });
+
+    test("should get the resources with filters", async () => {
+      const model = await MockModel.create({
+        name: "A",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "B",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resources = await repository.getResources({ name: "A" });
+      expect(resources.length).toBe(1);
+      expect(resources[0].name).toBe("A");
+      expect(resources[0].age).toBe(20);
+
+      const resources2 = await repository.getResources({ name: "B" });
+      expect(resources2.length).toBe(1);
+      expect(resources2[0].name).toBe("B");
+      expect(resources2[0].age).toBe(21);
+    });
+
+    test("should get the resources with eloquent query", async () => {
+      const model = await MockModel.create({
+        name: "A",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "B",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resources = await repository.getResources(
+        (query) => {
+          return query.where("age", ">=", 20);
+        }
+      );
+
+      expect(resources.length).toBe(2);
+      expect(resources[0].name).toBe("A");
+      expect(resources[0].age).toBe(20);
+      expect(resources[1].name).toBe("B");
+      expect(resources[1].age).toBe(21);
+
+      const resources2 = await repository.getResources(
+        (query) => {
+          return query.where("age", ">=", 20).where("name", "=", "A");
+        }
+      );
+
+      expect(resources2.length).toBe(1);
+      expect(resources2[0].name).toBe("A");
+      expect(resources2[0].age).toBe(20);
+    });
   });
 
   describe("getResourcesCount", () => {
@@ -188,6 +246,31 @@ describe("Database Resource Repository", () => {
       const count2 = await repository.getResourcesCount({});
 
       expect(count2).toBe(2);
+    });
+
+    test("should get the count of resources with eloquent query", async () => {
+      const model = await MockModel.create({
+        name: "Test",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "Test 2",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const count = await repository.getResourcesCount((query) => {
+        return query.where("age", ">=", 20);
+      });
+
+      expect(count).toBe(2);
+
+      const count2 = await repository.getResourcesCount((query) => {
+        return query.where("age", ">=", 20).where("name", "=", "Test");
+      });
+
+      expect(count2).toBe(1);
     });
   });
 
@@ -262,6 +345,35 @@ describe("Database Resource Repository", () => {
       expect(resourcesSortedByNameDescending.length).toBe(2);
       expect(resourcesSortedByNameDescending[0].name).toBe("B");
       expect(resourcesSortedByNameDescending[1].name).toBe("A");
+    });
+
+    test("should get the paginated resources with eloquent query", async () => {
+      const model = await MockModel.create({
+        name: "Test",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "Test 2",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resources = await repository.getResourcesPage((query) => {
+        return query.where("age", ">=", 20);
+      }, 1, 10);
+
+      expect(resources.length).toBe(2);
+      expect(resources[0].name).toBe("Test");
+      expect(resources[1].name).toBe("Test 2");
+
+      const resources2 = await repository.getResourcesPage((query) => {
+        return query.where("age", ">=", 20).where("name", "=", "Test");
+      }, 1, 10);
+
+      expect(resources2.length).toBe(1);
+      expect(resources2[0].name).toBe("Test");
+      expect(resources2[0].age).toBe(20);
     });
   });
 

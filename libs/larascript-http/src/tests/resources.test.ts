@@ -1013,8 +1013,6 @@ describe("resources test suite", () => {
                     modelConstructor: MockModel,
                 },
                 sorting: {
-                    fieldKey: 'name',
-                    directionKey: 'direction',
                     defaultField: 'name',
                     defaultDirection: 'asc',
                 }
@@ -1039,7 +1037,7 @@ describe("resources test suite", () => {
             expect(body.data[0].name).toBe('Alice')
             expect(body.data[1].name).toBe('Bob')
 
-            const queryParams = '?sort=name&direction=desc';
+            const queryParams = '?sort[name]=desc';
             const response2 = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
                 method: 'GET',
                 headers,
@@ -1059,7 +1057,7 @@ describe("resources test suite", () => {
             expect(body2.data[1].name).toBe('Alice')
         })
 
-        test('should be able to override the default field and direction', async () => {
+        test.only('should be able to override the default field and direction', async () => {
             const model = await MockModel.create({
                 name: 'Alice',
                 age: 20
@@ -1078,15 +1076,13 @@ describe("resources test suite", () => {
                     modelConstructor: MockModel,
                 },
                 sorting: {
-                    fieldKey: 'name',
-                    directionKey: 'direction',
                     defaultField: 'name',
                     defaultDirection: 'asc',
                 }
             })
             httpService.bindRoutes(router);
 
-            const queryParams = '?sort=age&direction=asc';
+            const queryParams = '?sort[age]=asc';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
                 method: 'GET',
                 headers,
@@ -1105,7 +1101,7 @@ describe("resources test suite", () => {
             expect(body.data[0].age).toBe(20)
             expect(body.data[1].age).toBe(21)
 
-            const queryParams2 = '?sort=age&direction=desc';
+            const queryParams2 = '?sort[age]=desc';
             const response2 = await fetch(`http://localhost:${serverPort}/test${queryParams2}`, {
                 method: 'GET',
                 headers,

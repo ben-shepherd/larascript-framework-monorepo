@@ -4,7 +4,7 @@ import { ControllerConstructor } from "./IController.js";
 import { TDataSource } from "./IDataSource.js";
 import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";
 import { ISecurityRule, ISecurityRules } from "./ISecurity.js";
-import { TSortDirection } from "./ISorting.js";
+import { TSortDefaults } from "./ISorting.js";
 
 export type RouteConstructor = {
     new (...args: any[]): IRouter;
@@ -100,12 +100,7 @@ export type TRouteResourceOptions = {
         pageSize: number;
         allowPageSizeOverride?: boolean;
     }
-    sorting?: {
-        fieldKey: string;
-        directionKey: string;
-        defaultField?: string;
-        defaultDirection?: TSortDirection;
-    },
+    sorting?: TSortDefaults;
     validation?: {
         create?: CustomValidatorConstructor;
         update?: CustomValidatorConstructor;

@@ -195,11 +195,12 @@ class ResourceIndexService extends AbastractBaseResourceService {
             context.getRequest(),
             context.resourceContext.options.sorting
         );
+        const results = sortOptions.results;
 
-        return [{
-            field: sortOptions.field,
-            sortDirection: sortOptions.sortDirection
-        }];
+        return Object.entries(results).map(([field, direction]) => ({
+            field: field,
+            sortDirection: direction
+        }));
     }
 
 }

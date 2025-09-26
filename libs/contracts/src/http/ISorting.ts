@@ -1,8 +1,8 @@
 export type TSortDirection = 'asc' | 'desc'
 
-export type TSortOptions = {
-    fieldKey: string;
-    directionKey: string;
+export type TSortDefaults = {
     defaultField?: string;
     defaultDirection?: TSortDirection;
 }
+
+export type TSortResult = Record<string, TSortDirection>

@@ -85,8 +85,34 @@ abstract class AbastractBaseResourceService {
 
      * @returns {boolean} - Whether the request is authorized
      */
-    async validateAuthorized(): Promise<boolean> {
+    async validateAuthorized(context: HttpContext): Promise<boolean> {
+        if(await this.validateAccessAsGuest(context)) {
+            return true;
+        }
+
         return await Http.getInstance().getAuthService().check()
+    }
+
+    /**
+     * Checks if the request is allowed to access the resource as a guest
+     * - If the allowUnauthenticated is a boolean, return it
+     * - If the allowUnauthenticated is an object, return the value of the routeResourceType
+     * - If the allowUnauthenticated is not set, return false
+     * 
+     * @param context 
+     * @returns 
+     */
+    async validateAccessAsGuest(context: HttpContext): Promise<boolean> {
+        const allowUnauthenticated = context.resourceContext.options.allowUnauthenticated;
+
+        if (typeof allowUnauthenticated === 'boolean') {
+            return allowUnauthenticated;
+        }
+        else if (typeof allowUnauthenticated === 'object') {
+            return allowUnauthenticated[this.routeResourceType] ?? false;
+        }
+
+        return false;
     }
 
     /**
@@ -105,7 +131,7 @@ abstract class AbastractBaseResourceService {
 
         const resourceOwnerSecurity = this.getResourceOwnerRule(routeOptions);
 
-        if (await this.validateAuthorized() && resourceOwnerSecurity) {
+        if (await this.validateAuthorized(context) && resourceOwnerSecurity) {
             return true;
         }
 

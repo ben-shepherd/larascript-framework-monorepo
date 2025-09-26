@@ -1,4 +1,4 @@
-import { IRouteGroupOptions, IRouter, TExpressMiddlewareFnOrClass, TPartialRouteItemOptions, TRouteGroupFn, TRouteItem, TRouteResourceOptions, TRouterMethodOptions } from "@larascript-framework/contracts/http";
+import { IRouteGroupOptions, IRouter, TExpressMiddlewareFnOrClass, TPartialRouteItemOptions, TResourceType, TRouteGroupFn, TRouteItem, TRouteResourceOptions, TRouterMethodOptions } from "@larascript-framework/contracts/http";
 import SecurityRules from "../security/services/SecurityRules.js";
 import ResourceRouter from "./RouterResource.js";
 
@@ -234,6 +234,10 @@ class HttpRouter implements IRouter {
             // Combine security rules from parent and child groups
             security: [...(this.baseOptions?.security ?? []), ...(options?.security ?? [])],
             middlewares: [...currentMiddlewareArray, ...optionsMiddlewareArray],
+            resource: {
+                type: options?.resource?.type ?? 'index',
+                ...options?.resource,
+            } as { type: TResourceType } & TRouteResourceOptions,
         }
 
         this.registered.push(routeItem);

@@ -61,6 +61,10 @@ export type TResourceType = 'index' | 'show' | 'create' | 'update' | 'delete';
 
 export type TRouterMethodOptions = Omit<TRouteItem, 'path' | 'method' | 'action' | 'resource'>;
 
+export type TAllowUnauthenticated = boolean | {
+    [key in TResourceType]?: boolean;
+}
+
 export type TRouteItem = {
     path: string;
     method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS';
@@ -106,5 +110,6 @@ export type TRouteResourceOptions = {
         update?: CustomValidatorConstructor;
         delete?: CustomValidatorConstructor;
     },
-    only?: TResourceType[]
+    only?: TResourceType[];
+    allowUnauthenticated?: TAllowUnauthenticated;
 }

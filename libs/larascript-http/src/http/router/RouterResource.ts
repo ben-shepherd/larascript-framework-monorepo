@@ -60,26 +60,31 @@ class ResourceRouter {
     /**
      * Add resource routes to the router.
      */
-    public static resource({ prefix, datasource, scopes, filters, searching, paginate, sorting, validation, security, ...rest }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
+    public static resource({ ...resource }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
 
         const routeItemOptions: TPartialRouteItemOptions = {
-            prefix,
-            ...rest,
+            resource: {
+                ...resource,
+            } as { type: TResourceType } & TRouteResourceOptions,
         }
 
-        const registerIndex = this.shouldRegisterType(RouteResourceTypes.INDEX, rest.only)
-        const registerShow = this.shouldRegisterType(RouteResourceTypes.SHOW, rest.only)
-        const registerCreate = this.shouldRegisterType(RouteResourceTypes.CREATE, rest.only)
-        const registerUpdate = this.shouldRegisterType(RouteResourceTypes.UPDATE, rest.only)
-        const registerDelete = this.shouldRegisterType(RouteResourceTypes.DELETE, rest.only)
+        const registerIndex = this.shouldRegisterType(RouteResourceTypes.INDEX, resource.only)
+        const registerShow = this.shouldRegisterType(RouteResourceTypes.SHOW, resource.only)
+        const registerCreate = this.shouldRegisterType(RouteResourceTypes.CREATE, resource.only)
+        const registerUpdate = this.shouldRegisterType(RouteResourceTypes.UPDATE, resource.only)
+        const registerDelete = this.shouldRegisterType(RouteResourceTypes.DELETE, resource.only)
 
         // Resolve the datasource as a repository
-        const datasourceRepository = DataSourceResolver.resolveDatasourceAsRepository(datasource)
+        const datasourceRepository = DataSourceResolver.resolveDatasourceAsRepository(resource)
+        resource = {
+            ...resource,
+            datasource: datasourceRepository,
+        }
 
         router.group({
-            prefix,
+            ...resource,
+            prefix: resource.prefix,
             controller: ResourceController,
-            ...rest
         }, (router) => {
             
             if(registerIndex) {
@@ -87,13 +92,9 @@ class ResourceRouter {
                     ...routeItemOptions,
                     resource: {
                         type: RouteResourceTypes.INDEX,
-                        datasource: datasourceRepository,
-                        filters: filters ?? {},
-                        searching: searching ?? {},
-                        paginate: paginate ?? {},
-                        sorting: sorting
+                        ...resource,
                     },
-                    security: this.mergeScopesSecurityRules(RouteResourceTypes.INDEX, scopes, security ?? [])
+                    security: this.mergeScopesSecurityRules(RouteResourceTypes.INDEX, resource.scopes, resource.security ?? [])
                 });
             }
 
@@ -101,13 +102,10 @@ class ResourceRouter {
                 router.get('/:id', 'show', {
                     ...routeItemOptions,
                     resource: {
-
                         type: RouteResourceTypes.SHOW,
-                        datasource: datasourceRepository,
-                        filters: filters ?? {},
-                        searching: searching ?? {},
+                        ...resource,
                     },
-                    security: this.mergeScopesSecurityRules(RouteResourceTypes.SHOW, scopes, security ?? [])
+                    security: this.mergeScopesSecurityRules(RouteResourceTypes.SHOW, resource.scopes, resource.security ?? [])
                 });
             }
 
@@ -115,12 +113,10 @@ class ResourceRouter {
                 router.post('/', 'create', {
                     ...routeItemOptions,
                     resource: {
+                        ...resource,
                         type: RouteResourceTypes.CREATE,
-                        datasource: datasourceRepository,
-                        searching: searching ?? {},
-                        validation: validation ?? {}
                     },
-                    security: this.mergeScopesSecurityRules(RouteResourceTypes.CREATE, scopes, security ?? [])
+                    security: this.mergeScopesSecurityRules(RouteResourceTypes.CREATE, resource.scopes, resource.security ?? [])
                 });
             }
 
@@ -128,12 +124,10 @@ class ResourceRouter {
                 router.put('/:id', 'update', {
                     ...routeItemOptions,
                     resource: {
+                        ...resource,
                         type: RouteResourceTypes.UPDATE,
-                        datasource: datasourceRepository,
-                        searching: searching ?? {},
-                        validation: validation ?? {}
                     },
-                    security: this.mergeScopesSecurityRules(RouteResourceTypes.UPDATE, scopes, security ?? [])
+                    security: this.mergeScopesSecurityRules(RouteResourceTypes.UPDATE, resource.scopes, resource.security ?? [])
                 });
             }
 
@@ -141,12 +135,10 @@ class ResourceRouter {
                 router.delete('/:id', 'delete', {
                     ...routeItemOptions,
                     resource: {
+                        ...resource,
                         type: RouteResourceTypes.DELETE,
-                        datasource: datasourceRepository,
-                        searching: searching ?? {},
-                        validation: validation ?? {}
                     },
-                    security: this.mergeScopesSecurityRules(RouteResourceTypes.DELETE, scopes, security ?? [])
+                    security: this.mergeScopesSecurityRules(RouteResourceTypes.DELETE, resource.scopes, resource.security ?? [])
                 });
             }
         })

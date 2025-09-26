@@ -3,7 +3,6 @@ import { NextFunction, Request, Response } from "express";
 import HttpContext from "../context/HttpContext.js";
 import responseError from "../handlers/responseError.js";
 import { ICreateExpressHandler, IHttpContext, IMiddleware, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TRouteItem } from "../interfaces/index.js";
-import { AbstractMiddlewareException } from "./AbstractMiddlewareException.js";
 ;
 
 /**
@@ -127,7 +126,7 @@ abstract class Middleware<Config extends unknown = unknown> implements IMiddlewa
 
             }
             catch(err) {
-                responseError(req, res, err as Error, (err as AbstractMiddlewareException)?.code ?? 500)
+                responseError(req, res, err as Error)
             }
         }
     }

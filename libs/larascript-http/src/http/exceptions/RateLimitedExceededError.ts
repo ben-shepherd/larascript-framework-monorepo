@@ -1,6 +1,6 @@
-import { AbstractMiddlewareException } from "../base/AbstractMiddlewareException.js";
+import { AbstractHttpException } from "../base/AbstractHttpException.js";
 
-export class RateLimitedExceededError extends AbstractMiddlewareException {
+export class RateLimitedExceededError extends AbstractHttpException {
     code = 429;
     
     constructor(message: string = "Too many requests. Try again later.") {

@@ -135,7 +135,7 @@ class SecurityMiddleware extends Middleware {
  
         for(const securityScope of securityScopes) {
             if (!(await securityScope.execute(context))) {
-                responseError(context.getRequest(), context.getResponse(), new ForbiddenResourceError(), 403)
+                responseError(context.getRequest(), context.getResponse(), new ForbiddenResourceError())
                 return null;
             }
         }

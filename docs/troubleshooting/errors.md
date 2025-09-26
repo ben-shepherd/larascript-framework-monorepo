@@ -1,4 +1,8 @@
+# Table of Contents
 
+- [Importing module that doesn't exist](#importing-module-that-doesnt-exist)
+- [TypeError: Class extends value undefined is not a constructor or null](#typeerror-class-extends-value-undefined-is-not-a-constructor-or-null)
+- [Cannot import a module that you are certain exists](#cannot-import-a-module-that-you-are-certain-exists)
 
 ## Importing module that doesn't exist
 
@@ -42,4 +46,49 @@ If required, add the `build:watch` script to the package.json and run it.
       at Object.<anonymous> (../larascript-database/dist/index.js:3:1)
       at Object.<anonymous> (src/tests/DatabaseResourceRepository.test.ts:5:1)
 
+```
+
+## TypeError: Class extends value undefined is not a constructor or null
+
+This is typically caused by circular import dependencies.
+
+Here is how you can find and fix them:
+
+- Install `tslint` and `tslint-no-circular-imports`
+- Add the following to your `tslint.json` file:
+
+```json
+{
+    "extends": [
+        "tslint-no-circular-imports"
+    ]
+}
+```
+
+- Add the following to your `package.json` file:
+
+```json
+"scripts": {
+    "lint": "tslint --project tsconfig.json",
+}
+```
+
+- Run `npm run tslint` and you should see the circular import errors.
+- Try to use the concrete classes rather than classes that pull in other classes.
+- Use interfaces/types rather than concrete classes where possible.
+
+## Cannot import a module that you are certain exists
+
+If you are trying to import something from a library in this monorepo and the import fails (e.g., "module not found" or "cannot resolve import"), but you are sure the file or export exists, try the following:
+
+**Solution:**  
+
+Run the following command from the root of the project:
+```bash
+turbo libs:build
+```
+
+You can also run the following command to build a specific library:
+```bash
+turbo build:watch --filter="./libs/*name-of-library" --concurrency=100%
 ```

@@ -3,4 +3,3 @@ export * from "./middlewareUtil.js";
 export * from "./Paginate.js";
 export * from "./QueryFilters.js";
 export * from "./SortOptions.js";
-export * from "./stripGuardedResourceProperties.js";

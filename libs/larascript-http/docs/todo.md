@@ -22,9 +22,9 @@
 - [x] Index responses include pagination metadata (`page`, and default `pageSize` from route options when set).
 
 ### Filtering Behavior
-- [ ] Fields not listed in `searching.fields` are stripped from filters.
-- [ ] Fuzzy mode: Boolean values are not wrapped with `%` (`true`/`false` handled as strings), other values are wrapped with `%value%`.
-- [ ] Base route `resource.filters.index` are merged with request filters and still respect allowed fields.
+- [x] Fields not listed in `searching.fields` are stripped from filters.
+- [x] Fuzzy mode: Boolean values are not wrapped with `%` (`true`/`false` handled as strings), other values are wrapped with `%value%`.
+- [x] Base route `resource.filters.index` are merged with request filters and still respect allowed fields.
 
 ### Sorting Behavior
 - [x] Direction normalization: `-`, `'desc'`, `-1` => `desc`; `'asc'`, `1`, other => `asc`.
@@ -40,4 +40,4 @@
 
 ### Pagination Behavior
 - [x] `allowPageSizeOverride: false` prevents `pageSize` query from overriding route default.
-- [ ] Large page numbers beyond available results return empty arrays with correct pagination metadata.
+- [x] Large page numbers beyond available results return empty arrays with correct pagination metadata.

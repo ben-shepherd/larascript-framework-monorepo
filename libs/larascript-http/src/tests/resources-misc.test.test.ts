@@ -1,9 +1,11 @@
 import HttpCodes from "@/http/data/HttpCodes.js";
 import { DatabaseResourceRepository } from "@/http/resources/repository/DatabaseResourceRepository.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
+import QueryFilters from "@/http/utils/QueryFilters.js";
 import { beforeEach, describe, test } from "@jest/globals";
 import { IUserModel } from "@larascript-framework/contracts/auth";
-import { IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IHttpService, MiddlewareConstructor, QueryFilterOptions } from "@larascript-framework/contracts/http";
+import { Request } from "express";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 import { MockModel } from "./repository/MockModel.js";
 import { resetMockModelTable } from "./repository/resetMockModelTable.js";
@@ -394,6 +396,105 @@ describe("resources test suite", () => {
             expect(body.meta.pagination.page).toBe(100)
             expect(body.meta.pagination.previousPage).toBe(99)
             expect(body.meta.pagination.nextPage).toBe(undefined)
+        })
+    })
+
+    describe("query filters", () => {
+        test("should filter out fields that are not in the allowed fields", async () => {
+            const options: QueryFilterOptions = {
+                baseFilters: {
+                    name: 'Test',
+                    age: 20,
+                },
+                allowedFields: ['name', 'age'],
+            }
+
+            const mockRequest = {
+                query: {
+                    filters: {
+                        name: 'Test',
+                        age: 20,
+                        secret: 'Secret',
+                    },
+                },
+            } as unknown as Request;
+
+            const queryFilters = QueryFilters.parseRequest(mockRequest, options).filters;
+
+            expect(queryFilters).toEqual({
+                name: 'Test',
+                age: 20,
+            });
+
+        })
+
+        test("should add percent signs to filters if fuzzy is true", async () => {
+            const options: QueryFilterOptions = {
+                fuzzy: true,
+                baseFilters: {
+                    name: 'Test',
+                }
+            }
+
+            const mockRequest = {
+                query: {
+                    filters: {
+                        name: 'Test',
+                    },
+                },
+            } as unknown as Request;
+
+            const queryFilters = QueryFilters.parseRequest(mockRequest, options).filters;
+
+            expect(queryFilters).toEqual({
+                name: '%Test%',
+            });
+        })
+
+        test("should not add percent signs to filters if fuzzy is false", async () => {
+            const options: QueryFilterOptions = {
+                fuzzy: false,
+                baseFilters: {
+                    name: 'Test',
+                },
+            }
+
+            const mockRequest = {
+                query: {
+                    filters: {
+                        name: 'Test',
+                    },
+                },
+            } as unknown as Request;
+
+            const queryFilters = QueryFilters.parseRequest(mockRequest, options).filters;
+
+            expect(queryFilters).toEqual({
+                name: 'Test',
+            });
+        })
+
+        test("should merge base filters with request filters", async () => {
+            const options: QueryFilterOptions = {
+                baseFilters: {
+                    name: 'Test',
+                },
+            }
+
+            const mockRequest = {
+                query: {
+                    filters: {
+                        age: 20,
+                    },
+                },
+            } as unknown as Request;
+
+            const queryFilters = QueryFilters.parseRequest(mockRequest, options).filters;
+
+            expect(queryFilters).toEqual({
+                name: 'Test',
+                age: 20,
+            });
         })
     })
 });

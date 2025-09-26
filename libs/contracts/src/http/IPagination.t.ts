@@ -11,3 +11,8 @@ export interface IPageOptions {
     pageSize?: number;
     skip?: number;
 }
+
+export type ParseRequestOptions = {
+    allowPageSizeOverride?: boolean
+    totalCount: number
+}

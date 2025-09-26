@@ -47,7 +47,7 @@ class ResourceDeleteService extends AbastractBaseResourceService {
 
 
         // Check if the authorization security applies to this route and it is valid
-        if (!await this.validateAuthorized(context)) {
+        if (!await this.validateAuthorizedOrAccessAsGuest(context)) {
             throw new UnauthorizedException()
         }
 

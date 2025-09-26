@@ -48,7 +48,7 @@ class ResourceIndexService extends AbastractBaseResourceService {
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes[]>> {
 
-        if (!await this.validateAuthorized(context)) {
+        if (!await this.validateAuthorizedOrAccessAsGuest(context)) {
             throw new UnauthorizedException()
         }
 

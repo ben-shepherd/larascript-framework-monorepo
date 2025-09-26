@@ -1,8 +1,8 @@
 ## Test Coverage Checklist
 
 ### Auth & Resource Owner Security
-- [ ] Create: Unauthenticated request with `resourceOwner` enabled should return 401.
-- [ ] Show: Unauthenticated request with `resourceOwner` enabled should return 403.
+- [x] Create: Unauthenticated request with `resourceOwner` enabled should return 401.
+- [x] Show: Unauthenticated request with `resourceOwner` enabled should return 403.
 - [ ] Index: When `resourceOwner` is enabled but user is not authenticated, owner filter should **not** be applied (results unfiltered) — clarify and assert intended behavior.
 
 ### Resource Owner Configuration

@@ -862,6 +862,47 @@ describe("resources test suite", () => {
             expect(body.data[0].userId).toBe(user.getId())
         })
 
+        test("should not apply resource owner filter if the user is not authenticated", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                userId: generateUuidV4(),
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                allowUnauthenticated: true,
+                security: [
+                    router.security().resourceOwner('userId'),
+                ],
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+            const body = await response.json() as {
+                data: {
+                    id: string,
+                    name: string,
+                    age: number
+                }[]
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.data.length).toBe(1)
+            expect(body.data[0].id).toBe(model.getId())
+            expect(body.data[0].name).toBe(model.name)
+            expect(body.data[0].age).toBe(model.age)
+
+        })
+
         test("should be able to filter resources using exact match", async () => {
             const model = await MockModel.create({
                 name: 'Test',
@@ -1228,15 +1269,40 @@ describe("resources test suite", () => {
         })
     })
 
-    // describe("only resource", () => {
-    //     test("should only be able to access the specified resource types", async () => {
-    //         const router = new HttpRouter();
-    //         router.resource({
-    //             prefix: '/test',
-    //             only: ['show'],
-    //         })
-    //     })
-    // })
+    describe("only resource", () => {
+        test("should only be able to access the specified resource types", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
+                only: ['show'],
+            })
+            httpService.bindRoutes(router);
+
+            const showResponse = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'GET',
+                headers,
+            })
+            expect(showResponse.status).toBe(HttpCodes.OK)
+
+            const indexResponse = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+            expect(indexResponse.status).toBe(HttpCodes.NOT_FOUND)
+        })
+    })
 
     describe("guest resource", () => {
         test("should allow multiple resource types to be accessible as a guest", async () => {

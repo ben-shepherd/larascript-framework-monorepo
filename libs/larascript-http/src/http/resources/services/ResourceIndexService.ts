@@ -1,5 +1,6 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
+import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
 import Paginate from "@/http/utils/Paginate.js";
@@ -46,6 +47,10 @@ class ResourceIndexService extends AbastractBaseResourceService {
      * @param options The resource options
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes[]>> {
+
+        if (!await this.validateAuthorized()) {
+            throw new UnauthorizedException()
+        }
 
         // Get the route options
         const routeOptions = context.getRouteItem()

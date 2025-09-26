@@ -67,13 +67,38 @@ describe("resources test suite", () => {
     })
 
     describe("create resource", () => {
-        test("should be able to create a resource", async () => {
+        test("should not be able to create a resource while not being authenticated", async () => {
             const router = new HttpRouter();
             router.resource({
                 prefix: '/test',
                 datasource: {
                     modelConstructor: MockModel,
-                }
+                },
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test',
+                    age: 20,
+                }),
+            })
+
+            expect(response.status).toBe(401)
+        })
+
+        test("should be able to create a resource while authenticated", async () => {
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
             })
             httpService.bindRoutes(router);
 
@@ -99,7 +124,7 @@ describe("resources test suite", () => {
             expect(response.status).toBe(201)
         })
 
-        test("should fail if validation fails", async () => {
+        test("should not be able to create a resource if validation fails", async () => {
             const createValidator = class extends BaseCustomValidator {
                 protected rules: IRulesObject = {
                     name: [new RequiredRule(), new StringRule()],
@@ -115,7 +140,10 @@ describe("resources test suite", () => {
                 },
                 validation: {
                     create: createValidator,
-                }
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
             })
             httpService.bindRoutes(router);
 
@@ -551,7 +579,7 @@ describe("resources test suite", () => {
     })
 
     describe("show resource", () => {
-        test("should be able to show a resource", async () => {
+        test("should be able to show a resource while authenticated", async () => {
             const model = await MockModel.create({
                 name: 'Test',
                 age: 20
@@ -564,6 +592,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
             })
             httpService.bindRoutes(router);
 
@@ -583,6 +614,30 @@ describe("resources test suite", () => {
             expect(body.data.id).toBe(model.getId())
             expect(body.data.name).toBe(model.name)
             expect(body.data.age).toBe(model.age)
+        })
+
+        test("should not be able to show a resource while not being authenticated", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                }
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'GET',
+                headers,
+            })
+
+            expect(response.status).toBe(HttpCodes.UNAUTHORIZED)
         })
 
         test("should be able to show a resource if it is owned by the user", async () => {
@@ -642,6 +697,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 security: [
                     router.security().resourceOwner('userId'),
                 ],
@@ -658,7 +716,7 @@ describe("resources test suite", () => {
     })
 
     describe("index resource", () => {
-        test("should be able to index a resource", async () => {
+        test("should be able to index a resource while authenticated", async () => {
             const model = await MockModel.create({
                 name: 'Test',
                 age: 20,
@@ -671,6 +729,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
             })
             httpService.bindRoutes(router);
 
@@ -691,6 +752,30 @@ describe("resources test suite", () => {
             expect(body.data[0].id).toBe(model.getId())
             expect(body.data[0].name).toBe(model.name)
             expect(body.data[0].age).toBe(model.age)
+        })
+
+        test("should not be able to index a resource while not being authenticated", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+
+            expect(response.status).toBe(HttpCodes.UNAUTHORIZED)
         })
 
         test("should not be able to index a resource if it is not owned by the user", async () => {
@@ -750,6 +835,9 @@ describe("resources test suite", () => {
                 security: [
                     router.security().resourceOwner('userId'),
                 ],
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
             })
             httpService.bindRoutes(router);
 
@@ -788,6 +876,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 security: [
                     router.security().resourceOwner('userId'),
                 ],
@@ -843,6 +934,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 searching: {
                     fuzzy: true,
                     fields: ['name'],
@@ -906,6 +1000,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 paginate: {
                     pageSize: 1,
                 }
@@ -967,6 +1064,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 paginate: {
                     pageSize: 1,
                     allowPageSizeOverride: true,
@@ -1012,6 +1112,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 sorting: {
                     defaultField: 'name',
                     defaultDirection: 'asc',
@@ -1075,6 +1178,9 @@ describe("resources test suite", () => {
                 datasource: {
                     modelConstructor: MockModel,
                 },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ],
                 sorting: {
                     defaultField: 'name',
                     defaultDirection: 'asc',

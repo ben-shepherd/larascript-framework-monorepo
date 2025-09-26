@@ -2,12 +2,11 @@ import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
-import { RouteResourceTypes } from "@/http/router/RouterResource.js";
 import Paginate from "@/http/utils/Paginate.js";
 import QueryFilters from "@/http/utils/QueryFilters.js";
 import SortOptions from "@/http/utils/SortOptions.js";
 import { IModelAttributes } from "@larascript-framework/contracts/database/model";
-import { IPageOptions, ISortOption, TRouteItem } from "@larascript-framework/contracts/http";
+import { IPageOptions, ISortOption, RouteResourceTypes, TRouteItem } from "@larascript-framework/contracts/http";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 
 /**

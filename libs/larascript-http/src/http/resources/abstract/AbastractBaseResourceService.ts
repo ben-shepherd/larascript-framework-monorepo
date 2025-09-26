@@ -277,7 +277,6 @@ abstract class AbastractBaseResourceService {
     getValidator(context: HttpContext): CustomValidatorConstructor | undefined {
         const routeOptions = context.getRouteItem()
 
-
         if (!routeOptions) {
             throw new ResourceException('Route options are required')
         }
@@ -345,8 +344,8 @@ abstract class AbastractBaseResourceService {
      * Gets the user from the request
      * @returns {Promise<IHttpUser | null>} - The user or null if not found
      */
-    getUser(): Promise<IHttpUser | null> {
-        return Http.getInstance().getAuthService().user()
+    async getUser(): Promise<IHttpUser | null> {
+        return await Http.getInstance().getAuthService().user()
     }
 
 }

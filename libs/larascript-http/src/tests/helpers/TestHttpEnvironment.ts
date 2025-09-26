@@ -21,8 +21,11 @@ const DEFAULTS: Options = {
 }
 
 export class TestHttpEnvironment extends BaseSingleton<Options> {
-    httpService!: IHttpService;
     asyncSession!: IAsyncSessionService;
+
+    get httpService(): IHttpService {
+        return Http.getInstance().getHttpService();
+    }
 
     getAuthTestEnvironment(): TestAuthEnvironment {
         return TestAuthEnvironment.getInstance();
@@ -40,24 +43,35 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
     }
     
     async boot() {
+        this.asyncSession = new AsyncSessionService();
+
+        // Create the database environment
         await TestDatabaseEnvironment.create({
             withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
         }).boot();
 
-        this.asyncSession = new AsyncSessionService();
-
+        // Create the auth environment
         await TestAuthEnvironment.create({
             databaseService: TestDatabaseEnvironment.getInstance().databaseService,
             eloquentQueryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder,
             asyncSessionService: this.asyncSession,
         }).boot();
-
         
-        Http.init({
-            httpConfig: {
+        const httpService = new HttpService(
+            {
                 enabled: true,
                 port: 0, // Use dynamic port allocation
-            },
+                beforeAllMiddlewares: [],
+                afterAllMiddlewares: [],
+                extendExpress: () => {},
+                logging: {
+                    requests: true,
+                },
+            }   
+        )
+
+        // Create the http environment
+        Http.init(httpService, {
             environment: EnvironmentTesting,
             dependencies: {
                 storageService: {} as unknown as IStorageService,
@@ -69,15 +83,16 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
                 queryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
             }
         });
-        this.httpService = new HttpService({
-            enabled: true,
-            port: 0, // Use dynamic port allocation
-            beforeAllMiddlewares: [],
-        });
-        this.httpService.init()
-        await this.httpService.listen()
+
+        // Initialize and listen to the http service
+        await Http.getInstance().boot();
     }
 
+    /**
+     * Creates a mock authorize user middleware
+     * @param user - The user to authorize
+     * @returns The mock authorize user middleware
+     */
     createMockAuthorizeUserMiddleware(user: IUserModel): MiddlewareConstructor {
         return class extends Middleware {
             async execute(context: IHttpContext): Promise<void> {

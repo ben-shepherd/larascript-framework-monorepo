@@ -113,7 +113,7 @@ class HttpRouter implements IRouter {
      * Register a resource route.
      */
     public resource(options: TRouteResourceOptions): IRouter {
-        const router = ResourceRouter.resource(options);
+        const router = ResourceRouter.resource(options, new HttpRouter());
 
         router.getRegisteredRoutes().map(route => {
             this.register(route)

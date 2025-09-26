@@ -187,7 +187,7 @@ abstract class AbastractBaseResourceService {
             throw new ResourceException('The resource owner attribute is not set');
         }
 
-        if (typeof expectedResourceOwnerAttribute !== (resourceOwnerSecurity as ResourceOwnerRule).getRuleOptions()?.attribute) {
+        if (expectedResourceOwnerAttribute !== (resourceOwnerSecurity as ResourceOwnerRule).getRuleOptions()?.attribute) {
             throw new ResourceException('Expected the resource owner attribute to be ' + expectedResourceOwnerAttribute + ' but received ' + (resourceOwnerSecurity as ResourceOwnerRule).getRuleOptions()?.attribute);
         }
     }

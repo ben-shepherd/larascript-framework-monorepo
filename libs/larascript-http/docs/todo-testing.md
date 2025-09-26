@@ -13,8 +13,8 @@
 - [x] Show/Update/Delete: Non-existent resource returns 404.
 
 ### Response Metadata
-- [ ] Index responses include `totalCount`.
-- [ ] Index responses include pagination metadata (`page`, and default `pageSize` from route options when set).
+- [x] Index responses include `totalCount`.
+- [x] Index responses include pagination metadata (`page`, and default `pageSize` from route options when set).
 
 ### Filtering Behavior
 - [ ] Fields not listed in `searching.fields` are stripped from filters.

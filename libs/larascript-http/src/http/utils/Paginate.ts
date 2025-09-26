@@ -38,10 +38,12 @@ class Paginate {
      * @returns {this} - The Paginate class itself to enable chaining
      */
     parseRequest(req: Request, options: ParseRequestOptions = { allowPageSizeOverride: true }): this {
+        this.page = 1;
         if(req.query?.page) {
             this.page = parseInt(req.query?.page as string);
         }       
 
+        this.pageSize = 10;
         if(options.allowPageSizeOverride && req.query?.pageSize) {
             this.pageSize = parseInt(req.query?.pageSize as string);
         }       

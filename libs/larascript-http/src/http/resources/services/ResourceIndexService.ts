@@ -80,7 +80,8 @@ class ResourceIndexService extends AbastractBaseResourceService {
 
         // Send the results
         return this.apiResponse<IModelAttributes[]>(context, resultDataArray, 200, {
-            showPagination: true
+            showPagination: true,
+            pageOptions
         })
     }
 

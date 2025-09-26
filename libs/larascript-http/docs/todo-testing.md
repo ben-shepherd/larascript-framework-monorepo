@@ -3,11 +3,10 @@
 ### Auth & Resource Owner Security
 - [x] Create: Unauthenticated request with `resourceOwner` enabled should return 401.
 - [x] Show: Unauthenticated request with `resourceOwner` enabled should return 403.
-- [ ] Index: When `resourceOwner` is enabled but user is not authenticated, owner filter should **not** be applied (results unfiltered) — clarify and assert intended behavior.
+- [x] Index: When `resourceOwner` is enabled but user is not authenticated, owner filter should **not** be applied (results unfiltered) — clarify and assert intended behavior.
 
 ### Resource Owner Configuration
-- [ ] Misconfigured `resourceOwner` attribute type (non-string) should throw a `ResourceException`.
-- [ ] `resourceOwner` attribute missing on resource should throw a `ResourceException`.
+- [x] Misconfigured `resourceOwner` attribute type (non-string) should throw a `ResourceException`.
 
 ### Not-Found and ID Validation
 - [ ] Show: Invalid id (e.g., `"null"`) returns 404 with `{ message: 'Resource not found' }`.

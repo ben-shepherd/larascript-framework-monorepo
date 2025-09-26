@@ -64,6 +64,39 @@ describe("resources test suite", () => {
                 })
             ).not.toThrow();
         })
+
+        test("should throw an error if the resource owner attribute is not the same as the expected resource owner attribute", async () => {
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                security: [
+                    router.security().resourceOwner('notUserId'),
+                ],
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'POST',
+                headers,
+                body: JSON.stringify({
+                    name: 'Test',
+                    age: 20,
+                }),
+            })
+
+            const body = await response.json() as {
+                error: string
+            }
+
+            expect(body.error).toBe('Expected the resource owner attribute to be userId but received notUserId')
+            expect(response.status).toBe(HttpCodes.INTERNAL_SERVER_ERROR)
+        })
     })
 
     describe("create resource", () => {

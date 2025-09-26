@@ -1,10 +1,6 @@
-import { BaseSingleton } from "@larascript-framework/larascript-core";
+import { QueryFilterOptions } from "@larascript-framework/contracts/http";
 import { Request } from "express";
 import Http from "../services/Http.js";
-
-type Options = {
-    allowedFields?: string[]
-}
 
 /**
  * QueryFilters is a singleton class that handles parsing and validating URL query string filters
@@ -25,9 +21,15 @@ type Options = {
  * The class will decode and parse these filters, ensuring only allowed fields
  * are included in the final filters object.
  */
-class QueryFilters extends BaseSingleton {
+class QueryFilters {
 
-    protected filters: object | undefined = undefined
+    filters: object = {}
+
+    static parseRequest(req: Request, options: QueryFilterOptions = {}): QueryFilters {
+        return new QueryFilters(options).parseRequest(req);
+    }
+
+    constructor(protected options: QueryFilterOptions = {}) {}
 
     /**
      * Parses the request object to extract the filters from the query string
@@ -36,28 +38,72 @@ class QueryFilters extends BaseSingleton {
      * @throws {QueryFiltersException} Throws an exception if the filters are not a string or an object
      * @returns {this} - The QueryFilters class itself to enable chaining
      */
-    parseRequest(req: Request, options: Options = {}): this {
+    parseRequest(req: Request): this {
         try {
-            const { allowedFields: fields = [] } = options;
-            let decodedFilters: object = {};
-
-            if(typeof req.query?.filters === 'string') {
-                decodedFilters = JSON.parse(decodeURIComponent(req.query?.filters)) ?? {};
+            this.filters = this.decodeFilters(req);
+            this.filters = this.filtersWithPercentSigns(this.filters)
+            this.filters = this.stripNonAllowedFields(this.filters)
+            this.filters = {
+                ...(this.options.baseFilters ?? {}),
+                ...this.filters
             }
-            else if(typeof req.query.filters === 'object') {
-                decodedFilters = req.query?.filters ?? {};
-            }
-            
-            this.filters = this.stripNonAllowedFields(decodedFilters, fields)
         }
-         
         catch (err) { 
             Http.getInstance().getLoggerService()?.exception(err as Error)
         }
 
         return this;
     }
-    
+
+    /**
+     * Decodes the filters from the request query string
+     * 
+     * @param {Request} req - The Express Request object
+     * @returns {object} - The decoded filters
+     */
+    private decodeFilters(req: Request): object {
+        let decodedFilters: object = {};
+
+        if (typeof req.query?.filters === 'string') {
+            decodedFilters = JSON.parse(decodeURIComponent(req.query?.filters)) ?? {};
+        }
+        else if (typeof req.query.filters === 'object') {
+            decodedFilters = req.query?.filters ?? {};
+        }
+        return decodedFilters;
+    }
+
+    /**
+     * Returns the filters with percent signs
+     * 
+     * @param {object} filters - The filters object
+     * @returns {object} - The filters with percent signs
+     */
+    filtersWithPercentSigns(filters: object): object {
+        if(!this.options.fuzzy) {
+            return filters
+        }
+
+        return {
+            ...filters,
+            ...Object.keys(filters).reduce((acc, curr) => {
+                const value = filters[curr];
+
+                if (value === true || value === false) {
+                    acc[curr] = value.toString();
+                }
+                else if (value === 'true' || value === 'false') {
+                    acc[curr] = value;
+                }
+                else {
+                    acc[curr] = `%${value}%`;
+                }
+
+                return acc;
+            }, {})
+        }
+
+    }
     /**
      * Strips the non-allowed fields from the filters
      * 
@@ -65,21 +111,17 @@ class QueryFilters extends BaseSingleton {
      * @param {string[]} allowedFields - The allowed fields
      * @returns {object} - The stripped filters object
      */
-    protected stripNonAllowedFields(filters: object, allowedFields: string[]): object {
+    protected stripNonAllowedFields(filters: object): object {
+        const { allowedFields = [] } = this.options;
+
+        if(allowedFields.length === 0) {
+            return filters;
+        }
+
         return Object.keys(filters).filter(key => allowedFields.includes(key)).reduce((acc, key) => {
             acc[key] = filters[key];
             return acc;
         }, {});
-    }
-
-    /**
-     * Returns the parsed filters from the request query string.
-     * If no filters were found, returns the defaultValue.
-     * @param defaultValue - The default value to return if no filters were found.
-     * @returns The parsed filters or the defaultValue.
-     */
-    getFilters(defaultValue: object | undefined = undefined): object | undefined {
-        return this.filters ?? defaultValue
     }
 
 }

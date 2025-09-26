@@ -1,9 +1,5 @@
+import { ParseRequestOptions } from "@larascript-framework/contracts/http";
 import { Request } from "express";
-
-export type ParseRequestOptions = {
-    allowPageSizeOverride?: boolean
-    totalCount: number
-}
 
 /**
  * Paginate class

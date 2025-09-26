@@ -1,88 +1,77 @@
-import { IAsyncSessionService } from "@larascript-framework/async-session";
-import { IAuthService } from "@larascript-framework/contracts/auth";
-import { IDatabaseService } from "@larascript-framework/contracts/database/database";
-import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/database/eloquent";
-import { IHttpConfig, IRequestContext } from "@larascript-framework/contracts/http";
-import { IStorageService } from "@larascript-framework/contracts/storage";
-import { BaseSingleton, EnvironmentType } from "@larascript-framework/larascript-core";
-import { ILoggerService } from "@larascript-framework/larascript-logger";
+import { IHttpConfig, IHttpDependencies, IHttpServiceConfig } from "@larascript-framework/contracts/http";
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 
-export type HttpConfig = {
-    httpConfig: IHttpConfig;
-    storage: IStorageService;
-    requestContext: IRequestContext;
-    logger: ILoggerService;
-    environment: EnvironmentType;
-    asyncSession: IAsyncSessionService;
-    authService: IAuthService;
-    databaseService: IDatabaseService;
-    queryBuilderService: IEloquentQueryBuilderService;
-}
-
-export default class Http extends BaseSingleton<HttpConfig> {
+export default class Http extends BaseSingleton<IHttpConfig> {
     
-    static init(config: HttpConfig) {
+    static init(config: IHttpConfig) {
         Http.getInstance(config);
     }
 
-    getHttpConfig(): IHttpConfig {
+    get dependencies(): IHttpDependencies {
+        if(!this.config?.dependencies) {
+            throw new Error('Dependencies not configured');
+        }
+        return this.config?.dependencies!;
+    }
+
+    getHttpConfig(): IHttpServiceConfig {
         if(!this.config?.httpConfig) {
             throw new Error('Http config not configured');
         }
         return this.config?.httpConfig!;
     }
 
-    getStorageService(): IStorageService {
-        if(!this.config?.storage) {
+    getStorageService(): IHttpDependencies['storageService'] {
+        if(!this.dependencies?.storageService) {
             throw new Error('Storage service not configured');
         }
-        return this.config?.storage!;
+        return this.dependencies?.storageService!;
     }
 
-    getRequestContext(): IRequestContext {
-        if(!this.config?.requestContext) {
+    getRequestContext(): IHttpDependencies['requestContext'] {
+        if(!this.dependencies?.requestContext) {
             throw new Error('Request context not configured');
         }
-        return this.config?.requestContext!;
+        return this.dependencies?.requestContext!;
     }
 
-    getLoggerService(): ILoggerService | undefined {
-        return this.config?.logger;
+    getLoggerService(): IHttpDependencies['loggerService'] {
+        return this.dependencies?.loggerService;
     }
 
-    getEnvironment(): EnvironmentType {
+    getEnvironment(): IHttpConfig['environment'] {
         if(!this.config?.environment) {
             throw new Error('Environment not configured');
         }
         return this.config?.environment!;
     }
 
-    getAsyncSession(): IAsyncSessionService {
-        if(!this.config?.asyncSession) {
+    getAsyncSession(): IHttpDependencies['asyncSession'] {
+        if(!this.dependencies?.asyncSession) {
             throw new Error('Async session not configured');
         }
-        return this.config?.asyncSession!;
+        return this.dependencies?.asyncSession!;
     }
 
-    getAuthService(): IAuthService {
-        if(!this.config?.authService) {
+    getAuthService(): IHttpDependencies['authService'] {
+        if(!this.dependencies?.authService) {
             throw new Error('Auth service not configured');
         }
-        return this.config?.authService!;
+        return this.dependencies?.authService!;
     }
 
-    getDatabaseService(): IDatabaseService {
-        if(!this.config?.databaseService) {
+    getDatabaseService(): IHttpDependencies['databaseService'] {
+        if(!this.dependencies?.databaseService) {
             throw new Error('Database service not configured');
         }
-        return this.config?.databaseService!;
+        return this.dependencies?.databaseService!;
     }
 
-    getQueryBuilderService(): IEloquentQueryBuilderService {
-        if(!this.config?.queryBuilderService) {
+    getQueryBuilderService(): IHttpDependencies['queryBuilderService'] {
+        if(!this.dependencies?.queryBuilderService) {
             throw new Error('Query builder service not configured');
         }
-        return this.config?.queryBuilderService!;
+        return this.dependencies?.queryBuilderService!;
     }
     
 }

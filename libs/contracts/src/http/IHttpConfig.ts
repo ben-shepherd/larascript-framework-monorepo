@@ -4,7 +4,7 @@ import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";
 // eslint-disable-next-line no-unused-vars
 export type ExtendExpressFn = (app: express.Application) => void
 
-export interface IHttpConfig {
+export interface IHttpServiceConfig {
     enabled: boolean;
     port: number;
     beforeAllMiddlewares?: (express.RequestHandler | TExpressMiddlewareFnOrClass)[];
@@ -24,4 +24,4 @@ export interface IHttpConfig {
 
 }
 
-export default IHttpConfig
+export default IHttpServiceConfig

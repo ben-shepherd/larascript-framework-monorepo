@@ -49,7 +49,7 @@ class BasicLoggerMiddleware extends Middleware {
             return;
         }
 
-        Http.getInstance().getLoggerService()?.console('New request: ', this.getRequestDetails(context));
+        Http.getInstance().getLoggerService()?.info('New request: ', this.getRequestDetails(context));
 
         this.next();
     }

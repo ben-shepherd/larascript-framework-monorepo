@@ -1,4 +1,4 @@
-import { ControllerConstructor, IHttpConfig, IRouter, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
+import { ControllerConstructor, IHttpServiceConfig, IRouter, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
 import { default as express, default as expressClient } from 'express';
 import Controller from '../base/Controller.js';
 import Middleware from '../base/Middleware.js';
@@ -41,7 +41,7 @@ class RouterBindService {
 
     private options: IRouteServiceOptions = {}
 
-    private config!: IHttpConfig | null
+    private config!: IHttpServiceConfig | null
 
     /**
      * Sets the Express instance to be used.
@@ -50,7 +50,7 @@ class RouterBindService {
 
      * @param app The Express instance to set
      */
-    public setExpress(app: expressClient.Express, config: IHttpConfig | null): void {
+    public setExpress(app: expressClient.Express, config: IHttpServiceConfig | null): void {
         this.app = app
         this.config = config
     }

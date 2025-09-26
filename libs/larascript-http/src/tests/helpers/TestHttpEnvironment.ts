@@ -4,7 +4,7 @@ import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
 import { IUserModel } from "@larascript-framework/contracts/auth";
-import { IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IHttpAuthService, IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
@@ -54,18 +54,20 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
 
         
         Http.init({
-            environment: EnvironmentTesting,
             httpConfig: {
                 enabled: true,
                 port: 0, // Use dynamic port allocation
             },
-            storage: {} as unknown as IStorageService,
-            requestContext: new RequestContext(),
-            logger: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
-            asyncSession: this.asyncSession,
-            authService: TestAuthEnvironment.getInstance().authService,
-            databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : {} as unknown as IDatabaseService,
-            queryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
+            environment: EnvironmentTesting,
+            dependencies: {
+                storageService: {} as unknown as IStorageService,
+                requestContext: new RequestContext(),
+                loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
+                asyncSession: this.asyncSession,
+                authService: TestAuthEnvironment.getInstance().authService as unknown as IHttpAuthService,
+                databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : {} as unknown as IDatabaseService,
+                queryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
+            }
         });
         this.httpService = new HttpService({
             enabled: true,

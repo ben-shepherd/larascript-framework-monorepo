@@ -61,7 +61,7 @@ abstract class AbastractBaseResourceService {
      * @returns 
      */
     getPrimaryKey(modelConstructor: ModelConstructor): string {
-        return Http.getInstance().getDatabaseService().getAdapter().normalizeColumn(modelConstructor.getPrimaryKey())
+        return Http.getInstance().getDatabaseService()!.getAdapter().normalizeColumn(modelConstructor.getPrimaryKey())
     }
 
     /**

@@ -156,6 +156,7 @@ class ResourceRouter {
         }
         return only.includes(type)
     }
+
 }
 
 export default ResourceRouter

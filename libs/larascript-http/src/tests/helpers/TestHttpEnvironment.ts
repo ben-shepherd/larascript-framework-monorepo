@@ -7,7 +7,6 @@ import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IHttpAuthService, IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
-import { IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TestAuthEnvironment } from "@larascript-framework/test-auth";
 import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
@@ -52,6 +51,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
 
         // Create the auth environment
         await TestAuthEnvironment.create({
+            withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
             databaseService: TestDatabaseEnvironment.getInstance().databaseService,
             eloquentQueryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder,
             asyncSessionService: this.asyncSession,
@@ -79,8 +79,8 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
                 loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
                 asyncSession: this.asyncSession,
                 authService: TestAuthEnvironment.getInstance().authService as unknown as IHttpAuthService,
-                databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : {} as unknown as IDatabaseService,
-                queryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
+                databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : undefined,
+                queryBuilderService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().eloquentQueryBuilder : undefined,
             }
         });
 

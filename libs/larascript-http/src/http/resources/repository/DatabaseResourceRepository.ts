@@ -26,7 +26,7 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * Returns an `IEloquent` query builder for the configured model.
      */
     get queryBuilder(): IEloquent<IModel> {
-        return Http.getInstance().getQueryBuilderService().builder(this.config.modelConstructor);
+        return Http.getInstance().getQueryBuilderService()!.builder(this.config.modelConstructor);
     }
 
     /**

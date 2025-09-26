@@ -60,9 +60,10 @@ class ResourceIndexService extends AbastractBaseResourceService {
         }
 
         const repository = context.resourceContext.repository;
+        const totalCount = await repository.getResourcesCount();
 
         // Build the page options, filters
-        const pageOptions = this.buildPageOptions(context);
+        const paginate = this.buildPageOptions(context, totalCount);
         const filters = this.getQueryFilters(context);
         const sortOptions = this.buildSortOptions(context);
 
@@ -73,7 +74,8 @@ class ResourceIndexService extends AbastractBaseResourceService {
             filters[repository.getResourceOwnerAttribute()] = userId
         }
 
-        let resultDataArray = await repository.getResourcesPage(filters, pageOptions.page, pageOptions.pageSize ?? 10, sortOptions);
+
+        let resultDataArray = await repository.getResourcesPage(filters, paginate.getPage(), paginate.getPageSize() ?? 10, sortOptions);
 
         // Strip the sensitive data
         resultDataArray = await Promise.all(resultDataArray.map(resultData => repository.stripSensitiveData(resultData)))
@@ -81,7 +83,7 @@ class ResourceIndexService extends AbastractBaseResourceService {
         // Send the results
         return this.apiResponse<IModelAttributes[]>(context, resultDataArray, 200, {
             showPagination: true,
-            pageOptions
+            paginate
         })
     }
 
@@ -178,16 +180,16 @@ class ResourceIndexService extends AbastractBaseResourceService {
      * @param {IRouteResourceOptionsLegacy} options - The options object
      * @returns {IPageOptions} - An object containing the page number, page size, and skip
      */
-    buildPageOptions(context: HttpContext): IPageOptions {
+    buildPageOptions(context: HttpContext, totalCount: number): Paginate {
         const req = context.getRequest()
         const options = context.getRouteItem() as TRouteItem
 
-        const paginate = new Paginate().parseRequest(req, options.resource?.paginate);
-        const page = paginate.getPage(1);
-        const pageSize = paginate.getPageSize() ?? options?.resource?.paginate?.pageSize;
-        const skip = pageSize ? (page - 1) * pageSize : undefined;
+        const paginateOptions = {
+            totalCount: totalCount,
+            ...options.resource?.paginate
+        }
 
-        return { skip, page, pageSize };
+        return Paginate.parseRequest(req, paginateOptions);
     }
 
     /**

@@ -321,4 +321,79 @@ describe("resources test suite", () => {
             expect(body.meta.pagination.pageSize).toBe(10)
         })
     })
+
+    describe("pagination", () => {
+        test("request page size override should not be allowed", async () => {
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                paginate: {
+                    pageSize: 10,
+                    allowPageSizeOverride: false,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test?page=1&pageSize=2`, {
+                method: 'GET',
+                headers,
+            })
+
+            const body = await response.json() as {
+                data: [],
+                meta: {
+                    pagination: {
+                        page: number,
+                        pageSize: number,
+                    }
+                }
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.meta.pagination.pageSize).toBe(10)
+        })
+
+        test("large page numbers beyond available results should return empty array", async () => {
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test?page=100`, {
+                method: 'GET',
+                headers,
+            })
+
+            const body = await response.json() as {
+                data: [],
+                meta: {
+                    pagination: {
+                        page: number,
+                        pageSize: number,
+                        nextPage: number,
+                        previousPage: number,
+                    }
+                }
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.data).toEqual([])
+            expect(body.meta.pagination.page).toBe(100)
+            expect(body.meta.pagination.previousPage).toBe(99)
+            expect(body.meta.pagination.nextPage).toBe(undefined)
+        })
+    })
 });

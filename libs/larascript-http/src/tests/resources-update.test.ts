@@ -12,7 +12,7 @@ const headers = {
     "Content-Type": "application/json",
 }
 
-describe("resources update test suite", () => {
+describe("resources test suite", () => {
     let httpService: IHttpService;
     let serverPort: number;
     let user: IUserModel;

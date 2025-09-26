@@ -33,7 +33,7 @@ export interface IResourceRepository<
     updateResource(data: T): Promise<T>;
     deleteResource(data: T): Promise<void>;
     getResources(query: IResourceQuery, sortOptions?: ISortOption[]): Promise<T[]>;
-    getResourcesCount(query: IResourceQuery): Promise<number>;
+    getResourcesCount(query?: IResourceQuery): Promise<number>;
     getResourcesPage(query: IResourceQuery, page: number, limit: number, sortOptions?: ISortOption[]): Promise<T[]>;
     getResourceOwnerAttribute(): string;
     stripSensitiveData(data: T): Promise<T>;

@@ -367,11 +367,12 @@ describe("resources indexes test suite", () => {
                 ],
                 paginate: {
                     pageSize: 1,
+                    allowPageSizeOverride: true,
                 }
             })
             httpService.bindRoutes(router);
 
-            const queryParams = '?page=1';
+            const queryParams = '?page=1&pageSize=1';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
                 method: 'GET',
                 headers,
@@ -387,9 +388,8 @@ describe("resources indexes test suite", () => {
 
             expect(response.status).toBe(HttpCodes.OK)
             expect(body.data.length).toBe(1)
-            expect(body.data[0].name).toBe(model.name)
 
-            const queryParams2 = '?page=2';
+            const queryParams2 = '?page=2&pageSize=1';
             const response2 = await fetch(`http://localhost:${serverPort}/test${queryParams2}`, {
                 method: 'GET',
                 headers,

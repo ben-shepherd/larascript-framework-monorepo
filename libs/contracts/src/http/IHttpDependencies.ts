@@ -20,8 +20,8 @@ export type IHttpDependencies = {
 } & IHttpOptionalDependencies;
 
 export type IHttpOptionalDependencies = {
-    databaseService: IDatabaseService;
-    queryBuilderService: IEloquentQueryBuilderService;
+    databaseService?: IDatabaseService;
+    queryBuilderService?: IEloquentQueryBuilderService;
     loggerService?: IHttpLoggerService;
     asyncSession?: IAsyncSessionService;
 }

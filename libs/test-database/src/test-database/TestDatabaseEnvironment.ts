@@ -3,7 +3,7 @@ import { IConsoleService } from "@larascript-framework/contracts/console";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { ConsoleService } from "@larascript-framework/larascript-console";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { DatabaseService, DB, EloquentQueryBuilderService, IDatabaseConfig, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
+import { DatabaseService, DB, EloquentQueryBuilderService, IDatabaseConfig, IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
 import { LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
 
@@ -109,7 +109,7 @@ export class TestDatabaseEnvironment extends BaseSingleton<Options>{
         }
 
         DB.init({
-            databaseService: this.databaseService,
+            databaseService: this.databaseService ?? {} as unknown as IDatabaseService,
             eloquentQueryBuilder: this.eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
             cryptoService: this.cryptoService ?? {} as unknown as ICryptoService,
             dispatcher: this.dispatcher,
@@ -117,7 +117,9 @@ export class TestDatabaseEnvironment extends BaseSingleton<Options>{
             logger: this.logger,
         });
 
-        await this.connect();
+        if(this.getConfig()?.withDatabase) {
+            await this.connect();
+        }
     }
 
     async connect() {

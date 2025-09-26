@@ -110,4 +110,7 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         return this.dependencies?.queryBuilderService!;
     }
 
+    isDatabaseConfigured(): boolean {
+        return !!this.dependencies?.databaseService && !!this.dependencies?.queryBuilderService;
+    }
 }

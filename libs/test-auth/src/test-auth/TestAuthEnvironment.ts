@@ -16,12 +16,14 @@ type Config = {
     databaseService: IDatabaseService;
     eloquentQueryBuilderService: IEloquentQueryBuilderService;
     asyncSessionService: IAsyncSessionService;
+    withDatabase: boolean;
 }
 
 const DEFAULTS: Config = {
     databaseService: {} as IDatabaseService,
     eloquentQueryBuilderService: {} as IEloquentQueryBuilderService,
     asyncSessionService: {} as IAsyncSessionService,
+    withDatabase: true,
 }
 
 export class TestAuthEnvironment extends BaseSingleton<Config> {
@@ -62,8 +64,11 @@ export class TestAuthEnvironment extends BaseSingleton<Config> {
             this.aclConfig,
             this.asyncSessionService
         )
-        await this.authService.boot();
-        await this.setupTables();
+
+        if(this.getConfig()?.withDatabase) {
+            await this.authService.boot();
+            await this.setupTables();
+        }
     }
 
     async setupTables() {

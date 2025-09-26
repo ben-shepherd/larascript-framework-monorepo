@@ -22,9 +22,9 @@
 - [ ] Base route `resource.filters.index` are merged with request filters and still respect allowed fields.
 
 ### Sorting Behavior
-- [ ] Direction normalization: `-`, `'desc'`, `-1` => `desc`; `'asc'`, `1`, other => `asc`.
-- [ ] Multiple field sorts are applied in order and passed to the repository.
-- [ ] Defaults when no sort query present: falls back to configured defaults; if none provided, uses `createdAt asc`.
+- [x] Direction normalization: `-`, `'desc'`, `-1` => `desc`; `'asc'`, `1`, other => `asc`.
+- [x] Multiple field sorts are applied in order and passed to the repository.
+- [x] Defaults when no sort query present: falls back to configured defaults; if none provided, uses `createdAt asc`.
 
 ### Sensitive Data Stripping
 - [ ] Create/Show/Update/Index responses do **not** include guarded/sensitive attributes.

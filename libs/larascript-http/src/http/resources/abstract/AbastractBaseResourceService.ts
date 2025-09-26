@@ -46,6 +46,16 @@ abstract class AbastractBaseResourceService {
     abstract handler(context: IHttpContext): Promise<IApiResponse>;
 
     /**
+     * Cached authorized value
+     */
+    declare cachedAuthorized: boolean | undefined;
+
+    /**
+     * Cached access as guest value
+     */
+    declare cachedAccessAsGuest: boolean | undefined;
+
+    /**
      * Gets the normalized database primary key
      * @param modelConstructor 
      * @returns 
@@ -78,6 +88,15 @@ abstract class AbastractBaseResourceService {
     }
 
     /**
+     * Checks if the request is authorized to perform the action or allowed to access the resource as a guest
+     * @param context 
+     * @returns 
+     */
+    async validateAuthorizedOrAccessAsGuest(context: HttpContext): Promise<boolean> {
+        return await this.validateAuthorized() || await this.validateAccessAsGuest(context);
+    }
+
+    /**
      * Checks if the request is authorized to perform the action
      * 
      * @param {BaseRequest} req - The request object
@@ -85,12 +104,13 @@ abstract class AbastractBaseResourceService {
 
      * @returns {boolean} - Whether the request is authorized
      */
-    async validateAuthorized(context: HttpContext): Promise<boolean> {
-        if(await this.validateAccessAsGuest(context)) {
-            return true;
+    async validateAuthorized(): Promise<boolean> {
+        if(this.cachedAuthorized !== undefined) {
+            return this.cachedAuthorized;
         }
 
-        return await Http.getInstance().getAuthService().check()
+        this.cachedAuthorized = await Http.getInstance().getAuthService().check()
+        return this.cachedAuthorized;
     }
 
     /**
@@ -103,15 +123,22 @@ abstract class AbastractBaseResourceService {
      * @returns 
      */
     async validateAccessAsGuest(context: HttpContext): Promise<boolean> {
+        if(this.cachedAccessAsGuest !== undefined) {
+            return this.cachedAccessAsGuest;
+        }
+
         const allowUnauthenticated = context.resourceContext.options.allowUnauthenticated;
 
         if (typeof allowUnauthenticated === 'boolean') {
-            return allowUnauthenticated;
+            this.cachedAccessAsGuest = allowUnauthenticated;
+            return this.cachedAccessAsGuest;
         }
         else if (typeof allowUnauthenticated === 'object') {
-            return allowUnauthenticated[this.routeResourceType] ?? false;
+            this.cachedAccessAsGuest = allowUnauthenticated[this.routeResourceType] ?? false;
+            return this.cachedAccessAsGuest as boolean;
         }
 
+        this.cachedAccessAsGuest = false;
         return false;
     }
 
@@ -123,6 +150,12 @@ abstract class AbastractBaseResourceService {
      * @returns {boolean} - Whether the request is authorized and resource owner security is set
      */
     async validateResourceOwnerApplicable(context: HttpContext): Promise<boolean> {
+
+        // Resource owner is only applicable if the request is authorized
+        if(!await this.validateAuthorized()) {
+            return false;
+        }
+
         const routeOptions = context.getRouteItem()
 
         if (!routeOptions) {
@@ -131,7 +164,7 @@ abstract class AbastractBaseResourceService {
 
         const resourceOwnerSecurity = this.getResourceOwnerRule(routeOptions);
 
-        if (await this.validateAuthorized(context) && resourceOwnerSecurity) {
+        if (await this.validateAuthorized() && resourceOwnerSecurity) {
             return true;
         }
 

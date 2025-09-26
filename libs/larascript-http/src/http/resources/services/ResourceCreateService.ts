@@ -48,7 +48,7 @@ class ResourceCreateService extends AbastractBaseResourceService {
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes | TResponseErrorMessages>> {
 
-        if (!await this.validateAuthorized(context)) {
+        if (!await this.validateAuthorizedOrAccessAsGuest(context)) {
             throw new UnauthorizedException()
         }
 

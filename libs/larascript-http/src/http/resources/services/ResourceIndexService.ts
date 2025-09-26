@@ -50,20 +50,20 @@ class ResourceIndexService extends AbastractBaseResourceService {
         // Get the route options
         const routeOptions = context.getRouteItem()
 
-        if(!routeOptions) {
+        if (!routeOptions) {
             throw new ResourceException('Route options are required')
         }
 
         const repository = context.resourceContext.repository;
-        
+
         // Build the page options, filters
         const pageOptions = this.buildPageOptions(context);
         const filters = this.getQueryFilters(context);
         const sortOptions = this.buildSortOptions(context);
 
-            // Check if the resource owner security applies to this route and it is valid
+        // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters
-        if(await this.validateResourceOwnerApplicable(context)) {
+        if (await this.validateResourceOwnerApplicable(context)) {
             const userId = context.getUserOrFail().getId()
             filters[repository.getResourceOwnerAttribute()] = userId
         }
@@ -101,22 +101,25 @@ class ResourceIndexService extends AbastractBaseResourceService {
         const baseFilters = options?.resource?.filters ?? {};
         const allowedFields = options?.resource?.searching?.fields ?? []
         const requestFilters = (new QueryFilters).parseRequest(req, { allowedFields: allowedFields }).getFilters();
-        const filters = {
+
+        let filters = {
             ...baseFilters,
             ...requestFilters
-        }
+        } as Record<string, unknown>
+
+        // Strip the non-resource fields from the filters
+        filters =  this.stripNonResourceFields(filters, allowedFields) as Record<string, unknown>
 
         // Build the filters with percent signs
         // Example: { title: 'foo' } becomes { title: '%foo%' }
-        // Note: LIKE queries are not supported for now (they would  need to be implemented in the repository)
-        // const filters = this.filtersWithPercentSigns({
-        //     ...baseFilters,
-        //     ...requestFilters
-        // })
+        if (context.resourceContext.fuzzy) {
+            filters = this.filtersWithPercentSigns({
+                ...baseFilters,
+                ...requestFilters
+            }) as Record<string, unknown>
+        }
 
-        // Strip the non-resource fields from the filters
-        // Example: { title: 'foo', badProperty: '123' } becomes { title: 'foo' }
-        return this.stripNonResourceFields(filters, allowedFields)
+        return filters
     }
 
     /**
@@ -147,16 +150,16 @@ class ResourceIndexService extends AbastractBaseResourceService {
             ...Object.keys(filters).reduce((acc, curr) => {
                 const value = filters[curr];
 
-                if(value === true || value === false) {
+                if (value === true || value === false) {
                     acc[curr] = value.toString();
                 }
-                else if(value === 'true' || value === 'false') {
+                else if (value === 'true' || value === 'false') {
                     acc[curr] = value;
                 }
                 else {
                     acc[curr] = `%${value}%`;
                 }
-                
+
                 return acc;
             }, {})
         }
@@ -169,13 +172,13 @@ class ResourceIndexService extends AbastractBaseResourceService {
      * @param {IRouteResourceOptionsLegacy} options - The options object
      * @returns {IPageOptions} - An object containing the page number, page size, and skip
      */
-    buildPageOptions(context: HttpContext): IPageOptions  {
+    buildPageOptions(context: HttpContext): IPageOptions {
         const req = context.getRequest()
         const options = context.getRouteItem() as TRouteItem
 
         const paginate = new Paginate().parseRequest(req, options.resource?.paginate);
         const page = paginate.getPage(1);
-        const pageSize =  paginate.getPageSize() ?? options?.resource?.paginate?.pageSize;
+        const pageSize = paginate.getPageSize() ?? options?.resource?.paginate?.pageSize;
         const skip = pageSize ? (page - 1) * pageSize : undefined;
 
         return { skip, page, pageSize };

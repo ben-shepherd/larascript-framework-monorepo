@@ -223,6 +223,30 @@ describe("Database Resource Repository", () => {
       expect(resources2[0].name).toBe("A");
       expect(resources2[0].age).toBe(20);
     });
+
+    test("should get the resources with fuzzy filter", async () => {
+      const model = await MockModel.create({
+        name: "A B C",
+        age: 20,
+      });
+      const model2 = await MockModel.create({
+        name: "D E F",
+        age: 21,
+      });
+      await model.save();
+      await model2.save();
+
+      const resources = await repository.getResources({ name: "A%" });
+      expect(resources.length).toBe(1);
+      expect(resources[0].name).toBe("A B C");
+      expect(resources[0].age).toBe(20);
+
+      const resources2 = await repository.getResources({ name: "D%" });
+      expect(resources2.length).toBe(1);
+      expect(resources2[0].name).toBe("D E F");
+      expect(resources2[0].age).toBe(21);
+      
+    });
   });
 
   describe("getResourcesCount", () => {

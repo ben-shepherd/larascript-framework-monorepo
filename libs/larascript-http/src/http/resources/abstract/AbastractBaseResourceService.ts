@@ -165,10 +165,31 @@ abstract class AbastractBaseResourceService {
         const resourceOwnerSecurity = this.getResourceOwnerRule(routeOptions);
 
         if (await this.validateAuthorized() && resourceOwnerSecurity) {
+
+            // Check if the resource owner attribute is the same as the expected resource owner attribute
+            this.validateResourceOwnerAttributeMatchesSecurityRuleAttribute(context, resourceOwnerSecurity);
+
             return true;
         }
 
         return false;
+    }
+
+    /**
+     * Validates the resource owner attribute is the same as the expected resource owner attribute
+     * @param context 
+     * @param resourceOwnerSecurity 
+     */
+    private validateResourceOwnerAttributeMatchesSecurityRuleAttribute(context: HttpContext, resourceOwnerSecurity: ResourceOwnerRule) {
+        const expectedResourceOwnerAttribute = context.resourceContext.repository.getResourceOwnerAttribute();
+
+        if (!expectedResourceOwnerAttribute) {
+            throw new ResourceException('The resource owner attribute is not set');
+        }
+
+        if (typeof expectedResourceOwnerAttribute !== (resourceOwnerSecurity as ResourceOwnerRule).getRuleOptions()?.attribute) {
+            throw new ResourceException('Expected the resource owner attribute to be ' + expectedResourceOwnerAttribute + ' but received ' + (resourceOwnerSecurity as ResourceOwnerRule).getRuleOptions()?.attribute);
+        }
     }
 
     /**

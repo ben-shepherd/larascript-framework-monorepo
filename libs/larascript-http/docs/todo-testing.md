@@ -9,8 +9,8 @@
 - [x] Misconfigured `resourceOwner` attribute type (non-string) should throw a `ResourceException`.
 
 ### Not-Found and ID Validation
-- [ ] Show: Invalid id (e.g., `"null"`) returns 404 with `{ message: 'Resource not found' }`.
-- [ ] Show/Update/Delete: Non-existent resource returns 404.
+- [x] Show: Invalid id (e.g., `"null"`) returns 404 with `{ message: 'Resource not found' }`.
+- [x] Show/Update/Delete: Non-existent resource returns 404.
 
 ### Response Metadata
 - [ ] Index responses include `totalCount`.
@@ -27,7 +27,7 @@
 - [x] Defaults when no sort query present: falls back to configured defaults; if none provided, uses `createdAt asc`.
 
 ### Sensitive Data Stripping
-- [ ] Create/Show/Update/Index responses do **not** include guarded/sensitive attributes.
+- [x] Create/Show/Update/Index responses do **not** include guarded/sensitive attributes.
 
 ### Router Options
 - [x] `only`: When specifying a subset (e.g., `['index','show']`), other endpoints are not registered and return 404.

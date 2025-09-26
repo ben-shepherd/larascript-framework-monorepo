@@ -48,7 +48,7 @@ class ResourceCreateService extends AbastractBaseResourceService {
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes | TResponseErrorMessages>> {
 
-        if (!await this.validateAuthorized()) {
+        if (!await this.validateAuthorized(context)) {
             throw new UnauthorizedException()
         }
 
@@ -66,10 +66,6 @@ class ResourceCreateService extends AbastractBaseResourceService {
         // Check if the resource owner security applies to this route and it is valid
         // If it is valid, we add the owner's id to the filters
         if (await this.validateResourceOwnerApplicable(context)) {
-
-            if (!await this.validateAuthorized()) {
-                throw new UnauthorizedException()
-            }
 
             const user = await this.getUser()
 

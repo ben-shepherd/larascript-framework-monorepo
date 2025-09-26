@@ -1,4 +1,4 @@
-import { TDataSource, TDataSourceRepository } from "@larascript-framework/contracts/http"
+import { TDataSourceRepository, TRouteResourceOptions } from "@larascript-framework/contracts/http"
 import RouteConfigException from "../exceptions/RouteConfigException.js"
 import { DatabaseResourceRepository } from "../resources/repository/DatabaseResourceRepository.js"
 
@@ -9,7 +9,11 @@ import { DatabaseResourceRepository } from "../resources/repository/DatabaseReso
  */
 export class DataSourceResolver {
 
-    static resolveDatasourceAsRepository(datasource: TDataSource): TDataSourceRepository {
+    static resolveDatasourceAsRepository({ datasource }: TRouteResourceOptions): TDataSourceRepository {
+
+        if(!datasource) {
+            throw new RouteConfigException('Datasource is not set')
+        }
 
         const resolvedDatasource = {
             repository: undefined,

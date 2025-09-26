@@ -1227,4 +1227,79 @@ describe("resources test suite", () => {
             expect(body2.data[1].age).toBe(20)
         })
     })
+
+    // describe("only resource", () => {
+    //     test("should only be able to access the specified resource types", async () => {
+    //         const router = new HttpRouter();
+    //         router.resource({
+    //             prefix: '/test',
+    //             only: ['show'],
+    //         })
+    //     })
+    // })
+
+    describe("guest resource", () => {
+        test("should allow multiple resource types to be accessible as a guest", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                allowUnauthenticated: true,
+            })
+            httpService.bindRoutes(router);
+
+            const showResponse = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'GET',
+                headers,
+            })
+            expect(showResponse.status).toBe(HttpCodes.OK)
+
+            const deleteResponse = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            expect(deleteResponse.status).toBe(HttpCodes.OK)
+        })
+
+        test("should only be able to access the specified resource types while as guest", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                allowUnauthenticated: {
+                    show: true,
+                    delete: false,
+                },
+            })
+            httpService.bindRoutes(router);
+
+            const showResponse = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'GET',
+                headers,
+            })
+            expect(showResponse.status).toBe(HttpCodes.OK)
+
+            const deleteResponse = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
+                method: 'DELETE',
+                headers,
+            })
+            expect(deleteResponse.status).toBe(HttpCodes.UNAUTHORIZED)
+        })
+    })
 });

@@ -1,8 +1,8 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
-import { RouteResourceTypes } from "@/http/router/RouterResource.js";
 import { IModel } from "@larascript-framework/contracts/database/model";
+import { RouteResourceTypes } from "@larascript-framework/contracts/http";
 import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
 
 type ResourceOwnerConfig = {

@@ -1,22 +1,8 @@
-import { ISecurityRule, TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@larascript-framework/contracts/http"
+import { IRouter, ISecurityRule, RouteResourceTypes, TPartialRouteItemOptions, TResourceType, TRouteResourceOptions } from "@larascript-framework/contracts/http"
 import { DataSourceResolver } from "../resolver/DataSourceResolver.js"
 import ResourceController from "../resources/controller/ResourceController.js"
-import HttpRouter from "./HttpRouter.js"
-import Route from "./Route.js"
+import SecurityRules from "../security/services/SecurityRules.js"
 
-export type RouteResourceTypes = (typeof RouteResourceTypes)[keyof typeof RouteResourceTypes]
-
-
-/**
- * Resource types that can be utilized when adding Security to a route
- */
-export const RouteResourceTypes = {
-    INDEX: 'index',
-    SHOW: 'show',
-    CREATE: 'create',
-    UPDATE: 'update',
-    DELETE: 'delete'
-} as const
 
 /**
  * ResourceRouter provides a standardized way to create RESTful resource routes
@@ -60,7 +46,7 @@ class ResourceRouter {
     /**
      * Add resource routes to the router.
      */
-    public static resource({ ...resource }: TRouteResourceOptions, router: HttpRouter = new HttpRouter()): HttpRouter {
+    public static resource({ ...resource }: TRouteResourceOptions, router: IRouter): IRouter {
 
         const routeItemOptions: TPartialRouteItemOptions = {
             resource: {
@@ -152,7 +138,7 @@ class ResourceRouter {
      */
     private static mergeScopesSecurityRules(type: TResourceType, scopes: TRouteResourceOptions['scopes'], securityRules: ISecurityRule[] = []) {
         if(scopes?.[type]) {
-            return [...securityRules, Route.security().scopes(scopes[type])]
+            return [...securityRules, SecurityRules.scopes(scopes[type])]
         }
         return securityRules
     }

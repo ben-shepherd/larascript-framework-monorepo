@@ -1,10 +1,9 @@
-import { IResourceRepository, TDataSourceRepository, TRouteResourceOptions } from "@larascript-framework/contracts/http";
+import { IHttpContext, IResourceRepository, TDataSourceRepository, TRouteResourceOptions } from "@larascript-framework/contracts/http";
 import RouteConfigException from "../exceptions/RouteConfigException.js";
-import HttpContext from "./HttpContext.js";
 
 export class ResourceContext {
 
-    constructor(private readonly context: HttpContext) {}
+    constructor(private readonly context: IHttpContext) {}
 
     /**
      * Gets the options of the resource.

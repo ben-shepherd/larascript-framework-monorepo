@@ -250,4 +250,75 @@ describe("resources test suite", () => {
             expect(body.data[0].secret).toBeUndefined();
         })
     })
+
+    describe("meta data", () => {
+        test("should include totalCount in index response", async () => {
+            const model = await MockModel.create({
+                name: 'Test',
+                age: 20,
+                secret: 'Secret',
+            });
+            await model.save();
+
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+
+            const body = await response.json() as {
+                meta: {
+                    totalCount: number,
+                }
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.meta.totalCount).toBe(1)
+        })
+
+        test("should include pagination metadata in index response", async () => {
+            const router = new HttpRouter();
+            router.resource({
+                prefix: '/test',
+                datasource: {
+                    modelConstructor: MockModel,
+                },
+                middlewares: [
+                    MockAuthorizeMiddleware,
+                ]
+            })
+            httpService.bindRoutes(router);
+
+            const response = await fetch(`http://localhost:${serverPort}/test`, {
+                method: 'GET',
+                headers,
+            })
+
+            const body = await response.json() as {
+                meta: {
+                    pagination: {
+                        page: number,
+                        pageSize: number,
+                        nextPage: number,
+                        previousPage: number,
+                    }
+                }
+            }
+
+            expect(response.status).toBe(HttpCodes.OK)
+            expect(body.meta.pagination.page).toBe(1)
+            expect(body.meta.pagination.pageSize).toBe(10)
+        })
+    })
 });

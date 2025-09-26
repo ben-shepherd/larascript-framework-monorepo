@@ -9,11 +9,12 @@ import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IApiResponse, IHttpContext, IResourceData, TRouteItem } from "@larascript-framework/contracts/http";
+import { IApiResponse, IHttpContext, IPageOptions, IResourceData, TRouteItem } from "@larascript-framework/contracts/http";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 
-type TResponseOptions = {
+type TResponseOptions = {} | {
     showPagination: boolean;
+    pageOptions: IPageOptions;
 }
 
 /**
@@ -334,10 +335,9 @@ abstract class AbastractBaseResourceService {
         apiResponse.setData(data)
         apiResponse.addTotalCount()
 
-        if (options?.showPagination) {
-            const defaultPageSize = context.getRouteItem()?.resource?.paginate?.pageSize ?? undefined
-
-            apiResponse.addPagination(pagination.getPage(), defaultPageSize)
+        if (options && 'showPagination' in options && options.showPagination) {
+            const pageSize = options.pageOptions.pageSize ?? undefined
+            apiResponse.addPagination(pagination.getPage(), pageSize)
         }
 
         return apiResponse

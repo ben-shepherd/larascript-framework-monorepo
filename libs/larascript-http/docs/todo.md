@@ -1,3 +1,8 @@
+## Feature Checklist
+
+- [ ] Create an abstract AuthService layer that can be used to implement different auth strategies. (Rather than relying on Larascript Auth)
+
+
 ## Test Coverage Checklist
 
 ### Auth & Resource Owner Security
@@ -34,5 +39,5 @@
 - [x] Repository datasource (vs model datasource) works end-to-end across all CRUD operations.
 
 ### Pagination Behavior
-- [ ] `allowPageSizeOverride: false` prevents `pageSize` query from overriding route default.
+- [x] `allowPageSizeOverride: false` prevents `pageSize` query from overriding route default.
 - [ ] Large page numbers beyond available results return empty arrays with correct pagination metadata.

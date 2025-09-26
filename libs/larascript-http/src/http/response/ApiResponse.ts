@@ -1,4 +1,5 @@
 import { IApiResponse, TApiResponse, TPagination } from "@larascript-framework/contracts/http";
+import Paginate from "../utils/Paginate.js";
 
 /**
  * ApiResponse is a class that builds standardized HTTP API responses.
@@ -95,12 +96,12 @@ class ApiResponse<Data = unknown> implements IApiResponse<Data> {
 
      * @param pagination - Object containing pagination details
      */
-    addPagination(page: number, pageSize?: number): this {
+    addPagination(paginate: Paginate): this {
         this.pagination = {
-            page,
-            pageSize,
-            nextPage: page + 1,
-            previousPage: page - 1
+            page: paginate.getPage(),
+            pageSize: paginate.getPageSize(),
+            nextPage: paginate.getNextPage(),
+            previousPage: paginate.getPreviousPage()
         }
         return this;
 

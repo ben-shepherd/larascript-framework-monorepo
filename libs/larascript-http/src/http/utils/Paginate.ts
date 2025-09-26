@@ -2,6 +2,7 @@ import { Request } from "express";
 
 export type ParseRequestOptions = {
     allowPageSizeOverride?: boolean
+    totalCount: number
 }
 
 /**
@@ -27,9 +28,24 @@ export type ParseRequestOptions = {
  */
 class Paginate {
 
-    protected page: number | undefined = undefined
+    protected page: number = 1;
 
-    protected pageSize: number | undefined = undefined;
+    protected pageSize: number = 10;
+
+    protected totalCount: number = 0;
+
+    /**
+     * Parses the request object to extract the page and pageSize from the query string
+     * 
+     * @param {Request} req - The Express Request object
+     * @param {ParseRequestOptions} options - The options for the request
+     * @returns {Paginate} - The Paginate class itself to enable chaining
+     */
+    static parseRequest(req: Request, options: ParseRequestOptions = { allowPageSizeOverride: true, totalCount: 0 }): Paginate {
+        const paginate = new Paginate();
+        paginate.parseRequest(req, options);
+        return paginate;
+    }
 
     /**
      * Parses the request object to extract the page and pageSize from the query string
@@ -37,7 +53,9 @@ class Paginate {
      * @param {Request} req - The Express Request object
      * @returns {this} - The Paginate class itself to enable chaining
      */
-    parseRequest(req: Request, options: ParseRequestOptions = { allowPageSizeOverride: true }): this {
+    parseRequest(req: Request, options: ParseRequestOptions = { allowPageSizeOverride: true, totalCount: 0 }): this {
+        this.totalCount = options.totalCount;
+
         this.page = 1;
         if(req.query?.page) {
             this.page = parseInt(req.query?.page as string);
@@ -61,29 +79,50 @@ class Paginate {
     }
 
     /**
+     * Gets the next page number, defaulting to undefined if undefined.
+     * @returns {number | undefined} - The next page number.
+     */
+    getNextPage(): number | undefined {
+        const nextPage = this.page + 1;
+        const nextSkip = this.getSkip(nextPage, this.pageSize);
+
+        if(nextSkip >= this.totalCount) {
+            return undefined;
+        }
+
+        return nextPage;
+    }
+
+    /**
+     * Gets the previous page number, defaulting to 1 if undefined.
+     * @returns {number | undefined} - The previous page number.
+     */
+    getPreviousPage(): number | undefined {
+        const previousPage = this.page - 1;
+        const previousSkip = this.getSkip(previousPage, this.pageSize);
+
+        if(previousSkip < 0) {
+            return 1
+        }
+
+        return previousPage;
+    }
+
+    /**
+     * Gets the skip number, defaulting to 0 if undefined.
+     * @returns {number} - The skip number.
+     */
+    getSkip(page: number = this.page, pageSize: number = this.pageSize): number {
+        return (page - 1) * pageSize;
+    }
+
+    /**
      * Gets the page size, defaulting to the defaultValue if undefined.
      * @param {number} [defaultValue=undefined] - The default value if this.pageSize is undefined.
      * @returns {number | undefined} - The page size.
      */
     getPageSize(defaultValue?: number): number | undefined {
         return this.pageSize ?? defaultValue
-    }
-
-    /**
-     * Checks if the page is defined.
-     * @returns {boolean} - True if the page is defined, false otherwise.
-     */
-    containsPage(): boolean {
-        return this.page !== undefined;
-    }
-
-    /**
-     * Checks if the page size is defined.
-     * @returns {boolean} - True if the page size is defined, false otherwise.
-     */
-
-    containsPageSize(): boolean {
-        return this.pageSize !== undefined;
     }
 
 }

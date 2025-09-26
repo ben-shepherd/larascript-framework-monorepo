@@ -152,8 +152,8 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * @param query Filter conditions.
      * @returns The total number of matching resources.
      */
-    async getResourcesCount(query: IResourceQuery): Promise<number> {
-        const builder = this.applyQuery(this.queryBuilder, query);
+    async getResourcesCount(query?: IResourceQuery): Promise<number> {
+        const builder = this.applyQuery(this.queryBuilder, query ?? {});
         return await builder.count();
     }
     

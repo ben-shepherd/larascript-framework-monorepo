@@ -1057,7 +1057,7 @@ describe("resources test suite", () => {
             expect(body2.data[1].name).toBe('Alice')
         })
 
-        test.only('should be able to override the default field and direction', async () => {
+        test('should be able to override the default field and direction', async () => {
             const model = await MockModel.create({
                 name: 'Alice',
                 age: 20

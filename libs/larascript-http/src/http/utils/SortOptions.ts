@@ -72,7 +72,7 @@ class SortOptions {
         const requestSort = req.query?.sort ?? {}
 
         Object.entries(requestSort).forEach(([field, direction]) => {
-            result[field] = this.parseDirection(direction as string, options.defaultDirection);
+            result[field] = SortOptions.normalizeDirection(direction as string, options.defaultDirection);
         });
 
         // If no results are found, create the default results
@@ -105,7 +105,7 @@ class SortOptions {
      * @param {string} rawDirection - The sort string
      * @returns {string} - The direction
      */
-    protected parseDirection(rawDirection?: string, defaultDiretion: TSortDirection = 'asc'): TSortDirection {
+    static normalizeDirection(rawDirection?: string, defaultDiretion: TSortDirection = 'asc'): TSortDirection {
 
         if(!rawDirection) {
             return defaultDiretion

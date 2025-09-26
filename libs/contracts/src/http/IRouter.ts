@@ -94,6 +94,7 @@ export type TRouteResourceOptions = {
     validateBeforeAction?: boolean;
     searching?: {
         fields?: string[];
+        fuzzy?: boolean;
     }
     paginate?: {
         pageSize: number;

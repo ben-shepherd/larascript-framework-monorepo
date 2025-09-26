@@ -229,9 +229,31 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
         if(typeof query === 'function') {
             builder = query(builder);
         }
-        else if(query) {
-            builder = builder.where(query);
+        else if(typeof query === 'object') {
+            builder = this.applyObjectQueryToEloquent(query, builder);
         }
+
         return builder.clone();
+    }
+
+    /**
+     * Applies the object query to the builder.
+     * @param query The query to apply.
+     * @param builder The builder to apply the query to.
+     * @returns The builder with the query applied.
+     */
+    private applyObjectQueryToEloquent(query: object, builder: IEloquent): IEloquent {
+        Object.keys(query).forEach(key => {
+            const value = query[key];
+            const containsStartOrEndPercentSign = value.startsWith('%') || value.endsWith('%');
+
+            if(containsStartOrEndPercentSign) {
+                builder.where(key, 'like', value);
+            }
+            else {
+                builder.where(key, value);
+            }
+        });
+        return builder;
     }
 }

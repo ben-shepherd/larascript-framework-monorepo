@@ -23,6 +23,22 @@ export class ResourceContext {
     }
 
     /**
+     * Gets the searching option of the resource.
+     * @returns {TRouteResourceOptions['searching']} The searching option of the resource.
+     */
+    get searching(): TRouteResourceOptions['searching'] {
+        return this.options.searching ?? {}
+    }
+
+    /**
+     * Gets the fuzzy option of the resource.
+     * @returns {boolean} The fuzzy option of the resource.
+     */
+    get fuzzy(): boolean {
+        return this.options.searching?.fuzzy ?? false
+    }
+
+    /**
      * Gets the repository of the resource.
      * @returns {IResourceRepository} The repository of the resource.
      */

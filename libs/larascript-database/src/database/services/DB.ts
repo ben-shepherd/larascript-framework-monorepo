@@ -34,6 +34,8 @@ export class DB extends BaseSingleton implements RequiresDependency {
 
   protected _console!: IConsoleService;
 
+  protected _initialized = false;
+
   public static init({
     databaseService,
     eloquentQueryBuilder,
@@ -81,6 +83,7 @@ export class DB extends BaseSingleton implements RequiresDependency {
     this._dispatcher = loader("dispatcher");
     this._logger = loader("logger");
     this._console = loader("console");
+    this._initialized = true;
   }
 
   databaseService(): IDatabaseService {
@@ -140,6 +143,10 @@ export class DB extends BaseSingleton implements RequiresDependency {
       throw new Error("ConsoleService is not initialized");
     }
     return this._console;
+  }
+
+  isInitialized(): boolean {
+    return this._initialized;
   }
 }
 

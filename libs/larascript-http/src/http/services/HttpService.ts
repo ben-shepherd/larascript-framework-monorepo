@@ -55,10 +55,6 @@ export default class HttpService extends BaseService<IHttpServiceConfig> impleme
                 ...(baseConfig.afterAllMiddlewares ?? []),
                 ...(this.config?.afterAllMiddlewares ?? []),
             ],
-            extendExpress: (app) => {
-                baseConfig?.extendExpress?.(app)
-                config?.extendExpress?.(app)
-            },
             ...(config ?? {}),
         }
     }
@@ -80,6 +76,7 @@ export default class HttpService extends BaseService<IHttpServiceConfig> impleme
      */
     protected extendExpress() {
         if(typeof this.config?.extendExpress === 'function') {
+            baseConfig?.extendExpress?.(this.app)
             this.config.extendExpress(this.app)
         }
     }

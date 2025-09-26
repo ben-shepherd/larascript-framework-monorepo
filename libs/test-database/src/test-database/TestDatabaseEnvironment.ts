@@ -104,6 +104,10 @@ export class TestDatabaseEnvironment extends BaseSingleton<Options>{
     async boot() {
         this.applyWiths();
 
+        if(DB.getInstance().isInitialized()) {
+            return;
+        }
+
         DB.init({
             databaseService: this.databaseService,
             eloquentQueryBuilder: this.eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
@@ -113,7 +117,24 @@ export class TestDatabaseEnvironment extends BaseSingleton<Options>{
             logger: this.logger,
         });
 
+        await this.connect();
+    }
+
+    async connect() {
         DB.getInstance().databaseService().register();
         await DB.getInstance().databaseService().boot();
     }
+
+    async disconnect() {
+        await DB.getInstance().databaseService().getAdapter().close();
+    }
+
+    async reconnect() {
+        if(!DB.getInstance().isInitialized()) {
+            return;
+        }
+        await this.disconnect();
+        await this.connect();
+    }
+
 }

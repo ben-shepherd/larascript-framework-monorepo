@@ -1,9 +1,9 @@
-import { IHttpConfig } from '@larascript-framework/contracts/http';
+import { IHttpServiceConfig } from '@larascript-framework/contracts/http';
 import cors from 'cors';
 import expressBusboy from 'express-busboy';
 import path from 'path';
 
-export const baseConfig: IHttpConfig = {
+export const baseConfig: IHttpServiceConfig = {
     enabled: true,
     port: 5000,
     beforeAllMiddlewares: [

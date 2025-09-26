@@ -49,7 +49,7 @@ class QueryFilters {
             }
         }
         catch (err) { 
-            Http.getInstance().getLoggerService()?.exception(err as Error)
+            Http.getInstance().getLoggerService()?.error((err as Error).message, (err as Error).stack)
         }
 
         return this;

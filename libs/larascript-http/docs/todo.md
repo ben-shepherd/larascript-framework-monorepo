@@ -1,7 +1,9 @@
 ## Feature Checklist
 
 - [ ] Create an abstract AuthService layer that can be used to implement different auth strategies. (Rather than relying on Larascript Auth)
-
+- [ ] Create an abstract LoggerService layer that can be used to implement different logger strategies. (Rather than relying on Larascript Logger)
+- [ ] Create an abstract StorageService layer that can be used to implement different storage strategies. (Rather than relying on Larascript Storage)
+- [ ] Refactor Http to be the entry point for the HTTP module. (Must provide config, and additional dependencies. Although some dependencies are optional)
 
 ## Test Coverage Checklist
 

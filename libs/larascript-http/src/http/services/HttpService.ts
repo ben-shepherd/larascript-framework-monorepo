@@ -1,4 +1,4 @@
-import { IHttpConfig, IHttpService, IRoute, IRouter, MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
+import { IHttpService, IHttpServiceConfig, IRoute, IRouter, MiddlewareConstructor, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
 import { BaseService } from '@larascript-framework/larascript-core';
 import expressClient from 'express';
 import http from 'http';
@@ -16,9 +16,9 @@ import { default as HttpSingleton } from './Http.js';
  * Responsible for initializing and configuring ExpressJS
  * @implements IHttpService
  */
-export default class HttpService extends BaseService<IHttpConfig> implements IHttpService {
+export default class HttpService extends BaseService<IHttpServiceConfig> implements IHttpService {
 
-    declare config: IHttpConfig | null;
+    declare config: IHttpServiceConfig | null;
 
     private readonly app: expressClient.Express
 
@@ -32,8 +32,8 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
      * Config defined in @/config/http/express.ts
      * @param config 
      */
-    constructor(config: Partial<IHttpConfig> | null = null) {
-        super(config as IHttpConfig)
+    constructor(config: Partial<IHttpServiceConfig> | null = null) {
+        super(config as IHttpServiceConfig)
         this.config = this.getConfigWithDefaults(config)
         this.routerBindService = new RouterBindService()
         this.app = expressClient()
@@ -44,7 +44,7 @@ export default class HttpService extends BaseService<IHttpConfig> implements IHt
      * @param config - The config
      * @returns The config with the defaults
      */
-    public getConfigWithDefaults(config: Partial<IHttpConfig> | null = null): IHttpConfig {
+    public getConfigWithDefaults(config: Partial<IHttpServiceConfig> | null = null): IHttpServiceConfig {
         return {
             ...baseConfig,
             beforeAllMiddlewares: [

@@ -1,6 +1,7 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import { ResourceNotFoundException } from "@/http/exceptions/ResourceNotFoundException.js";
+import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import { RouteResourceTypes } from "@/http/router/RouterResource.js";
 import { IModelAttributes } from "@larascript-framework/contracts/database/model";
@@ -38,6 +39,10 @@ class ResourceShowService extends AbastractBaseResourceService {
      * @param options The resource options
      */
     async handler(context: HttpContext): Promise<ApiResponse<IModelAttributes>> {
+
+        if (!await this.validateAuthorized()) {
+            throw new UnauthorizedException()
+        }
 
         const routeOptions = context.getRouteItem()
 

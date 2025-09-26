@@ -1,6 +1,6 @@
-import { AbstractMiddlewareException } from "../base/AbstractMiddlewareException.js";
+import { AbstractHttpException } from "../base/AbstractHttpException.js";
 
-export class UnauthorizedException extends AbstractMiddlewareException {
+export class UnauthorizedException extends AbstractHttpException {
     code = 401;
 
   constructor(message: string = "Unauthorized") {

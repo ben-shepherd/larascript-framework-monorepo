@@ -1,6 +1,6 @@
-import { AbstractMiddlewareException } from "../base/AbstractMiddlewareException.js";
+import { AbstractHttpException } from "../base/AbstractHttpException.js";
 
-export class ResourceNotFoundException extends AbstractMiddlewareException {
+export class ResourceNotFoundException extends AbstractHttpException {
     code = 404;
 
     constructor(message: string) {

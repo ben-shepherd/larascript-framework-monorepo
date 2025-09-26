@@ -7,6 +7,7 @@ export const databaseConfig: IDatabaseConfig = {
         DatabaseConfig.postgres("postgres", {
             uri: "postgres://root:example@localhost:5432/app",
             options: {},
+            
         }),
     ],
 }

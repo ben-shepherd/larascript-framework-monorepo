@@ -1,6 +1,6 @@
-import { AbstractMiddlewareException } from "../base/AbstractMiddlewareException.js";
+import { AbstractHttpException } from "../base/AbstractHttpException.js";
 
-class SecurityException extends AbstractMiddlewareException {
+class SecurityException extends AbstractHttpException {
     code = 403;
 
     constructor(message: string) {

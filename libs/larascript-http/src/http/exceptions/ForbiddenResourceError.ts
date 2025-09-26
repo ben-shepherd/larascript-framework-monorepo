@@ -1,6 +1,6 @@
-import { AbstractMiddlewareException } from "../base/AbstractMiddlewareException.js";
+import { AbstractHttpException } from "../base/AbstractHttpException.js";
 
-export class ForbiddenResourceError extends AbstractMiddlewareException {
+export class ForbiddenResourceError extends AbstractHttpException {
     code = 403;
 
     constructor(

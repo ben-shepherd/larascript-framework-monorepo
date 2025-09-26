@@ -1,9 +1,7 @@
 import Controller from "@/http/base/Controller.js";
 import HttpContext from "@/http/context/HttpContext.js";
-import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
 import responseError from "@/http/handlers/responseError.js";
 import { IHttpContext } from "@larascript-framework/contracts/http";
-import { ForbiddenResourceError } from "../../exceptions/ForbiddenResourceError.js";
 import AbastractBaseResourceService from "../abstract/AbastractBaseResourceService.js";
 import ResourceCreateService from "../services/ResourceCreateService.js";
 import ResourceDeleteService from "../services/ResourceDeleteService.js";
@@ -102,18 +100,7 @@ class ResourceController  extends Controller {
         }
 
         catch(error) {
-            if(error instanceof UnauthorizedException) {
-                responseError(context.getRequest(), context.getResponse(), error, 401)
-                return;
-            }
-    
-            if(error instanceof ForbiddenResourceError) {
-                responseError(context.getRequest(), context.getResponse(), error, 403)
-                return;
-            }
-    
             responseError(context.getRequest(), context.getResponse(), error as Error)
-
         }
     }
 

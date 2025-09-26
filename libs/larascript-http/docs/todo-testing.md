@@ -30,8 +30,8 @@
 - [ ] Create/Show/Update/Index responses do **not** include guarded/sensitive attributes.
 
 ### Router Options
-- [ ] `only`: When specifying a subset (e.g., `['index','show']`), other endpoints are not registered and return 404.
-- [ ] Repository datasource (vs model datasource) works end-to-end across all CRUD operations.
+- [x] `only`: When specifying a subset (e.g., `['index','show']`), other endpoints are not registered and return 404.
+- [x] Repository datasource (vs model datasource) works end-to-end across all CRUD operations.
 
 ### Pagination Behavior
 - [ ] `allowPageSizeOverride: false` prevents `pageSize` query from overriding route default.

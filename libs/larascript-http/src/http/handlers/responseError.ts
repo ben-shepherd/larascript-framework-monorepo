@@ -1,4 +1,5 @@
 import { Request, Response } from 'express';
+import { AbstractHttpException } from '../base/AbstractHttpException.js';
 import Http from '../services/Http.js';
 
 /**
@@ -11,7 +12,15 @@ import Http from '../services/Http.js';
  * @param err The error to log and send
  * @param code The HTTP status code to send (default: 500)
  */
-export default (req: Request, res: Response, err: Error, code: number = 500) => {
+export default (req: Request, res: Response, err: Error, code?: number) => {
+
+    if(typeof code === 'undefined' && err instanceof AbstractHttpException) {
+        code = err.code
+    }
+    if(typeof code === 'undefined') {
+        code = 500
+    }
+
     if (Http.getInstance().getEnvironment() === 'production') {
         res.status(code).send({ error: 'Something went wrong' })
         return;

@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize"
 import User from "../models/User.js"
 
 export const createUserTable = async (additionalSchema: Record<string, unknown> = {}) => {
-    const schema = AuthEnvironment.getInstance().databaseService.schema()
+    const schema = AuthEnvironment.getInstance().databaseEnvironment.databaseService.schema()
     const table = User.getTable()
 
     if(await schema.tableExists(table)) {

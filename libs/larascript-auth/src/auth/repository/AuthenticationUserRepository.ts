@@ -25,7 +25,7 @@ class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Rep
     }
 
     get queryBuilder() {
-        return AuthEnvironment.getInstance().eloquentQueryBuilderService.builder(this.modelConstructor);
+        return AuthEnvironment.getInstance().databaseEnvironment.eloquentQueryBuilder.builder(this.modelConstructor);
     }
 
     /**

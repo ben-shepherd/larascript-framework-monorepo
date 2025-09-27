@@ -10,7 +10,7 @@ class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenReposi
     }
 
     get queryBuilder() {
-        return AuthEnvironment.getInstance().eloquentQueryBuilderService.builder(this.modelConstructor);
+        return AuthEnvironment.getInstance().databaseEnvironment.eloquentQueryBuilder.builder(this.modelConstructor);
     }
 
     async create(attributes?: IApiTokenAttributes): Promise<IApiTokenModel> {

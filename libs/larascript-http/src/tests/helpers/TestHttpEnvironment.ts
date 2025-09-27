@@ -7,9 +7,8 @@ import { IAuthEnvironmentConfig, IAuthService, IUserModel } from "@larascript-fr
 import { IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { aclConfig, authConfig, AuthEnvironment } from "@larascript-framework/larascript-auth";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
-import { IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
+import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
 import path from "path";
 
 export type Options = {
@@ -31,8 +30,8 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
         return AuthEnvironment.getInstance();
     }
 
-    getDatabaseTestEnvironment(): TestDatabaseEnvironment {
-        return TestDatabaseEnvironment.getInstance();
+    getDatabaseTestEnvironment(): DatabaseEnvironment {
+        return DatabaseEnvironment.getInstance();
     }
 
     static create(options: Options = {}) {
@@ -43,11 +42,11 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
     }
     
     async boot() {
-        this.asyncSession = new AsyncSessionService();
+        this.asyncSession = AsyncSessionService.getInstance();
 
         // Create the database environment
-        await TestDatabaseEnvironment.create({
-            withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
+        await DatabaseEnvironment.create({
+            boot: this.config?.withDatabase ?? DEFAULTS.withDatabase,
         }).boot();
 
         // Create the auth environment
@@ -68,8 +67,6 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
             aclConfig: aclConfig,
             secretKey: 'test',
             dependencies: {
-                databaseService: TestDatabaseEnvironment.getInstance().databaseService ?? {} as IDatabaseService,
-                eloquentQueryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder ?? {} as IEloquentQueryBuilderService,
                 asyncSessionService: this.asyncSession,
             },
             dropAndCreateTables: true,
@@ -96,11 +93,11 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
             uploadDirectory: path.join(process.cwd(), 'storage/uploads'),
             dependencies: {
                 requestContext: new RequestContext(),
-                loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
+                loggerService: DatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
                 asyncSession: this.asyncSession,
                 authService: this.config?.withDatabase ? AuthEnvironment.getInstance().authService as unknown as IAuthService : undefined,
-                databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : undefined,
-                queryBuilderService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().eloquentQueryBuilder : undefined,
+                databaseService: this.config?.withDatabase ? DatabaseEnvironment.getInstance().databaseService : undefined,
+                queryBuilderService: this.config?.withDatabase ? DatabaseEnvironment.getInstance().eloquentQueryBuilder : undefined,
             }
         });
 

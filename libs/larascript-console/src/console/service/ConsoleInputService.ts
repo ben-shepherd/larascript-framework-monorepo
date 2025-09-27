@@ -1,14 +1,14 @@
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import readline from "node:readline";
 import { IConsoleInputService } from "../index.js";
-import ConsoleService from "./ConsoleService.js";
+import { ReadlineService } from "./ReadlineService.js";
 
 export class ConsoleInputService
   extends BaseSingleton
   implements IConsoleInputService
 {
   get rl(): readline.Interface {
-    return ConsoleService.getInstance().readline();
+    return ReadlineService.getInstance().readline();
   }
 
   /**

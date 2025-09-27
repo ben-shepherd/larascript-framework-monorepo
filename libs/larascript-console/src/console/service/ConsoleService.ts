@@ -1,9 +1,10 @@
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import readline, { createInterface } from "node:readline";
+
 import { ICommandConstructor } from "../index.js";
 import IConsoleService from "../interfaces/IConsoleService.js";
 import CommandReader from "./CommandReader.js";
 import CommandRegister from "./CommandRegister.js";
+import { ReadlineService } from "./ReadlineService.js";
 
 /**
  * ConsoleService class that implements the ICommandService interface.
@@ -13,14 +14,8 @@ export class ConsoleService
   extends BaseSingleton
   implements IConsoleService
 {
-  protected readlineInterface: readline.Interface;
-
-  constructor() {
-    super(null);
-    this.readlineInterface = createInterface({
-      input: process.stdin,
-      output: process.stdout,
-    });
+  get readlineInterface() {
+    return ReadlineService.getInstance().readline();
   }
 
   /**
@@ -49,13 +44,6 @@ export class ConsoleService
     return this.registerService().register(cmdCtor, config);
   }
 
-  /**
-   * Returns the readline interface.
-   * @returns readline.Interface
-   */
-  public readline(): readline.Interface {
-    return this.readlineInterface;
-  }
 }
 
 export default ConsoleService;

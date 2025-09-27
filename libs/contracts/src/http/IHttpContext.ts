@@ -1,7 +1,6 @@
 /* eslint-disable no-unused-vars */
 import { NextFunction, Response } from 'express';
 import { IApiTokenModel, IUserModel } from '../auth/index.js';
-import { IStorageFile } from '../storage/index.js';
 import { TBaseRequest } from "./BaseRequest.js";
 import { TRouteItem } from "./IRouter.js";
 import { TUploadedFile } from "./UploadedFile.js";
@@ -26,7 +25,7 @@ export interface IHttpContext {
     getNext(): NextFunction | undefined;
     getFile(key: string): TUploadedFile | undefined;
     getFiles(key: string): TUploadedFile[] | undefined;
-    uploadFile(file: TUploadedFile): Promise<IStorageFile>;
+    uploadFile(file: TUploadedFile): Promise<TUploadedFile>;
     getValidatorBody(): Record<string, unknown>;
 }
 

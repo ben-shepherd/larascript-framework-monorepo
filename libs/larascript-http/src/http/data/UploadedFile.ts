@@ -9,6 +9,10 @@ class UploadedFile implements TUploadedFile {
         this.data = data
     }
 
+    static create(data: TUploadedFileData): UploadedFile {
+        return new UploadedFile(data)
+    }
+
     getFilename(): string {
         return this.data?.filename
     }
@@ -29,6 +33,11 @@ class UploadedFile implements TUploadedFile {
         const stats = fs.statSync(this.getFilepath())
         const fileSizeInBytes = stats.size
         return fileSizeInBytes / 1024
+    }
+
+    getSizeBytes() {
+        const stats = fs.statSync(this.getFilepath())
+        return stats.size
     }
 
     getData<T>(): T {

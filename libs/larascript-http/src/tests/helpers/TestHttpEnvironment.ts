@@ -5,11 +5,11 @@ import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IHttpAuthService, IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
-import { IStorageService } from "@larascript-framework/contracts/storage";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TestAuthEnvironment } from "@larascript-framework/test-auth";
 import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
+import path from "path";
 
 export type Options = {
     withDatabase?: boolean;
@@ -73,8 +73,8 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
         // Create the http environment
         Http.init(httpService, {
             environment: EnvironmentTesting,
+            uploadDirectory: path.join(process.cwd(), 'storage/uploads'),
             dependencies: {
-                storageService: {} as unknown as IStorageService,
                 requestContext: new RequestContext(),
                 loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
                 asyncSession: this.asyncSession,

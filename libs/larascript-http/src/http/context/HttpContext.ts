@@ -239,8 +239,19 @@ class HttpContext implements IHttpContext {
      * @param {string} [destination] - Optional destination path in storage.
      * @returns {Promise<IStorageFile | undefined>} The stored file object or undefined if no file was found.
      */
-    public async uploadFile(file: TUploadedFile): Promise<IStorageFile> {
-        return await Http.getInstance().getStorageService().moveUploadedFile(file)
+    public async uploadFile(file: TUploadedFile): Promise<TUploadedFile> {
+        return await Http.getInstance().getUploadService().moveUploadedFile(file)
+    }
+
+    /**
+     * Moves multiple uploaded files from the request to the storage.
+     * @param {TUploadedFile[]} files - The files to upload.
+     * @returns {Promise<TUploadedFile[]>} The uploaded files.
+     */
+    public async uploadFiles(files: TUploadedFile[]): Promise<TUploadedFile[]> {
+        return Promise.all(files.map(async (file) => {
+            return await Http.getInstance().getUploadService().moveUploadedFile(file)
+        }))
     }
 
     /**

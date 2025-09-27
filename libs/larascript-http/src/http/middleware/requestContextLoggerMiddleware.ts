@@ -1,7 +1,7 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import { EnvironmentDevelopment } from "@larascript-framework/larascript-core";
 import Middleware from "../base/Middleware.js";
 import HttpContext from "../context/HttpContext.js";
-import Http from "../services/Http.js";
 
 /**
  * Middleware to log the request context
@@ -9,14 +9,14 @@ import Http from "../services/Http.js";
 class RequestContextLoggerMiddleware extends Middleware {
 
     async execute(context: HttpContext): Promise<void> {
-        if (Http.getInstance().getEnvironment() !== EnvironmentDevelopment) {
+        if (HttpEnvironment.getInstance().environment !== EnvironmentDevelopment) {
             this.next()
             return;
         }
 
         context.getResponse().once('finish', () => {
-            Http.getInstance().getLoggerService()?.info('requestContext: ', Http.getInstance().getRequestContext().getRequestContext())
-            Http.getInstance().getLoggerService()?.info('ipContext: ', Http.getInstance().getRequestContext().getIpContext())
+            HttpEnvironment.getInstance().loggerService?.info('requestContext: ', HttpEnvironment.getInstance().requestContext.getRequestContext())
+            HttpEnvironment.getInstance().loggerService?.info('ipContext: ', HttpEnvironment.getInstance().requestContext.getIpContext())
         })
 
         this.next()

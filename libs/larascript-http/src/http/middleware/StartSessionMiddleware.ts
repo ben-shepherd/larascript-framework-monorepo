@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import Middleware from "../base/Middleware.js";
 import HttpContext from "../context/HttpContext.js";
-import Http from "../services/Http.js";
 
 /**
  * Middleware that initializes a session context for each HTTP request.
@@ -39,9 +39,9 @@ class StartSessionMiddleware extends Middleware {
         }
 
         // Run the rest of the middleware chain within a session context
-        await Http.getInstance().getAsyncSession().runWithSession(async () => {
+        await HttpEnvironment.getInstance().asyncSession.runWithSession(async () => {
             // Set the session ID
-            const currentSession = Http.getInstance().getAsyncSession().getSession();
+            const currentSession = HttpEnvironment.getInstance().asyncSession.getSession();
             currentSession.id = sessionId;
             
             // Continue middleware chain

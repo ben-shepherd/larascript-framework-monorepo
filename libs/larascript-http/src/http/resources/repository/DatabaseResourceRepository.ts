@@ -1,5 +1,5 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
-import Http from "@/http/services/Http.js";
 import { IEloquent, TWhereClauseValue } from "@larascript-framework/contracts/database/eloquent";
 import { IModel } from "@larascript-framework/contracts/database/model";
 import { DatabaseResourceRepositoryConfig, IDatabaseResourceRepository, IResourceData, IResourceQuery, ISortOption } from "@larascript-framework/contracts/http";
@@ -26,7 +26,7 @@ export class DatabaseResourceRepository extends AbstractResourceRepository imple
      * Returns an `IEloquent` query builder for the configured model.
      */
     get queryBuilder(): IEloquent<IModel> {
-        return Http.getInstance().getQueryBuilderService()!.builder(this.config.modelConstructor);
+        return HttpEnvironment.getInstance().queryBuilderService.builder(this.config.modelConstructor);
     }
 
     /**

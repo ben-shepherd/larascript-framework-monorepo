@@ -1,25 +1,17 @@
-import { IAuthService } from "@/auth/service.t.js";
-import { IDatabaseService, IEloquentQueryBuilderService } from "@/database/index.js";
-import { IAsyncSessionService } from "@larascript-framework/async-session";
+import { ILoggerService } from "@/logger/index.js";
 import { EnvironmentType } from "@larascript-framework/larascript-core";
-import { IRequestContext } from "./IRequestContext.js";
 import { TUploadedFile } from "./UploadedFile.js";
 
 
 export type IHttpConfig = {
     uploadDirectory: string;
     environment: EnvironmentType;
-    dependencies: IHttpDependencies;
-}
-
-export type IHttpDependencies = {
-    uploadService?: IHttpUploadService;
-    requestContext?: IRequestContext;
-    databaseService?: IDatabaseService;
-    queryBuilderService?: IEloquentQueryBuilderService;
-    loggerService?: IHttpLoggerService;
-    asyncSession?: IAsyncSessionService;
-    authService?: IAuthService;
+    databaseConfigured: boolean;
+    authConfigured: boolean;
+    dependencies?: {
+        loggerService?: ILoggerService;
+        uploadService?: IHttpUploadService;
+    }
 }
 
 export type IHttpLoggerService = {

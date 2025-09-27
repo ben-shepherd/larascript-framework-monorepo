@@ -2,11 +2,11 @@ import Controller from "@/http/base/Controller.js";
 import Middleware from "@/http/base/Middleware.js";
 import HttpContext from "@/http/context/HttpContext.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
-import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { Request, Response } from "express";
+import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
 class MiddlewareSingleton extends BaseSingleton {
@@ -37,7 +37,7 @@ describe("httpService test suite", () => {
     beforeEach(async () => {
         await TestHttpEnvironment.create().boot();
 
-        httpService = TestHttpEnvironment.getInstance().httpService as HttpService;
+        httpService = HttpEnvironment.getInstance().httpService as HttpService;
 
         // Get the actual port the server is listening on
         serverPort = httpService.getPort()!;
@@ -185,7 +185,7 @@ describe("httpService test suite", () => {
         test("should be able to use async session to set data in middleware and use it in the controller", async () => {
             const router = new HttpRouter();
             router.get('/test', (req: Request, res: Response) => {
-                const data = Http.getInstance().getAsyncSession().getSession().data;
+                const data = HttpEnvironment.getInstance().asyncSession.getSession().data;
                 res.send({
                     message: data.test,
                 });
@@ -193,7 +193,7 @@ describe("httpService test suite", () => {
                 middlewares: [
                     class extends Middleware {
                         async execute(context: HttpContext) {
-                            const session = Http.getInstance().getAsyncSession().getSession();
+                            const session = HttpEnvironment.getInstance().asyncSession.getSession();
                             session.data = {
                                 test: 'test123',
                             };

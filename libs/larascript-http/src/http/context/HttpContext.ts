@@ -1,10 +1,10 @@
+import { HttpEnvironment } from '@/http/environment/HttpEnvironment.js';
 import { IApiTokenModel, IUserModel } from '@larascript-framework/contracts/auth';
 import { IHttpContext, TBaseRequest, TRouteItem, TUploadedFile, TUploadedFileData } from '@larascript-framework/contracts/http';
 import { IStorageFile } from '@larascript-framework/contracts/storage';
 import { NextFunction, Response } from 'express';
 import UploadedFile from '../data/UploadedFile.js';
 import HttpContextException from '../exceptions/HttpContextException.js';
-import Http from '../services/Http.js';
 import { ResourceContext } from './ResourceContext.js';
 
 class HttpContext implements IHttpContext {
@@ -123,7 +123,7 @@ class HttpContext implements IHttpContext {
      * @returns {RequestContext | undefined} The request context.
      */
     public getByRequest<T = unknown>(key: string): T | undefined {
-        return Http.getInstance().getRequestContext().getByRequest<T>(this.req, key)
+        return HttpEnvironment.getInstance().requestContext.getByRequest<T>(this.req, key)
     }
 
     /**
@@ -132,7 +132,7 @@ class HttpContext implements IHttpContext {
      * @param {unknown} value - The value to set.
      */
     public setContext(key: string, value: unknown): void {
-        Http.getInstance().getRequestContext().setByRequest(this.req, key, value)
+        HttpEnvironment.getInstance().requestContext.setByRequest(this.req, key, value)
     }
 
     /**
@@ -141,7 +141,7 @@ class HttpContext implements IHttpContext {
      * @returns {unknown} The value of the IP context.
      */
     public getIpContext<T = unknown>(key: string): T | undefined {
-        return Http.getInstance().getRequestContext().getByIpAddress<T>(this.req, key)
+        return HttpEnvironment.getInstance().requestContext.getByIpAddress<T>(this.req, key)
     }
 
     /**
@@ -150,7 +150,7 @@ class HttpContext implements IHttpContext {
      * @param {unknown} value - The value to set.
      */
     public setIpContext(key: string, value: unknown, ttl?: number): void {
-        Http.getInstance().getRequestContext().setByIpAddress(this.req, key, value, ttl)
+        HttpEnvironment.getInstance().requestContext.setByIpAddress(this.req, key, value, ttl)
     }
 
 
@@ -240,7 +240,7 @@ class HttpContext implements IHttpContext {
      * @returns {Promise<IStorageFile | undefined>} The stored file object or undefined if no file was found.
      */
     public async uploadFile(file: TUploadedFile): Promise<TUploadedFile> {
-        return await Http.getInstance().getUploadService().moveUploadedFile(file)
+        return await HttpEnvironment.getInstance().uploadService.moveUploadedFile(file)
     }
 
     /**
@@ -250,7 +250,7 @@ class HttpContext implements IHttpContext {
      */
     public async uploadFiles(files: TUploadedFile[]): Promise<TUploadedFile[]> {
         return Promise.all(files.map(async (file) => {
-            return await Http.getInstance().getUploadService().moveUploadedFile(file)
+            return await HttpEnvironment.getInstance().uploadService.moveUploadedFile(file)
         }))
     }
 

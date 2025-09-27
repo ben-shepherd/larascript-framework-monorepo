@@ -8,6 +8,7 @@ import SecurityReader from "@/http/security/services/SecurityReader.js";
 import HttpService from "@/http/services/HttpService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import { IUserModel } from "@larascript-framework/contracts/auth";
+import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
 describe("security test suite", () => {
@@ -17,7 +18,7 @@ describe("security test suite", () => {
     beforeEach(async () => {
         await TestHttpEnvironment.create().boot();
 
-        httpService = TestHttpEnvironment.getInstance().httpService as HttpService;
+        httpService = HttpEnvironment.getInstance().httpService as HttpService;
 
         // Get the actual port the server is listening on
         serverPort = httpService.getPort()!;

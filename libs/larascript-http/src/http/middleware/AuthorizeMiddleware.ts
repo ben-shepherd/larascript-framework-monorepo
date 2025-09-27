@@ -1,9 +1,9 @@
+import { HttpEnvironment } from '@/http/environment/HttpEnvironment.js';
 import { IHttpContext, TBaseRequest } from '@larascript-framework/contracts/http';
 import { UnauthorizedException } from '@larascript-framework/larascript-auth';
 import { AbstractAuthMiddleware } from '../base/AbstractAuthMiddleware.js';
 import { ForbiddenResourceError } from '../exceptions/ForbiddenResourceError.js';
 import responseError from '../handlers/responseError.js';
-import Http from '../services/Http.js';
 
 /**
  * AuthorizeMiddleware handles authentication and authorization for HTTP requests
@@ -82,13 +82,13 @@ class AuthorizeMiddleware extends AbstractAuthMiddleware<{ allowedScopes: string
     public async attemptAuthorizeRequest(req: TBaseRequest): Promise<TBaseRequest> {
         const authorization = (req.headers.authorization ?? '').replace('Bearer ', '');
 
-        const apiToken = await Http.getInstance().getAuthService().getJwt().attemptAuthenticateToken(authorization)
+        const apiToken = await HttpEnvironment.getInstance().authService.getJwt().attemptAuthenticateToken(authorization)
 
         if(!apiToken) {
             throw new UnauthorizedException();
         }
 
-        const user = await Http.getInstance().getAuthService().getUserRepository().findByIdOrFail(apiToken.getUserId())
+        const user = await HttpEnvironment.getInstance().authService.getUserRepository().findByIdOrFail(apiToken.getUserId())
 
         if (!user) {
             throw new UnauthorizedException();
@@ -99,7 +99,7 @@ class AuthorizeMiddleware extends AbstractAuthMiddleware<{ allowedScopes: string
         req.apiToken = apiToken
 
         // Set the user id in the request context
-        Http.getInstance().getAuthService().getJwt().authorizeUser(user)
+        HttpEnvironment.getInstance().authService.getJwt().authorizeUser(user)
 
         return req;
     }

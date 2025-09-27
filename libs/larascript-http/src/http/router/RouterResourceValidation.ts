@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import { TDataSourceModelConstructor, TRouteResourceOptions } from "@larascript-framework/contracts/http";
 import RouteConfigException from "../exceptions/RouteConfigException.js";
-import Http from "../services/Http.js";
 
 export class RouterResourceValidation {
 
@@ -19,7 +19,7 @@ export class RouterResourceValidation {
      * @param resource - The resource options.
      */
     static validateModelConstructorAndDatabaseConfigured(resource: TRouteResourceOptions) {
-        if((resource.datasource as TDataSourceModelConstructor)?.modelConstructor && !Http.getInstance().isDatabaseConfigured()) {
+        if((resource.datasource as TDataSourceModelConstructor)?.modelConstructor && !HttpEnvironment.getInstance().isDatabaseConfigured()) {
             throw new RouteConfigException('Database is not configured. Use a repository instead.');
         }
     }

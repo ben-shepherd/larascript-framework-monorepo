@@ -7,7 +7,7 @@ import { MockModel } from "./repository/MockModel.js";
 describe("config optional database test suite", () => {
     beforeEach(async () => {
         await TestHttpEnvironment.create({
-            withDatabase: false,
+            databaseConfigured: false,
         }).boot();
     });
 

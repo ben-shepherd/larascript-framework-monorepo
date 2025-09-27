@@ -4,7 +4,8 @@ import AuthorizeMiddleware from "@/http/middleware/AuthorizeMiddleware.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
 import { beforeEach, describe } from "@jest/globals";
 import { IApiTokenModel, IUserModel } from "@larascript-framework/contracts/auth";
-import { IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IHttpService } from "@larascript-framework/contracts/http";
+import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 import { resetMockModelTable } from "./repository/resetMockModelTable.js";
 
@@ -17,22 +18,19 @@ describe("authorize middleware test suite", () => {
     let serverPort: number;
     let user: IUserModel;
     let jwt: string;
-    let MockAuthorizeMiddleware: MiddlewareConstructor;
 
     beforeEach(async () => {
-        await TestHttpEnvironment.create({
-            withDatabase: true,
-        }).boot();
+        await TestHttpEnvironment.create().boot();
 
-        httpService = TestHttpEnvironment.getInstance().httpService;
+        httpService = HttpEnvironment.getInstance().httpService;
 
         await resetMockModelTable();
 
-        user = await TestHttpEnvironment.getInstance().getAuthTestEnvironment().createUser({
+        user = await HttpEnvironment.getInstance().authEnvironment.createUser({
             email: 'test@test.com',
             password: 'password'
         })
-        jwt = await TestHttpEnvironment.getInstance().getAuthTestEnvironment().createJwtFromUser(user, [], {
+        jwt = await HttpEnvironment.getInstance().authEnvironment.createJwtFromUser(user, [], {
             expiresAfterMinutes: 60 * 24, // 24 hours
         });
 
@@ -41,7 +39,7 @@ describe("authorize middleware test suite", () => {
 
     describe("authorize middleware", () => {
         test("should be able to attempt authenticate token", async () => {
-            const apiToken = await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authService.getJwt().attemptAuthenticateToken(jwt);
+            const apiToken = await HttpEnvironment.getInstance().authEnvironment.authService.getJwt().attemptAuthenticateToken(jwt);
 
             expect(apiToken).toBeDefined();
             expect(apiToken?.getUserId()).toBe(user.getId());
@@ -84,9 +82,9 @@ describe("authorize middleware test suite", () => {
         })
 
         test("should not be able to authorize a user with a revoked token", async () => {
-            const apiToken = await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authService.getJwt().attemptAuthenticateToken(jwt);
+            const apiToken = await HttpEnvironment.getInstance().authEnvironment.authService.getJwt().attemptAuthenticateToken(jwt);
             expect(apiToken).toBeDefined();
-            await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authService.getJwt().revokeToken(apiToken as IApiTokenModel);
+            await HttpEnvironment.getInstance().authEnvironment.authService.getJwt().revokeToken(apiToken as IApiTokenModel);
 
             const controller = class extends Controller {
                 async invoke(context: HttpContext) {

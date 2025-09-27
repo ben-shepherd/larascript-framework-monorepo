@@ -12,9 +12,7 @@ describe("Database Resource Repository", () => {
       modelConstructor: MockModel,
     });
 
-    await TestHttpEnvironment.create({
-      withDatabase: true,
-    }).boot();
+    await TestHttpEnvironment.create().boot();
 
     await resetMockModelTable();
   });

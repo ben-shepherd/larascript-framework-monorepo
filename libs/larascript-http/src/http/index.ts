@@ -3,6 +3,7 @@ export * from "./config/index.js";
 export * from "./context/index.js";
 export * from "./data/index.js";
 export * from "./enums/index.js";
+export * from "./environment/index.js";
 export * from "./exceptions/index.js";
 export * from "./handlers/index.js";
 export * from "./interfaces/index.js";

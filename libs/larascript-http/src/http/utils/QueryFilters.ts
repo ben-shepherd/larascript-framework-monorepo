@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import { QueryFilterOptions } from "@larascript-framework/contracts/http";
 import { Request } from "express";
-import Http from "../services/Http.js";
 
 /**
  * QueryFilters is a singleton class that handles parsing and validating URL query string filters
@@ -49,7 +49,7 @@ class QueryFilters {
             }
         }
         catch (err) { 
-            Http.getInstance().getLoggerService()?.error((err as Error).message, (err as Error).stack)
+            HttpEnvironment.getInstance().loggerService?.error((err as Error).message, (err as Error).stack)
         }
 
         return this;

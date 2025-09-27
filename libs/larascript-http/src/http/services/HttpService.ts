@@ -9,7 +9,6 @@ import RequestIdMiddleware from '../middleware/RequestIdMiddleware.js';
 import StartSessionMiddleware from '../middleware/StartSessionMiddleware.js';
 import Route from '../router/Route.js';
 import RouterBindService from '../router/RouterBindService.js';
-import { default as HttpSingleton } from './Http.js';
 
 /**
  * ExpressService class
@@ -101,15 +100,12 @@ export default class HttpService extends BaseService<IHttpServiceConfig> impleme
      * @param middleware - The middleware to add
      */
     public useMiddleware(middleware: TExpressMiddlewareFn | MiddlewareConstructor) {
-
         if (middleware.prototype instanceof Middleware) {
             this.app.use((middleware as MiddlewareConstructor).create())
         }
         else {
             this.app.use(middleware as TExpressMiddlewareFn)
         }
-
-        HttpSingleton.getInstance().getLoggerService()?.info('[ExpressService] middleware: ' + middleware.name)
     }
 
     /**

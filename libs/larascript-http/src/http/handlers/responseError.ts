@@ -1,6 +1,6 @@
+import { HttpEnvironment } from '@/http/environment/HttpEnvironment.js';
 import { Request, Response } from 'express';
 import { AbstractHttpException } from '../base/AbstractHttpException.js';
-import Http from '../services/Http.js';
 
 /**
  * Utility function to send an error response to the client.
@@ -21,12 +21,12 @@ export default (req: Request, res: Response, err: Error, code?: number) => {
         code = 500
     }
 
-    if (Http.getInstance().getEnvironment() === 'production') {
+    if (HttpEnvironment.getInstance().environment === 'production') {
         res.status(code).send({ error: 'Something went wrong' })
         return;
     }
 
-    Http.getInstance().getLoggerService()?.error(err, err.stack)
+    HttpEnvironment.getInstance().loggerService?.error(err, err.stack)
 
     // Format the stack trace by splitting it into an array of lines
     const stackLines = err.stack ? err.stack.split('\n').map(line => line.trim()) : [];

@@ -1,6 +1,6 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
-import Http from "@/http/services/Http.js";
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import { IPDatesArrayTTL, TBaseRequest } from "@larascript-framework/contracts/http";
 import { Request } from "express";
 import { RateLimitedExceededError } from "../../exceptions/RateLimitedExceededError.js";
@@ -75,7 +75,7 @@ class RateLimitedRule extends AbstractSecurityRule<RateLimitedConfig> {
         const context = this.getIpContext(ipContextIdentifier, req);
         const dates = context.value
 
-        Http.getInstance().getRequestContext().setByIpAddress<Date[]>(req as TBaseRequest, ipContextIdentifier, [
+        HttpEnvironment.getInstance().requestContext.setByIpAddress<Date[]>(req as TBaseRequest, ipContextIdentifier, [
             ...dates,
             new Date()
         ], ttlSeconds)
@@ -93,7 +93,7 @@ class RateLimitedRule extends AbstractSecurityRule<RateLimitedConfig> {
      * @returns The current rate limited context value with the given id, or an empty array if none exists.
      */
     protected getIpContext(id: string, req: Request): IPDatesArrayTTL<Date[]> {
-        return Http.getInstance().getRequestContext().getByIpAddress<IPDatesArrayTTL<Date[]>>(req as TBaseRequest, id) || { value: [], ttlSeconds: null, createdAt: new Date() };
+        return HttpEnvironment.getInstance().requestContext.getByIpAddress<IPDatesArrayTTL<Date[]>>(req as TBaseRequest, id) || { value: [], ttlSeconds: null, createdAt: new Date() };
     }
 
     /**
@@ -123,7 +123,7 @@ class RateLimitedRule extends AbstractSecurityRule<RateLimitedConfig> {
         const newDates = [...dates];
         newDates.pop();
 
-        Http.getInstance().getRequestContext().setByIpAddress<Date[]>(req as TBaseRequest, ipContextIdentifier, newDates, ttlSeconds)
+        HttpEnvironment.getInstance().requestContext.setByIpAddress<Date[]>(req as TBaseRequest, ipContextIdentifier, newDates, ttlSeconds)
     }
 
 }

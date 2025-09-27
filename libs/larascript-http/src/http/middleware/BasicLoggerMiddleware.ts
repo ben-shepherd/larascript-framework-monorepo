@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import Middleware from "../base/Middleware.js";
 import HttpContext from "../context/HttpContext.js";
-import Http from "../services/Http.js";
 
 /**
  * Middleware that logs detailed information about incoming HTTP requests
@@ -42,14 +42,14 @@ class BasicLoggerMiddleware extends Middleware {
      */
     public async execute(context: HttpContext): Promise<void> {
 
-        const httpServiceConfig = Http.getInstance().getHttpConfig()
+        const httpServiceConfig = HttpEnvironment.getInstance().getConfig()?.httpServiceConfig
 
         if(!httpServiceConfig?.logging?.requests) {
             this.next();
             return;
         }
 
-        Http.getInstance().getLoggerService()?.info('New request: ', this.getRequestDetails(context));
+        HttpEnvironment.getInstance().loggerService?.info('New request: ', this.getRequestDetails(context));
 
         this.next();
     }

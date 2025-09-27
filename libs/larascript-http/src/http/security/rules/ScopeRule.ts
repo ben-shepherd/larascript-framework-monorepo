@@ -1,8 +1,8 @@
 import HttpContext from "@/http/context/HttpContext.js";
 import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import SecurityException from "@/http/exceptions/SecurityException.js";
 import { UnauthorizedException } from "@/http/exceptions/UnauthorizedException.js";
-import Http from "@/http/services/Http.js";
 import AbstractSecurityRule from "../abstract/AbstractSecurityRule.js";
 
 export type ScopeRuleConfig = {
@@ -18,7 +18,7 @@ class ScopeRule extends AbstractSecurityRule<ScopeRuleConfig> {
 
     public async execute(context: HttpContext): Promise<boolean> {
 
-        if(!await Http.getInstance().getAuthService().check()) {
+        if(!await HttpEnvironment.getInstance().authService.check()) {
             throw new UnauthorizedException();
         }
 

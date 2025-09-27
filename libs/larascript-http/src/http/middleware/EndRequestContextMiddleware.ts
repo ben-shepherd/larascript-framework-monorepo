@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import Middleware from "../base/Middleware.js";
 import HttpContext from "../context/HttpContext.js";
-import Http from "../services/Http.js";
 
 /**
  * Middleware that ends the current request context and removes all associated values.
@@ -14,7 +14,7 @@ class EndRequestContextMiddleware extends Middleware {
      */
     async execute(context: HttpContext): Promise<void> {
         context.getResponse().once('finish', () => {
-            Http.getInstance().getRequestContext().endRequestContext(context.getRequest())
+            HttpEnvironment.getInstance().requestContext.endRequestContext(context.getRequest())
         })
 
         this.next()

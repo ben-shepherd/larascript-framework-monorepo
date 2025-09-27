@@ -1,3 +1,4 @@
+import { HttpEnvironment } from '@/http/environment/HttpEnvironment.js';
 import { ControllerConstructor, IHttpServiceConfig, IRouter, MiddlewareConstructor, TBaseRequest, TExpressMiddlewareFn, TExpressMiddlewareFnOrClass, TRouteItem } from '@larascript-framework/contracts/http';
 import { default as express, default as expressClient } from 'express';
 import Controller from '../base/Controller.js';
@@ -5,7 +6,6 @@ import Middleware from '../base/Middleware.js';
 import HttpContext from '../context/HttpContext.js';
 import RouteException from '../exceptions/RouteException.js';
 import SecurityMiddleware from '../middleware/SecurityMiddleware.js';
-import Http from '../services/Http.js';
 import MiddlewareUtil from '../utils/middlewareUtil.js';
 
 // eslint-disable-next-line no-unused-vars
@@ -169,7 +169,7 @@ class RouterBindService {
     protected useHandlers(method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE' | 'OPTIONS', path: string, handlers: TExpressMiddlewareFn[]): void {
         const methodType = method.toLowerCase() as keyof typeof this.app
         const str = `[Express] binding route ${method.toUpperCase()}: '${path}'`;
-        Http.getInstance().getLoggerService()?.info(str)
+        HttpEnvironment.getInstance().loggerService?.info(str)
         this.app[methodType](path, handlers);
     }
 

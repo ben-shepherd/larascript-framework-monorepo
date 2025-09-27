@@ -1,11 +1,11 @@
 
 import HttpContext from "@/http/context/HttpContext.js";
 import { SecurityEnum } from "@/http/enums/SecurityEnum.js";
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import ResourceException from "@/http/exceptions/ResourceException.js";
 import ApiResponse from "@/http/response/ApiResponse.js";
 import ResourceOwnerRule from "@/http/security/rules/ResourceOwnerRule.js";
 import SecurityReader from "@/http/security/services/SecurityReader.js";
-import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { ModelConstructor } from "@larascript-framework/contracts/database/model";
@@ -62,7 +62,7 @@ abstract class AbastractBaseResourceService {
      * @returns 
      */
     getPrimaryKey(modelConstructor: ModelConstructor): string {
-        return Http.getInstance().getDatabaseService()!.getAdapter().normalizeColumn(modelConstructor.getPrimaryKey())
+        return HttpEnvironment.getInstance().databaseService.getAdapter().normalizeColumn(modelConstructor.getPrimaryKey())
     }
 
     /**
@@ -110,7 +110,7 @@ abstract class AbastractBaseResourceService {
             return this.cachedAuthorized;
         }
 
-        this.cachedAuthorized = await Http.getInstance().getAuthService().check()
+        this.cachedAuthorized = await HttpEnvironment.getInstance().authService.check()
         return this.cachedAuthorized;
     }
 
@@ -346,7 +346,7 @@ abstract class AbastractBaseResourceService {
      * @returns {Promise<IHttpUser | null>} - The user or null if not found
      */
     async getUser(): Promise<IUserModel | null> {
-        return await Http.getInstance().getAuthService().user()
+        return await HttpEnvironment.getInstance().authService.user()
     }
 
 }

@@ -12,10 +12,10 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "npm run db:postgres:restart && jest --runInBand --passWithNoTests && npm run db:postgres:down",
-    "test:nodb": "jest --runInBand --passWithNoTests",
-    "test:watch": "jest --runInBand --watch --passWithNoTests",
-    "test:coverage": "jest --runInBand --coverage --passWithNoTests",
+    "test": "npm run db:postgres:restart && jest --runInBand --detectOpenHandles --passWithNoTests && npm run db:postgres:down",
+    "test:nodb": "jest --runInBand --detectOpenHandles --passWithNoTests",
+    "test:watch": "jest --runInBand --watch --detectOpenHandles --passWithNoTests",
+    "test:coverage": "jest --runInBand --coverage --detectOpenHandles --passWithNoTests",
     "build": "tsc --skipLibCheck && npx tsc-alias -p tsconfig.json -o dist -D dist",
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w -p tsconfig.json -o dist -D dist\"",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -49,11 +49,12 @@
     "@larascript-framework/larascript-logger": "workspace:*",
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/larascript-utils": "workspace:*",
+    "@larascript-framework/larascript-validator": "workspace:*",
     "@larascript-framework/test-database": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
-    "@larascript-framework/larascript-validator": "workspace:*",
     "@types/body-parser": "^1.19.6",
-    "tsc-alias": "^1.8.16"
+    "tsc-alias": "^1.8.16",
+    "tslint-no-circular-imports": "^0.7.0"
   },
   "exports": {
     ".": {

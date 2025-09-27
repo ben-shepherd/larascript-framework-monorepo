@@ -5,6 +5,8 @@ import { beforeEach, describe, test } from "@jest/globals";
 import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IHttpService, MiddlewareConstructor, QueryFilterOptions } from "@larascript-framework/contracts/http";
 import { Request } from "express";
+import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
+import { createMockAuthorizeUserMiddleware } from "./helpers/createMockAuthorizeUserMiddleware.js";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 import { MockModel } from "./repository/MockModel.js";
 import { resetMockModelTable } from "./repository/resetMockModelTable.js";
@@ -20,19 +22,17 @@ describe("resources test suite", () => {
     let MockAuthorizeMiddleware: MiddlewareConstructor;
 
     beforeEach(async () => {
-        await TestHttpEnvironment.create({
-            withDatabase: true,
-        }).boot();
+        await TestHttpEnvironment.create().boot();
 
-        httpService = TestHttpEnvironment.getInstance().httpService;
+        httpService = HttpEnvironment.getInstance().httpService;
 
         await resetMockModelTable();
 
-        user = await TestHttpEnvironment.getInstance().getAuthTestEnvironment().createUser({
+        user = await HttpEnvironment.getInstance().authEnvironment.createUser({
             email: 'test@test.com',
             password: 'password'
         })
-        MockAuthorizeMiddleware = TestHttpEnvironment.getInstance().createMockAuthorizeUserMiddleware(user);
+        MockAuthorizeMiddleware = createMockAuthorizeUserMiddleware(user);
 
         serverPort = httpService.getPort()!;
     });

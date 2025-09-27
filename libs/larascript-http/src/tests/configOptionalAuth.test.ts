@@ -1,23 +1,25 @@
 import HttpRouter from "@/http/router/HttpRouter.js";
-import Http from "@/http/services/Http.js";
 import { beforeEach, describe, test } from "@jest/globals";
-import { IAuthService, IUserModel } from "@larascript-framework/contracts/auth";
+import { IUserModel } from "@larascript-framework/contracts/auth";
 import { IHttpService, IResourceRepository, MiddlewareConstructor } from "@larascript-framework/contracts/http";
-import { TestHttpEnvironment } from "./TestHttpEnvironment.js";
+import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
+import { createMockAuthorizeUserMiddleware } from "./helpers/createMockAuthorizeUserMiddleware.js";
+import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
-describe("config optional database test suite", () => {
+describe("config optional auth test suite", () => {
     let mockAuthorizeMiddleware: MiddlewareConstructor;
     let httpService: IHttpService;
     const mockCustomRepository: IResourceRepository = {} as unknown as IResourceRepository;
     
     beforeEach(async () => {
         await TestHttpEnvironment.create({
-            withDatabase: false,
+            databaseConfigured: false,
+            authConfigured: false,
         }).boot();
 
-        httpService = TestHttpEnvironment.getInstance().httpService;
+        httpService = HttpEnvironment.getInstance().httpService;
 
-        mockAuthorizeMiddleware = TestHttpEnvironment.getInstance().createMockAuthorizeUserMiddleware({} as IUserModel);
+        mockAuthorizeMiddleware = createMockAuthorizeUserMiddleware({} as IUserModel);
     });
 
     describe("optional auth dependencies", () => {
@@ -37,8 +39,8 @@ describe("config optional database test suite", () => {
         test("should not get an error if a authorize middleware is provided and the auth dependencies are configured", async () => {
             const router = new HttpRouter();
 
-            Http.getInstance().setPartialDependencies({
-                authService: {} as unknown as IAuthService,
+            HttpEnvironment.getInstance().setPartialConfig({
+                authConfigured: false
             });
 
             expect(() =>

@@ -1,6 +1,6 @@
+import { HttpEnvironment } from "@/http/environment/HttpEnvironment.js";
 import { IPContextData, IPDatesArrayTTL, IRequestContextCleanUpConfig } from "@larascript-framework/contracts/http";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import Http from "../services/Http.js";
 
 /**
  * A class that handles cleaning up expired items from the current IP context.
@@ -31,7 +31,7 @@ class RequestContextCleaner extends BaseSingleton {
      */
     scan() {
         // Get the entire current IP context
-        let context = Http.getInstance().getRequestContext().getIpContext() as IPContextData<Date[]>;
+        let context = HttpEnvironment.getInstance().requestContext.getIpContext() as IPContextData<Date[]>;
 
         // Loop through the context and handle each IP
         for (const [ip, ipContext] of context.entries()) {
@@ -39,7 +39,7 @@ class RequestContextCleaner extends BaseSingleton {
         }
 
         // Set the updated IP context
-        Http.getInstance().getRequestContext().setIpContext(context);
+        HttpEnvironment.getInstance().requestContext.setIpContext(context);
     }
 
     /**

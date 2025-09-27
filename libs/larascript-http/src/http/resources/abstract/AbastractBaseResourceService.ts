@@ -7,8 +7,9 @@ import ResourceOwnerRule from "@/http/security/rules/ResourceOwnerRule.js";
 import SecurityReader from "@/http/security/services/SecurityReader.js";
 import Http from "@/http/services/Http.js";
 import Paginate from "@/http/utils/Paginate.js";
+import { IUserModel } from "@larascript-framework/contracts/auth";
 import { ModelConstructor } from "@larascript-framework/contracts/database/model";
-import { IApiResponse, IHttpContext, IHttpUser, IResourceData, TRouteItem } from "@larascript-framework/contracts/http";
+import { IApiResponse, IHttpContext, IResourceData, TRouteItem } from "@larascript-framework/contracts/http";
 import { CustomValidatorConstructor, IValidatorErrors } from "@larascript-framework/larascript-validator";
 
 type TResponseOptions = {} | {
@@ -344,7 +345,7 @@ abstract class AbastractBaseResourceService {
      * Gets the user from the request
      * @returns {Promise<IHttpUser | null>} - The user or null if not found
      */
-    async getUser(): Promise<IHttpUser | null> {
+    async getUser(): Promise<IUserModel | null> {
         return await Http.getInstance().getAuthService().user()
     }
 

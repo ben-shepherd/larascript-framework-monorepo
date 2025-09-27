@@ -1,8 +1,8 @@
 import HttpRouter from "@/http/router/HttpRouter.js";
 import Http from "@/http/services/Http.js";
 import { beforeEach, describe, test } from "@jest/globals";
-import { IUserModel } from "@larascript-framework/contracts/auth";
-import { IHttpAuthService, IHttpService, IResourceRepository, MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IAuthService, IUserModel } from "@larascript-framework/contracts/auth";
+import { IHttpService, IResourceRepository, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { TestHttpEnvironment } from "./TestHttpEnvironment.js";
 
 describe("config optional database test suite", () => {
@@ -38,7 +38,7 @@ describe("config optional database test suite", () => {
             const router = new HttpRouter();
 
             Http.getInstance().setPartialDependencies({
-                authService: {} as unknown as IHttpAuthService,
+                authService: {} as unknown as IAuthService,
             });
 
             expect(() =>

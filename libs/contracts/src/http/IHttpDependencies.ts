@@ -1,4 +1,4 @@
-import { IAuthService } from "@/auth/index.js";
+import { IAuthService } from "@/auth/service.t.js";
 import { IDatabaseService, IEloquentQueryBuilderService } from "@/database/index.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { EnvironmentType } from "@larascript-framework/larascript-core";

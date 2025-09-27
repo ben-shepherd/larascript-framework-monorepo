@@ -1,70 +1,64 @@
-# Table of Contents
+# Testing Tips
 
-- [Testing Single Test](#testing-single-test)
-- [Async Tests](#async-tests)
-- [Test Database Environment](#test-database-environment)
-    - [Enable docker start up when testing](#enable-docker-start-up-when-testing)
+- **Async tests**: Prefer `--runInBand` for suites that touch databases, sockets, or HTTP servers to avoid race conditions.
+- **Per-package scripts**: Packages commonly expose `test`, `test:watch`, and `test:coverage`. Run from the package directory or use your workspace tool to run across the monorepo.
 
-## Recommended Scripts
-
-Here are some recommended scripts for testing:
+## Recommended scripts (package-level)
 
 ```json
-"scripts": {
+{
+  "scripts": {
     "test": "jest --runInBand --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests",
-    "test:coverage": "jest --coverage --passWithNoTests",
+    "test:watch": "jest --runInBand --watch --passWithNoTests",
+    "test:coverage": "jest --runInBand --coverage --passWithNoTests"
+  }
 }
 ```
 
-## Async Tests
-
-It is recommended to run your tests with `--runInBand` to ensure that the tests are run in a single thread and avoid race conditions.
-
-## Testing Single Test
-
-If you are testing a single test file, you can run the following command:
-
-```bash
-pnpm npm run test -- filename -t "should do something"
-```
-
-## Test Database Environment
-
-If you want to use a test database environment
-
-Add the following to your `package.json` file:
+For HTTP/database-heavy suites (example from `@larascript-framework/larascript-http`), start Dockerized DBs first:
 
 ```json
-"scripts": {
-    "test": "npm run db:postgres:restart && jest --runInBand --passWithNoTests && npm run db:postgres:down",
+{
+  "scripts": {
+    "test": "npm run db:postgres:restart && jest --runInBand --detectOpenHandles --passWithNoTests && npm run db:postgres:down",
+    "test:nodb": "jest --runInBand --detectOpenHandles --passWithNoTests",
+    "test:watch": "jest --runInBand --watch --detectOpenHandles --passWithNoTests",
+    "test:coverage": "jest --runInBand --coverage --detectOpenHandles --passWithNoTests",
+    "db:postgres:restart": "npm run db:postgres:down && npm run db:postgres:up",
     "db:postgres:down": "cd ./docker && docker-compose -f ../../test-database/docker/docker-compose.postgres.yml down -v",
     "db:postgres:up": "cd ./docker && docker-compose -f ../../test-database/docker/docker-compose.postgres.yml up -d"
+  }
 }
 ```
 
-(Make sure you replace relative paths to point to `/libs/test-database/docker/docker-compose.postgres.yml`)
+If Docker is already running, use `test:nodb` to reduce startup time.
 
-At the start of your tests, you can use the test database environment:
+## Running a single test
+
+```bash
+# By file name or path pattern
+pnpm test -- --testPathPattern="repository.test.ts"
+
+# By test name pattern
+pnpm test -- -t "should create a resource"
+```
+
+## Database-backed tests
+
+At the start of DB suites, boot a testing environment once per file:
 
 ```typescript
-await TestDatabaseEnvironment.create().boot();  
+beforeAll(async () => {
+  await testHelper.testBootApp();
+});
 ```
 
-You will now be able to run queries against the database. e.g: 
+For lower-level database integration, you can also use the shared environment:
 
 ```typescript
-const user = await UserModel.query().where('email', 'test@test.com').first();
+import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
+
+await TestDatabaseEnvironment.create().boot();
 ```
 
-### Enable docker start up when testing
-
-Adjust your `test` script to start up the database before running the tests:
-
-```json
-"scripts": {
-    "test": "npm run db:postgres:restart && jest --runInBand --passWithNoTests && npm run db:postgres:down",
-}
-```
-
-If docker is already running, then run `npm run test:nodb` to speed up the test startup time.
+See also: database-specific guidance in `database-testing.md` and HTTP testing in `http-testing.md`.

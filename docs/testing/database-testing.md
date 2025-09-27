@@ -1,10 +1,23 @@
-## Testing asynchronous code (databases)
+## Database Testing
 
-When tests use asynchronous resources like databases, sockets, or HTTP servers, parallel test workers can contend for shared singletons and connections. This can cause intermittent failures (e.g., a PostgreSQL pool being ended or briefly undefined between insert and refresh flows).
+When tests use database connections, run them serially and boot a shared testing kernel once per file.
 
-### Run tests in-band
+### Booting the database for tests
 
-Prefer running Jest in a single worker when exercising DB-backed code:
+Most database suites call a helper that boots providers with `EnvironmentTesting`:
+
+```typescript
+// Example from database tests
+import { testHelper } from "@/tests/tests-helper/testHelper.js";
+
+beforeAll(async () => {
+  await testHelper.testBootApp();
+});
+```
+
+The helper configures the database and query builder singletons. Use `beforeAll`/`afterAll` to minimize reboots.
+
+### Running in-band
 
 ```bash
 pnpm test -- --runInBand
@@ -12,24 +25,58 @@ pnpm test -- --runInBand
 jest --runInBand
 ```
 
-Alternatives:
-- Set a global limit: `jest --maxWorkers=1`.
-- Configure in `jest.config` with `maxWorkers: 1` for DB suites only.
+If needed, limit workers: `jest --maxWorkers=1`.
 
-### Best practices to avoid race conditions
+### Migrations in tests
 
-- Boot shared test environments once per file using `beforeAll`/`afterAll` instead of `beforeEach`.
-- If you start an HTTP server, explicitly close it after tests (e.g., call `httpService.close()` in `afterAll`).
-- Avoid re-initializing database/HTTP singletons while requests may still be in flight.
-- If you must run tests in parallel, isolate stateful resources (unique connection names, separate databases) to prevent cross-test interference.
+For suites that exercise migrations, set the migration directory and run commands explicitly:
 
-### Symptoms you might see
+```typescript
+import MigrateUpCommand from "@/migrations/commands/MigrateUpCommand.js";
+import MigrateDownCommand from "@/migrations/commands/MigrateDownCommand.js";
+import path from "path";
+import { DB } from "@larascript-framework/larascript-database";
 
-- Pool/client becomes undefined or ended after an operation, then a subsequent query/refresh fails.
-- Errors like “Cannot read properties of undefined (reading 'query'|'connect')” that disappear when re-running.
+let up: MigrateUpCommand;
+let down: MigrateDownCommand;
 
-### Quick fix
+beforeAll(async () => {
+  await testHelper.testBootApp();
 
-- Re-run with `--runInBand` to serialize DB tests and eliminate cross-worker contention.
+  up = new MigrateUpCommand({
+    keepProcessAlive: true,
+    schemaMigrationDir: path.join(process.cwd(), "src/tests/migrations/migrations"),
+  });
+  up.setOverwriteArg("group", "testing");
+  up.setOverwriteArg("file", "test-migration");
 
+  down = new MigrateDownCommand({
+    keepProcessAlive: true,
+    schemaMigrationDir: path.join(process.cwd(), "src/tests/migrations/migrations"),
+  });
+  down.setOverwriteArg("group", "testing");
+  down.setOverwriteArg("file", "test-migration");
+});
 
+test("migration up/down", async () => {
+  await up.execute();
+  // ...assert tables exist via DB.getInstance().databaseService().schema()
+  await down.execute();
+});
+```
+
+### Using the shared TestDatabaseEnvironment
+
+For lower-level tests without the full kernel, the lightweight environment is available:
+
+```typescript
+import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
+
+await TestDatabaseEnvironment.create().boot();
+```
+
+### Best practices
+
+- Boot once per file with `beforeAll`; avoid `beforeEach` boots.
+- Clean tables you create; prefer schema helpers for setup/teardown.
+- Run with `--runInBand` to avoid pool contention and singleton races.

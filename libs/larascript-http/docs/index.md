@@ -9,7 +9,6 @@ The Larascript HTTP Framework is a comprehensive framework for building RESTful 
 - [Security](./security.md)
 - [Http Context](./context.md)
 - [Configuration](./configuration.md)
-- [Uploads (TODO)](./uploads.md)
 
 ## Tests not yet covered
 

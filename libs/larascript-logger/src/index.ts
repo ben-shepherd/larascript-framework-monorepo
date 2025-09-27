@@ -1,2 +1,3 @@
-export * from "./interfaces/Logger.t.js";
+export * from "./interfaces/index.js";
 export * from "./services/LoggerService.js";
+

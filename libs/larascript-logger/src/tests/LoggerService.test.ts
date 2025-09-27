@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import winston from "winston";
-import { ILoggerConfig } from "../interfaces/Logger.t.js";
+import { ILoggerConfig } from "../interfaces/index.js";
 import { LoggerService } from "../services/LoggerService.js";
 
 // Mock winston

@@ -1,1 +1,1 @@
-export * from "./Logger.t.js";
+export * from "@larascript-framework/contracts/logger";

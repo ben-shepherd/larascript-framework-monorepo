@@ -30,6 +30,13 @@ abstract class AbstractDatabaseRule<Options extends TAbstractDatabaseRuleOptions
             ...(additionalOptions ?? {}),
             modelConstructor: modelConstructor,
         };
+
+        if(ValidatorServices.getInstance().getDatabaseService() === undefined) {
+            throw new Error('Database service is not initialized');
+        }
+        if(ValidatorServices.getInstance().getEloquentQueryBuilderService() === undefined) {
+            throw new Error('Eloquent query builder service is not initialized');
+        }
     }
 
     /**

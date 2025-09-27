@@ -74,6 +74,9 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
         if (!this.dispatcher) {
             this.dispatcher = config.dependencies?.dispatcher ?? (() => Promise.resolve());
         }
+        if (!this.eloquentQueryBuilder) {
+            this.eloquentQueryBuilder = config.dependencies?.eloquentQueryBuilder ?? new EloquentQueryBuilderService();
+        }
     }
 
     /**

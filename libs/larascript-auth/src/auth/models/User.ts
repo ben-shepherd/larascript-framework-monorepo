@@ -29,7 +29,7 @@ export interface UserAttributes extends AuthenticableUserModelAttributes {
  *
  * Represents a user in the database.
  */
-export default class User extends AuthenticableUserModel {
+export class User extends AuthenticableUserModel {
 
     public static PASSWORD = 'password';
 
@@ -113,5 +113,6 @@ export default class User extends AuthenticableUserModel {
     getFactory(): IModelFactory<User> {
         return new UserFactory();
     }
-
 }
+
+export default User;

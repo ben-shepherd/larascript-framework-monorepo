@@ -6,6 +6,7 @@ import { IHttpConfig } from "@larascript-framework/contracts/http";
 import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
+import { ValidatorServices } from "@larascript-framework/larascript-validator";
 
 export const TEST_HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
     ...HTTP_ENVIRONMENT_DEFAULTS
@@ -27,6 +28,12 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
         await DatabaseEnvironment.create({
             boot: this.config!.databaseConfigured,
         }).boot();
+
+        // Setup validator services
+        ValidatorServices.init({
+            queryBuilder: DatabaseEnvironment.getInstance().eloquentQueryBuilder,
+            database: DatabaseEnvironment.getInstance().databaseService,
+        });
 
         // Create the auth environment
         const authEnvirnonmentConfig: IAuthEnvironmentConfig = {

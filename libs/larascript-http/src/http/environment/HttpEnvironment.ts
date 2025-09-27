@@ -16,6 +16,10 @@ export const HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
     environment: EnvironmentTesting
 }
 
+/**
+ * Represents the HTTP environment configuration and services.
+ * Extends the BaseSingleton class with IHttpConfig.
+ */
 export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
     httpService!: IHttpService;
     requestContext!: IRequestContext;
@@ -51,6 +55,10 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         return this.databaseEnvironment.eloquentQueryBuilder
     }
 
+    /**
+     * Constructs an instance of HttpEnvironment with the given configuration.
+     * @param {IHttpConfig} [config=HTTP_ENVIRONMENT_DEFAULTS] - The HTTP configuration settings.
+     */
     constructor(config: IHttpConfig = HTTP_ENVIRONMENT_DEFAULTS) {
         super({
             ...HTTP_ENVIRONMENT_DEFAULTS,
@@ -59,6 +67,12 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
 
     }
 
+    /**
+     * Creates and configures an instance of HttpEnvironment.
+     * @param {IHttpService} httpService - The HTTP service to be used.
+     * @param {Partial<IHttpConfig>} [config=HTTP_ENVIRONMENT_DEFAULTS] - Partial configuration to override defaults.
+     * @returns {HttpEnvironment} The configured HttpEnvironment instance.
+     */
     static create(httpService: IHttpService, config: Partial<IHttpConfig> = HTTP_ENVIRONMENT_DEFAULTS) {
         config = {
             ...HTTP_ENVIRONMENT_DEFAULTS,
@@ -70,6 +84,9 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
 
     }
 
+    /**
+     * Sets up the logger service for the environment.
+     */
     setupLoggerService() {
         if (!this.config?.dependencies?.loggerService) {
             this.loggerService = this.config?.dependencies?.loggerService ?? new LoggerService({
@@ -81,6 +98,9 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         this.loggerService = this.config?.dependencies?.loggerService!;
     }
 
+    /**
+     * Configures the upload directory for the HTTP environment.
+     */
     setUploadDirectory() {
         if (typeof this.uploadService === 'undefined') {
             this.uploadService = new HttpFileSystemUploader({
@@ -94,6 +114,10 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         });
     }
 
+    /**
+     * Updates the configuration with the provided partial configuration.
+     * @param {Partial<IHttpConfig>} config - The partial configuration to apply.
+     */
     setPartialConfig(config: Partial<IHttpConfig>) {
         this.config = {
             ...this.config!,
@@ -101,6 +125,10 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         };
     }
 
+    /**
+     * Boots the HTTP environment, initializing services and setting up configurations.
+     * @returns {Promise<void>} A promise that resolves when the environment is booted.
+     */
     async boot() {
         this.requestContext = new RequestContext();
         this.setupLoggerService();
@@ -111,6 +139,9 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         this.booted = true;
     }
 
+    /**
+     * Closes the HTTP service and marks the environment as not booted.
+     */
     close() {
         try {
             this.httpService.close();
@@ -119,10 +150,18 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         catch { }
     }
 
+    /**
+     * Checks if the database is configured.
+     * @returns {boolean} True if the database is configured, otherwise false.
+     */
     isDatabaseConfigured(): boolean {
         return this.config!.databaseConfigured;
     }
 
+    /**
+     * Checks if authentication is configured.
+     * @returns {boolean} True if authentication is configured, otherwise false.
+     */
     isAuthConfigured(): boolean {
         return this.config!.authConfigured
     }

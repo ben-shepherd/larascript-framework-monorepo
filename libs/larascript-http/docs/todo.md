@@ -7,7 +7,7 @@
 - [x] Database and EloquentQueryBuilder services should be optional dependencies.
 - [ ] Update Test Coverage Checklist.
 - [x] Either disable extendExpress config, or provide a callback with the parent as a parameter that the user should call. This causes a bug where express-busboy is not extended.
-- [ ] Implement Authorization Middleware.
+- [x] Implement Authorization Middleware.
 - [ ] Implement Validation Middleware.
 
 ## Test Coverage Checklist
@@ -18,4 +18,4 @@
 
 ## Experimentation 
 
-- [ ] Look into converting 'test-auth' into 'auth-environment' package that can be re-used in Larascript Framework and other test packages. Same for HTTP. This could serve as the foundation for other packages with a similar purpose.
+- [x] Look into converting 'test-auth' into 'auth-environment' package that can be re-used in Larascript Framework and other test packages. Same for HTTP. This could serve as the foundation for other packages with a similar purpose.

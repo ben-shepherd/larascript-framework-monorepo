@@ -13,7 +13,7 @@ export interface ApiTokenAttributes extends IModelAttributes, IApiTokenAttribute
  *
  * Represents an API token that can be used to authenticate a user.
  */
-class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenModel {
+export class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenModel {
 
     public static readonly USER_ID = 'userId';
 

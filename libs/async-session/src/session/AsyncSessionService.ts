@@ -1,3 +1,4 @@
+import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { AsyncLocalStorage } from "async_hooks";
 import { v4 } from "uuid";
 import {
@@ -14,7 +15,7 @@ const generateUuidV4 = (): string => v4();
  * allowing access to session data from any point in the async execution chain
  * without explicitly passing the session through each function.
  */
-export class AsyncSessionService implements IAsyncSessionService {
+export class AsyncSessionService extends BaseSingleton<IAsyncSessionService> implements IAsyncSessionService {
   private asyncLocalStorage = new AsyncLocalStorage<TAsyncSessionObject>();
 
   /**

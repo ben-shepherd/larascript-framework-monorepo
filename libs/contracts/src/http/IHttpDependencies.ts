@@ -3,6 +3,7 @@ import { IStorageService } from "@/storage/IStorageService.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { EnvironmentType } from "@larascript-framework/larascript-core";
 import { IRequestContext } from "./IRequestContext.js";
+import { TUploadedFile } from "./UploadedFile.js";
 
 export type IHttpUser = {
     getId(): string;
@@ -14,12 +15,9 @@ export type IHttpConfig = {
 }
 
 export type IHttpDependencies = {
-    authService: IHttpAuthService;
-    requestContext: IRequestContext;
+    authService?: IHttpAuthService;
     storageService: IStorageService;
-} & IHttpOptionalDependencies;
-
-export type IHttpOptionalDependencies = {
+    requestContext?: IRequestContext;
     databaseService?: IDatabaseService;
     queryBuilderService?: IEloquentQueryBuilderService;
     loggerService?: IHttpLoggerService;
@@ -34,4 +32,8 @@ export type IHttpAuthService = {
 export type IHttpLoggerService = {
     info(...args: any[]): void;
     error(...args: any[]): void;
+}
+
+export type IHttpUploadService = {
+    moveUploadedFile(file: TUploadedFile): Promise<void>;
 }

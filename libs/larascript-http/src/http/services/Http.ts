@@ -1,6 +1,7 @@
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IHttpConfig, IHttpDependencies, IHttpService, IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
+import RequestContext from "../context/RequestContext.js";
 
 export default class Http extends BaseSingleton<IHttpConfig> {
 
@@ -11,6 +12,7 @@ export default class Http extends BaseSingleton<IHttpConfig> {
     static init(service: IHttpService, config: IHttpConfig): Http {
         Http.getInstance(config);
         Http.getInstance().setHttpService(service);
+        Http.getInstance().dependencies.requestContext = RequestContext.getInstance();
         return Http.getInstance();
     }
 
@@ -43,6 +45,16 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         return this.config?.dependencies!;
     }
 
+    setPartialDependencies(dependencies: Partial<IHttpDependencies>) {
+        if(!this.config) {
+            throw new Error('Config not configured');
+        }
+        this.config = {
+            ...this.config,
+            ...dependencies,
+        }
+    }
+
     getHttpService(): IHttpService {
         if (!this.httpService) {
             throw new Error('Http service not configured');
@@ -64,11 +76,8 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         return this.dependencies?.storageService!;
     }
 
-    getRequestContext(): IHttpDependencies['requestContext'] {
-        if (!this.dependencies?.requestContext) {
-            throw new Error('Request context not configured');
-        }
-        return this.dependencies?.requestContext!;
+    getRequestContext(): NonNullable<IHttpDependencies['requestContext']> {
+        return this.dependencies.requestContext!;
     }
 
     getLoggerService(): IHttpDependencies['loggerService'] {
@@ -89,11 +98,11 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         return this.dependencies?.asyncSession!;
     }
 
-    getAuthService(): IHttpDependencies['authService'] {
+    getAuthService(): NonNullable<IHttpDependencies['authService']> {
         if (!this.dependencies?.authService) {
             throw new Error('Auth service not configured');
         }
-        return this.dependencies?.authService!;
+        return this.dependencies!.authService!;
     }
 
     getDatabaseService(): IHttpDependencies['databaseService'] {
@@ -112,5 +121,9 @@ export default class Http extends BaseSingleton<IHttpConfig> {
 
     isDatabaseConfigured(): boolean {
         return !!this.dependencies?.databaseService && !!this.dependencies?.queryBuilderService;
+    }
+
+    isAuthConfigured(): boolean {
+        return !!this.dependencies?.authService;
     }
 }

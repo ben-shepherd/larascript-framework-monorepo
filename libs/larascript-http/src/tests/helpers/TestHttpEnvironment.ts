@@ -1,4 +1,4 @@
-import Middleware from "@/http/base/Middleware.js";
+import { AbstractAuthMiddleware } from "@/http/base/AbstractAuthMiddleware.js";
 import RequestContext from "@/http/context/RequestContext.js";
 import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
@@ -78,7 +78,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
                 requestContext: new RequestContext(),
                 loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
                 asyncSession: this.asyncSession,
-                authService: TestAuthEnvironment.getInstance().authService as unknown as IHttpAuthService,
+                authService: this.config?.withDatabase ? TestAuthEnvironment.getInstance().authService as unknown as IHttpAuthService : undefined,
                 databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : undefined,
                 queryBuilderService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().eloquentQueryBuilder : undefined,
             }
@@ -94,7 +94,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
      * @returns The mock authorize user middleware
      */
     createMockAuthorizeUserMiddleware(user: IUserModel): MiddlewareConstructor {
-        return class extends Middleware {
+        return class extends AbstractAuthMiddleware {
             async execute(context: IHttpContext): Promise<void> {
                 await TestHttpEnvironment.getInstance().getAuthTestEnvironment().authorizeUser(user);
                 context.getRequest().user = user;

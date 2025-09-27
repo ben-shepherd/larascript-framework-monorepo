@@ -25,6 +25,10 @@ const CONFIG_DEFAULTS: IAuthEnvironmentConfig = {
     dropAndCreateTables: false,
 }
 
+/**
+ * Represents the authentication environment configuration and services.
+ * Extends the BaseSingleton class to ensure a single instance.
+ */
 export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
     authConfig!: IAuthConfig;
     aclConfig!: IAclConfig;
@@ -35,6 +39,10 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
     cryptoService!: ICryptoService;
     aclService!: IBasicACLService;
 
+    /**
+     * Constructs an AuthEnvironment instance with the provided configuration.
+     * @param {IAuthEnvironmentConfig} config - The configuration for the authentication environment.
+     */
     constructor(config: IAuthEnvironmentConfig) {
         super({
             ...CONFIG_DEFAULTS,
@@ -48,9 +56,13 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         this.cryptoService = new CryptoService({
             secretKey: secretKey,
         });
-        
     }
 
+    /**
+     * Creates and returns an instance of AuthEnvironment.
+     * @param {IAuthEnvironmentConfig} config - The configuration for the authentication environment.
+     * @returns {AuthEnvironment} The instance of AuthEnvironment.
+     */
     static create(config: IAuthEnvironmentConfig) {
         AuthEnvironment.getInstance(config)
         AuthEnvironment.getInstance().authConfig = config.authConfig;
@@ -58,6 +70,9 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         return AuthEnvironment.getInstance();
     }
 
+    /**
+     * Boots the authentication environment, initializing services and setting up tables if configured.
+     */
     async boot() {
         this.aclService = new BasicACLService(this.aclConfig);
         this.authService = new AuthService(
@@ -72,6 +87,9 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         }
     }
 
+    /**
+     * Sets up the necessary tables for authentication, optionally dropping and recreating them.
+     */
     async setupTables() {
         if(this.getConfig()?.dropAndCreateTables) {
             await resetUserTable();
@@ -83,10 +101,19 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         await createApiTokenTable();
     }
 
+    /**
+     * Retrieves the default attributes for a user.
+     * @returns {IUserAttributes} The default user attributes.
+     */
     getUserDefaultAttributes(): IUserAttributes {
         return this.authService.getUserFactory().getDefinition() as IUserAttributes;
     }
 
+    /**
+     * Creates a new user with the specified attributes, hashing the password.
+     * @param {Partial<IUserAttributes> & { password: string }} attributes - The attributes for the new user.
+     * @returns {Promise<IUserModel>} The created user model.
+     */
     async createUser(attributes: Partial<IUserAttributes> & { password: string }) {
         attributes.hashedPassword = await this.authService.getJwt().hashPassword(attributes.password);
         const user = this.authService.getUserFactory().create({
@@ -99,21 +126,41 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         return user;
     }
 
+    /**
+     * Creates a JWT for a user with the specified scopes and options.
+     * @param {IUserModel} user - The user model.
+     * @param {string[]} scopes - The scopes for the JWT.
+     * @param {ApiTokenModelOptions} options - The options for the JWT.
+     * @returns {Promise<string>} The created JWT.
+     */
     async createJwtFromUser(user: IUserModel, scopes: string[], options: ApiTokenModelOptions) {
         const jwt = await this.authService.getJwt().createJwtFromUser(user, scopes, options);
         return jwt
     }
 
+    /**
+     * Creates and authorizes a new user with the specified attributes.
+     * @param {Partial<IUserAttributes> & { password: string }} attributes - The attributes for the new user.
+     * @returns {Promise<IUserModel>} The created and authorized user model.
+     */
     async createAndAuthorizeUser(attributes: Partial<IUserAttributes> & { password: string }) {
         const user = await this.createUser(attributes);
         await this.authorizeUser(user);
         return user;
     }
 
+    /**
+     * Authorizes a user by creating a JWT.
+     * @param {IUserModel} user - The user model to authorize.
+     */
     async authorizeUser(user: IUserModel) {
         await this.authService.getJwt().authorizeUser(user);
     }
 
+    /**
+     * Retrieves the default ACL group name.
+     * @returns {string} The name of the default ACL group.
+     */
     defaultAclGroup(): string {
         return this.aclService.getDefaultGroup().name;
     }

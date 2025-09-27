@@ -18,7 +18,15 @@ export default class UserObserver extends Observer<UserAttributes> {
      */
     async creating(data: UserAttributes): Promise<UserAttributes> {
         data = this.onPasswordChange(data)
+        data = await this.addDefaultAclGroup(data)
         data = await this.updateRoles(data)
+        return data
+    }
+
+    private async addDefaultAclGroup(data: UserAttributes): Promise<UserAttributes> {
+        if(!data.aclGroups || (Array.isArray(data.aclGroups) && data.aclGroups.length === 0)) {
+            data.aclGroups = [TestAuthEnvironment.getInstance().defaultAclGroup()]
+        }
         return data
     }
 

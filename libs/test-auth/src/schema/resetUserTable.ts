@@ -16,8 +16,8 @@ export const resetUserTable = async () => {
         hashedPassword: DataTypes.STRING,
 
         // ACL fields
-        aclRoles: DataTypes.JSON,
-        aclGroups: DataTypes.JSON,
+        aclRoles: DataTypes.ARRAY(DataTypes.STRING),
+        aclGroups: DataTypes.ARRAY(DataTypes.STRING),
 
         // User fields
         firstName: {

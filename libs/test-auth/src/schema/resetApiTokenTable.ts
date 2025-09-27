@@ -16,6 +16,8 @@ export const resetApiTokenTable = async () => {
         scopes: DataTypes.JSON,
         options: DataTypes.JSON,
         revokedAt: DataTypes.DATE,
-        expiresAt: DataTypes.DATE
+        expiresAt: DataTypes.DATE,
+        createdAt: DataTypes.DATE,
+        updatedAt: DataTypes.DATE
     })
 }

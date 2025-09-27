@@ -3,11 +3,11 @@ import RequestContext from "@/http/context/RequestContext.js";
 import Http from "@/http/services/Http.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { IUserModel } from "@larascript-framework/contracts/auth";
-import { IHttpAuthService, IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IAuthConfig, IAuthService, IUserModel } from "@larascript-framework/contracts/auth";
+import { IHttpContext, IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
-import { TestAuthEnvironment } from "@larascript-framework/test-auth";
+import { authConfig, TestAuthEnvironment } from "@larascript-framework/test-auth";
 import { TestDatabaseEnvironment } from "@larascript-framework/test-database";
 import path from "path";
 
@@ -49,13 +49,26 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
             withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
         }).boot();
 
+        const testAuthConfig: IAuthConfig = {
+            ...authConfig,
+            drivers: {
+                jwt: {
+                    ...authConfig.drivers.jwt,
+                    options: {
+                        ...authConfig.drivers.jwt.options,
+                        secret: 'test',
+                        expiresInMinutes: 60 * 24, // 24 hours
+                    }
+                }
+            }
+        }
         // Create the auth environment
         await TestAuthEnvironment.create({
             withDatabase: this.config?.withDatabase ?? DEFAULTS.withDatabase,
             databaseService: TestDatabaseEnvironment.getInstance().databaseService,
             eloquentQueryBuilderService: TestDatabaseEnvironment.getInstance().eloquentQueryBuilder,
             asyncSessionService: this.asyncSession,
-        }).boot();
+        }, testAuthConfig).boot();
         
         const httpService = new HttpService(
             {
@@ -78,7 +91,7 @@ export class TestHttpEnvironment extends BaseSingleton<Options> {
                 requestContext: new RequestContext(),
                 loggerService: TestDatabaseEnvironment.getInstance().logger ?? {} as unknown as ILoggerService,
                 asyncSession: this.asyncSession,
-                authService: this.config?.withDatabase ? TestAuthEnvironment.getInstance().authService as unknown as IHttpAuthService : undefined,
+                authService: this.config?.withDatabase ? TestAuthEnvironment.getInstance().authService as unknown as IAuthService : undefined,
                 databaseService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().databaseService : undefined,
                 queryBuilderService: this.config?.withDatabase ? TestDatabaseEnvironment.getInstance().eloquentQueryBuilder : undefined,
             }

@@ -3,7 +3,7 @@ import { DataTypes } from "sequelize"
 import ApiToken from "../models/ApiToken.js"
 
 export const createApiTokenTable = async (additionalSchema: Record<string, unknown> = {}) => {
-    const schema = AuthEnvironment.getInstance().databaseService.schema()
+    const schema = AuthEnvironment.getInstance().databaseEnvironment.databaseService.schema()
     const table = ApiToken.getTable()
 
     if(await schema.tableExists(table)) {

@@ -71,7 +71,6 @@ export class JwtAuthService
     this.cryptoService = new CryptoService({
       secretKey: config.options.secret,
     });
-    this.asyncSession = asyncSession;
   }
 
   /**

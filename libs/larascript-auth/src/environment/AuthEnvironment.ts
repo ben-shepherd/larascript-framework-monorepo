@@ -1,18 +1,14 @@
 import { resetApiTokenTable } from "@/auth/schema/resetApiTokenTable.js";
 import { resetUserTable } from "@/auth/schema/resetUserTable.js";
-import { IAsyncSessionService } from "@larascript-framework/async-session";
+import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
 import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthEnvironmentDependencies, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
-import { IDatabaseService } from "@larascript-framework/contracts/database/database";
-import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/database/eloquent";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
 import { aclConfig, authConfig, AuthService, createApiTokenTable, createUserTable } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { IModel } from "@larascript-framework/larascript-database";
+import { DatabaseEnvironment, IModel } from "@larascript-framework/larascript-database";
 
 const DEPENDENCIES_DEFAULTS: IAuthEnvironmentDependencies = {
-    databaseService: {} as IDatabaseService,
-    eloquentQueryBuilderService: {} as IEloquentQueryBuilderService,
     asyncSessionService: {} as IAsyncSessionService,
 }
 
@@ -33,8 +29,6 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
     authConfig!: IAuthConfig;
     aclConfig!: IAclConfig;
     authService!: IAuthService;
-    databaseService!: IDatabaseService;
-    eloquentQueryBuilderService!: IEloquentQueryBuilderService;
     asyncSessionService!: IAsyncSessionService;
     cryptoService!: ICryptoService;
     aclService!: IBasicACLService;
@@ -48,14 +42,7 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
             ...CONFIG_DEFAULTS,
             ...(config),
         });
-
-        const { dependencies, secretKey } = config;
-        this.databaseService = dependencies.databaseService;
-        this.eloquentQueryBuilderService = dependencies.eloquentQueryBuilderService;
-        this.asyncSessionService = dependencies.asyncSessionService;
-        this.cryptoService = new CryptoService({
-            secretKey: secretKey,
-        });
+        this.setDependencies(config);
     }
 
     /**
@@ -67,7 +54,24 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         AuthEnvironment.getInstance(config)
         AuthEnvironment.getInstance().authConfig = config.authConfig;
         AuthEnvironment.getInstance().aclConfig = config.aclConfig;
+        AuthEnvironment.getInstance().setDependencies(config);
         return AuthEnvironment.getInstance();
+    }
+
+    get databaseEnvironment() {
+        return DatabaseEnvironment.getInstance();
+    }
+
+    /**
+     * Sets the dependencies for the authentication environment.
+     * @param {IAuthEnvironmentConfig} dependencies - The dependencies for the authentication environment.
+     */
+    setDependencies(config: IAuthEnvironmentConfig) {
+        const { secretKey, dependencies } = config;
+        this.asyncSessionService = dependencies.asyncSessionService ?? new AsyncSessionService();
+        this.cryptoService = new CryptoService({
+            secretKey: secretKey ?? "",
+        });
     }
 
     /**

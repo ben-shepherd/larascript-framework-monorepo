@@ -3,7 +3,7 @@
 src/tests/output
 storage/logs
 storage/tmp
-storage/upload
+storage/uploads
 storage/cache
 
 .npmrc_local

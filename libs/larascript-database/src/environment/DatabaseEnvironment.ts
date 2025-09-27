@@ -22,7 +22,7 @@ export const DEFAULTS: IDatabaseEnvironmentOptions = {
  * Represents the environment configuration for the database.
  * Extends the BaseSingleton class with IDatabaseEnvironmentOptions.
  */
-export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptions> implements IDatabaseEnvironment{
+export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptions> implements IDatabaseEnvironment {
     databaseService!: IDatabaseService;
     logger!: ILoggerService;
     console!: IConsoleService;
@@ -41,6 +41,7 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
         });
         this.databaseService = config.dependencies?.databaseService ?? new DatabaseService(config.databaseConfig ?? databaseConfig);
         this.eloquentQueryBuilder = config.dependencies?.eloquentQueryBuilder ?? new EloquentQueryBuilderService();
+        this.setDependencies(config);
     }
 
     /**
@@ -49,18 +50,7 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
      * @returns {DatabaseEnvironment} The instance of DatabaseEnvironment.
      */
     static create(options: IDatabaseEnvironmentOptions) {
-        DatabaseEnvironment.getInstance(options);
-        DatabaseEnvironment.getInstance().setConfig(options);
-        DatabaseEnvironment.getInstance().setDependencies(options);
-        return DatabaseEnvironment.getInstance();
-    }
-
-    /**
-     * Sets the configuration for the database environment.
-     * @param {IDatabaseEnvironmentOptions} options - The options to set the configuration.
-     */
-    setConfig(options: IDatabaseEnvironmentOptions) {
-        this.setDependencies(options);
+        return DatabaseEnvironment.getInstance(options);
     }
 
     /**
@@ -68,28 +58,36 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
      * @param {IDatabaseEnvironmentOptions} config - The configuration options containing dependencies.
      */
     setDependencies(config: IDatabaseEnvironmentOptions) {
-        this.logger = config.dependencies?.logger ?? new LoggerService({
-            logPath: path.join(process.cwd(), "storage/logs"),
-        });
-        this.console = config.dependencies?.console ?? new ConsoleService();
-        this.cryptoService = config.dependencies?.cryptoService ?? new CryptoService({
-            secretKey: config.secretKey ?? "",
-        });
-        this.dispatcher = config.dependencies?.dispatcher ?? (() => Promise.resolve());
+        if (!this.logger) {
+            this.logger = config.dependencies?.logger ?? new LoggerService({
+                logPath: path.join(process.cwd(), "storage/logs"),
+            });
+        }
+        if(!this.console) {
+            this.console = config.dependencies?.console ?? new ConsoleService();
+        }
+        if (!this.cryptoService) {
+            this.cryptoService = config.dependencies?.cryptoService ?? new CryptoService({
+                secretKey: config.secretKey ?? "",
+            });
+        }
+        if (!this.dispatcher) {
+            this.dispatcher = config.dependencies?.dispatcher ?? (() => Promise.resolve());
+        }
     }
-    
+
     /**
      * Boots the database environment, initializing necessary services.
      * If the database is already initialized, it returns immediately.
      * @returns {Promise<void>} A promise that resolves when the boot process is complete.
      */
     async boot() {
-        if(DB.getInstance().isInitialized()) {
+        if (DB.getInstance().isInitialized()) {
             return;
         }
 
         this.logger?.boot();
-        
+
         DB.init({
             databaseService: this.databaseService ?? {} as unknown as IDatabaseService,
             eloquentQueryBuilder: this.eloquentQueryBuilder ?? {} as unknown as IEloquentQueryBuilderService,
@@ -101,7 +99,7 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
 
         this.databaseService.register();
 
-        if(this.getConfig()?.boot) {
+        if (this.getConfig()?.boot) {
             await this.connect();
         }
     }
@@ -128,7 +126,7 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
      * @returns {Promise<void>} A promise that resolves when the reconnection is complete.
      */
     async reconnect() {
-        if(!DB.getInstance().isInitialized()) {
+        if (!DB.getInstance().isInitialized()) {
             return;
         }
         await this.disconnect();

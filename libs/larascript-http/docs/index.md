@@ -2,6 +2,7 @@
 
 The Larascript HTTP Framework is a comprehensive framework for building RESTful APIs in the Larascript Framework ecosystem. It provides a robust set of tools and features for building APIs, including routing, middleware, validation, and more. It is designed to be used in conjunction with the Larascript Framework.
 
+- [HTTP Environment](./environment.md)
 - [Routes](./routes.md)
 - [Resource routes](./resource-routes.md)
 - [Middleware](./middleware.md)

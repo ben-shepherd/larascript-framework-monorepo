@@ -13,11 +13,10 @@ class AuthMiddleware extends Middleware {
 }
 
 router.group({ prefix: '/api', middlewares: [AuthMiddleware] }, (r) => {
-  r.get('/me', 'show', { controller: MeController });
+  r.get('/me', MeController);
 });
 
-r.post('/upload', 'create', {
-  controller: UploadController,
+r.post('/upload', UploadController, {
   middlewares: [AuthMiddleware]
 });
 ```

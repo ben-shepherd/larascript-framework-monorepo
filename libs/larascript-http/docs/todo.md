@@ -8,7 +8,7 @@
 - [ ] Update Test Coverage Checklist.
 - [x] Either disable extendExpress config, or provide a callback with the parent as a parameter that the user should call. This causes a bug where express-busboy is not extended.
 - [x] Implement Authorization Middleware.
-- [ ] Implement Validation Middleware.
+- [x] Implement Validation Middleware.
 
 ## Test Coverage Checklist
 

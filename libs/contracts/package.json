@@ -81,6 +81,10 @@
       "types": "./dist/database/repository/index.d.ts",
       "default": "./dist/database/repository/index.js"
     },
+    "./database/environment": {
+      "types": "./dist/database/environment/index.d.ts",
+      "default": "./dist/database/environment/index.js"
+    },
     "./auth": {
       "types": "./dist/auth/index.d.ts",
       "default": "./dist/auth/index.js"
@@ -92,10 +96,19 @@
     "./console": {
       "types": "./dist/console/index.d.ts",
       "default": "./dist/console/index.js"
+    },
+    "./crypto-js": {
+      "types": "./dist/crypto-js/index.d.ts",
+      "default": "./dist/crypto-js/index.js"
+    },
+    "./logger": {
+      "types": "./dist/logger/index.d.ts",
+      "default": "./dist/logger/index.js"
     }
   },
   "dependencies": {
     "@types/node": "^24.5.2",
-    "express": "^4.21.0"
+    "express": "^4.21.0",
+    "winston": "^3.17.0"
   }
 }

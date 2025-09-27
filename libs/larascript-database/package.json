@@ -63,6 +63,10 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./environment": {
+      "types": "./dist/environment/index.d.ts",
+      "default": "./dist/environment/index.js"
     }
   },
   "dependencies": {

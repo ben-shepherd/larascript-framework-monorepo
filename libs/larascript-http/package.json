@@ -49,7 +49,6 @@
     "@larascript-framework/larascript-logger": "workspace:*",
     "@larascript-framework/larascript-storage": "workspace:*",
     "@larascript-framework/larascript-utils": "workspace:*",
-    "@larascript-framework/test-auth": "workspace:*",
     "@larascript-framework/test-database": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
     "@larascript-framework/larascript-validator": "workspace:*",

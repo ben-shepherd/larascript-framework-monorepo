@@ -201,6 +201,7 @@ describe("resources delete test suite", () => {
             })
             const foundModel = await MockModel.query().where('id', model.getId()).first();
 
+            const text = await response.text();
             expect(response.status).toBe(HttpCodes.FORBIDDEN)
             expect(foundModel).toBeDefined()
         })

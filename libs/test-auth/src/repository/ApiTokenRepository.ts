@@ -22,7 +22,7 @@ class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenReposi
     async findOneActiveToken(token: string): Promise<IApiTokenModel | null> {
         return await this.queryBuilder
             .where(ApiToken.TOKEN, token)
-            .where(ApiToken.REVOKED_AT, null)
+            .whereNull(ApiToken.REVOKED_AT)
             .first()
     }
 

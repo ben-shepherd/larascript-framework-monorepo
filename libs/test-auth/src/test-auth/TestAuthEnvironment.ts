@@ -3,7 +3,7 @@ import { authConfig } from "@/config/auth.config.js";
 import { resetApiTokenTable } from "@/schema/resetApiTokenTable.js";
 import { resetUserTable } from "@/schema/resetUserTable.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
-import { IAuthConfig, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
+import { ApiTokenModelOptions, IAuthConfig, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
 import { IDatabaseService } from "@larascript-framework/contracts/database/database";
 import { IEloquentQueryBuilderService } from "@larascript-framework/contracts/database/eloquent";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
@@ -86,8 +86,15 @@ export class TestAuthEnvironment extends BaseSingleton<Config> {
             ...this.getUserDefaultAttributes(),
             ...attributes,
         });
+        
         await (user as unknown as IModel).save();
+
         return user;
+    }
+
+    async createJwtFromUser(user: IUserModel, scopes: string[], options: ApiTokenModelOptions) {
+        const jwt = await this.authService.getJwt().createJwtFromUser(user, scopes, options);
+        return jwt
     }
 
     async createAndAuthorizeUser(attributes: Partial<IUserAttributes> & { password: string }) {
@@ -98,5 +105,9 @@ export class TestAuthEnvironment extends BaseSingleton<Config> {
 
     async authorizeUser(user: IUserModel) {
         await this.authService.getJwt().authorizeUser(user);
+    }
+
+    defaultAclGroup(): string {
+        return this.aclService.getDefaultGroup().name;
     }
 }

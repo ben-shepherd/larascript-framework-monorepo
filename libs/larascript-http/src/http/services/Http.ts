@@ -16,9 +16,7 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         Http.getInstance().setHttpService(service);
         Http.getInstance().dependencies.requestContext = RequestContext.getInstance();
         Http.getInstance().setDefaultUploadService();
-        Http.getInstance().dependencies.uploadService?.setConfig({
-            uploadsDirectory: config.uploadDirectory,
-        });
+
         return Http.getInstance();
     }
 
@@ -53,6 +51,10 @@ export default class Http extends BaseSingleton<IHttpConfig> {
                 uploadsDirectory: path.join(process.cwd(), 'storage/uploads'),
             });
         }
+
+        this.dependencies.uploadService?.setConfig({
+            uploadsDirectory: this.config!.uploadDirectory,
+        });
     }
 
     setHttpService(httpService: IHttpService) {

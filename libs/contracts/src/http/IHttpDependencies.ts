@@ -1,5 +1,4 @@
 import { IDatabaseService, IEloquentQueryBuilderService } from "@/database/index.js";
-import { IStorageService } from "@/storage/IStorageService.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { EnvironmentType } from "@larascript-framework/larascript-core";
 import { IRequestContext } from "./IRequestContext.js";
@@ -10,13 +9,14 @@ export type IHttpUser = {
 }
 
 export type IHttpConfig = {
+    uploadDirectory: string;
     environment: EnvironmentType;
     dependencies: IHttpDependencies;
 }
 
 export type IHttpDependencies = {
     authService?: IHttpAuthService;
-    storageService: IStorageService;
+    uploadService?: IHttpUploadService;
     requestContext?: IRequestContext;
     databaseService?: IDatabaseService;
     queryBuilderService?: IEloquentQueryBuilderService;
@@ -34,6 +34,11 @@ export type IHttpLoggerService = {
     error(...args: any[]): void;
 }
 
+export type IHttpFileSystemUploaderConfig = {
+    uploadsDirectory: string;
+}
+
 export type IHttpUploadService = {
-    moveUploadedFile(file: TUploadedFile): Promise<void>;
+    setConfig(config: IHttpFileSystemUploaderConfig): void;
+    moveUploadedFile(file: TUploadedFile): Promise<TUploadedFile>;
 }

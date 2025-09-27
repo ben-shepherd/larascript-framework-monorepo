@@ -1,7 +1,9 @@
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IHttpConfig, IHttpDependencies, IHttpService, IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
+import path from "path";
 import RequestContext from "../context/RequestContext.js";
+import HttpFileSystemUploader from "./HttpFileSystemUploader.js";
 
 export default class Http extends BaseSingleton<IHttpConfig> {
 
@@ -13,6 +15,10 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         Http.getInstance(config);
         Http.getInstance().setHttpService(service);
         Http.getInstance().dependencies.requestContext = RequestContext.getInstance();
+        Http.getInstance().setDefaultUploadService();
+        Http.getInstance().dependencies.uploadService?.setConfig({
+            uploadsDirectory: config.uploadDirectory,
+        });
         return Http.getInstance();
     }
 
@@ -22,10 +28,6 @@ export default class Http extends BaseSingleton<IHttpConfig> {
             Http.getInstance().booted = false;
         }
         catch { }
-    }
-
-    setHttpService(httpService: IHttpService) {
-        this.httpService = httpService;
     }
 
     async boot() {
@@ -43,6 +45,18 @@ export default class Http extends BaseSingleton<IHttpConfig> {
             throw new Error('Dependencies not configured');
         }
         return this.config?.dependencies!;
+    }
+
+    setDefaultUploadService() {
+        if(typeof this.dependencies.uploadService === 'undefined') {
+            this.dependencies.uploadService = new HttpFileSystemUploader({
+                uploadsDirectory: path.join(process.cwd(), 'storage/uploads'),
+            });
+        }
+    }
+
+    setHttpService(httpService: IHttpService) {
+        this.httpService = httpService;
     }
 
     setPartialDependencies(dependencies: Partial<IHttpDependencies>) {
@@ -69,11 +83,8 @@ export default class Http extends BaseSingleton<IHttpConfig> {
         return this.httpService.getConfig()!;
     }
 
-    getStorageService(): IHttpDependencies['storageService'] {
-        if (!this.dependencies?.storageService) {
-            throw new Error('Storage service not configured');
-        }
-        return this.dependencies?.storageService!;
+    getUploadService(): NonNullable<IHttpDependencies['uploadService']> {
+        return this.dependencies!.uploadService!;
     }
 
     getRequestContext(): NonNullable<IHttpDependencies['requestContext']> {

@@ -1,4 +1,3 @@
-import { IDatabaseService, IEloquentQueryBuilderService } from "@/database/index.js";
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { IAuthConfig } from "./config.t.js";
@@ -13,7 +12,5 @@ export type IAuthEnvironmentConfig = {
 }
 
 export type IAuthEnvironmentDependencies = {
-    databaseService: IDatabaseService;
-    eloquentQueryBuilderService: IEloquentQueryBuilderService;
     asyncSessionService: IAsyncSessionService;
 }

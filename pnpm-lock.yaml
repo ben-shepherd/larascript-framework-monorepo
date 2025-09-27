@@ -527,6 +527,9 @@ importers:
       '@larascript-framework/async-session':
         specifier: workspace:*
         version: link:../async-session
+      '@larascript-framework/cast-js':
+        specifier: workspace:*
+        version: link:../cast-js
       '@larascript-framework/check-exports':
         specifier: workspace:*
         version: link:../check-exports

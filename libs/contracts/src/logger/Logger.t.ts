@@ -6,8 +6,8 @@ export type ILoggerConfig = {
 };
 
 export interface ILoggerService {
+  boot(): void;
   getLogger(): winston.Logger;
-
   info(...args: any[]): void;
   warn(...args: any[]): void;
   error(...args: any[]): void;

@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { ILoggerConfig, ILoggerService } from "@/interfaces/index.js";
 import winston, { format } from "winston";
-import { ILoggerConfig, ILoggerService } from "../interfaces/Logger.t.js";
 
 /**
  * Winston logger service

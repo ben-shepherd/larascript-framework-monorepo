@@ -1,5 +1,29 @@
+import { IValidator } from "@/validator/IValidator.js";
+import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IAuthAdapter } from "./adapter.t.js";
 import { IJwtConfig } from "./jwt.t.js";
+
+export interface IHttpAuthRoutesConfig extends IAuthConfig {
+  http: {
+      routes: {
+          enabled: boolean,
+          endpoints: {
+              register: boolean,
+              login: boolean,
+              refresh: boolean,
+              update: boolean,
+              logout: boolean
+          }
+      },
+      validators?: {
+        user?: {
+          create?: TClassConstructor<IValidator>;
+          update?: TClassConstructor<IValidator>;
+          delete?: TClassConstructor<IValidator>;
+        }
+      }
+  }
+}
 
 export interface IBaseDriverConfig<Adapter extends IAuthAdapter = IAuthAdapter>
   extends Record<string, unknown> {

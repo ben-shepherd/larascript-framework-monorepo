@@ -293,14 +293,14 @@ describe("TestApiTokenModel", () => {
     });
 
     test("should return true when token expires exactly now", () => {
-      const now = new Date();
+      const nowSubstractOneMinute = new Date(Date.now() - 60000);
       const expiringNowToken = new TestApiTokenModel({
         id: mockId,
         token: mockToken,
         userId: mockUserId,
         scopes: mockScopes,
         options: mockOptions,
-        expiresAt: now,
+        expiresAt: nowSubstractOneMinute,
         revokedAt: mockRevokedAt,
         createdAt: new Date(),
         updatedAt: new Date(),

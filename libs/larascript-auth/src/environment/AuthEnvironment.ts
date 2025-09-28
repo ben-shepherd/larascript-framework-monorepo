@@ -50,15 +50,24 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      * @param {IAuthEnvironmentConfig} config - The configuration for the authentication environment.
      * @returns {AuthEnvironment} The instance of AuthEnvironment.
      */
-    static create(config: IAuthEnvironmentConfig = AUTH_ENVIRONMENT_DEFAULTS) {
+    static create(config: Partial<IAuthEnvironmentConfig> = AUTH_ENVIRONMENT_DEFAULTS) {
         config = {
             ...AUTH_ENVIRONMENT_DEFAULTS,
             ...config,
         }
+        if(!config.authConfig) {
+            throw new Error('authConfig is required');
+        }
+        if(!config.aclConfig) {
+            throw new Error('aclConfig is required');
+        }
+        if(!config.secretKey) {
+            throw new Error('secretKey is required');
+        }
         AuthEnvironment.getInstance(config)
         AuthEnvironment.getInstance().authConfig = config.authConfig;
         AuthEnvironment.getInstance().aclConfig = config.aclConfig;
-        AuthEnvironment.getInstance().setDependencies(config);
+        AuthEnvironment.getInstance().setDependencies(config as IAuthEnvironmentConfig);
         return AuthEnvironment.getInstance();
     }
 

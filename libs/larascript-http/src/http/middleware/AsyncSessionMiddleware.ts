@@ -16,9 +16,9 @@ import HttpContext from "../context/HttpContext.js";
  * 
  * @example
  * // Typically registered in the HTTP service configuration:
- * app.use(StartSessionMiddleware.create())
+ * app.use(AsyncSessionMiddleware.create())
  */
-class StartSessionMiddleware extends Middleware {
+class AsyncSessionMiddleware extends Middleware {
     public async execute(context: HttpContext): Promise<void> {
         
         const sessionId = context.getId();
@@ -35,4 +35,4 @@ class StartSessionMiddleware extends Middleware {
     }
 }
 
-export default StartSessionMiddleware; 
+export default AsyncSessionMiddleware; 

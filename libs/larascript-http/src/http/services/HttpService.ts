@@ -4,9 +4,9 @@ import expressClient from 'express';
 import http from 'http';
 import Middleware from '../base/Middleware.js';
 import { baseConfig } from '../config/base.config.js';
+import AsyncSessionMiddleware from '../middleware/AsyncSessionMiddleware.js';
 import EndRequestContextMiddleware from '../middleware/EndRequestContextMiddleware.js';
 import RequestIdMiddleware from '../middleware/RequestIdMiddleware.js';
-import StartSessionMiddleware from '../middleware/StartSessionMiddleware.js';
 import Route from '../router/Route.js';
 import RouterBindService from '../router/RouterBindService.js';
 
@@ -131,7 +131,7 @@ export default class HttpService extends BaseService<IHttpServiceConfig> impleme
 
         const beforeAllMiddlewares = [
             RequestIdMiddleware.create(),
-            StartSessionMiddleware.create(),
+            AsyncSessionMiddleware.create(),
             EndRequestContextMiddleware.create(),
             ...(this.config?.beforeAllMiddlewares ?? []),
         ] as (expressClient.RequestHandler | TExpressMiddlewareFnOrClass)[]

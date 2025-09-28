@@ -222,6 +222,9 @@ importers:
       '@larascript-framework/larascript-events':
         specifier: workspace:*
         version: link:../../libs/larascript-events
+      '@larascript-framework/larascript-http':
+        specifier: workspace:*
+        version: link:../../libs/larascript-http
       '@larascript-framework/larascript-logger':
         specifier: workspace:*
         version: link:../../libs/larascript-logger

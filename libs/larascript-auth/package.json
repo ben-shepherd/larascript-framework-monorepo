@@ -17,9 +17,9 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "jest --passWithNoTests",
-    "test:watch": "jest --watch --passWithNoTests",
-    "test:coverage": "jest --coverage --passWithNoTests",
+    "test": "jest --runInBand --passWithNoTests",
+    "test:watch": "jest --runInBand --watch --passWithNoTests",
+    "test:coverage": "jest --runInBand --coverage --passWithNoTests",
     "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",

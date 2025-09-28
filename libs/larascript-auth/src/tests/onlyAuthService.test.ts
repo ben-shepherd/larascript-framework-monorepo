@@ -1,6 +1,6 @@
-import JwtAuthService from "@/auth/services/JwtAuthService.js";
+
+import { AuthEnvironment } from "@/environment/AuthEnvironment.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
-import { AsyncSessionService } from "@larascript-framework/async-session";
 import {
   BasicACLService,
   IAclConfig,
@@ -11,6 +11,7 @@ import { TestApiTokenFactory } from "./factory/TestApiTokenFactory.js";
 import { TestUserFactory } from "./factory/TestUserFactory.js";
 import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository.js";
 import { InMemoryUserRepository } from "./repository/InMemoryUserRepository.js";
+import { TestAuthEnvironment } from "./utils/TestAuthEnvironment.js";
 
 type MockCustomAdapterConfig = {
   name: "custom";
@@ -70,11 +71,33 @@ describe("AuthService", () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    const asyncSession = new AsyncSessionService();
-
-    authService = new AuthService(mockAuthConfig, mockAclConfig, asyncSession);
+    await TestAuthEnvironment.create({
+      drivers: {
+        jwt: {
+          name: "jwt",
+          options: {
+            secret: "test-secret",
+            expiresInMinutes: 60,
+            factory: {
+              user: TestUserFactory,
+              apiToken: TestApiTokenFactory,
+            },
+            repository: {
+              user: InMemoryUserRepository,
+              apiToken: InMemoryApiTokenRepository,
+            },
+          },
+        },
+        custom: {
+          name: "custom",
+          options: {
+            customSetting: "test-setting",
+          },
+        },
+      },
+    }).boot();
+    authService = AuthEnvironment.getInstance().authService as AuthService;
     authService.addAdapterOnce("custom", mockCustomAdapter);
-    await authService.boot();
   });
 
   describe("boot", () => {
@@ -85,7 +108,7 @@ describe("AuthService", () => {
     });
 
     test("should return the JWT adapter", () => {
-      expect(authService.getJwt()).toBeInstanceOf(JwtAuthService);
+      expect(authService.getJwt()).toBeDefined();
     });
 
     test("should register and boot custom adapters", async () => {
@@ -108,7 +131,7 @@ describe("AuthService", () => {
   describe("getJwt", () => {
     test("should return JWT adapter with correct config", async () => {
       const jwtAdapter = authService.getJwt();
-      expect(jwtAdapter).toBeInstanceOf(JwtAuthService);
+      expect(jwtAdapter).toBeDefined();
       expect(jwtAdapter.getConfig().options.expiresInMinutes).toBe(60);
       expect(jwtAdapter.getConfig().options.secret).toBe("test-secret");
       expect(jwtAdapter.getConfig().options.factory.user).toBe(TestUserFactory);

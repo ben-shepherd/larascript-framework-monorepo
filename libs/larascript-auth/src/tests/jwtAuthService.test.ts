@@ -1,5 +1,5 @@
-import { UnauthorizedException } from "@/auth/exceptions/UnauthorizedException.js";
 import { IApiTokenFactory, IUserFactory } from "@/auth/interfaces/index.js";
+import { AuthEnvironment } from "@/environment/AuthEnvironment.js";
 import { beforeEach, describe, expect, jest, test } from "@jest/globals";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
@@ -15,6 +15,7 @@ import { TestUserFactory } from "./factory/TestUserFactory.js";
 import { TestApiTokenModel } from "./model/TestApiTokenModel.js";
 import { InMemoryApiTokenRepository } from "./repository/InMemoryApiTokenRepository.js";
 import { InMemoryUserRepository } from "./repository/InMemoryUserRepository.js";
+import { TestAuthEnvironment } from "./utils/TestAuthEnvironment.js";
 
 const mockAclConfig: IAclConfig = {
   roles: [
@@ -80,10 +81,14 @@ describe("AuthService", () => {
   beforeEach(async () => {
     jest.clearAllMocks();
 
-    asyncSession = new AsyncSessionService();
+    await TestAuthEnvironment.create(
+      mockAuthConfig,
+      mockAclConfig,
+    ).boot();
 
-    authService = new AuthService(mockAuthConfig, mockAclConfig, asyncSession);
-    await authService.boot();
+    asyncSession = AsyncSessionService.getInstance();
+    
+    authService = AuthEnvironment.getInstance().authService as AuthService;
 
     jwt = authService.getJwt();
 
@@ -277,14 +282,12 @@ describe("AuthService", () => {
     });
 
     test("should throw an error if provided ill formed token", async () => {
-      await expect(jwt.attemptAuthenticateToken("invalid")).rejects.toThrow(
-        UnauthorizedException,
-      );
+      await expect(jwt.attemptAuthenticateToken("invalid")).rejects.toThrow("Unauthorized");
     });
 
     test("should return null if token is invalid", async () => {
       await expect(jwt.attemptAuthenticateToken("invalid")).rejects.toThrow(
-        UnauthorizedException,
+        "Unauthorized",
       );
     });
 

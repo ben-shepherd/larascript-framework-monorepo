@@ -12,7 +12,7 @@ const DEPENDENCIES_DEFAULTS: IAuthEnvironmentDependencies = {
     asyncSessionService: {} as IAsyncSessionService,
 }
 
-const CONFIG_DEFAULTS: IAuthEnvironmentConfig = {
+const AUTH_ENVIRONMENT_DEFAULTS: IAuthEnvironmentConfig = {
     authConfig: authConfig,
     aclConfig: aclConfig,
     secretKey: '',
@@ -39,7 +39,7 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      */
     constructor(config: IAuthEnvironmentConfig) {
         super({
-            ...CONFIG_DEFAULTS,
+            ...AUTH_ENVIRONMENT_DEFAULTS,
             ...(config),
         });
         this.setDependencies(config);
@@ -50,7 +50,11 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      * @param {IAuthEnvironmentConfig} config - The configuration for the authentication environment.
      * @returns {AuthEnvironment} The instance of AuthEnvironment.
      */
-    static create(config: IAuthEnvironmentConfig) {
+    static create(config: IAuthEnvironmentConfig = AUTH_ENVIRONMENT_DEFAULTS) {
+        config = {
+            ...AUTH_ENVIRONMENT_DEFAULTS,
+            ...config,
+        }
         AuthEnvironment.getInstance(config)
         AuthEnvironment.getInstance().authConfig = config.authConfig;
         AuthEnvironment.getInstance().aclConfig = config.aclConfig;

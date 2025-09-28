@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from "@jest/globals";
 import { ApiTokenModelOptions } from "../auth/index.js";
 import { TestApiTokenModel } from "./model/TestApiTokenModel.js";
+import { TestAuthEnvironment } from "./utils/TestAuthEnvironment.js";
 
 describe("TestApiTokenModel", () => {
   let apiToken: TestApiTokenModel;
@@ -15,7 +16,9 @@ describe("TestApiTokenModel", () => {
     customField: "test-value",
   };
 
-  beforeEach(() => {
+  beforeEach(async () => {
+    await TestAuthEnvironment.create().boot();
+
     apiToken = new TestApiTokenModel({
       id: mockId,
       token: mockToken,

@@ -1,7 +1,7 @@
 import { BaseFactory } from "@larascript-framework/larascript-core";
 import { IModel, ModelConstructor } from "../index.js";
 
-abstract class BaseModelFactory<T extends IModel> extends BaseFactory<
+export abstract class BaseModelFactory<T extends IModel> extends BaseFactory<
   T["attributes"]
 > {
   protected modelConstructor!: ModelConstructor<T>;

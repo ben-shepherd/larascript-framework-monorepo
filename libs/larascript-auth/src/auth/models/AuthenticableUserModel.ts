@@ -1,14 +1,5 @@
-import { IAccessControlEntity } from "@larascript-framework/larascript-acl";
-import { IModelAttributes, Model } from "@larascript-framework/larascript-database";
-import { IUserModel } from "../index.js";
-
-export interface AuthenticableUserModelAttributes extends IModelAttributes {
-    id: string;
-    email: string;
-    hashedPassword: string;
-    aclRoles: string[];
-    aclGroups: string[];
-}
+import { AuthenticableUserModelAttributes, IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
+import { Model } from "@larascript-framework/larascript-database";
 
 /**
  * Represents an authenticable user in the system.
@@ -21,7 +12,7 @@ export interface AuthenticableUserModelAttributes extends IModelAttributes {
  * @extends Model<AuthenticableUserModelAttributes>
  * @implements IUserModel
  */
-export class AuthenticableUserModel extends Model<AuthenticableUserModelAttributes> implements IUserModel, IAccessControlEntity {
+export class AuthenticableUserModel extends Model<AuthenticableUserModelAttributes> implements IAuthenticableUserModel {
 
     public static EMAIL = 'email';
 

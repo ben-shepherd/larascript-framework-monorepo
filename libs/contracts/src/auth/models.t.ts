@@ -1,5 +1,5 @@
+import { IModel, IModelAttributes } from "@/database/index.js";
 import { IAccessControlEntity } from "@larascript-framework/larascript-acl";
-
 export type ApiTokenModelOptions = Record<string, unknown> & {
   expiresAfterMinutes?: number;
 };
@@ -21,6 +21,16 @@ export interface IUserAttributes {
   aclRoles: string[];
   aclGroups: string[];
 }
+
+export interface AuthenticableUserModelAttributes extends IModelAttributes {
+  id: string;
+  email: string;
+  hashedPassword: string;
+  aclRoles: string[];
+  aclGroups: string[];
+}
+
+export type IAuthenticableUserModel = IModel<AuthenticableUserModelAttributes> & IUserModel & IAccessControlEntity
 
 export interface IApiTokenConstructor<
   TApiToken extends IApiTokenModel = IApiTokenModel,

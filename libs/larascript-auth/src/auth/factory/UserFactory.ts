@@ -1,10 +1,12 @@
+import { IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
+import { ModelConstructor } from "@larascript-framework/larascript-database";
 import User from "../models/User.js";
 import AuthenticableUserFactory from "./AuthenticableUserFactory.js";
 
-class UserFactory extends AuthenticableUserFactory<User> {
+export class UserFactory extends AuthenticableUserFactory {
 
-    constructor() {
-        super(User);
+    constructor(user: ModelConstructor<IAuthenticableUserModel> = User as ModelConstructor<IAuthenticableUserModel>) {
+        super(user);
     }
 
     getDefinition(): NonNullable<User['attributes']> {

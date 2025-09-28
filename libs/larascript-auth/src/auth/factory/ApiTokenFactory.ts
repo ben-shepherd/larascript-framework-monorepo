@@ -1,7 +1,7 @@
 import { BaseModelFactory } from "@larascript-framework/larascript-database";
 import ApiToken, { ApiTokenAttributes } from "../models/ApiToken.js";
 
-class ApiTokenFactory extends BaseModelFactory<ApiToken> {
+export class ApiTokenFactory extends BaseModelFactory<ApiToken> {
 
     constructor() {
         super(ApiToken);

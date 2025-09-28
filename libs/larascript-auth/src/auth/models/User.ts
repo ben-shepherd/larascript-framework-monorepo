@@ -1,8 +1,9 @@
 import { TCastableType } from "@larascript-framework/cast-js";
+import { AuthenticableUserModelAttributes, IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
 import { IModelFactory } from "@larascript-framework/larascript-database";
 import UserFactory from "../factory/UserFactory.js";
 import UserObserver from "../observers/UserObserver.js";
-import AuthenticableUserModel, { AuthenticableUserModelAttributes } from "./AuthenticableUserModel.js";
+import AuthenticableUserModel from "./AuthenticableUserModel.js";
 
 /**
  * User structure
@@ -110,7 +111,7 @@ export class User extends AuthenticableUserModel {
      * 
      * @returns The factory for the model.
      */
-    getFactory(): IModelFactory<User> {
+    getFactory(): IModelFactory<IAuthenticableUserModel> {
         return new UserFactory();
     }
 }

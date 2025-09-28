@@ -1,8 +1,8 @@
-import AuthenticableUserModel, { AuthenticableUserModelAttributes } from "@/auth/models/AuthenticableUserModel.js";
-import { IUserFactory } from "@larascript-framework/contracts/auth";
+import AuthenticableUserModel from "@/auth/models/AuthenticableUserModel.js";
+import { AuthenticableUserModelAttributes, IAuthenticableUserModel, IUserFactory } from "@larascript-framework/contracts/auth";
 import { BaseModelFactory, ModelConstructor } from "@larascript-framework/larascript-database";
 
-class AuthenticableUserFactory<T extends AuthenticableUserModel> extends BaseModelFactory<T> implements IUserFactory {
+export class AuthenticableUserFactory<T extends IAuthenticableUserModel = IAuthenticableUserModel> extends BaseModelFactory<T> implements IUserFactory {
 
     constructor(modelConstructor: ModelConstructor<T>) {
         super(modelConstructor);

@@ -40,4 +40,9 @@ Notes:
 - `scopes` are combined per action type.
 - `only` limits which endpoints are created.
 
+Testing highlights:
+- Sorting supports multiple fields and directions. Example: `[{ field: 'age', sortDirection: 'asc' }]`.
+- Fuzzy filtering supports `%` patterns in string fields (e.g., `{ name: 'A%' }`).
+- Pagination: `getResourcesPage(query, page, pageSize, sorting?)` returns a page of results respecting sort and filters.
+
 

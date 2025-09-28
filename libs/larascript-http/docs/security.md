@@ -28,4 +28,9 @@ Available rules:
 
 Security from parent groups is merged with child routes. Rules can be found and evaluated per action type during resource routing.
 
+Testing behavior (from `security.test.ts`):
+- Unauthenticated requests to secured routes return 401 with `{ error: 'Unauthorized' }`.
+- `rateLimited(1, 60)` returns 429 on the second request in a minute.
+- `hasRole('admin')` returns 200 when `context.getUser().getAclRoles()` includes `'admin'`, otherwise 403 with `{ error: 'User does not have the required roles' }`.
+
 

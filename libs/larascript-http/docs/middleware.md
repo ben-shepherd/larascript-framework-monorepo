@@ -22,9 +22,13 @@ r.post('/upload', UploadController, {
 ```
 
 Order of execution:
-1. Global before-all middlewares (from config)
-2. Route/group middlewares
-3. Global after-all middlewares (from config)
+1. Global before-all middlewares (config.beforeAllMiddlewares)
+2. Group/route middlewares
+3. Global after-all middlewares (config.afterAllMiddlewares)
 4. Route handler
+
+Notes:
+- Middlewares can be Express handlers `(req, res, next)` or classes extending `Middleware` with `execute(ctx)`.
+- You can attach middlewares at the group level via `router.group({ middlewares: [...] }, cb)`.
 
 

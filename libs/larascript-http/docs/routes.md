@@ -1,6 +1,6 @@
 ## Routes
 
-Define routes with the router or the `Route` facade.
+Define routes with the router or the `HttpRouter` facade.
 
 ```ts
 import HttpRouter from '@/http/router/HttpRouter';
@@ -17,11 +17,6 @@ router.post('/users', UsersController );
 router.group({ prefix: '/api', middlewares: [] }, (r) => {
   r.get('/users', UsersController );
   r.get('/users/:id', UsersController );
-});
-
-// Using the Route facade
-Route.group({ prefix: '/v1' }, (r) => {
-  r.get('/status', UsersController );
 });
 
 // Using a specific controller method
@@ -53,5 +48,9 @@ router.get('/users', UsersController, {
 - **config**: arbitrary per-route config
 
 HTTP methods available: `get`, `post`, `put`, `patch`, `delete`.
+
+Notes:
+- `router.group` merges `middlewares` and `security` from the group into child routes.
+- You can pass controllers as a class, a tuple `[Controller, 'method']`, or an Express handler.
 
 

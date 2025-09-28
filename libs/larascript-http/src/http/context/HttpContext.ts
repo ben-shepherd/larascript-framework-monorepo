@@ -7,7 +7,7 @@ import UploadedFile from '../data/UploadedFile.js';
 import HttpContextException from '../exceptions/HttpContextException.js';
 import { ResourceContext } from './ResourceContext.js';
 
-class HttpContext implements IHttpContext {
+export class HttpContext implements IHttpContext {
 
     constructor(
         // eslint-disable-next-line no-unused-vars

@@ -5,8 +5,5 @@ export const testConfig: IHttpServiceConfig = {
     port: 0, // Use dynamic port allocation
     beforeAllMiddlewares: [],
     afterAllMiddlewares: [],
-    extendExpress: () => {},
-    logging: {
-        requests: true,
-    },
+    extendExpress: () => {}
 }

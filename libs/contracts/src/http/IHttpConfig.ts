@@ -1,4 +1,5 @@
 import express from "express";
+import { ICsrfConfig } from "./ICSRF.js";
 import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";
 
 // eslint-disable-next-line no-unused-vars
@@ -11,16 +12,7 @@ export interface IHttpServiceConfig {
     afterAllMiddlewares?: (express.RequestHandler | TExpressMiddlewareFnOrClass)[];
     currentRequestCleanupDelay?: number;
     extendExpress?: ExtendExpressFn
-    csrf?: {
-        methods?: string[];
-        headerName?: string;
-        ttl?: number;
-        exclude?: string[];
-    }
-    logging?: {
-        boundRouteDetails?: boolean;
-        requests?: boolean;
-    }
+    csrf?: ICsrfConfig
 
 }
 

@@ -1,36 +1,36 @@
 ## Configuration
 
-Base HTTP config shows defaults and extension points.
+The HTTP configuration is used to configure the HTTP service.
+
+- `enabled`: boolean
+- `port`: number
+- `beforeAllMiddlewares`: (Express or class)[]
+- `afterAllMiddlewares`: (Express or class)[]
+- `extendExpress`: (app: express.Application) => void
+- `logging`: {
+    requests: boolean,
+}
+
+### Example
 
 ```ts
-import { baseConfig } from '@/http/config/base.config';
+import { IHttpServiceConfig } from '@larascript-framework/contracts/http';
+import { HttpEnvironment, HttpService } from '@larascript-framework/larascript-http';
 
-// baseConfig:
-// - enabled: boolean
-// - port: number
-// - beforeAllMiddlewares: (Express or class)[] (e.g., cors())
-// - afterAllMiddlewares: (Express or class)[]
-// - extendExpress(app): hook to extend express (file uploads, etc.)
-// - csrf: {}
-// - logging: {}
-```
+export const config: IHttpServiceConfig = {
+    enabled: true,
+    port: 0, // Use dynamic port allocation
+    beforeAllMiddlewares: [],
+    afterAllMiddlewares: [],
+    extendExpress: () => {},
+    logging: {
+        requests: true,
+    },
+}
 
-Binding routes with global middleware hooks:
-```ts
-import HttpService from '@/http/services/HttpService';
-import HttpRouter from '@/http/router/HttpRouter';
-
-const http = new HttpService({
-  enabled: true,
-  port: 3000,
-  beforeAllMiddlewares: [],
-  afterAllMiddlewares: [],
-});
-
-const router = new HttpRouter();
-// define routes...
-http.bindRoutes(router);
-await http.listen();
+await HttpEnvironment.create(
+    new HttpService(config)
+).boot();
 ```
 
 

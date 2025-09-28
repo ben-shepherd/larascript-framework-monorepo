@@ -4,15 +4,20 @@ The Larascript HTTP Framework is a comprehensive framework for building RESTful 
 
 - [HTTP Environment](./environment.md)
 - [Routes](./routes.md)
+- [Controller](./controller.md)
+- [Context](./context.md)
 - [Resource routes](./resource-routes.md)
 - [Middleware](./middleware.md)
 - [Security](./security.md)
-- [Http Context](./context.md)
 - [Configuration](./configuration.md)
 
-## Tests not yet covered
+## Testing
 
-- [Tests to cover](./todo-testing.md)
+- [HTTP testing guide](../../docs/testing/http-testing.md)
+
+## TODO
+
+- [Package TODO](./todo.md)
 
 ## Future plans
 

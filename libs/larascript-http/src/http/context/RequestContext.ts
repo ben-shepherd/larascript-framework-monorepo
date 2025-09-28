@@ -8,7 +8,7 @@ import getIpAddress from "../utils/getIpAddress.js";
  * - Stores the current request context
  * - Store the current IP context
  */
-class RequestContext extends BaseSingleton implements IRequestContext {
+export class RequestContext extends BaseSingleton implements IRequestContext {
 
     /**
      * Request context

@@ -36,7 +36,7 @@ type TResponseOptions = {} | {
  * while inheriting the security and validation methods from this base class.
  */
 
-abstract class AbastractBaseResourceService {
+export abstract class AbastractBaseResourceService {
 
     /**
      * The route resource type (RouteResourceTypes)

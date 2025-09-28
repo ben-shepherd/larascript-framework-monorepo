@@ -1,7 +1,7 @@
 import { TUploadedFile, TUploadedFileData } from "@larascript-framework/contracts/http";
 import fs from 'fs';
 
-class UploadedFile implements TUploadedFile {
+export class UploadedFile implements TUploadedFile {
 
     data: TUploadedFileData;
 

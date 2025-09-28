@@ -25,7 +25,7 @@ import ResourceRouter from "./RouterResource.js";
  * })
  * ```
  */
-class Route implements IRoute {
+export class Route implements IRoute {
 
     /**
      * Create a new group of routes.

@@ -5,7 +5,7 @@ import path from "path";
 import UploadedFile from "../data/UploadedFile.js";
 import UploadFileException from "../exceptions/UploadFileException.js";
 
-export default class HttpFileSystemUploader extends BaseSingleton<IHttpFileSystemUploaderConfig> implements IHttpUploadService {
+export class HttpFileSystemUploader extends BaseSingleton<IHttpFileSystemUploaderConfig> implements IHttpUploadService {
 
     setConfig(config: IHttpFileSystemUploaderConfig): void {
         this.config = config;
@@ -53,3 +53,5 @@ export default class HttpFileSystemUploader extends BaseSingleton<IHttpFileSyste
         });
     }
 }
+
+export default HttpFileSystemUploader;

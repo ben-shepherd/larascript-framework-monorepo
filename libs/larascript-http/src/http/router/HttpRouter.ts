@@ -39,7 +39,7 @@ import { RouterResourceValidation } from "./RouterResourceValidation.js";
  * - Applies middleware and security rules
  * - Manages route prefixing and naming
  */
-class HttpRouter implements IRouter {
+export class HttpRouter implements IRouter {
 
     /**
      * The route group options.

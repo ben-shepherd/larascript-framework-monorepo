@@ -6,7 +6,7 @@ import HttpContext from "../context/HttpContext.js";
 /**
  * Middleware to log the request context
  */
-class RequestContextLoggerMiddleware extends Middleware {
+export class RequestContextLoggerMiddleware extends Middleware {
 
     async execute(context: HttpContext): Promise<void> {
         if (HttpEnvironment.getInstance().environment !== EnvironmentDevelopment) {

@@ -8,3 +8,5 @@ export class UnauthorizedException extends AbstractHttpException {
     this.name = "UnauthorizeError";
   }
 }
+
+export default UnauthorizedException;

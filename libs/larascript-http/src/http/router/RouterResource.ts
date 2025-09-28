@@ -41,7 +41,7 @@ import SecurityRules from "../security/services/SecurityRules.js"
  * - Maintains consistent RESTful routing patterns
  */
 
-class ResourceRouter {
+export class ResourceRouter {
 
     /**
      * Add resource routes to the router.

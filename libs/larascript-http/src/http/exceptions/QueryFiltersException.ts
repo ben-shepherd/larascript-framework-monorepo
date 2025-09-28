@@ -1,4 +1,4 @@
-export default class QueryFiltersException extends Error {
+export class QueryFiltersException extends Error {
 
     constructor(message: string = 'Query Filters Exception') {
         super(message);
@@ -6,3 +6,5 @@ export default class QueryFiltersException extends Error {
     }
 
 }
+
+export default QueryFiltersException;

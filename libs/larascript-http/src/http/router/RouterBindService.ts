@@ -35,7 +35,7 @@ type IRouteServiceOptions = {
  * ```
  */
 
-class RouterBindService {
+export class RouterBindService {
 
     private app!: expressClient.Express;
 
@@ -271,11 +271,7 @@ class RouterBindService {
      * @param route The route to log
      */
     protected logBoundRouteDetails(route: TRouteItem): void {
-        if(!this.config?.logging?.boundRouteDetails) {
-            return
-        }
-
-        console.log({
+        HttpEnvironment.getInstance().loggerService?.info({
             path: route.path,
             method: route.method,
             security: route?.security,

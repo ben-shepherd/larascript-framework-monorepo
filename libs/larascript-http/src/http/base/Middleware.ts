@@ -35,7 +35,7 @@ import { ICreateExpressHandler, IHttpContext, IMiddleware, MiddlewareConstructor
  * while maintaining full compatibility with Express's middleware system.
  */
 
-abstract class Middleware<Config extends unknown = unknown> implements IMiddleware, ICreateExpressHandler<TExpressMiddlewareFn> {
+export abstract class Middleware<Config extends unknown = unknown> implements IMiddleware, ICreateExpressHandler<TExpressMiddlewareFn> {
 
     /**
      * @type {Config}

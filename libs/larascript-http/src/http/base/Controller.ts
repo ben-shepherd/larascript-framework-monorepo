@@ -3,7 +3,7 @@ import { appEnv } from "@larascript-framework/larascript-core";
 import HttpContext from "../context/HttpContext.js";
 import responseError from "../handlers/responseError.js";
 
-class Controller implements IController {
+export class Controller implements IController {
 
     /** 
      * The context of the controller.

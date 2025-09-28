@@ -29,7 +29,7 @@ import AbastractBaseResourceService from "../abstract/AbastractBaseResourceServi
  * - Protected property stripping
  */
 
-class ResourceIndexService extends AbastractBaseResourceService {
+export class ResourceIndexService extends AbastractBaseResourceService {
 
     routeResourceType: string = RouteResourceTypes.INDEX
 

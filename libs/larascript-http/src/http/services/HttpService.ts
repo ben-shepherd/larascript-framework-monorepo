@@ -15,7 +15,7 @@ import RouterBindService from '../router/RouterBindService.js';
  * Responsible for initializing and configuring ExpressJS
  * @implements IHttpService
  */
-export default class HttpService extends BaseService<IHttpServiceConfig> implements IHttpService {
+export class HttpService extends BaseService<IHttpServiceConfig> implements IHttpService {
 
     declare config: IHttpServiceConfig | null;
 
@@ -192,3 +192,5 @@ export default class HttpService extends BaseService<IHttpServiceConfig> impleme
     }
 
 }
+
+export default HttpService;

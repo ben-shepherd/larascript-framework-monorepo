@@ -1,4 +1,4 @@
-class RouteException extends Error {
+export class RouteException extends Error {
 
     constructor(message: string) {
         super(message);

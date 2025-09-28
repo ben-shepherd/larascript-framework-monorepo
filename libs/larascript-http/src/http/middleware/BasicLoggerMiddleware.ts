@@ -23,7 +23,7 @@ import HttpContext from "../context/HttpContext.js";
  *   }
  * }
  */
-class BasicLoggerMiddleware extends Middleware {
+export class BasicLoggerMiddleware extends Middleware {
 
     /**
      * Executes the logging middleware
@@ -41,13 +41,6 @@ class BasicLoggerMiddleware extends Middleware {
      * @returns Promise<void>
      */
     public async execute(context: HttpContext): Promise<void> {
-
-        const httpServiceConfig = HttpEnvironment.getInstance().getConfig()?.httpServiceConfig
-
-        if(!httpServiceConfig?.logging?.requests) {
-            this.next();
-            return;
-        }
 
         HttpEnvironment.getInstance().loggerService?.info('New request: ', this.getRequestDetails(context));
 

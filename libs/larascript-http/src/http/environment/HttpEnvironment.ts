@@ -8,12 +8,14 @@ import { DatabaseEnvironment, IDatabaseService, IEloquentQueryBuilderService } f
 import { ILoggerService, LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
 import RequestContext from "../context/RequestContext.js";
+import RequestContextCleaner from "../context/RequestContextCleaner.js";
 
 export const HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
     authConfigured: true,
     databaseConfigured: true,
     uploadDirectory: path.join(process.cwd(), 'storage/uploads'),
-    environment: EnvironmentTesting
+    environment: EnvironmentTesting,
+    currentRequestCleanupDelay: 30
 }
 
 /**
@@ -130,6 +132,10 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
      * @returns {Promise<void>} A promise that resolves when the environment is booted.
      */
     async boot() {
+        if(!this.httpService.getConfig()?.enabled) {
+            return;
+        }
+        
         this.requestContext = new RequestContext();
         this.setupLoggerService();
         this.setUploadDirectory();
@@ -137,6 +143,13 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         await this.httpService.init();
         await this.httpService.listen();
         this.booted = true;
+
+        /**
+         * Start the RequestContextCleaner
+        */
+        RequestContextCleaner.boot({
+            delayInSeconds: (this.config?.currentRequestCleanupDelay ?? HTTP_ENVIRONMENT_DEFAULTS.currentRequestCleanupDelay) as number
+        })
     }
 
     /**

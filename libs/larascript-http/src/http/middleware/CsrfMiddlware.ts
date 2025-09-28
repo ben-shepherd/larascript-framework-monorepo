@@ -40,7 +40,7 @@ import Route from '../router/Route.js';
  * 
  * ```
  */
-class CsrfMiddleware extends Middleware<ICsrfConfig> {
+export class CsrfMiddleware extends Middleware<ICsrfConfig> {
 
     /**
      * Gets the CSRF configuration

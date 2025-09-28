@@ -48,7 +48,7 @@ import SecurityReader from "../security/services/SecurityReader.js";
  * 
  * If any security check fails, the request is rejected with an appropriate error response.
  */
-class SecurityMiddleware extends Middleware {
+export class SecurityMiddleware extends Middleware {
 
     /**
      * Executes the security middleware

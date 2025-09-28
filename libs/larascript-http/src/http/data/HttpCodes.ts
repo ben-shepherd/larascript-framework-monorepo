@@ -1,4 +1,4 @@
-class HttpCodes {
+export class HttpCodes {
 
     public static readonly OK = 200;
 

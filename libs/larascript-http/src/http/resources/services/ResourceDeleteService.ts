@@ -27,7 +27,7 @@ import AbastractBaseResourceService from "../abstract/AbastractBaseResourceServi
  * - Secure deletion of resources
  * - Standardized success response
  */
-class ResourceDeleteService extends AbastractBaseResourceService {
+export class ResourceDeleteService extends AbastractBaseResourceService {
 
     routeResourceType: string = RouteResourceTypes.DELETE
 

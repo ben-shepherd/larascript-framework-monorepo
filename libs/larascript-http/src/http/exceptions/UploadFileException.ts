@@ -1,4 +1,4 @@
-class UploadFileException extends Error {
+export class UploadFileException extends Error {
 
     constructor(message: string = 'Upload file exception') {
         super(message);

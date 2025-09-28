@@ -1,4 +1,4 @@
-class ResourceException extends Error {
+export class ResourceException extends Error {
 
     constructor(message: string) {
         super(message);

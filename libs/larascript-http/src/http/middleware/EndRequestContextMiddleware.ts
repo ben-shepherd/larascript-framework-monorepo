@@ -5,7 +5,7 @@ import HttpContext from "../context/HttpContext.js";
 /**
  * Middleware that ends the current request context and removes all associated values.
  */
-class EndRequestContextMiddleware extends Middleware {
+export class EndRequestContextMiddleware extends Middleware {
 
     /**
      * Executes the end request context middleware

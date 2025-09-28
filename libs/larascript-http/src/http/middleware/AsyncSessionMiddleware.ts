@@ -18,7 +18,7 @@ import HttpContext from "../context/HttpContext.js";
  * // Typically registered in the HTTP service configuration:
  * app.use(AsyncSessionMiddleware.create())
  */
-class AsyncSessionMiddleware extends Middleware {
+export class AsyncSessionMiddleware extends Middleware {
     public async execute(context: HttpContext): Promise<void> {
         
         const sessionId = context.getId();

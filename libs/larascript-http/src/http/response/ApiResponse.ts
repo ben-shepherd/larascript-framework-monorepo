@@ -22,7 +22,7 @@ import Paginate from "../utils/Paginate.js";
  *   .build();
  * ```
  */
-class ApiResponse<Data = unknown> implements IApiResponse<Data> {
+export class ApiResponse<Data = unknown> implements IApiResponse<Data> {
 
     protected code: number = 200;
 

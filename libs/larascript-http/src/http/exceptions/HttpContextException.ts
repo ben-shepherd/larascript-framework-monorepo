@@ -1,4 +1,4 @@
-class HttpContextException extends Error {
+export class HttpContextException extends Error {
 
     constructor(message: string) {
         super(message);

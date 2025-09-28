@@ -8,7 +8,7 @@ import Middleware from "../base/Middleware.js";
  * This middleware validates the request body against the validator constructor
  * and sets the validated body on the request.
  */
-class ValidatorMiddleware extends Middleware {
+export class ValidatorMiddleware extends Middleware {
 
     /**
      * Executes the validator middleware

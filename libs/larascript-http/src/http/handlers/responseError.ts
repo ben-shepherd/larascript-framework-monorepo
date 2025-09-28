@@ -12,7 +12,7 @@ import { AbstractHttpException } from '../base/AbstractHttpException.js';
  * @param err The error to log and send
  * @param code The HTTP status code to send (default: 500)
  */
-export default (req: Request, res: Response, err: Error, code?: number) => {
+export const responseError = (req: Request, res: Response, err: Error, code?: number) => {
 
     if(typeof code === 'undefined' && err instanceof AbstractHttpException) {
         code = err.code
@@ -35,4 +35,6 @@ export default (req: Request, res: Response, err: Error, code?: number) => {
         error: err.message,
         stack: stackLines
     })
-}
+    }
+
+export default responseError;

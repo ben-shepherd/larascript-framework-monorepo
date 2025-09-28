@@ -17,6 +17,5 @@ export const baseConfig: IHttpServiceConfig = {
             allowedPath: /./
         })
     },
-    csrf: {},
-    logging: {},
+    csrf: {}
 }

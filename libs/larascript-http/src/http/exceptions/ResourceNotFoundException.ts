@@ -9,3 +9,5 @@ export class ResourceNotFoundException extends AbstractHttpException {
     }
 
 }
+
+export default ResourceNotFoundException;

@@ -22,7 +22,7 @@ import AbastractBaseResourceService from "../abstract/AbastractBaseResourceServi
  * and data protection.
  */
 
-class ResourceShowService extends AbastractBaseResourceService {
+export class ResourceShowService extends AbastractBaseResourceService {
 
     routeResourceType: string = RouteResourceTypes.SHOW
 

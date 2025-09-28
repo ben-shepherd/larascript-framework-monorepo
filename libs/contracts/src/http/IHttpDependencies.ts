@@ -8,6 +8,7 @@ export type IHttpConfig = {
     environment: EnvironmentType;
     databaseConfigured: boolean;
     authConfigured: boolean;
+    currentRequestCleanupDelay?: number;
     dependencies?: {
         loggerService?: ILoggerService;
         uploadService?: IHttpUploadService;

@@ -22,7 +22,7 @@ import AbastractBaseResourceService from "../abstract/AbastractBaseResourceServi
  * Provides standardized update functionality while enforcing security rules
  * and data protection.
  */
-class ResourceUpdateService extends AbastractBaseResourceService {
+export class ResourceUpdateService extends AbastractBaseResourceService {
 
     routeResourceType: string = RouteResourceTypes.UPDATE
 

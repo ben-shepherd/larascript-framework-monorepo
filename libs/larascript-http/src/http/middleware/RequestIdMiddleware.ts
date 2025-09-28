@@ -31,7 +31,7 @@ const defaultOptions: Options = {
  * - Debugging by following a specific request's journey.
  */
 
-class RequestIdMiddleware extends Middleware<Options> {
+export class RequestIdMiddleware extends Middleware<Options> {
 
     /**
      * Constructor for the RequestIdMiddleware

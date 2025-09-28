@@ -29,7 +29,7 @@ import AbastractBaseResourceService from "../abstract/AbastractBaseResourceServi
  * - Standardized resource creation
  */
 
-class ResourceCreateService extends AbastractBaseResourceService {
+export class ResourceCreateService extends AbastractBaseResourceService {
 
     routeResourceType: string = RouteResourceTypes.CREATE
 

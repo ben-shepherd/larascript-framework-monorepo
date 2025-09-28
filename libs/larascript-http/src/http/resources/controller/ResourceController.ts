@@ -31,7 +31,7 @@ import ResourceUpdateService from "../services/ResourceUpdateService.js";
  *
  * Used by defining routes with Route.resource() and specifying the model, middleware and security rules
  */
-class ResourceController  extends Controller {
+export class ResourceController  extends Controller {
 
     protected indexService = new ResourceIndexService();
     

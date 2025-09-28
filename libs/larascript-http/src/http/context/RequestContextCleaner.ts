@@ -5,7 +5,7 @@ import { BaseSingleton } from "@larascript-framework/larascript-core";
 /**
  * A class that handles cleaning up expired items from the current IP context.
  */
-class RequestContextCleaner extends BaseSingleton {
+export class RequestContextCleaner extends BaseSingleton {
 
     /**
      * Starts the cleanup process. This will run an interval every N seconds specified in the config.

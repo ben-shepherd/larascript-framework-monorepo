@@ -24,7 +24,7 @@ import responseError from '../handlers/responseError.js';
  * Used as middleware on routes requiring authentication. Can be configured with
  * required scopes that are validated against the API token's allowed scopes.
  */
-class AuthorizeMiddleware extends AbstractAuthMiddleware<{ allowedScopes: string[] }> {
+export class AuthorizeMiddleware extends AbstractAuthMiddleware<{ allowedScopes: string[] }> {
 
     /**
      * Executes the authorization middleware.

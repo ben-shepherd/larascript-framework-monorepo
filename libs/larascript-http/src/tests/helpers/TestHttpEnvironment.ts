@@ -1,8 +1,9 @@
 import { testConfig } from "@/http/config/test.config.js";
 import { HTTP_ENVIRONMENT_DEFAULTS, HttpEnvironment } from "@/http/environment/index.js";
+import CsrfMiddleware from "@/http/middleware/CsrfMiddlware.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
-import { IHttpConfig } from "@larascript-framework/contracts/http";
+import { IHttpConfig, IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
@@ -14,6 +15,8 @@ export const TEST_HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
 
 export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
 
+    protected httpServiceConfig: IHttpServiceConfig = testConfig;
+
     static create(config: Partial<IHttpConfig> = TEST_HTTP_ENVIRONMENT_DEFAULTS) {
         config = {
             ...TEST_HTTP_ENVIRONMENT_DEFAULTS,
@@ -22,9 +25,25 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
         return TestHttpEnvironment.getInstance(config);
     }
 
+    withCsrf() {
+        this.httpServiceConfig = {
+            ...this.httpServiceConfig,
+            beforeAllMiddlewares: [
+                ...(this.httpServiceConfig.beforeAllMiddlewares ?? []),
+                CsrfMiddleware.create(),
+            ],
+            csrf: {
+                methods: ['POST', 'PUT', 'DELETE', 'PATCH'],
+                headerName: 'X-CSRF-TOKEN',
+                ttl: 60 * 60 * 1, // 1 hour
+                exclude: ['/csrf'],
+            }
+        }
+
+        return this;
+    }
+
     async boot() {
-        
-        // Create the database environment
         await DatabaseEnvironment.create({
             boot: this.config!.databaseConfigured,
         }).boot();
@@ -63,7 +82,7 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
 
         await HttpEnvironment.create(
             new HttpService({
-                ...testConfig
+                ...this.httpServiceConfig
             }),
             this.config!
         ).boot();

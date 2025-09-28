@@ -43,15 +43,16 @@ import Route from '../router/Route.js';
 class CsrfMiddleware extends Middleware<ICsrfConfig> {
 
     /**
-     * Creates a new instance of CsrfMiddleware
-     * @param config - Optional configuration to override defaults
+     * Gets the CSRF configuration
+     * 
+     * @returns The CSRF configuration
      */
-    constructor() {
-        super();
+    public getConfig(): ICsrfConfig {
+        if(!HttpEnvironment.getInstance().httpService.getConfig()?.csrf) {
+            throw new Error('CSRF is not configured');
+        }
 
-        this.setConfig(
-            HttpEnvironment.getInstance().httpService.getConfig()?.csrf as ICsrfConfig
-        );
+        return HttpEnvironment.getInstance().httpService.getConfig()?.csrf!;
     }
 
     /**

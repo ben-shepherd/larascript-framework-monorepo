@@ -2,39 +2,14 @@
 
 A comprehensive monorepo containing the Larascript Framework and its ecosystem of packages, providing a powerful Node.js framework with built-in ORM, type safety, and developer-friendly APIs.
 
+## In Development
+
+This is a work in progress and is not yet ready for production.
+
 ## 🚀 Overview
 
 Larascript is a modern, type-safe Node.js framework designed for building scalable applications with a focus on developer experience. This monorepo contains the main framework application and a collection of modular packages that can be used independently or together.
 
-## 📦 Packages
-
-### Core Framework
-- **`app/larascript-framework`** - The main Larascript Framework application with full-stack capabilities
-
-### Core Packages
-- **`@larascript-framework/larascript-core`** - Core components and foundational patterns
-- **`@larascript-framework/larascript-acl`** - Access Control List (ACL) system
-- **`@larascript-framework/larascript-collection`** - Collection utilities and data structures
-- **`@larascript-framework/larascript-logger`** - Logging system
-- **`@larascript-framework/larascript-observer`** - Event observer pattern implementation
-- **`@larascript-framework/larascript-validator`** - Validation system
-- **`@larascript-framework/larascript-views`** - View rendering system
-- **`@larascript-framework/larascript-utils`** - Utility functions and helpers
-
-### Specialized Packages
-- **`@larascript-framework/async-session`** - Asynchronous session management
-- **`@larascript-framework/cast-js`** - Type casting utilities
-- **`@larascript-framework/crypto-js`** - Cryptographic utilities
-- **`@larascript-framework/dot-notation-extractor`** - Dot notation data extraction
-- **`@larascript-framework/larascript-mail`** - Email functionality
-
-### Development Tools
-- **`packages/eslint-config`** - Shared ESLint configuration
-- **`packages/tsconfig`** - Shared TypeScript configuration
-- **`libs/jest-config`** - Shared Jest configuration
-
-## Templates
-- **`@larascript-framework/template`** - A template package that can be copied as a starting point when creating new Larascript packages. Use this as a boilerplate for consistent structure, configuration, and best practices.
 
 ## 🛠️ Technology Stack
 

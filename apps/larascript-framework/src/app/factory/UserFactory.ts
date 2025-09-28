@@ -1,7 +1,7 @@
 import User from "@/app/models/auth/User.js";
-import AuthenticableUserFactory from "./AuthenticableUserFactory.js";
+import { UserFactory as BaseUserFactory } from "@larascript-framework/larascript-auth";
 
-class UserFactory extends AuthenticableUserFactory<User> {
+class UserFactory extends BaseUserFactory {
 
     constructor() {
         super(User);

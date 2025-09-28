@@ -1,8 +1,8 @@
 import httpConfig from "@/config/http.config.js";
-import IHttpConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
-import errorHandler from "@/core/domains/http/middleware/errorHandler.js";
 import { app } from "@/core/services/App.js";
 import { AppSingleton, BaseProvider } from '@larascript-framework/larascript-core';
+import { IHttpServiceConfig } from "@larascript-framework/larascript-http";
+import errorHandlers from "../http/middleware/errorHandlers.js";
 
 
 export default class HttpErrorHandlerProvider extends BaseProvider {
@@ -12,7 +12,7 @@ export default class HttpErrorHandlerProvider extends BaseProvider {
      *
      * @default httpConfig
      */
-    protected config: IHttpConfig = httpConfig;
+    protected config: IHttpServiceConfig = httpConfig;
 
     /**
      * Register method
@@ -51,8 +51,8 @@ export default class HttpErrorHandlerProvider extends BaseProvider {
         const http = app('http');
 
         // Handle errors
-        http.getExpress().use(errorHandler.notFoundHandler);
-        http.getExpress().use(errorHandler.errorHandler);
+        http.getExpress().use(errorHandlers.notFoundHandler);
+        http.getExpress().use(errorHandlers.errorHandler);
 
     }
 

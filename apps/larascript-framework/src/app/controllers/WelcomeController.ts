@@ -1,5 +1,4 @@
-import Controller from "@/core/domains/http/base/Controller.js";
-import HttpContext from "@/core/domains/http/context/HttpContext.js";
+import { Controller, HttpContext } from "@larascript-framework/larascript-http";
 
 class WelcomeController extends Controller {
 

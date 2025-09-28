@@ -2,25 +2,10 @@ import ApiTokenFactory from '@/app/factory/ApiTokenFactory.js';
 import UserFactory from '@/app/factory/UserFactory.js';
 import ApiTokenRepository from '@/app/repositories/auth/ApiTokenRepository.js';
 import UserRepository from '@/app/repositories/UserRepository.js';
-import { IAuthConfig } from '@larascript-framework/larascript-auth';
+import { IHttpAuthRoutesConfig } from '@larascript-framework/contracts/auth';
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
 
-export interface IExtendedAuthConfig extends IAuthConfig {
-    http: {
-        routes: {
-            enabled: boolean,
-            endpoints: {
-                register: boolean,
-                login: boolean,
-                refresh: boolean,
-                update: boolean,
-                logout: boolean
-            }
-        }
-    }
-}
-
-export const authConfig: IExtendedAuthConfig = {
+export const authConfig: IHttpAuthRoutesConfig = {
     drivers: {
         jwt: {
             name: 'jwt',

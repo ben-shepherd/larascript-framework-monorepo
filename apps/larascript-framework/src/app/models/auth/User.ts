@@ -1,7 +1,7 @@
 import UserFactory from "@/app/factory/UserFactory.js";
 import UserObserver from "@/app/observers/UserObserver.js";
 import { TCastableType } from "@larascript-framework/cast-js";
-import { AuthenticableUserModel, AuthenticableUserModelAttributes } from "@larascript-framework/larascript-auth";
+import { AuthenticableUserModelAttributes, User as BaseUserModel, IAuthenticableUserModel } from "@larascript-framework/larascript-auth";
 import { IModelFactory } from "@larascript-framework/larascript-database";
 
 /**
@@ -29,7 +29,7 @@ export interface UserAttributes extends AuthenticableUserModelAttributes {
  *
  * Represents a user in the database.
  */
-export default class User extends AuthenticableUserModel {
+export default class User extends BaseUserModel {
 
     public static PASSWORD = 'password';
 
@@ -56,8 +56,8 @@ export default class User extends AuthenticableUserModel {
     }
     
     protected casts?: Record<string, TCastableType> | undefined = {
-        [User.ROLES]: 'array',
-        [User.GROUPS]: 'array',
+        [User.ACL_GROUPS]: 'array',
+        [User.ACL_ROLES]: 'array',
         [User.CREATED_AT]: 'date',
         [User.UPDATED_AT]: 'date',
     }
@@ -70,8 +70,8 @@ export default class User extends AuthenticableUserModel {
     guarded: string[] = [
         User.HASHED_PASSWORD,
         User.PASSWORD,
-        User.ROLES,
-        User.GROUPS,
+        User.ACL_GROUPS,
+        User.ACL_ROLES,
     ];
 
     /**
@@ -84,8 +84,8 @@ export default class User extends AuthenticableUserModel {
         // fields required by AuthenticableUser
         User.EMAIL,
         User.HASHED_PASSWORD,
-        User.ROLES,
-        User.GROUPS,
+        User.ACL_GROUPS,
+        User.ACL_ROLES,
         
         // fields required by User
         User.PASSWORD, // temporary field
@@ -110,7 +110,7 @@ export default class User extends AuthenticableUserModel {
      * 
      * @returns The factory for the model.
      */
-    getFactory(): IModelFactory<User> {
+    getFactory(): IModelFactory<IAuthenticableUserModel> {
         return new UserFactory();
     }
 

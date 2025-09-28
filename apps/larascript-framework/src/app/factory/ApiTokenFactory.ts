@@ -1,12 +1,6 @@
-import { BaseModelFactory } from "@larascript-framework/larascript-database";
-import ApiToken, { ApiTokenAttributes } from "../models/auth/ApiToken.js";
+import { ApiTokenAttributes, ApiTokenFactory as BaseApiTokenFactory } from "@larascript-framework/larascript-auth";
 
-class ApiTokenFactory extends BaseModelFactory<ApiToken> {
-
-    constructor() {
-        super(ApiToken);
-    }
-
+class ApiTokenFactory extends BaseApiTokenFactory { 
     getDefinition(): ApiTokenAttributes {
         return {
             userId: '',

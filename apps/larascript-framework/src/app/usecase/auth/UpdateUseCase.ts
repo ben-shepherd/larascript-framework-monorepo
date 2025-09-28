@@ -1,9 +1,8 @@
 import UpdateUserValidator from "@/app/validators/user/UpdateUserValidator.js";
-import HttpContext from "@/core/domains/http/context/HttpContext.js";
-import ApiResponse from "@/core/domains/http/response/ApiResponse.js";
 import { auth } from "@/core/services/AuthService.js";
 import { UnauthorizedException } from "@larascript-framework/larascript-auth";
 import { IModel } from "@larascript-framework/larascript-database";
+import { ApiResponse, HttpContext } from "@larascript-framework/larascript-http";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
 
 /**

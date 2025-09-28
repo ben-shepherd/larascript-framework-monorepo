@@ -1,13 +1,11 @@
-import authRoutes from "@/app/routes/auth.js";
-import { authConfig, IExtendedAuthConfig } from "@/config/auth.config.js";
-import BaseRoutesProvider from "@/core/domains/http/providers/BaseRoutesProvider.js";
-import healthRoutes from "@/core/domains/http/routes/healthRoutes.js";
+import healthRoutes from "@/app/routes/health.js";
+import BaseRoutesProvider from "@/core/http/abstract/BaseRoutesProvider.js";
+
 import { app } from "@/core/services/App.js";
+import { AuthRoutesService } from "@larascript-framework/larascript-auth-routes";
 
 
 class RoutesProvider extends BaseRoutesProvider {
-
-    protected authConfig: IExtendedAuthConfig = authConfig;
 
     /**
      * Registers the routes to the express service
@@ -18,7 +16,7 @@ class RoutesProvider extends BaseRoutesProvider {
         
         // Bind routes
         httpService.bindRoutes(healthRoutes);
-        httpService.bindRoutes(authRoutes(this.authConfig))
+        httpService.bindRoutes(AuthRoutesService.getInstance().getRouter())
         // httpService.bindRoutes(CsrfMiddleware.getRouter())
         // httpService.bindRoutes(apiRoutes);
 

@@ -1,13 +1,7 @@
-import IHttpConfig from "@/core/domains/http/interfaces/IHttpConfig.js";
-import BasicLoggerMiddleware from "@/core/domains/http/middleware/BasicLoggerMiddleware.js";
-import SecurityMiddleware from "@/core/domains/http/middleware/SecurityMiddleware.js";
-import ValidatorMiddleware from "@/core/middleware/ValidatorMiddleware.js";
+import { IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
-import cors from 'cors';
-import expressBusboy from 'express-busboy';
-import path from 'path';
 
-const config: IHttpConfig = {
+const config: IHttpServiceConfig = {
 
     /**
      * Enable Express
@@ -24,35 +18,20 @@ const config: IHttpConfig = {
      */
     beforeAllMiddlewares: [
 
-        /**
-         * Larascript required middlewares
-         */
-        cors(),
-        BasicLoggerMiddleware,
-        SecurityMiddleware,
-        // CsrfMiddleware,
-
-        /**
-         * Add your custom middlewares below
-         */
     ],
 
     /**
      * Global middleware to run after every other middleware
      */
     afterAllMiddlewares: [
-        ValidatorMiddleware,
+        
     ],
 
     /**
      * Extend the express app
      */
     extendExpress: (app) => {
-        expressBusboy.extend(app, {
-            upload: true,
-            path: path.join(process.cwd(), 'storage', 'tmp'),
-            allowedPath: /./
-        })
+
     },
 
     /**
@@ -78,14 +57,6 @@ const config: IHttpConfig = {
             '/auth/refresh',
         ]
     },
-
-    /**
-     * Logging
-     */
-    logging: {
-        requests: parseBooleanFromString(process.env.ENABLE_REQUEST_LOGGING, 'true'),
-        boundRouteDetails: parseBooleanFromString(process.env.ENABLE_BOUND_ROUTE_DETAILS, 'true')
-    }
 
 };
 

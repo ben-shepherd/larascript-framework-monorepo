@@ -1,7 +1,7 @@
 import WelcomeController from "@/app/controllers/WelcomeController.js"
-import Route from "@/core/domains/http/router/Route.js"
+import { HttpRouter } from "@larascript-framework/larascript-http"
 
-export default Route.group(router => {
+export default new HttpRouter().group(router => {
 
     router.get('/', WelcomeController)
     

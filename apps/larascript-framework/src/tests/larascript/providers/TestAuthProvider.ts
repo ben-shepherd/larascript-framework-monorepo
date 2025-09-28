@@ -1,17 +1,17 @@
 import ApiTokenFactory from "@/app/factory/ApiTokenFactory.js";
-import AuthenticableUserFactory from "@/app/factory/AuthenticableUserFactory.js";
 import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
 import UserRepository from "@/app/repositories/UserRepository.js";
 import { GROUPS, ROLES } from "@/config/acl.config.js";
-import { IExtendedAuthConfig } from "@/config/auth.config.js";
 import AuthProvider from "@/core/providers/AuthProvider.js";
+import { IHttpAuthRoutesConfig } from "@larascript-framework/contracts/auth";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
+import { AuthenticableUserFactory } from "@larascript-framework/larascript-auth";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
 
 
 export default class TestAuthProvider extends AuthProvider {
 
-    protected config: IExtendedAuthConfig = {
+    protected config: IHttpAuthRoutesConfig = {
         drivers: {
             jwt: {
                 name: 'jwt',

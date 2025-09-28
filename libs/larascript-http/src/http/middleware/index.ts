@@ -1,4 +1,5 @@
 export * from "./AsyncSessionMiddleware.js";
+export * from "./AuthorizeMiddleware.js";
 export * from "./BasicLoggerMiddleware.js";
 export * from "./CsrfMiddlware.js";
 export * from "./EndRequestContextMiddleware.js";

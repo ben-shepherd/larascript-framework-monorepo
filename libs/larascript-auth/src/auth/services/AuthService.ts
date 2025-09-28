@@ -82,7 +82,7 @@ export class AuthService
       new JwtAuthService(
         this.config.drivers.jwt,
         this.aclService,
-        this.asyncSession,
+        this,
       ),
     );
 

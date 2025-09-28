@@ -9,6 +9,7 @@ import {
   IApiTokenFactory,
   IApiTokenModel,
   IApiTokenRepository,
+  IAuthService,
   IJwtAuthService,
   IJwtConfig,
   IOneTimeAuthenticationService,
@@ -62,15 +63,15 @@ export class JwtAuthService
   constructor(
     config: IJwtConfig,
     aclService: IBasicACLService,
-    asyncSession: IAsyncSessionService,
+    authService: IAuthService,
   ) {
     super(config, aclService);
-
     this.userRepository = new this.config.options.repository.user();
     this.apiTokenRepository = new this.config.options.repository.apiToken();
     this.cryptoService = new CryptoService({
       secretKey: config.options.secret,
     });
+    this._oneTimeService.setAuthService(authService);
   }
 
   /**

@@ -23,7 +23,15 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
             ...config,
         }
         return TestHttpEnvironment.getInstance(config)
+            .withDisableErrorHandlers()
             .createHttpService();
+    }
+
+    static getBaseUrl() {
+        if(typeof HttpEnvironment.getInstance().httpService.getPort() !== 'number') {
+            throw new Error('Http service port is not set. Did you forget to boot?');
+        }
+        return `http://localhost:${HttpEnvironment.getInstance().httpService.getPort()}`;
     }
 
     withCsrf() {
@@ -49,19 +57,34 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
             ...this.httpServiceConfig,
             ...config,
         }
+        this.createHttpService();
+        return this;
+    }
+
+    withDisableErrorHandlers() {
+        this.httpServiceConfig = {
+            ...this.httpServiceConfig,
+            disableErrorHandlers: true,
+        }
+        return this;
+    }
+
+    withEnableErrorHandlers() {
+        this.httpServiceConfig = {
+            ...this.httpServiceConfig,
+            disableErrorHandlers: false,
+        }
         return this;
     }
 
     createHttpService() {
         HttpEnvironment.getInstance(this.config!).httpService = new HttpService({
-            ...this.httpServiceConfig
+            ...this.httpServiceConfig,
         });
         return this;
     }
 
     async boot() {
-
-
         await DatabaseEnvironment.create({
             boot: this.config!.databaseConfigured,
         }).boot();
@@ -98,6 +121,7 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
 
         await AuthEnvironment.create(authEnvirnonmentConfig).boot();
 
+        this.createHttpService();
         await HttpEnvironment.getInstance(this.config!).boot();
     }
 

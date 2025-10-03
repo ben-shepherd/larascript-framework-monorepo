@@ -1,20 +1,18 @@
 import { describe } from "@jest/globals";
-import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
 import { TestHttpEnvironment } from "./helpers/TestHttpEnvironment.js";
 
 const headers = {
     "Content-Type": "application/json",
 }
 
-describe("resources create test suite", () => {
-    let serverPort: number;
-
+describe("404 test suite", () => {
     describe("error handlers", () => {
         test("should return a 404 error when a route is not found", async () => {
-            await TestHttpEnvironment.create().boot();
-            serverPort = HttpEnvironment.getInstance().httpService.getPort()!;
+            await TestHttpEnvironment.create()
+            .withEnableErrorHandlers()
+            .boot();
 
-            const response = await fetch(`http://localhost:${serverPort}/not-found`, {
+            const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/not-found`, {
                 method: 'GET',
                 headers: headers,
             });
@@ -26,6 +24,7 @@ describe("resources create test suite", () => {
 
         test("should return a customized 404 error when configured", async () => {
             await TestHttpEnvironment.create()
+            .withEnableErrorHandlers()
             .withHttpServiceConfig({
                 errorHandlers: {
                     notFoundHandler: (req, res, next) => {
@@ -34,9 +33,8 @@ describe("resources create test suite", () => {
                 },
             })
             .boot();
-            serverPort = HttpEnvironment.getInstance().httpService.getPort()!;
 
-            const response = await fetch(`http://localhost:${serverPort}/not-found`, {
+            const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/not-found`, {
                 method: 'GET',
                 headers: headers,
             });

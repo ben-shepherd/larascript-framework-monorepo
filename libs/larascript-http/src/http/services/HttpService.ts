@@ -209,6 +209,10 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
             throw new Error('Config not provided')
         }
 
+        if(this.config.disableErrorHandlers) {
+            return
+        }
+
         const errorHandler = baseErrorHandler(this.config)
         const notFoundHandler = baseNotFoundHandler(this.config)
 

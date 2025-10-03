@@ -1,9 +1,8 @@
 import Middleware from "@/http/base/Middleware.js";
 import HttpContext from "@/http/context/HttpContext.js";
 import HttpRouter from "@/http/router/HttpRouter.js";
-import HttpService from "@/http/services/HttpService.js";
 import { beforeEach, describe, expect, test } from "@jest/globals";
-import { MiddlewareConstructor } from "@larascript-framework/contracts/http";
+import { IHttpService, MiddlewareConstructor } from "@larascript-framework/contracts/http";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { Request, Response } from "express";
 import { HttpEnvironment } from "../http/environment/HttpEnvironment.js";
@@ -31,8 +30,7 @@ class MiddlewareSingleton extends BaseSingleton {
 }
 
 describe("httpService test suite", () => {
-    let httpService: HttpService;
-    let serverPort: number;
+    let httpService: IHttpService;
     let beforeAllMiddleware: MiddlewareConstructor;
     let requestMiddleware: MiddlewareConstructor;
     let afterAllMiddleware: MiddlewareConstructor;
@@ -61,23 +59,16 @@ describe("httpService test suite", () => {
         }
         
         await TestHttpEnvironment.create()
-            .withHttpServiceConfig({
-                beforeAllMiddlewares: [beforeAllMiddleware],
-                afterAllMiddlewares: [afterAllMiddleware],
-            })
+        .withHttpServiceConfig({
+            beforeAllMiddlewares: [beforeAllMiddleware],
+            afterAllMiddlewares: [afterAllMiddleware],
+        })
         .boot();
 
-        httpService = HttpEnvironment.getInstance().httpService as HttpService;
-
-        // Get the actual port the server is listening on
-        serverPort = httpService.getPort()!;
-
+        httpService = HttpEnvironment.getInstance().httpService;
         MiddlewareSingleton.getInstance().resetCounter();
     });
 
-    afterEach(async () => {
-        httpService.close();
-    });
 
     describe('middleware', () => {
         test("middlewares should be executed in the correct order", async () => {
@@ -91,7 +82,7 @@ describe("httpService test suite", () => {
             });
             httpService.useRouterAndApply(router);
 
-            const response = await fetch(`http://localhost:${serverPort}/test`, {
+            const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/test`, {
                 method: 'GET',
             });
             const body = await response.json() as { message: string };

@@ -15,6 +15,7 @@ describe("resources create test suite", () => {
     describe("error handlers", () => {
         test("should return a 500 error when a route is not found", async () => {
             TestHttpEnvironment.create()
+                .withEnableErrorHandlers()
 
             const controller = class extends Controller {
                 invoke() {
@@ -49,7 +50,6 @@ describe("resources create test suite", () => {
                     },
                 },
             })
-            .createHttpService()
 
             const router = new HttpRouter();
             router.get('/error', (req: Request, res: Response, next?: NextFunction) => {

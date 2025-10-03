@@ -7,7 +7,7 @@ import { IRoute, IRouter, TRouteItem } from "./IRouter.js";
 export interface IHttpService {
     init(): void;
     boot(): Promise<void>;
-    testUseRouterAndBoot(route: IRouter): void;
+    useRouterAndApply(route: IRouter): void;
     useRouter(route: IRouter): void;
     getExpress(): express.Express;
     listen(): Promise<void>;

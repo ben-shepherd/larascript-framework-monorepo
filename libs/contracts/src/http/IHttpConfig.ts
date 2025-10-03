@@ -16,7 +16,8 @@ export interface IHttpServiceConfig {
     errorHandlers?: {
         notFoundHandler?: (req: Request, res: Response, next: NextFunction) => void;
         errorHandler?: (err: Error, req: Request, res: Response, next: NextFunction) => void;
-    }
+    },
+    disableErrorHandlers?: boolean;
 }
 
 export default IHttpServiceConfig

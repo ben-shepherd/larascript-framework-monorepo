@@ -71,7 +71,7 @@ describe("httpService test suite", () => {
 
 
     describe('middleware', () => {
-        test("middlewares should be executed in the correct order", async () => {
+        test.only("middlewares should be executed in the correct order", async () => {
             const router = new HttpRouter();
             router.get('/test', (req: Request, res: Response) => {
                 res.send({

@@ -121,7 +121,6 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
 
         await AuthEnvironment.create(authEnvirnonmentConfig).boot();
 
-        this.createHttpService();
         await HttpEnvironment.getInstance(this.config!).boot();
     }
 

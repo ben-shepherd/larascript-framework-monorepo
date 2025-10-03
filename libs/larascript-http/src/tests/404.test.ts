@@ -10,6 +10,7 @@ describe("404 test suite", () => {
         test("should return a 404 error when a route is not found", async () => {
             await TestHttpEnvironment.create()
             .withEnableErrorHandlers()
+            .createHttpService()
             .boot();
 
             const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/not-found`, {

@@ -9,13 +9,12 @@ const headers = {
     "Content-Type": "application/json",
 }
 
-describe("resources create test suite", () => {
-    let serverPort: number;
-
+describe("500 test suite", () => {
     describe("error handlers", () => {
         test("should return a 500 error when a route is not found", async () => {
             TestHttpEnvironment.create()
                 .withEnableErrorHandlers()
+                .createHttpService()
 
             const controller = class extends Controller {
                 invoke() {
@@ -28,12 +27,12 @@ describe("resources create test suite", () => {
 
             HttpEnvironment.getInstance().httpService.useRouter(router);
             await TestHttpEnvironment.getInstance().boot();
-            serverPort = HttpEnvironment.getInstance().httpService.getPort()!;
 
-            const response = await fetch(`http://localhost:${serverPort}/error`, {
+            const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/error`, {
                 method: 'GET',
                 headers: headers,
             });
+
             const body = await response.json() as { error: string, stack: string[] };
 
             expect(response.status).toBe(500);
@@ -58,9 +57,8 @@ describe("resources create test suite", () => {
 
             HttpEnvironment.getInstance().httpService.useRouter(router);
             await TestHttpEnvironment.getInstance().boot();
-            serverPort = HttpEnvironment.getInstance().httpService.getPort()!;
 
-            const response = await fetch(`http://localhost:${serverPort}/error`, {
+            const response = await fetch(`${TestHttpEnvironment.getBaseUrl()}/error`, {
                 method: 'GET',
                 headers: headers,
             });

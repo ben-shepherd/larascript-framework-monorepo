@@ -1,24 +1,32 @@
-# Larascript HTTP Framework Documentation
+# Larascript HTTP Documentation
 
-The Larascript HTTP Framework is a comprehensive framework for building RESTful APIs in the Larascript Framework ecosystem. It provides a robust set of tools and features for building APIs, including routing, middleware, validation, and more. It is designed to be used in conjunction with the Larascript Framework.
+The Larascript HTTP package is a comprehensive library for building RESTful APIs in the Larascript Framework ecosystem. It provides a robust set of tools and features for building APIs, including routing, middleware, validation, and more. It is designed to be used in conjunction with the Larascript Framework.
 
-- [HTTP Environment](./environment.md)
-- [Routes](./routes.md)
-- [Controller](./controller.md)
-- [Context](./context.md)
-- [Resource routes](./resource-routes.md)
-- [Middleware](./middleware.md)
-- [Security](./security.md)
-- [Configuration](./configuration.md)
+## Setup
 
-## Testing
+- [Environment](./setup/environment.md)
+- [Configuration](./setup/configuration.md)
 
-- [HTTP testing guide](../../docs/testing/http-testing.md)
+## Routing Lifecycle
 
-## TODO
+- [Routing](./lifecycle/routes.md)
+- [Controllers](./lifecycle/controller.md)
+- [Resource Routes](./lifecycle/resource-routes.md)
+- [Middleware](./lifecycle/middleware.md)
+- [Http Context](./lifecycle/context.md)
 
-- [Package TODO](./todo.md)
+## Security
 
-## Future plans
+- [Security Rules](./security/security-rules.md)
+- [Authorization Middleware](./security/authorization-middleware.md)
+- [Validation Middleware](./security/validation-middleware.md)
 
-- [Future Plans](./future-plans.md)
+## Request Sessions
+
+- [Async Local Storage](./sessions/async-local-storage.md)
+- [Request Context](./sessions/request-context.md)
+
+## Error Handling
+
+- [Error Handling](./error-handling/error-handling.md)
+- [Customize Error Handling](./error-handling/customize-error-handling.md)

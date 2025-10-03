@@ -1,6 +1,6 @@
 # AsyncLocalStorage
 
-The Larascript HTTP framework supports using Node.js's [`async_hooks`](https://nodejs.org/api/async_context.html#class-asynclocalstorage) to provide true per-request context isolation, even across asynchronous boundaries. This is an alternative to the default in-memory request context, and is especially useful for advanced scenarios such as:
+The Larascript HTTP package supports using Node.js's [`async_hooks`](https://nodejs.org/api/async_context.html#class-asynclocalstorage) to provide true per-request context isolation, even across asynchronous boundaries. This is an alternative to the default in-memory request context, and is especially useful for advanced scenarios such as:
 
 - **Storing request-scoped data** that needs to be accessible anywhere in the call stack, including in services, database hooks, or background jobs triggered by the request.
 - **Correlating logs or traces** with the current request.

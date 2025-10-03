@@ -1,6 +1,6 @@
 # Controllers
 
-Controllers in the Larascript HTTP framework are responsible for handling incoming HTTP requests, processing them, and returning appropriate responses. They act as an intermediary between the routes and the business logic of your application.
+Controllers in the Larascript HTTP package are responsible for handling incoming HTTP requests, processing them, and returning appropriate responses. They act as an intermediary between the routes and the business logic of your application.
 
 ## Creating a Controller
 
@@ -90,4 +90,4 @@ The `Controller` class provides several methods to facilitate handling HTTP requ
 
 ## Conclusion
 
-Controllers are a fundamental part of the Larascript HTTP framework, enabling you to organize your application's logic and handle HTTP requests efficiently. By following best practices, you can create maintainable and scalable applications.
+Controllers are a fundamental part of the Larascript HTTP package, enabling you to organize your application's logic and handle HTTP requests efficiently. By following best practices, you can create maintainable and scalable applications.

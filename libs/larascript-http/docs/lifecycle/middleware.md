@@ -32,3 +32,18 @@ Notes:
 - You can attach middlewares at the group level via `router.group({ middlewares: [...] }, cb)`.
 
 
+## Sample Middleware
+
+Here's an example of a custom middleware that logs the request method and URL:
+
+```ts
+
+class LoggerMiddleware extends Middleware {
+  async execute(context: HttpContext) {
+    console.log(`${context.getRequest().method}: ${context.getRequest().url}`);
+    this.next();
+  }
+}
+```
+
+**Important:** Always call `this.next()` to continue the middleware chain. Without calling `this.next()`, the request will hang and the response will not be sent.

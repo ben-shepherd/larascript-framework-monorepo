@@ -25,24 +25,17 @@ router.resource({
   validation: { create: CreatePostValidator, update: UpdatePostValidator },
   only: ['index', 'show', 'create', 'update', 'delete']
 });
-
 ```
 
 Generated routes:
-- `GET /` → index
-- `GET /:id` → show
-- `POST /` → create
-- `PUT /:id` → update
-- `DELETE /:id` → delete
+- `GET /` → index (Lists all resources)
+- `GET /:id` → show (Shows a single resource)
+- `POST /` → create (Creates a new resource)
+- `PUT /:id` → update (Updates a single resource)
+- `DELETE /:id` → delete (Deletes a single resource)
 
 Notes:
 - `security` and `middlewares` merge with any parent group.
 - `scopes` are combined per action type.
 - `only` limits which endpoints are created.
-
-Testing highlights:
-- Sorting supports multiple fields and directions. Example: `[{ field: 'age', sortDirection: 'asc' }]`.
-- Fuzzy filtering supports `%` patterns in string fields (e.g., `{ name: 'A%' }`).
-- Pagination: `getResourcesPage(query, page, pageSize, sorting?)` returns a page of results respecting sort and filters.
-
-
+- `datasource.modelConstructor` will only be available if the `Database` service is available. Otherwise, you should provide your own implementation of the `repository` property.

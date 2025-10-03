@@ -1,35 +1,5 @@
-## Http Context
-
-`HttpContext` wraps Express `req`, `res`, and the current route. Use it inside controllers and middlewares.
-
-Key methods:
-- `getRequest()`, `getResponse()`, `getNext()`
-- `getId()` request ID
-- `getUser()`, `getUserOrFail()`, `getApiToken()`
-- `getParams()`, `getParam(k)`, `getQueryParams()`, `getQueryParam(k)`, `getBody()`
-- `getRouteItem()` current route metadata
-- `resourceContext` helper for resource routes
-- Request/IP context: `setContext(k,v)`, `getByRequest(k)`, `setIpContext(k,v,ttl?)`, `getIpContext(k)`
-- File uploads: `getFile(key)`, `getFiles(key)`, `uploadFile(file)`
-- Validation body: `getValidatorBody()`
-
-Security helpers (when Auth is configured):
-- `getUserRoles()` returns roles for current user
-- `hasScopes(scopes, exactMatch?)`
-
-Example in a controller action:
-```ts
-class UsersController extends Controller {
-  async show() {
-    const id = this.context.getParam('id');
-    // ...
-  }
-}
-```
 
 ## Request Context
-
-(See alternative [AsyncLocalStorage](./async-local-storage.md))
 
 The request context is a mechanism for storing and retrieving data that is scoped to the current HTTP request or to the client's IP address. This is useful for sharing data between middlewares, controllers, or other parts of the request lifecycle without polluting the request object directly.
 

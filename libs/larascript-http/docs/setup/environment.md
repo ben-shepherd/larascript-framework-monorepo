@@ -4,28 +4,16 @@
 
 ## Table of contents
 
-- [What it does](#what-it-does)
+- [Summary](#summary)
 - [Boot lifecycle](#boot-lifecycle)
 - [Configuration](#configuration)
 - [Using with or without Auth/Database](#using-with-or-without-authdatabase)
 - [Quick start](#quick-start)
 - [Disable Auth/Database (custom security)](#disable-authdatabase-custom-security)
 
-### What it does
-- Boots the configured `IHttpService` by calling `init()` then `listen()`.
-- Creates a per-request context via `RequestContext`.
-- Initializes logging (uses a provided `ILoggerService` or creates a default `LoggerService`).
-- Configures uploads using `HttpFileSystemUploader` with a configurable uploads directory.
-- Exposes convenient getters for framework services: Auth, Database, Query Builder and Async Session.
+### Summary
 
-### Boot lifecycle
-1. Instantiate or get the singleton via `HttpEnvironment.create(httpService, config)`.
-2. `setupLoggerService()` ensures a logger is ready.
-3. `setUploadDirectory()` prepares the uploads handler.
-4. `httpService.init()` runs server initialization.
-5. `httpService.listen()` starts accepting requests.
-
-To gracefully stop, call `close()` which closes the underlying `httpService`.
+Creates the HTTP server, sets up request context, logging, and file uploads, and bridges to framework services like Auth and Database when available.
 
 ### Configuration
 Defaults used when not provided:

@@ -141,7 +141,7 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
         this.setUploadDirectory();
 
         await this.httpService.init();
-        await this.httpService.listen();
+        await this.httpService.boot();
         this.booted = true;
 
         /**

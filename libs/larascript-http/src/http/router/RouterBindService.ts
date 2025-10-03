@@ -5,6 +5,7 @@ import Controller from '../base/Controller.js';
 import Middleware from '../base/Middleware.js';
 import HttpContext from '../context/HttpContext.js';
 import RouteException from '../exceptions/RouteException.js';
+import { baseErrorHandler } from '../handlers/baseErrorHandler.js';
 import SecurityMiddleware from '../middleware/SecurityMiddleware.js';
 import MiddlewareUtil from '../utils/middlewareUtil.js';
 
@@ -261,7 +262,16 @@ export class RouterBindService {
      */
     protected wrapWithHttpContext(executeFn: ExecuteFn, routeItem: TRouteItem): TExpressMiddlewareFn {
         return async (req: expressClient.Request, res: expressClient.Response, next: expressClient.NextFunction | undefined) => {
-            await executeFn(new HttpContext(req as TBaseRequest, res, next, routeItem))
+            try {
+                await executeFn(new HttpContext(req as TBaseRequest, res, next, routeItem))
+
+                if(!res.headersSent) {
+                    res.send(200)
+                }
+
+            } catch (error) {
+                baseErrorHandler(this.config!)(error as Error, req, res, next ?? (() => {}))
+            }
         }
     }
 

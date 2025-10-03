@@ -22,7 +22,8 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
             ...TEST_HTTP_ENVIRONMENT_DEFAULTS,
             ...config,
         }
-        return TestHttpEnvironment.getInstance(config);
+        return TestHttpEnvironment.getInstance(config)
+            .createHttpService();
     }
 
     withCsrf() {
@@ -51,7 +52,16 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
         return this;
     }
 
+    createHttpService() {
+        HttpEnvironment.getInstance(this.config!).httpService = new HttpService({
+            ...this.httpServiceConfig
+        });
+        return this;
+    }
+
     async boot() {
+
+
         await DatabaseEnvironment.create({
             boot: this.config!.databaseConfigured,
         }).boot();
@@ -88,12 +98,7 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
 
         await AuthEnvironment.create(authEnvirnonmentConfig).boot();
 
-        await HttpEnvironment.create(
-            new HttpService({
-                ...this.httpServiceConfig
-            }),
-            this.config!
-        ).boot();
+        await HttpEnvironment.getInstance(this.config!).boot();
     }
 
 }

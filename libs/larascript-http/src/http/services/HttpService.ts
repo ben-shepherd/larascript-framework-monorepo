@@ -4,11 +4,20 @@ import expressClient from 'express';
 import http from 'http';
 import Middleware from '../base/Middleware.js';
 import { baseConfig } from '../config/base.config.js';
+import { baseErrorHandler } from '../handlers/baseErrorHandler.js';
+import { baseNotFoundHandler } from '../handlers/baseNotFoundHandler.js';
 import AsyncSessionMiddleware from '../middleware/AsyncSessionMiddleware.js';
 import EndRequestContextMiddleware from '../middleware/EndRequestContextMiddleware.js';
 import RequestIdMiddleware from '../middleware/RequestIdMiddleware.js';
 import Route from '../router/Route.js';
 import RouterBindService from '../router/RouterBindService.js';
+
+/**
+ * TODO: 
+ * - add useErrorHandlers method
+ * - refactor errorHandlers into base methods
+ * - add config options so user can expand on errorHandlers
+ */
 
 /**
  * ExpressService class
@@ -77,7 +86,8 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
      */
     async boot(): Promise<void> {
         this.applyUseRouters()
-        
+        this.useErrorHandlers()
+
         await this.listen()
     }
 
@@ -189,6 +199,21 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
     protected applySingleRouter(router: IRouter) {
         this.routerBindService.bindRoutes(router)
         this.registeredRoutes.push(...router.getRegisteredRoutes())
+    }
+
+    /**
+     * Applies the error handlers to the Express instance.
+     */
+    protected useErrorHandlers() {
+        if(!this.config) {
+            throw new Error('Config not provided')
+        }
+
+        const errorHandler = baseErrorHandler(this.config)
+        const notFoundHandler = baseNotFoundHandler(this.config)
+
+        this.app.use(errorHandler)
+        this.app.use(notFoundHandler)
     }
 
     /**

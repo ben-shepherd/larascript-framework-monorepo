@@ -59,7 +59,6 @@ describe("httpService test suite", () => {
             });
 
             httpService.useRouterAndApply(router);
-            await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -83,7 +82,6 @@ describe("httpService test suite", () => {
             router.get('/test', controller);
 
             httpService.useRouterAndApply(router);
-            await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -107,7 +105,6 @@ describe("httpService test suite", () => {
             router.get('/test', [controller, 'testMethod']);
 
             httpService.useRouterAndApply(router);
-            await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',

@@ -54,7 +54,7 @@ describe("one time token middleware test suite", () => {
                     OneTimeTokenMiddleware
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 headers: {

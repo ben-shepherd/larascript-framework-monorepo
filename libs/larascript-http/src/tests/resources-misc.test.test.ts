@@ -49,7 +49,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -91,7 +91,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'GET',
@@ -128,7 +128,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
@@ -170,7 +170,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -210,7 +210,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -238,7 +238,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -278,7 +278,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test?page=1&pageSize=2`, {
                 method: 'GET',
@@ -310,7 +310,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test?page=100`, {
                 method: 'GET',

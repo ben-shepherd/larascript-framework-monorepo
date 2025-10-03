@@ -77,7 +77,7 @@ describe("config test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',

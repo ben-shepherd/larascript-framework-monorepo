@@ -54,7 +54,7 @@ describe("security test suite", () => {
                 ],
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
@@ -82,7 +82,7 @@ describe("security test suite", () => {
             router.get('/test', controller, {
                 security: [router.security().rateLimited(1, 60)]
             });
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -127,7 +127,7 @@ describe("security test suite", () => {
                 security: security,
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
@@ -167,7 +167,7 @@ describe("security test suite", () => {
                 security: security,
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {

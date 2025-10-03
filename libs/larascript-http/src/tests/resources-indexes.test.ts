@@ -54,7 +54,7 @@ describe("resources indexes test suite", () => {
                     MockAuthorizeMiddleware,
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -89,7 +89,7 @@ describe("resources indexes test suite", () => {
                     modelConstructor: MockModel,
                 },
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -120,7 +120,7 @@ describe("resources indexes test suite", () => {
                     MockAuthorizeMiddleware,
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -160,7 +160,7 @@ describe("resources indexes test suite", () => {
                     MockAuthorizeMiddleware,
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -202,7 +202,7 @@ describe("resources indexes test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -249,7 +249,7 @@ describe("resources indexes test suite", () => {
                     fields: ['name'],
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const queryParams = '?filters[name]=Test';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
@@ -304,7 +304,7 @@ describe("resources indexes test suite", () => {
                     fields: ['name'],
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const queryParams = '?filters[name]=Jane';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
@@ -370,7 +370,7 @@ describe("resources indexes test suite", () => {
                     allowPageSizeOverride: true,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const queryParams = '?page=1&pageSize=1';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
@@ -434,7 +434,7 @@ describe("resources indexes test suite", () => {
                     allowPageSizeOverride: true,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const queryParams = '?page=1&pageSize=2';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {
@@ -482,7 +482,7 @@ describe("resources indexes test suite", () => {
                     defaultDirection: 'asc',
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -548,7 +548,7 @@ describe("resources indexes test suite", () => {
                     defaultDirection: 'asc',
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const queryParams = '?sort[age]=asc';
             const response = await fetch(`http://localhost:${serverPort}/test${queryParams}`, {

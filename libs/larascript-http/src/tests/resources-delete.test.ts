@@ -51,7 +51,7 @@ describe("resources delete test suite", () => {
                     modelConstructor: MockModel,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'DELETE',
@@ -80,7 +80,7 @@ describe("resources delete test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'DELETE',
@@ -120,7 +120,7 @@ describe("resources delete test suite", () => {
                     delete: createValidator,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'DELETE',
@@ -160,7 +160,7 @@ describe("resources delete test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'DELETE',
@@ -193,7 +193,7 @@ describe("resources delete test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'DELETE',

@@ -67,7 +67,7 @@ describe("authorize middleware test suite", () => {
                     AuthorizeMiddleware
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -100,7 +100,7 @@ describe("authorize middleware test suite", () => {
                     AuthorizeMiddleware
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',

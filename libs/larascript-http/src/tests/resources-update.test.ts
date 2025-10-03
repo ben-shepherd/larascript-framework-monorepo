@@ -51,7 +51,7 @@ describe("resources test suite", () => {
                     modelConstructor: MockModel,
                 },
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
@@ -82,7 +82,7 @@ describe("resources test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
@@ -133,7 +133,7 @@ describe("resources test suite", () => {
                     update: createValidator,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
@@ -177,7 +177,7 @@ describe("resources test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',
@@ -223,7 +223,7 @@ describe("resources test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'PUT',

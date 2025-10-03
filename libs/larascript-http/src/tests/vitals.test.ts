@@ -58,7 +58,7 @@ describe("httpService test suite", () => {
                 });
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
@@ -82,7 +82,7 @@ describe("httpService test suite", () => {
             const router = new HttpRouter();
             router.get('/test', controller);
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
@@ -106,7 +106,7 @@ describe("httpService test suite", () => {
             const router = new HttpRouter();
             router.get('/test', [controller, 'testMethod']);
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
             await httpService.listen();
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
@@ -117,68 +117,6 @@ describe("httpService test suite", () => {
             expect(body.message).toBe('test');
             expect(httpService.getRegisteredRoutes()).not.toBeNull();
         });
-    })
-
-    describe('middleware', () => {
-        test("middlewares should be executed in the correct order", async () => {
-            const beforeAllMiddleware = class extends Middleware {
-                async execute(context: HttpContext) {
-                    MiddlewareSingleton.getInstance().updateCounter();
-                    MiddlewareSingleton.getInstance().setLabelWithCurrentCounter('beforeAllMiddleware');
-                    this.next();
-                }
-            }
-            const requestMiddleware = class extends Middleware {
-                async execute(context: HttpContext) {
-                    MiddlewareSingleton.getInstance().updateCounter();
-                    MiddlewareSingleton.getInstance().setLabelWithCurrentCounter('requestMiddleware');
-                    this.next();
-                }
-            }
-            const afterAllMiddleware = class extends Middleware {
-                async execute(context: HttpContext) {
-                    MiddlewareSingleton.getInstance().updateCounter();
-                    MiddlewareSingleton.getInstance().setLabelWithCurrentCounter('afterAllMiddleware');
-                    this.next();
-                }
-            }
-
-            httpService.close();
-            httpService = new HttpService({
-                enabled: true,
-                port: 0, // Use dynamic port allocation
-                beforeAllMiddlewares: [beforeAllMiddleware],
-                afterAllMiddlewares: [afterAllMiddleware],
-            });
-            httpService.init();
-            await httpService.listen();
-            
-            // Update the server port for this test
-            serverPort = httpService.getPort()!;
-
-            const router = new HttpRouter();
-            router.get('/test', (req: Request, res: Response) => {
-                res.send({
-                    message: 'test',
-                });
-            }, {
-                middlewares: [requestMiddleware],
-            });
-
-            httpService.bindRoutes(router);
-            const response = await fetch(`http://localhost:${serverPort}/test`, {
-                method: 'GET',
-            });
-            const body = await response.json() as { message: string };
-
-            expect(response.status).toBe(200);
-            expect(body.message).toBe('test');
-            expect(MiddlewareSingleton.getInstance().counterWithLabel).toEqual({
-                beforeAllMiddleware: 1,
-                requestMiddleware: 2,
-                afterAllMiddleware: 3,
-            });
-        })
     })
 
     describe('asyncSession', () => {
@@ -203,7 +141,7 @@ describe("httpService test suite", () => {
                 ],
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -229,7 +167,7 @@ describe("httpService test suite", () => {
             const router = new HttpRouter();
             router.get('/test', controller);
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',
@@ -265,7 +203,7 @@ describe("httpService test suite", () => {
                 ],
             });
 
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'GET',

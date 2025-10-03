@@ -61,7 +61,7 @@ describe("validator middleware test suite", () => {
                     validatorConstructor
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -102,7 +102,7 @@ describe("validator middleware test suite", () => {
                     validatorConstructor
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -141,7 +141,7 @@ describe("validator middleware test suite", () => {
                     validatorConstructor
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',

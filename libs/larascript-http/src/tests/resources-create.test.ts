@@ -44,7 +44,7 @@ describe("resources create test suite", () => {
                     modelConstructor: MockModel,
                 },
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -69,7 +69,7 @@ describe("resources create test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -114,7 +114,7 @@ describe("resources create test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',
@@ -150,7 +150,7 @@ describe("resources create test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',

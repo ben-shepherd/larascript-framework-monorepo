@@ -54,7 +54,7 @@ describe("resources show test suite", () => {
                     MockAuthorizeMiddleware,
                 ]
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'GET',
@@ -88,7 +88,7 @@ describe("resources show test suite", () => {
                     modelConstructor: MockModel,
                 }
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'GET',
@@ -119,7 +119,7 @@ describe("resources show test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'GET',
@@ -162,7 +162,7 @@ describe("resources show test suite", () => {
                     router.security().resourceOwner('userId'),
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${model.getId()}`, {
                 method: 'GET',
@@ -183,7 +183,7 @@ describe("resources show test suite", () => {
                     MockAuthorizeMiddleware,
                 ],
             })
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test/${generateUuidV4()}`, {
                 method: 'GET',

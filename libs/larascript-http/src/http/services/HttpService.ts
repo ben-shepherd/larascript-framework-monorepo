@@ -27,6 +27,8 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
 
     protected registeredRoutes: TRouteItem[] = []
 
+    private routers: IRouter[] = []
+
     /**
      * Config defined in @/config/http/express.ts
      * @param config 
@@ -34,8 +36,61 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
     constructor(config: Partial<IHttpServiceConfig> | null = null) {
         super(config as IHttpServiceConfig)
         this.config = this.getConfigWithDefaults(config)
-        this.routerBindService = new RouterBindService()
         this.app = expressClient()
+        this.setupRouterBindService()
+    }
+
+    /**
+     * Sets up the RouterBindService
+     */
+    private setupRouterBindService() {
+        const beforeAllMiddlewares = [
+            RequestIdMiddleware.create(),
+            AsyncSessionMiddleware.create(),
+            EndRequestContextMiddleware.create(),
+            ...(this.config?.beforeAllMiddlewares ?? []),
+        ] as (expressClient.RequestHandler | TExpressMiddlewareFnOrClass)[]
+
+        const afterAllMiddlewares = [
+            ...(this.config?.afterAllMiddlewares ?? []),
+        ]
+
+        this.routerBindService = new RouterBindService()
+        this.routerBindService.setExpress(this.app, this.config)
+        this.routerBindService.setOptions({ beforeAllMiddlewares, afterAllMiddlewares })
+    }
+
+    /**
+     * Initializes the HttpService
+     */
+    public init() {
+        if (!this.config) {
+            throw new Error('Config not provided');
+        }
+
+        // Execute the extendExpress config option
+        this.extendExpress()        
+    }
+
+    /**
+     * Boots the HttpService
+     */
+    async boot(): Promise<void> {
+        this.applyUseRouters()
+        
+        await this.listen()
+    }
+
+    /**
+     * Starts listening for connections on the port specified in the config.
+     * If no port is specified, the service will not start listening.
+     */
+    public async listen(): Promise<void> {
+        const port = this.config?.port
+
+        return new Promise(resolve => {
+            this.server = this.app.listen(port, () => resolve())
+        })
     }
 
     /**
@@ -56,18 +111,6 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
             ],
             ...(config ?? {}),
         }
-    }
-
-    /**
-     * Initializes the HttpService
-     */
-    public init() {
-        if (!this.config) {
-            throw new Error('Config not provided');
-        }
-
-        // Execute the extendExpress config option
-        this.extendExpress()        
     }
 
     /**
@@ -108,40 +151,42 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
         }
     }
 
-    /**
-     * Starts listening for connections on the port specified in the config.
-     * If no port is specified, the service will not start listening.
-     */
-    public async listen(): Promise<void> {
-        const port = this.config?.port
 
-        return new Promise(resolve => {
-            this.server = this.app.listen(port, () => resolve())
-        })
-    }
 
     /**
      * Binds the routes to the Express instance.
      * @param router - The router to bind
      */
-    public bindRoutes(router: IRouter): void {
+    public useRouterAndApply(router: IRouter): void {
+        this.useRouter(router)
+        this.applySingleRouter(router)
+    }
+    
+    /**
+     * Adds a router to the HttpService.
+     * @param router - The router to add
+     */
+    public useRouter(router: IRouter): void {
         if (router.empty()) {
             return
         }
+        this.routers.push(router)
+    }
 
-        const beforeAllMiddlewares = [
-            RequestIdMiddleware.create(),
-            AsyncSessionMiddleware.create(),
-            EndRequestContextMiddleware.create(),
-            ...(this.config?.beforeAllMiddlewares ?? []),
-        ] as (expressClient.RequestHandler | TExpressMiddlewareFnOrClass)[]
+    /**
+     * Applies the routers to the Express instance.
+     */
+    public applyUseRouters() {
+        for(const router of this.routers) {
+            this.applySingleRouter(router)
+        }
+    }
 
-        const afterAllMiddlewares = [
-            ...(this.config?.afterAllMiddlewares ?? []),
-        ]
-
-        this.routerBindService.setExpress(this.app, this.config)
-        this.routerBindService.setOptions({ beforeAllMiddlewares, afterAllMiddlewares })
+    /**
+     * Applies a single router to the Express instance.
+     * @param router - The router to apply
+     */
+    protected applySingleRouter(router: IRouter) {
         this.routerBindService.bindRoutes(router)
         this.registeredRoutes.push(...router.getRegisteredRoutes())
     }

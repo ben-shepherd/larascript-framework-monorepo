@@ -23,7 +23,7 @@ describe("csrf middleware test suite", () => {
 
     describe("csrf middleware", () => {
         test("should be able to generate a csrf token", async () => {
-            httpService.bindRoutes(CsrfMiddleware.getRouter());
+            httpService.useRouterAndApply(CsrfMiddleware.getRouter());
 
             const response = await fetch(`http://localhost:${serverPort}/csrf`, {
                 method: 'GET',
@@ -40,7 +40,7 @@ describe("csrf middleware test suite", () => {
         })
 
         test("should be able to access a route that is protected by csrf", async () => {
-            httpService.bindRoutes(CsrfMiddleware.getRouter());
+            httpService.useRouterAndApply(CsrfMiddleware.getRouter());
 
             const router = new HttpRouter();
             router.post('/test', (req, res) => {
@@ -48,7 +48,7 @@ describe("csrf middleware test suite", () => {
                     message: 'Hello, world!',
                 });
             });
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const responseToken = await fetch(`http://localhost:${serverPort}/csrf`, {
                 method: 'GET',
@@ -83,7 +83,7 @@ describe("csrf middleware test suite", () => {
                     message: 'Hello, world!',
                 });
             });
-            httpService.bindRoutes(router);
+            httpService.useRouterAndApply(router);
 
             const response = await fetch(`http://localhost:${serverPort}/test`, {
                 method: 'POST',

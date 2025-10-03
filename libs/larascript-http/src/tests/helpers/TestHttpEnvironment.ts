@@ -43,6 +43,14 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
         return this;
     }
 
+    withHttpServiceConfig(config: Partial<IHttpServiceConfig>) {
+        this.httpServiceConfig = {
+            ...this.httpServiceConfig,
+            ...config,
+        }
+        return this;
+    }
+
     async boot() {
         await DatabaseEnvironment.create({
             boot: this.config!.databaseConfigured,

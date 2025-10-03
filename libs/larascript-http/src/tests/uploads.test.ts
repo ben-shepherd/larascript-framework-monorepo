@@ -67,7 +67,7 @@ describe("uploads test suite", () => {
 
       const router = new HttpRouter();
       router.post('/upload', controller);
-      httpService.bindRoutes(router);
+      httpService.useRouterAndApply(router);
 
       const response = await fetch(`http://localhost:${serverPort}/upload`, {
         method: 'POST',
@@ -109,7 +109,7 @@ describe("uploads test suite", () => {
 
       const router = new HttpRouter();
       router.post('/upload', controller);
-      httpService.bindRoutes(router);
+      httpService.useRouterAndApply(router);
 
       const response = await fetch(`http://localhost:${serverPort}/upload`, {
         method: 'POST',

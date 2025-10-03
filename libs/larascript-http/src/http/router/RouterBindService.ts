@@ -170,7 +170,7 @@ export class RouterBindService {
         const methodType = method.toLowerCase() as keyof typeof this.app
         const str = `[Express] binding route ${method.toUpperCase()}: '${path}'`;
         HttpEnvironment.getInstance().loggerService?.info(str)
-        this.app[methodType](path, handlers);
+        HttpEnvironment.getInstance().httpService.getExpress()[methodType](path, handlers);
     }
 
     /**

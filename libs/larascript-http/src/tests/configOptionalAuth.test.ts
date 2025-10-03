@@ -33,7 +33,7 @@ describe("config optional auth test suite", () => {
                 middlewares: [mockAuthorizeMiddleware],
             })
             
-            expect(() => httpService.bindRoutes(router)).toThrow('Auth service not configured');
+            expect(() => httpService.useRouterAndApply(router)).toThrow('Auth service not configured');
         })
 
         test("should not get an error if a authorize middleware is provided and the auth dependencies are configured", async () => {

@@ -3,7 +3,7 @@ import { EnvironmentType } from "@larascript-framework/larascript-core";
 import { TUploadedFile } from "./UploadedFile.js";
 
 
-export type IHttpConfig = {
+export type IHttpEnvironmentConfig = {
     uploadDirectory: string;
     environment: EnvironmentType;
     databaseConfigured: boolean;

@@ -1,28 +1,20 @@
 import HttpFileSystemUploader from "@/http/services/HttpFileSystemUploader.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
 import { IAuthService } from "@larascript-framework/contracts/auth";
-import { IHttpConfig, IHttpService, IHttpUploadService, IRequestContext } from "@larascript-framework/contracts/http";
+import { IHttpEnvironmentConfig, IHttpService, IHttpUploadService, IRequestContext } from "@larascript-framework/contracts/http";
 import { AuthEnvironment } from "@larascript-framework/larascript-auth";
-import { BaseSingleton, EnvironmentTesting, EnvironmentType } from "@larascript-framework/larascript-core";
+import { BaseSingleton, EnvironmentType } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment, IDatabaseService, IEloquentQueryBuilderService } from "@larascript-framework/larascript-database";
 import { ILoggerService, LoggerService } from "@larascript-framework/larascript-logger";
 import path from "path";
+import { HTTP_ENVIRONMENT_DEFAULTS } from "../config/environment.config.js";
 import RequestContext from "../context/RequestContext.js";
 import RequestContextCleaner from "../context/RequestContextCleaner.js";
-
-export const HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
-    authConfigured: true,
-    databaseConfigured: true,
-    uploadDirectory: path.join(process.cwd(), 'storage/uploads'),
-    environment: EnvironmentTesting,
-    currentRequestCleanupDelay: 30
-}
-
 /**
  * Represents the HTTP environment configuration and services.
  * Extends the BaseSingleton class with IHttpConfig.
  */
-export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
+export class HttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
     httpService!: IHttpService;
     requestContext!: IRequestContext;
     loggerService!: ILoggerService;
@@ -59,9 +51,9 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
 
     /**
      * Constructs an instance of HttpEnvironment with the given configuration.
-     * @param {IHttpConfig} [config=HTTP_ENVIRONMENT_DEFAULTS] - The HTTP configuration settings.
+     * @param {IHttpEnvironmentConfig} [config=HTTP_ENVIRONMENT_DEFAULTS] - The HTTP configuration settings.
      */
-    constructor(config: IHttpConfig = HTTP_ENVIRONMENT_DEFAULTS) {
+    constructor(config: IHttpEnvironmentConfig = HTTP_ENVIRONMENT_DEFAULTS) {
         super({
             ...HTTP_ENVIRONMENT_DEFAULTS,
             ...config,
@@ -72,10 +64,10 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
     /**
      * Creates and configures an instance of HttpEnvironment.
      * @param {IHttpService} httpService - The HTTP service to be used.
-     * @param {Partial<IHttpConfig>} [config=HTTP_ENVIRONMENT_DEFAULTS] - Partial configuration to override defaults.
+     * @param {Partial<IHttpEnvironmentConfig>} [config=HTTP_ENVIRONMENT_DEFAULTS] - Partial configuration to override defaults.
      * @returns {HttpEnvironment} The configured HttpEnvironment instance.
      */
-    static create(httpService: IHttpService, config: Partial<IHttpConfig> = HTTP_ENVIRONMENT_DEFAULTS) {
+    static create(httpService: IHttpService, config: Partial<IHttpEnvironmentConfig> = HTTP_ENVIRONMENT_DEFAULTS) {
         config = {
             ...HTTP_ENVIRONMENT_DEFAULTS,
             ...config,
@@ -118,9 +110,9 @@ export class HttpEnvironment extends BaseSingleton<IHttpConfig> {
 
     /**
      * Updates the configuration with the provided partial configuration.
-     * @param {Partial<IHttpConfig>} config - The partial configuration to apply.
+     * @param {Partial<IHttpEnvironmentConfig>} config - The partial configuration to apply.
      */
-    setPartialConfig(config: Partial<IHttpConfig>) {
+    setPartialConfig(config: Partial<IHttpEnvironmentConfig>) {
         this.config = {
             ...this.config!,
             ...config,

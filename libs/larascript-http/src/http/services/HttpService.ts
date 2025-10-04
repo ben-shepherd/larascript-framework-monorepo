@@ -213,7 +213,10 @@ export class HttpService extends BaseService<IHttpServiceConfig> implements IHtt
             return
         }
 
+        // Note: This is a catch-all handler for errors. Typically, these will also be handled manually in the RouterBindService. (See wrapHttpContext method)
         const errorHandler = baseErrorHandler(this.config)
+
+        // Note: The 404 handler should always be added last, otherwise normal routes will return a 404.
         const notFoundHandler = baseNotFoundHandler(this.config)
 
         this.app.use(errorHandler)

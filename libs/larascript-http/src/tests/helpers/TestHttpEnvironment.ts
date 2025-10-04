@@ -1,23 +1,26 @@
+import { HTTP_ENVIRONMENT_DEFAULTS } from "@/http/config/environment.config.js";
 import { testConfig } from "@/http/config/test.config.js";
-import { HTTP_ENVIRONMENT_DEFAULTS, HttpEnvironment } from "@/http/environment/index.js";
+import { HttpEnvironment } from "@/http/environment/index.js";
 import CsrfMiddleware from "@/http/middleware/CsrfMiddlware.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
-import { IHttpConfig, IHttpServiceConfig } from "@larascript-framework/contracts/http";
+import { IHttpEnvironmentConfig, IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 import { ValidatorServices } from "@larascript-framework/larascript-validator";
 
-export const TEST_HTTP_ENVIRONMENT_DEFAULTS: IHttpConfig = {
-    ...HTTP_ENVIRONMENT_DEFAULTS
+export const TEST_HTTP_ENVIRONMENT_DEFAULTS: IHttpEnvironmentConfig = {
+    ...HTTP_ENVIRONMENT_DEFAULTS,
+    databaseConfigured: true,
+    authConfigured: true,
 };
 
-export class TestHttpEnvironment extends BaseSingleton<IHttpConfig> {
+export class TestHttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
 
     protected httpServiceConfig: IHttpServiceConfig = testConfig;
 
-    static create(config: Partial<IHttpConfig> = TEST_HTTP_ENVIRONMENT_DEFAULTS) {
+    static create(config: Partial<IHttpEnvironmentConfig> = TEST_HTTP_ENVIRONMENT_DEFAULTS) {
         config = {
             ...TEST_HTTP_ENVIRONMENT_DEFAULTS,
             ...config,

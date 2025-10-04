@@ -21,10 +21,10 @@ router.resource({
 ```
 
 Available rules:
-- `hasRole(roles)`
-- `scopes(scopes, exactMatch = true)`
-- `resourceOwner(attribute = 'userId')`
-- `rateLimited(limit, perMinuteAmount)`
+- `hasRole(roles)` - Check if the user has any of the given roles. (`Database`, `Auth` services are required)
+- `scopes(scopes, exactMatch = true)` - Check if the user has any of the given scopes. (`Database`, `Auth` services are required)
+- `resourceOwner(attribute = 'userId')` - Check if the user is the owner of the resource.
+- `rateLimited(limit, perMinuteAmount)` - Rate limit the request. 
 
 Security from parent groups is merged with child routes. Rules can be found and evaluated per action type during resource routing.
 

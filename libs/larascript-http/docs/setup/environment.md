@@ -5,39 +5,47 @@
 ## Table of contents
 
 - [Summary](#summary)
-- [Boot lifecycle](#boot-lifecycle)
-- [Configuration](#configuration)
-- [Using with or without Auth/Database](#using-with-or-without-authdatabase)
+- [Disable Auth/Database When using outside of Larascript Framework](#disable-authdatabase-when-using-outside-of-larascript-framework)
 - [Quick start](#quick-start)
 - [Disable Auth/Database (custom security)](#disable-authdatabase-custom-security)
+- [Custom logger and uploads directory](#custom-logger-and-uploads-directory)
+- [API overview](#api-overview)
 
 ### Summary
 
 Creates the HTTP server, sets up request context, logging, and file uploads, and bridges to framework services like Auth and Database when available.
 
-### Configuration
-Defaults used when not provided:
-- `authConfigured: true`
-- `databaseConfigured: true`
-- `uploadDirectory: <project>/storage/uploads`
-- `environment: EnvironmentTesting`
+```ts
+type IHttpEnvironmentConfig = {
+    uploadDirectory: string;
+    environment: EnvironmentType;
+    databaseConfigured: boolean;
+    authConfigured: boolean;
+    currentRequestCleanupDelay?: number;
+    dependencies?: {
+        loggerService?: ILoggerService;
+        uploadService?: IHttpUploadService;
+    }
+}
+```
 
-You can set or refine configuration at creation time or later with `setPartialConfig(config)`.
+## Disable Auth/Database When using outside of Larascript Framework
 
-Optional dependencies (provide via `config.dependencies`):
-- `loggerService?: ILoggerService` — if omitted, a default `LoggerService` is created with logs under `<project>/storage/logs`.
+When using the Larascript framework outside of its typical environment, you might want to disable the built-in authentication and database services. This can be useful if you plan to implement custom security measures or use external services.
 
-### Using with or without Auth/Database
-When used inside the Larascript Framework, `HttpEnvironment` integrates with the framework’s Auth and Database services. These are optional via feature flags:
+To disable these features, you can configure the `HttpEnvironment` as follows:
 
-- `authConfigured: boolean`
-- `databaseConfigured: boolean`
+```ts
+const env = HttpEnvironment.create(httpService, {
+  authConfigured: false,  // Disable the built-in authentication
+  databaseConfigured: false,  // Disable the built-in database
+});
 
-Disabling either will limit certain built-in features:
-- Security and authorization middleware rely on Auth (and often Database) to evaluate roles, scopes, ownership, and tokens.
-- With these disabled, you must supply your own authentication/authorization strategies and middleware for protected endpoints.
+// You can then provide your own authentication middleware for protected routes
+await env.boot();
+```
 
-The rest of the HTTP stack (routing, request context, validation, uploads, etc.) can still function, but security-related helpers will not be available out of the box.
+By setting `authConfigured` and `databaseConfigured` to `false`, the framework will not attempt to initialize these services. This allows you to integrate your own solutions for authentication and database management.
 
 ### Quick start
 ```ts

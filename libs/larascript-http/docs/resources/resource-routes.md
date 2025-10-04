@@ -38,4 +38,6 @@ Notes:
 - `security` and `middlewares` merge with any parent group.
 - `scopes` are combined per action type.
 - `only` limits which endpoints are created.
-- `datasource.modelConstructor` will only be available if the `Database` service is available. Otherwise, you should provide your own implementation of the `repository` property.
+- `datasource.modelConstructor` will only be available if the `Database` service is available. Otherwise, you should provide your own implementation of the `datasource.repository` property.
+
+

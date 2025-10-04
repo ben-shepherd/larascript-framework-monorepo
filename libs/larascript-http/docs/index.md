@@ -10,10 +10,15 @@ The Larascript HTTP package is a comprehensive library for building RESTful APIs
 ## Routing Lifecycle
 
 - [Routing](./lifecycle/routes.md)
+- [Registering Routes](./lifecycle/registering-routes.md)
 - [Controllers](./lifecycle/controller.md)
-- [Resource Routes](./lifecycle/resource-routes.md)
 - [Middleware](./lifecycle/middleware.md)
 - [Http Context](./lifecycle/context.md)
+
+## Resourceful Routing
+
+- [Resource Routes](./resources/resource-routes.md)
+- [Resource Repository](./resources/resource-repository.md)
 
 ## Security
 
@@ -28,5 +33,4 @@ The Larascript HTTP package is a comprehensive library for building RESTful APIs
 
 ## Error Handling
 
-- [Error Handling](./error-handling/error-handling.md)
 - [Customize Error Handling](./error-handling/customize-error-handling.md)

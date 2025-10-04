@@ -1,6 +1,6 @@
-import { AuthEnvironment } from "@/environment/AuthEnvironment.js";
-import { AuthenticableUserModel, IUserAttributes, IUserRepository } from "@larascript-framework/larascript-auth";
+import { IUserAttributes, IUserRepository } from "@larascript-framework/contracts/auth";
 import { ModelConstructor, Repository } from "@larascript-framework/larascript-database";
+import AuthenticableUserModel from "../models/AuthenticableUserModel.js";
 
 /**
  * Repository class for managing user data operations
@@ -24,10 +24,6 @@ class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Rep
         super(modelConstructor);
     }
 
-    get queryBuilder() {
-        return AuthEnvironment.getInstance().databaseEnvironment.eloquentQueryBuilder.builder(this.modelConstructor);
-    }
-
     /**
      * Create a new user record
      * 
@@ -47,7 +43,7 @@ class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Rep
      * @returns The user record or null if not found
      */
     async findById(id: string | number): Promise<T | null> {
-        return await this.queryBuilder.find(id) as T | null
+        return await this.query().find(id) as T | null
     }
 
     /**
@@ -57,7 +53,7 @@ class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Rep
      * @returns The user record
      */
     async findByIdOrFail(id: string | number): Promise<T> {
-        return await this.queryBuilder.findOrFail(id) as T
+        return await this.query().findOrFail(id) as T
     }
 
     /**
@@ -67,7 +63,7 @@ class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Rep
      * @returns The user record or null if not found
      */
     async findByEmail(email: string): Promise<T | null> {
-        return await this.queryBuilder.where('email', email).first()
+        return await this.query().where('email', email).first()
     }
 
 }

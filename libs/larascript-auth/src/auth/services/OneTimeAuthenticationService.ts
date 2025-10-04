@@ -1,10 +1,4 @@
-import {
-  ApiTokenModelOptions,
-  IApiTokenModel,
-  IAuthService,
-  IOneTimeAuthenticationService,
-  IUserModel,
-} from "../index.js";
+import { ApiTokenModelOptions, IApiTokenModel, IAuthService, IOneTimeAuthenticationService, IUserModel } from "@larascript-framework/contracts/auth";
 
 type SingleUseTokenOptions = Required<
   Pick<ApiTokenModelOptions, "expiresAfterMinutes">

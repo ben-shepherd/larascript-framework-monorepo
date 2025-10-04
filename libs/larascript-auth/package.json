@@ -44,7 +44,9 @@
   },
   "devDependencies": {
     "@larascript-framework/async-session": "workspace:*",
+    "@larascript-framework/cast-js": "workspace:*",
     "@larascript-framework/check-exports": "workspace:*",
+    "@larascript-framework/contracts": "workspace:*",
     "@larascript-framework/crypto-js": "workspace:*",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
@@ -52,10 +54,9 @@
     "@larascript-framework/larascript-core": "workspace:*",
     "@larascript-framework/larascript-database": "workspace:*",
     "@larascript-framework/test-helpers": "workspace:*",
-    "@larascript-framework/cast-js": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
-    "@larascript-framework/contracts": "workspace:*",
-    "tsc-alias": "^1.8.16"
+    "tsc-alias": "^1.8.16",
+    "tslint-no-circular-imports": "^0.7.0"
   },
   "exports": {
     ".": {

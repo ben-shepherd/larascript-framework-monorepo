@@ -14,6 +14,9 @@ export interface IApiTokenAttributes {
   expiresAt: Date | null;
 }
 
+/**
+ * @deprecated Use AuthenticableUserModelAttributes instead
+ */
 export interface IUserAttributes {
   id?: string;
   email: string;

@@ -38,7 +38,7 @@ describe("Repository", () => {
 
   describe("base", () => {
     test("should update a item", async () => {
-      userRepository.update("id", "1", { email: "test2@test.com" });
+      await userRepository.update("id", "1", { email: "test2@test.com" });
 
       const user = (
         await userRepository.getRecords()
@@ -48,12 +48,12 @@ describe("Repository", () => {
     });
 
     test("should delete a item", async () => {
-      userRepository.delete("id", "1");
+      await userRepository.delete("id", "1");
       expect((await userRepository.getRecords()).length).toBe(0);
     });
 
     test("should set data", async () => {
-      userRepository.setRecords([
+      await userRepository.setRecords([
         new TestUserModel({
           id: "2",
           email: "test2@test.com",
@@ -90,7 +90,7 @@ describe("Repository", () => {
       });
 
       test("should throw an error if user is not found", async () => {
-        expect(userRepository.findByIdOrFail("not-found")).rejects.toThrow(
+        await expect(userRepository.findByIdOrFail("not-found")).rejects.toThrow(
           "User not found",
         );
       });

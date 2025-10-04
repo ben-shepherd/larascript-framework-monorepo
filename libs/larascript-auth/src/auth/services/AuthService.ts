@@ -60,8 +60,13 @@ export class AuthService
     super();
     this.setAclService(new BasicACLService(this.aclConfig));
   }
+
   getApiTokenFactory(): IApiTokenFactory {
-    throw new Error("Method not implemented.");
+    return new this.config.drivers.jwt.options.factory.apiToken();
+  }
+
+  getAsyncSession(): IAsyncSessionService {
+    return this.asyncSession;
   }
 
   /**
@@ -80,15 +85,17 @@ export class AuthService
     this.addAdapterOnce(
       AuthService.JWT_ADAPTER_NAME,
       new JwtAuthService(
-        this.config.drivers.jwt,
-        this.aclService,
-        this,
+        this
       ),
     );
 
     for (const adapterInstance of Object.values(this.adapters)) {
       await adapterInstance.boot();
     }
+  }
+
+  public getConfig(): IAuthConfig {
+    return this.config;
   }
 
   /**

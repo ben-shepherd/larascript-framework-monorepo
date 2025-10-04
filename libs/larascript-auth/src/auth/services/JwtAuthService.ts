@@ -1,25 +1,12 @@
 import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
-import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import jwt from "jsonwebtoken";
 import BaseAuthAdapter from "../base/BaseAuthAdapter.js";
+import { JWTConfigException } from "../exceptions/JWTConfigException.js";
+import { JWTSecretException } from "../exceptions/JWTSecretException.js";
+import { UnauthorizedException } from "../exceptions/UnauthorizedException.js";
 import { JwtFactory } from "../factory/JwtFactory.js";
-import {
-  ApiTokenModelOptions,
-  IApiTokenFactory,
-  IApiTokenModel,
-  IApiTokenRepository,
-  IAuthService,
-  IJwtAuthService,
-  IJwtConfig,
-  IOneTimeAuthenticationService,
-  IUserFactory,
-  IUserModel,
-  IUserRepository,
-  JWTConfigException,
-  JWTSecretException,
-  UnauthorizedException,
-} from "../index.js";
+import { ApiTokenModelOptions, IApiTokenFactory, IApiTokenModel, IApiTokenRepository, IAuthService, IJwtAuthService, IJwtConfig, IOneTimeAuthenticationService, IUserFactory, IUserModel, IUserRepository } from "../interfaces/index.js";
 import { createJwt } from "../utils/createJwt.js";
 import { decodeJwt } from "../utils/decodeJwt.js";
 import { generateToken } from "../utils/generateToken.js";
@@ -54,20 +41,19 @@ export class JwtAuthService
   /** Crypto service for password hashing and verification */
   protected cryptoService!: ICryptoService;
 
+  declare config: IJwtConfig;
+
   /**
    * Creates a new JwtAuthService instance.
    *
    * @param config - JWT configuration options
    * @param aclService - Access control list service for role and permission management
    */
-  constructor(
-    config: IJwtConfig,
-    aclService: IBasicACLService,
-    authService: IAuthService,
-  ) {
-    super(config, aclService);
-    this.userRepository = new this.config.options.repository.user();
-    this.apiTokenRepository = new this.config.options.repository.apiToken();
+  constructor(authService: IAuthService) {
+    super(authService);
+    const config = authService.getConfig().drivers.jwt;
+    this.userRepository = new config.options.repository.user();
+    this.apiTokenRepository = new config.options.repository.apiToken();
     this.cryptoService = new CryptoService({
       secretKey: config.options.secret,
     });
@@ -230,6 +216,26 @@ export class JwtAuthService
 
     return apiToken;
   }
+
+  async addGroupScopes(data: IApiTokenModel): Promise<IApiTokenModel> {
+    const user = await this.userRepository.findByIdOrFail(data.getUserId())
+
+    if(!user) {
+        throw new Error("User not found")
+    }
+
+    const userGroups = user.getAclGroups() ?? []
+
+    for(const userGroup of userGroups) {
+        const scopes = this.aclService.getGroupScopes(userGroup)
+        await data.setScopes([
+            ...data.getScopes(),
+            ...scopes
+        ])
+    }
+
+    return data
+}
 
   /**
    * Generates a JWT token from an API token model.

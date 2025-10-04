@@ -1,9 +1,8 @@
-import { AuthEnvironment } from "@/environment/AuthEnvironment.js"
+import { IDatabaseSchema } from "@larascript-framework/contracts/database/database"
 import { DataTypes } from "sequelize"
 import User from "../models/User.js"
 
-export const createUserTable = async (additionalSchema: Record<string, unknown> = {}) => {
-    const schema = AuthEnvironment.getInstance().databaseEnvironment.databaseService.schema()
+export const createUserTable = async (schema: IDatabaseSchema, additionalSchema: Record<string, unknown> = {}) => {
     const table = User.getTable()
 
     if(await schema.tableExists(table)) {

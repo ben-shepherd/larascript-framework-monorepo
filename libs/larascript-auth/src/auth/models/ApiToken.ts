@@ -1,7 +1,6 @@
-import { AuthEnvironment } from '@/environment/AuthEnvironment.js';
 import { TCastableType } from '@larascript-framework/cast-js';
+import { IApiTokenAttributes, IApiTokenModel } from '@larascript-framework/contracts/auth';
 import { BasicACLScope } from '@larascript-framework/larascript-acl';
-import { IApiTokenAttributes, IApiTokenModel, IUserModel } from '@larascript-framework/larascript-auth';
 import { BelongsTo, IModelAttributes, Model } from '@larascript-framework/larascript-database';
 import ApiTokenObserver from '../observers/ApiTokenObserver.js';
 import User from './User.js';
@@ -95,15 +94,6 @@ export class ApiToken extends Model<ApiTokenAttributes> implements IApiTokenMode
      */
     setUserId(userId: string): Promise<void> {
         return this.setAttribute(ApiToken.USER_ID, userId)
-    }
-
-    /**
-     * Get the user
-     * @returns {IUserModel} The user
-     * @deprecated Use `auth().getUserRepository().findByIdOrFail(this.getUserId())` instead
-     */
-    async getUser(): Promise<IUserModel> {
-        return await AuthEnvironment.getInstance().authService.getUserRepository().findByIdOrFail(this.getUserId())
     }
 
     /**

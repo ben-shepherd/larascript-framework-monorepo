@@ -1,5 +1,6 @@
 import { AuthenticableUserModelAttributes, IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
 import { Model } from "@larascript-framework/larascript-database";
+import { USER_ATTRIBUTES } from "../consts/UserAttributes.js";
 
 /**
  * Represents an authenticable user in the system.
@@ -14,16 +15,6 @@ import { Model } from "@larascript-framework/larascript-database";
  */
 export class AuthenticableUserModel extends Model<AuthenticableUserModelAttributes> implements IAuthenticableUserModel {
 
-    public static EMAIL = 'email';
-
-    public static HASHED_PASSWORD = 'hashedPassword';
-
-    public static PASSWORD = 'password';
-
-    public static ACL_ROLES = 'aclRoles';
-
-    public static ACL_GROUPS = 'aclGroups';
-
     constructor(data: AuthenticableUserModelAttributes | null = null) {
         super(data);
     }
@@ -32,10 +23,10 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * Array of attribute names that should be protected from mass assignment
      */
     guarded: string[] = [
-        'hashedPassword',
-        'password',
-        'aclRoles',
-        'aclGroups',
+        USER_ATTRIBUTES.HASHED_PASSWORD,
+        USER_ATTRIBUTES.PASSWORD,
+        USER_ATTRIBUTES.ACL_ROLES,
+        USER_ATTRIBUTES.ACL_GROUPS,
     ];
 
     /**
@@ -43,7 +34,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns The user ID as a string
      */
     getId(): string {
-        return this.getAttributeSync('id') ?? '';
+        return this.getAttributeSync(USER_ATTRIBUTES.ID) ?? '';
     }
 
     /**
@@ -51,7 +42,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns The email address or null if not set
      */
     getEmail(): string | null {
-        return this.getAttributeSync('email') ?? null;
+        return this.getAttributeSync(USER_ATTRIBUTES.EMAIL) ?? null;
     }
 
     /**
@@ -59,7 +50,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param email - The email address to set
      */
     async setEmail(email: string): Promise<void> {
-        await this.setAttribute('email', email);
+        await this.setAttribute(USER_ATTRIBUTES.EMAIL, email);
     }
 
     /**
@@ -67,7 +58,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns The hashed password or null if not set
      */
     getHashedPassword(): string | null {
-        return this.getAttributeSync('hashedPassword') ?? null;
+        return this.getAttributeSync(USER_ATTRIBUTES.HASHED_PASSWORD) ?? null;
     }
 
     /**
@@ -75,7 +66,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param hashedPassword - The hashed password to set
      */
     async setHashedPassword(hashedPassword: string): Promise<void> {
-        await this.setAttribute('hashedPassword', hashedPassword);
+        await this.setAttribute(USER_ATTRIBUTES.HASHED_PASSWORD, hashedPassword);
     }
 
     /**
@@ -83,7 +74,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns Array of role names or null if not set
      */
     getAclRoles(): string[] | null {
-        return this.getAttributeSync('aclRoles') ?? null;
+        return this.getAttributeSync(USER_ATTRIBUTES.ACL_ROLES) ?? null;
     }
 
     /**
@@ -91,7 +82,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param roles - Array of role names to set
      */
     async setAclRoles(roles: string[]): Promise<void> {
-        await this.setAttribute('aclRoles', roles);
+        await this.setAttribute(USER_ATTRIBUTES.ACL_ROLES, roles);
     }
     
     /**
@@ -99,7 +90,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @returns Array of group names or null if not set
      */
     getAclGroups(): string[] | null {
-        return this.getAttributeSync('aclGroups') ?? null;
+        return this.getAttributeSync(USER_ATTRIBUTES.ACL_GROUPS) ?? null;
     }
 
     /**
@@ -107,7 +98,7 @@ export class AuthenticableUserModel extends Model<AuthenticableUserModelAttribut
      * @param groups - Array of group names to set
      */
     async setAclGroups(groups: string[]): Promise<void> {
-        await this.setAttribute('aclGroups', groups);
+        await this.setAttribute(USER_ATTRIBUTES.ACL_GROUPS, groups);
     }
 
     /**

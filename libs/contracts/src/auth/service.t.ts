@@ -1,9 +1,12 @@
+import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { IApiTokenFactory, IUserFactory } from "./factory.js";
-import { IApiTokenRepository, IJwtAuthService, IUserRepository } from "./index.js";
+import { IApiTokenRepository, IAuthConfig, IJwtAuthService, IUserRepository } from "./index.js";
 import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t.js";
 
 export interface IAuthService {
+  getConfig(): IAuthConfig;
+  getAsyncSession(): IAsyncSessionService;
   setAclService(aclService: IBasicACLService): void;
   acl(): IBasicACLService;
   boot(): Promise<void>;

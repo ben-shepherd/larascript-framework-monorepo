@@ -1,5 +1,4 @@
-import { AuthEnvironment } from "@/environment/AuthEnvironment.js";
-import { IApiTokenAttributes, IApiTokenModel, IApiTokenRepository } from "@larascript-framework/larascript-auth";
+import { IApiTokenAttributes, IApiTokenModel, IApiTokenRepository } from "@larascript-framework/contracts/auth";
 import { Repository } from "@larascript-framework/larascript-database";
 import ApiToken from "../models/ApiToken.js";
 
@@ -9,10 +8,6 @@ class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenReposi
         super(ApiToken)
     }
 
-    get queryBuilder() {
-        return AuthEnvironment.getInstance().databaseEnvironment.eloquentQueryBuilder.builder(this.modelConstructor);
-    }
-
     async create(attributes?: IApiTokenAttributes): Promise<IApiTokenModel> {
         const apiToken = this.modelConstructor.create(attributes as unknown as ApiToken['attributes'])
         await apiToken.save()
@@ -20,7 +15,7 @@ class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenReposi
     }
 
     async findOneActiveToken(token: string): Promise<IApiTokenModel | null> {
-        return await this.queryBuilder
+        return await this.query()
             .where(ApiToken.TOKEN, token)
             .whereNull(ApiToken.REVOKED_AT)
             .first()
@@ -32,7 +27,7 @@ class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenReposi
     }
 
     async revokeAllTokens(userId: string | number): Promise<void> {
-        await this.queryBuilder
+        await this.query()
             .where(ApiToken.USER_ID, userId)
             .update({ [ApiToken.REVOKED_AT]: new Date() })
     }

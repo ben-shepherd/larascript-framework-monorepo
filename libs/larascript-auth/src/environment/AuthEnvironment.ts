@@ -1,25 +1,15 @@
+import { AUTH_ENVIRONMENT_DEFAULTS } from "@/auth/config/environment.js";
+import { createApiTokenTable } from "@/auth/schema/createApiTokenTable.js";
+import { createUserTable } from "@/auth/schema/createUserTable.js";
 import { resetApiTokenTable } from "@/auth/schema/resetApiTokenTable.js";
 import { resetUserTable } from "@/auth/schema/resetUserTable.js";
+import AuthService from "@/auth/services/AuthService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthEnvironmentDependencies, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
+import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
-import { aclConfig, authConfig, AuthService, createApiTokenTable, createUserTable } from "@larascript-framework/larascript-auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment, IModel } from "@larascript-framework/larascript-database";
-
-const DEPENDENCIES_DEFAULTS: IAuthEnvironmentDependencies = {
-    asyncSessionService: {} as IAsyncSessionService,
-}
-
-const AUTH_ENVIRONMENT_DEFAULTS: IAuthEnvironmentConfig = {
-    authConfig: authConfig,
-    aclConfig: aclConfig,
-    secretKey: '',
-    dependencies: DEPENDENCIES_DEFAULTS,
-    boot: true,
-    dropAndCreateTables: false,
-}
 
 /**
  * Represents the authentication environment configuration and services.
@@ -68,6 +58,7 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         AuthEnvironment.getInstance().authConfig = config.authConfig;
         AuthEnvironment.getInstance().aclConfig = config.aclConfig;
         AuthEnvironment.getInstance().setDependencies(config as IAuthEnvironmentConfig);
+        AuthEnvironment.getInstance().createServices();
         return AuthEnvironment.getInstance();
     }
 
@@ -87,17 +78,19 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
         });
     }
 
-    /**
-     * Boots the authentication environment, initializing services and setting up tables if configured.
-     */
-    async boot() {
+    createServices() {
         this.aclService = new BasicACLService(this.aclConfig);
         this.authService = new AuthService(
             this.authConfig,
             this.aclConfig,
             this.asyncSessionService
         )
+    }
 
+    /**
+     * Boots the authentication environment, initializing services and setting up tables if configured.
+     */
+    async boot() {
         if(this.getConfig()?.boot) {
             await this.authService.boot();
             await this.setupTables();
@@ -108,14 +101,16 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      * Sets up the necessary tables for authentication, optionally dropping and recreating them.
      */
     async setupTables() {
+        const schema = this.databaseEnvironment.databaseService.schema()
+
         if(this.getConfig()?.dropAndCreateTables) {
-            await resetUserTable();
-            await resetApiTokenTable();
+            await resetUserTable(schema);
+            await resetApiTokenTable(schema);
             return;
         }
 
-        await createUserTable();
-        await createApiTokenTable();
+        await createUserTable(schema);
+        await createApiTokenTable(schema);
     }
 
     /**

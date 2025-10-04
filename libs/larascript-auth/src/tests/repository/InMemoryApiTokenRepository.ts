@@ -19,20 +19,20 @@ export class InMemoryApiTokenRepository extends BaseInMemoryRepository<TestApiTo
   }
 
   async revokeToken(apiToken: IApiTokenModel): Promise<void> {
-    this.records = this.records.map((at) => {
+    this.records = await Promise.all(this.records.map(async (at) => {
       if (at.getId() === apiToken.getId()) {
-        at.setRevokedAt(new Date());
+        await at.setRevokedAt(new Date());
       }
       return at;
-    });
+    }));
   }
 
   async revokeAllTokens(userId: string | number): Promise<void> {
-    this.records = this.records.map((at) => {
+    this.records = await Promise.all(this.records.map(async (at) => {
       if (at.getUserId() === userId) {
-        at.setRevokedAt(new Date());
+        await at.setRevokedAt(new Date());
       }
       return at;
-    });
+    }));
   }
 }

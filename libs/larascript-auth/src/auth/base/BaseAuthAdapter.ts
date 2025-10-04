@@ -1,5 +1,5 @@
-import { AuthEnvironment } from "@/environment/AuthEnvironment.js";
-import { IAuthAdapter, IUserModel } from "@larascript-framework/contracts/auth";
+import { IAsyncSessionService } from "@larascript-framework/async-session";
+import { IAuthAdapter, IAuthService, IUserModel } from "@larascript-framework/contracts/auth";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 
 /**
@@ -11,17 +11,19 @@ export abstract class BaseAuthAdapter<Config extends Record<string, unknown>>
   implements IAuthAdapter<Config>
 {
   protected aclService!: IBasicACLService;
-
+  
+  protected asyncSession!: IAsyncSessionService;
+  
+  declare config: Config;
+  
   constructor(
-    protected readonly config: Config,
-    aclService: IBasicACLService,
+    protected readonly authService: IAuthService,
   ) {
-    this.aclService = aclService;
+    this.aclService = authService.acl();
+    this.asyncSession = authService.getAsyncSession();;
   }
 
-  get asyncSession() {
-    return AuthEnvironment.getInstance().asyncSessionService;
-  }
+  abstract getConfig(): Config;
 
   /**
    * Get the user
@@ -39,15 +41,6 @@ export abstract class BaseAuthAdapter<Config extends Record<string, unknown>>
      */
   public async boot(): Promise<void> {
     return Promise.resolve();
-  }
-
-  /**
-   * Retrieves the current configuration
-   * @returns The current configuration object
-   */
-
-  getConfig(): Config {
-    return this.config;
   }
 
   /**

@@ -1,7 +1,6 @@
 import { TCastableType } from "@larascript-framework/cast-js";
-import { AuthenticableUserModelAttributes, IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
-import { IModelFactory } from "@larascript-framework/larascript-database";
-import UserFactory from "../factory/UserFactory.js";
+import { AuthenticableUserModelAttributes } from "@larascript-framework/contracts/auth";
+import { USER_ATTRIBUTES } from "../consts/UserAttributes.js";
 import UserObserver from "../observers/UserObserver.js";
 import AuthenticableUserModel from "./AuthenticableUserModel.js";
 
@@ -32,16 +31,6 @@ export interface UserAttributes extends AuthenticableUserModelAttributes {
  */
 export class User extends AuthenticableUserModel {
 
-    public static PASSWORD = 'password';
-
-    public static FIRST_NAME = 'firstName';
-
-    public static LAST_NAME = 'lastName';
-
-    public static CREATED_AT = 'createdAt';
-
-    public static UPDATED_AT = 'updatedAt';
-
     /**
      * Table name
      */
@@ -57,10 +46,10 @@ export class User extends AuthenticableUserModel {
     }
     
     protected casts?: Record<string, TCastableType> | undefined = {
-        [User.ACL_ROLES]: 'array',
-        [User.ACL_GROUPS]: 'array',
-        [User.CREATED_AT]: 'date',
-        [User.UPDATED_AT]: 'date',
+        [USER_ATTRIBUTES.ACL_ROLES]: 'array',
+        [USER_ATTRIBUTES.ACL_GROUPS]: 'array',
+        [USER_ATTRIBUTES.CREATED_AT]: 'date',
+        [USER_ATTRIBUTES.UPDATED_AT]: 'date',
     }
 
     /**
@@ -69,10 +58,10 @@ export class User extends AuthenticableUserModel {
      * These fields cannot be set directly.
      */
     guarded: string[] = [
-        User.HASHED_PASSWORD,
-        User.PASSWORD,
-        User.ACL_ROLES,
-        User.ACL_GROUPS,
+        USER_ATTRIBUTES.HASHED_PASSWORD,
+        USER_ATTRIBUTES.PASSWORD,
+        USER_ATTRIBUTES.ACL_ROLES,
+        USER_ATTRIBUTES.ACL_GROUPS,
     ];
 
     /**
@@ -83,17 +72,16 @@ export class User extends AuthenticableUserModel {
     fields: string[] = [
         
         // fields required by AuthenticableUser
-        User.EMAIL,
-        User.HASHED_PASSWORD,
-        User.ACL_ROLES,
-        User.ACL_GROUPS,
+        USER_ATTRIBUTES.EMAIL,
+        USER_ATTRIBUTES.HASHED_PASSWORD,
+        USER_ATTRIBUTES.ACL_ROLES,
+        USER_ATTRIBUTES.ACL_GROUPS,
         
         // fields required by User
-        User.PASSWORD, // temporary field
-        User.FIRST_NAME,
-        User.LAST_NAME,
-        User.CREATED_AT,
-        User.UPDATED_AT,
+        USER_ATTRIBUTES.FIRST_NAME,
+        USER_ATTRIBUTES.LAST_NAME,
+        USER_ATTRIBUTES.CREATED_AT,
+        USER_ATTRIBUTES.UPDATED_AT,
     ]
 
     /**
@@ -104,15 +92,6 @@ export class User extends AuthenticableUserModel {
      */
     getFields(): string[] {
         return super.getFields().filter(field => !['password'].includes(field));
-    }
-
-    /**
-     * Retrieves the factory for the model.
-     * 
-     * @returns The factory for the model.
-     */
-    getFactory(): IModelFactory<IAuthenticableUserModel> {
-        return new UserFactory();
     }
 }
 

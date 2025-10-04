@@ -51,11 +51,11 @@ export class JwtAuthService
    */
   constructor(authService: IAuthService) {
     super(authService);
-    const config = authService.getConfig().drivers.jwt;
-    this.userRepository = new config.options.repository.user();
-    this.apiTokenRepository = new config.options.repository.apiToken();
+    this.config = authService.getConfig().drivers.jwt;
+    this.userRepository = new this.config.options.repository.user();
+    this.apiTokenRepository = new this.config.options.repository.apiToken();
     this.cryptoService = new CryptoService({
-      secretKey: config.options.secret,
+      secretKey: this.config.options.secret,
     });
     this._oneTimeService.setAuthService(authService);
   }

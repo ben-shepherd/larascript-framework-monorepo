@@ -2,7 +2,7 @@ import { IApiTokenAttributes, IApiTokenModel, IApiTokenRepository } from "@laras
 import { Repository } from "@larascript-framework/larascript-database";
 import ApiToken from "../models/ApiToken.js";
 
-class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenRepository {
+export class ApiTokenRepository extends Repository<ApiToken> implements IApiTokenRepository {
     
     constructor() {
         super(ApiToken)

@@ -18,7 +18,7 @@ import AuthenticableUserModel from "../models/AuthenticableUserModel.js";
  * @implements IUserRepository
  */
 
-class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Repository<T> implements IUserRepository {
+export class AuthenticationUserRepository<T extends AuthenticableUserModel> extends Repository<T> implements IUserRepository {
 
     constructor(modelConstructor: ModelConstructor<T>) {
         super(modelConstructor);

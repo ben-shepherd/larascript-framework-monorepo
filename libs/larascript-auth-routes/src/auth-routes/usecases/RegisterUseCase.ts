@@ -1,5 +1,5 @@
 import { IModel, IModelAttributes } from "@larascript-framework/contracts/database/model";
-import { IUserAttributes, IUserModel } from "@larascript-framework/larascript-auth";
+import { IUserAttributes, IUserCreationAttributes, IUserModel } from "@larascript-framework/larascript-auth";
 import { ApiResponse, HttpContext } from "@larascript-framework/larascript-http";
 import { IValidatorResult, ValidatorResult } from "@larascript-framework/larascript-validator";
 import { BaseUseCase } from "../base/BaseUseCase.js";
@@ -68,10 +68,9 @@ class RegisterUseCase extends BaseUseCase {
         const userAttributesReduced = this.reduceAttributesOnlyAllowed(userAttributes, allowedFields)
 
         // Create and save the user
-        const user = this.environment.authService
-            .getUserFactory()
-            .create(userAttributesReduced as unknown as IUserAttributes);
-        await (user as unknown as IModel).save();
+        const user = this.environment
+            .userCreationService
+            .createAndSave(userAttributesReduced as unknown as IUserCreationAttributes);
 
         return user;
     }

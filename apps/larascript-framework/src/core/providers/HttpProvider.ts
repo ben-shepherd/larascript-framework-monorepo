@@ -5,6 +5,7 @@ import { BaseProvider } from '@larascript-framework/larascript-core';
 import { HttpEnvironment, HttpService } from "@larascript-framework/larascript-http";
 import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
+import { app } from "../services/App.js";
 
 export default class HttpProvider extends BaseProvider {
 
@@ -47,8 +48,16 @@ export default class HttpProvider extends BaseProvider {
             httpService.useRouter(route);
         }
 
-        HttpEnvironment.create(httpService)
-        HttpEnvironment.getInstance().httpService = httpService;
+        // Create the HttpEnvironment
+        HttpEnvironment.create(httpService,  {
+            authConfigured: true,
+            databaseConfigured: true,
+            dependencies: {
+                loggerService: app('logger'),
+                // TODO: we need an abstract upload service that uses s3
+                // uploadService: app('s3')
+            }
+        })
 
         this.bind('http', HttpEnvironment.getInstance().httpService);
     }
@@ -60,10 +69,10 @@ export default class HttpProvider extends BaseProvider {
      */
     public async boot(): Promise<void> {
 
-        await HttpEnvironment.create(this.httpService).boot();
+        await HttpEnvironment.getInstance().boot();
 
         // Log that Express is successfully listening
-        this.log('Express successfully listening on port ' + this.httpService.getConfig()?.port);
+        this.log('Express successfully listening on port ' + HttpEnvironment.getInstance().httpService.getConfig()?.port);
     }
 
 

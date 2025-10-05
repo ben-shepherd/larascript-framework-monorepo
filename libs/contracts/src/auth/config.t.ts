@@ -3,25 +3,26 @@ import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IAuthAdapter } from "./adapter.t.js";
 import { IJwtConfig } from "./jwt.t.js";
 
-export interface IHttpAuthRoutesConfig extends IAuthConfig {
-  http: {
-      routes: {
-          enabled: boolean,
-          endpoints: {
-              register: boolean,
-              login: boolean,
-              refresh: boolean,
-              update: boolean,
-              logout: boolean
-          }
-      },
-      validators?: {
-        user?: {
-          create?: TClassConstructor<IValidator>;
-          update?: TClassConstructor<IValidator>;
-          delete?: TClassConstructor<IValidator>;
-        }
+export interface IAuthRoutesConfig {
+  routes: {
+      enabled: boolean,
+      endpoints: {
+          register: boolean,
+          login: boolean,
+          refresh: boolean,
+          update: boolean,
+          logout: boolean
       }
+  },
+}
+
+export type IAuthRoutesValidatorsConfig = {
+  validators?: {
+    user?: {
+      create?: TClassConstructor<IValidator>;
+      update?: TClassConstructor<IValidator>;
+      delete?: TClassConstructor<IValidator>;
+    }
   }
 }
 
@@ -36,3 +37,5 @@ export interface IAuthConfig {
     jwt: IJwtConfig;
   };
 }
+
+export type IAuthRoutesConfigExtended = IAuthConfig & IAuthRoutesConfig & IAuthRoutesValidatorsConfig;

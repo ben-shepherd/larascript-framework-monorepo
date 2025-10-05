@@ -124,7 +124,7 @@ class RegisterUseCase extends BaseUseCase {
 
     async validate(context: HttpContext): Promise<IValidatorResult<any>> {
         // TODO: this should be provided abstractly
-        const validatorConstructor = this.config.http.validators?.user?.create;
+        const validatorConstructor = this.config.validators?.user?.create;
 
         if(!validatorConstructor) {
             return ValidatorResult.passes();

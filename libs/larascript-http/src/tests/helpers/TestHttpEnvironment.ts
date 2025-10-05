@@ -5,7 +5,7 @@ import CsrfMiddleware from "@/http/middleware/CsrfMiddlware.js";
 import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IHttpEnvironmentConfig, IHttpServiceConfig } from "@larascript-framework/contracts/http";
-import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig } from "@larascript-framework/larascript-auth";
+import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig, routesConfig } from "@larascript-framework/larascript-auth";
 import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 import { ValidatorServices } from "@larascript-framework/larascript-validator";
@@ -114,6 +114,7 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
                     }
                 }
             },
+            routesConfig: routesConfig,
             aclConfig: aclConfig,
             secretKey: 'test',
             dependencies: {

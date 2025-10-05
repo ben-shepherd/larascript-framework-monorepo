@@ -1,11 +1,11 @@
-import { IHttpAuthRoutesConfig } from "@larascript-framework/contracts/auth";
+import { IAuthRoutesConfig } from "@larascript-framework/contracts/auth";
 import { AuthorizeMiddleware, HttpRouter, IRouter } from "@larascript-framework/larascript-http";
 import AuthController from "../controller/AuthController.js";
 
 
-export default (config: IHttpAuthRoutesConfig): IRouter => {
+export default (config: IAuthRoutesConfig): IRouter => {
 
-    if (!config.http.routes.enabled) {
+    if (!config.routes.enabled) {
         return new HttpRouter();
     }
 
@@ -18,11 +18,11 @@ export default (config: IHttpAuthRoutesConfig): IRouter => {
             }
         }, (router) => {
     
-            if (config.http.routes.endpoints.login) {
+            if (config.routes.endpoints.login) {
                 router.post('/login', 'login');
             }
     
-            if (config.http.routes.endpoints.register) {
+            if (config.routes.endpoints.register) {
                 router.post('/register', 'register');
             }
     
@@ -30,19 +30,19 @@ export default (config: IHttpAuthRoutesConfig): IRouter => {
                 middlewares: [AuthorizeMiddleware]
             }, (router) => {
     
-                if (config.http.routes.endpoints.login) {
+                if (config.routes.endpoints.login) {
                     router.get('/user', 'user');
                 }
     
-                if (config.http.routes.endpoints.update) {
+                if (config.routes.endpoints.update) {
                     router.patch('/update', 'update');
                 }
     
-                if (config.http.routes.endpoints.refresh) {
+                if (config.routes.endpoints.refresh) {
                     router.post('/refresh', 'refresh');
                 }
     
-                if (config.http.routes.endpoints.logout) {
+                if (config.routes.endpoints.logout) {
                     router.post('/logout', 'logout');
                 }
     

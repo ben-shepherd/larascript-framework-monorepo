@@ -3,7 +3,7 @@ import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
 import UserRepository from "@/app/repositories/UserRepository.js";
 import { GROUPS, ROLES } from "@/config/acl.config.js";
 import AuthProvider from "@/core/providers/AuthProvider.js";
-import { IHttpAuthRoutesConfig } from "@larascript-framework/contracts/auth";
+import { IAuthRoutesConfig } from "@larascript-framework/contracts/auth";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { AuthenticableUserFactory } from "@larascript-framework/larascript-auth";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
@@ -11,7 +11,7 @@ import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
 
 export default class TestAuthProvider extends AuthProvider {
 
-    protected config: IHttpAuthRoutesConfig = {
+    protected config: IAuthRoutesConfig = {
         drivers: {
             jwt: {
                 name: 'jwt',

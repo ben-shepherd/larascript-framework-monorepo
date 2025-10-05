@@ -2,10 +2,12 @@ import ApiTokenFactory from '@/app/factory/ApiTokenFactory.js';
 import UserFactory from '@/app/factory/UserFactory.js';
 import ApiTokenRepository from '@/app/repositories/auth/ApiTokenRepository.js';
 import UserRepository from '@/app/repositories/UserRepository.js';
-import { IHttpAuthRoutesConfig } from '@larascript-framework/contracts/auth';
+import CreateUserValidator from '@/app/validators/user/CreateUserValidator.js';
+import UpdateUserValidator from '@/app/validators/user/UpdateUserValidator.js';
+import { IAuthRoutesConfigExtended } from '@larascript-framework/contracts/auth';
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
 
-export const authConfig: IHttpAuthRoutesConfig = {
+export const authConfig: IAuthRoutesConfigExtended = {
     drivers: {
         jwt: {
             name: 'jwt',
@@ -23,16 +25,20 @@ export const authConfig: IHttpAuthRoutesConfig = {
             }
         }
     },
-    http: {
-        routes: {
-            enabled: parseBooleanFromString(process.env.ENABLE_AUTH_ROUTES, 'true'),
-            endpoints: {
-                register: true,
-                login: true,
-                refresh: true,
-                update: true,
-                logout: true
-            } 
+    routes: {
+        enabled: parseBooleanFromString(process.env.ENABLE_AUTH_ROUTES, 'true'),
+        endpoints: {
+            register: true,
+            login: true,
+            refresh: true,
+            update: true,
+            logout: true
+        } 
+    },
+    validators: {
+        user: {
+            create: CreateUserValidator,
+            update: UpdateUserValidator
         }
     }
 }

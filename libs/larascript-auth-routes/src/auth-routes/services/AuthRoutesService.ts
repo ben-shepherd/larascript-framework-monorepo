@@ -1,4 +1,4 @@
-import { IHttpAuthRoutesConfig } from "@larascript-framework/contracts/auth";
+import { IAuthRoutesConfig, IAuthRoutesValidatorsConfig } from "@larascript-framework/contracts/auth";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
 import { AuthorizeMiddleware, HttpRouter, IRouter } from "@larascript-framework/larascript-http";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
@@ -8,14 +8,14 @@ import AuthController from "../controller/AuthController.js";
  * Service for managing authentication routes.
  * Extends the BaseSingleton with IHttpAuthRoutesConfig.
  */
-export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
+export class AuthRoutesService extends BaseSingleton<IAuthRoutesConfig & IAuthRoutesValidatorsConfig> {
 
     /**
      * Constructs the AuthRoutesService with the given configuration.
-     * @param {IHttpAuthRoutesConfig} config - The configuration for the authentication routes.
+     * @param {IAuthRoutesConfig} config - The configuration for the authentication routes.
      * @throws Will throw an error if the config is not provided.
      */
-    constructor(config: IHttpAuthRoutesConfig) {
+    constructor(config: IAuthRoutesConfig) {
         super(config);
 
         if (!config) {
@@ -25,20 +25,20 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
 
     /**
      * Creates an instance of AuthRoutesService with the given configuration.
-     * @param {IHttpAuthRoutesConfig} config - The configuration for the authentication routes.
+     * @param {IAuthRoutesConfig} config - The configuration for the authentication routes.
      * @returns {AuthRoutesService} The instance of AuthRoutesService.
      */
-    static create(config: IHttpAuthRoutesConfig) {
+    static create(config: IAuthRoutesConfig) {
         AuthRoutesService.getInstance(config).config = config;
         return AuthRoutesService.getInstance();
     }
 
     /**
      * Retrieves the configuration for the authentication routes.
-     * @returns {IHttpAuthRoutesConfig} The configuration object.
+     * @returns {IAuthRoutesConfig} The configuration object.
      * @throws Will throw an error if the service has not been created.
      */
-    getConfig(): IHttpAuthRoutesConfig {
+    getConfig(): IAuthRoutesConfig {
         if(!this.config) {
             throw new Error('AuthRoutesService has not been created');
         }
@@ -60,7 +60,7 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
     getRouter(): IRouter { 
         const config = this.getConfig()!;
 
-        if (!config.http.routes.enabled) {
+        if (!config.routes.enabled) {
             return new HttpRouter();
         }
 
@@ -73,11 +73,11 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
                 }
             }, (router) => {
 
-                if (config.http.routes.endpoints.login) {
+                if (config.routes.endpoints.login) {
                     router.post('/login', 'login');
                 }
 
-                if (config.http.routes.endpoints.register) {
+                if (config.routes.endpoints.register) {
                     router.post('/register', 'register');
                 }
 
@@ -85,19 +85,19 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
                     middlewares: [AuthorizeMiddleware]
                 }, (router) => {
 
-                    if (config.http.routes.endpoints.login) {
+                    if (config.routes.endpoints.login) {
                         router.get('/user', 'user');
                     }
 
-                    if (config.http.routes.endpoints.update) {
+                    if (config.routes.endpoints.update) {
                         router.patch('/update', 'update');
                     }
 
-                    if (config.http.routes.endpoints.refresh) {
+                    if (config.routes.endpoints.refresh) {
                         router.post('/refresh', 'refresh');
                     }
 
-                    if (config.http.routes.endpoints.logout) {
+                    if (config.routes.endpoints.logout) {
                         router.post('/logout', 'logout');
                     }
 

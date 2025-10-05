@@ -60,7 +60,7 @@ class UpdateUseCase extends BaseUseCase {
      */
     async validate(context: HttpContext): Promise<IValidatorResult<any>> {
         // TODO: this should be provided abstractly
-        const validatorConstructor = this.config.http.validators?.user?.update;
+        const validatorConstructor = this.config.validators?.user?.update;
 
         if(!validatorConstructor) {
             return ValidatorResult.passes();

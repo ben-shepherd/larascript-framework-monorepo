@@ -18,6 +18,18 @@ export const testEnvironmentConfig: IAuthEnvironmentConfig = {
             }
         }
     },
+    routesConfig: {
+        routes: {
+            enabled: true,
+            endpoints: {
+                login: true,
+                register: true,
+                refresh: true,
+                update: true,
+                logout: true
+            }
+        }
+    },
     aclConfig: aclConfig,
     secretKey: 'test',
     dependencies: {

@@ -28,7 +28,7 @@ describe("resources test suite", () => {
 
         await resetMockModelTable();
 
-        user = await HttpEnvironment.getInstance().authEnvironment.createUser({
+        user = await HttpEnvironment.getInstance().authEnvironment.userCreationService.createAndSave({
             email: 'test@test.com',
             password: 'password'
         })

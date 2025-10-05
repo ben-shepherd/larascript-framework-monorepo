@@ -32,12 +32,6 @@ export class JwtAuthService
   /** One-time authentication service instance */
   protected _oneTimeService = new OneTimeAuthenticationService();
 
-  /** Repository for user data operations */
-  protected userRepository!: IUserRepository;
-
-  /** Repository for API token data operations */
-  protected apiTokenRepository!: IApiTokenRepository;
-
   /** Crypto service for password hashing and verification */
   protected cryptoService!: ICryptoService;
 
@@ -52,12 +46,18 @@ export class JwtAuthService
   constructor(authService: IAuthService) {
     super(authService);
     this.config = authService.getConfig().drivers.jwt;
-    this.userRepository = new this.config.options.repository.user();
-    this.apiTokenRepository = new this.config.options.repository.apiToken();
     this.cryptoService = new CryptoService({
       secretKey: this.config.options.secret,
     });
     this._oneTimeService.setAuthService(authService);
+  }
+
+  get userRepository(): IUserRepository {
+    return new this.config.options.repository.user();
+  }
+
+  get apiTokenRepository(): IApiTokenRepository {
+    return new this.config.options.repository.apiToken();
   }
 
   /**

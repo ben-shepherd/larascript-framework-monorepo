@@ -9,7 +9,7 @@ import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework
 import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthService, IUserAttributes, IUserCreationAttributes, IUserCreationService, IUserModel } from "@larascript-framework/contracts/auth";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
-import { BaseSingleton } from "@larascript-framework/larascript-core";
+import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 
 /**
@@ -104,6 +104,10 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      * Sets up the necessary tables for authentication, optionally dropping and recreating them.
      */
     async setupTables() {
+        if(this.getConfig()?.environment !== EnvironmentTesting) {  
+            return;
+        }
+
         const schema = this.databaseEnvironment.databaseService.schema()
 
         if(this.getConfig()?.dropAndCreateTables) {

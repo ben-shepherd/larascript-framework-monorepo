@@ -1,8 +1,10 @@
 import { aclConfig, authConfig } from "@/auth/index.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IAuthEnvironmentConfig } from "@larascript-framework/contracts/auth";
+import { EnvironmentTesting } from "@larascript-framework/larascript-core";
 
 export const testEnvironmentConfig: IAuthEnvironmentConfig = {
+    environment: EnvironmentTesting,
     authConfig: {
         ...authConfig,
         drivers: {

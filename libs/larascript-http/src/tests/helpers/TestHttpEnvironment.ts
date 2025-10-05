@@ -6,7 +6,7 @@ import HttpService from "@/http/services/HttpService.js";
 import { AsyncSessionService } from "@larascript-framework/async-session";
 import { IHttpEnvironmentConfig, IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { aclConfig, authConfig, AuthEnvironment, IAuthEnvironmentConfig } from "@larascript-framework/larascript-auth";
-import { BaseSingleton } from "@larascript-framework/larascript-core";
+import { BaseSingleton, EnvironmentTesting } from "@larascript-framework/larascript-core";
 import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 import { ValidatorServices } from "@larascript-framework/larascript-validator";
 
@@ -100,6 +100,7 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
 
         // Create the auth environment
         const authEnvirnonmentConfig: IAuthEnvironmentConfig = {
+            environment: EnvironmentTesting,
             authConfig: {
                 ...authConfig,
                 drivers: {
@@ -118,7 +119,6 @@ export class TestHttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
             dependencies: {
                 asyncSessionService: AsyncSessionService.getInstance(),
             },
-            dropAndCreateTables: true,
             boot: this.config!.databaseConfigured,
         }
 

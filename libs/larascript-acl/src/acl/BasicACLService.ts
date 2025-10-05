@@ -177,11 +177,12 @@ export class BasicACLService implements IBasicACLService {
    * @param group
    * @returns
    */
-  getGroup(group: string): IAclGroup {
-    const result = this.aclConfig.groups.find((g) => g.name === group);
+  getGroup(group: string | IAclGroup): IAclGroup {
+    const groupName = typeof group === "string" ? group : group.name;
+    const result = this.aclConfig.groups.find((g) => g.name === groupName);
 
     if (!result) {
-      throw new BasicACLException(`Group ${group} not found`);
+      throw new BasicACLException(`Group ${groupName} not found`);
     }
 
     return result;

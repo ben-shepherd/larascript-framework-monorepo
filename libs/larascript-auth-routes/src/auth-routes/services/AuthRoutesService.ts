@@ -4,8 +4,17 @@ import { AuthorizeMiddleware, HttpRouter, IRouter } from "@larascript-framework/
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import AuthController from "../controller/AuthController.js";
 
+/**
+ * Service for managing authentication routes.
+ * Extends the BaseSingleton with IHttpAuthRoutesConfig.
+ */
 export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
 
+    /**
+     * Constructs the AuthRoutesService with the given configuration.
+     * @param {IHttpAuthRoutesConfig} config - The configuration for the authentication routes.
+     * @throws Will throw an error if the config is not provided.
+     */
     constructor(config: IHttpAuthRoutesConfig) {
         super(config);
 
@@ -14,10 +23,21 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
         }
     }
 
+    /**
+     * Creates an instance of AuthRoutesService with the given configuration.
+     * @param {IHttpAuthRoutesConfig} config - The configuration for the authentication routes.
+     * @returns {AuthRoutesService} The instance of AuthRoutesService.
+     */
     static create(config: IHttpAuthRoutesConfig) {
-        return new AuthRoutesService(config);
+        AuthRoutesService.getInstance(config).config = config;
+        return AuthRoutesService.getInstance();
     }
 
+    /**
+     * Retrieves the configuration for the authentication routes.
+     * @returns {IHttpAuthRoutesConfig} The configuration object.
+     * @throws Will throw an error if the service has not been created.
+     */
     getConfig(): IHttpAuthRoutesConfig {
         if(!this.config) {
             throw new Error('AuthRoutesService has not been created');
@@ -25,10 +45,18 @@ export class AuthRoutesService extends BaseSingleton<IHttpAuthRoutesConfig> {
         return this.config;
     }
 
+    /**
+     * Retrieves the authentication controller class constructor.
+     * @returns {TClassConstructor<AuthController>} The class constructor for AuthController.
+     */
     getAuthController(): TClassConstructor<AuthController> {
         return AuthController;
     }
 
+    /**
+     * Retrieves the router for authentication routes.
+     * @returns {IRouter} The router configured with authentication routes.
+     */
     getRouter(): IRouter { 
         const config = this.getConfig()!;
 

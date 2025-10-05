@@ -29,6 +29,8 @@ class AuthProvider extends BaseProvider {
 
         // Register commands
         app('console').register(GenerateJwtSecret)
+
+        this.bind('auth', AuthEnvironment.getInstance().authService);
     }
 
     async boot() {

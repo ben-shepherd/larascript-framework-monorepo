@@ -1,5 +1,6 @@
 import httpConfig from "@/config/http.config.js";
-import { IHttpServiceConfig } from "@larascript-framework/contracts/http";
+import { routesConfig } from "@/config/routes.config.js";
+import { IHttpServiceConfig, IRouter } from "@larascript-framework/contracts/http";
 import { BaseProvider } from '@larascript-framework/larascript-core';
 import { HttpEnvironment, HttpService } from "@larascript-framework/larascript-http";
 import expressLayouts from 'express-ejs-layouts';
@@ -8,6 +9,8 @@ import path from 'path';
 export default class HttpProvider extends BaseProvider {
 
     private httpService!: HttpService;
+
+    private routesConfig: () => IRouter[] = routesConfig;
 
     /**
      * The configuration for the Express provider
@@ -27,17 +30,27 @@ export default class HttpProvider extends BaseProvider {
         this.log('Registering HttpProvider');
 
 
-        this.httpService = new HttpService(this.config);
+        const httpService = new HttpService(this.config);
 
         /**
          * Setup view engine, views, layouts directories
          */
-        this.httpService.getExpress().set('view engine', 'ejs')
-        this.httpService.getExpress().set('views', path.join(process.cwd(), 'src', 'app', 'resources', 'views'))
-        this.httpService.getExpress().use(expressLayouts);
-        this.httpService.getExpress().set('layout', path.join(process.cwd(), 'src', 'app', 'resources', 'layouts', 'base-view.ejs'));
+        httpService.getExpress().set('view engine', 'ejs')
+        httpService.getExpress().set('views', path.join(process.cwd(), 'src', 'app', 'resources', 'views'))
+        httpService.getExpress().use(expressLayouts);
+        httpService.getExpress().set('layout', path.join(process.cwd(), 'src', 'app', 'resources', 'layouts', 'base-view.ejs'));
 
-        this.bind('http', this.httpService);
+        /**
+         * Setup routes
+         */
+        for(const route of this.routesConfig()) {
+            httpService.useRouter(route);
+        }
+
+        HttpEnvironment.create(httpService)
+        HttpEnvironment.getInstance().httpService = httpService;
+
+        this.bind('http', HttpEnvironment.getInstance().httpService);
     }
 
     /**

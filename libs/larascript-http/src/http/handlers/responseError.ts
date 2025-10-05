@@ -14,6 +14,10 @@ import { AbstractHttpException } from '../base/AbstractHttpException.js';
  */
 export const responseError = (req: Request, res: Response, err: Error, code?: number) => {
 
+    if(res.headersSent) {
+        return;
+    }
+
     if (typeof code === 'undefined' && err instanceof AbstractHttpException) {
         code = err.code
     }

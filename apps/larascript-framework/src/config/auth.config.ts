@@ -1,10 +1,9 @@
-import ApiTokenFactory from '@/app/factory/ApiTokenFactory.js';
 import UserFactory from '@/app/factory/UserFactory.js';
-import ApiTokenRepository from '@/app/repositories/auth/ApiTokenRepository.js';
 import UserRepository from '@/app/repositories/UserRepository.js';
 import CreateUserValidator from '@/app/validators/user/CreateUserValidator.js';
 import UpdateUserValidator from '@/app/validators/user/UpdateUserValidator.js';
 import { IAuthRoutesConfigExtended } from '@larascript-framework/contracts/auth';
+import { ApiTokenFactory, ApiTokenRepository } from '@larascript-framework/larascript-auth';
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
 
 export const authConfig: IAuthRoutesConfigExtended = {

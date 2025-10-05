@@ -1,4 +1,4 @@
-import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
+import { ApiTokenRepository } from "@larascript-framework/larascript-auth";
 
 
 export default class TestApiTokenRepository extends ApiTokenRepository {

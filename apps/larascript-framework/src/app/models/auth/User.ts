@@ -1,8 +1,12 @@
 import UserFactory from "@/app/factory/UserFactory.js";
 import UserObserver from "@/app/observers/UserObserver.js";
 import { TCastableType } from "@larascript-framework/cast-js";
-import { AuthenticableUserModelAttributes, User as BaseUserModel, IAuthenticableUserModel } from "@larascript-framework/larascript-auth";
+import { AuthenticableUserModelAttributes, USER_ATTRIBUTES as BASE_USER_ATTRIBUTES, User as BaseUserModel, IAuthenticableUserModel } from "@larascript-framework/larascript-auth";
 import { IModelFactory } from "@larascript-framework/larascript-database";
+
+export const USER_ATTRIBUTES = {
+    ...BASE_USER_ATTRIBUTES,
+} as const;
 
 /**
  * User structure
@@ -56,10 +60,10 @@ export default class User extends BaseUserModel {
     }
     
     protected casts?: Record<string, TCastableType> | undefined = {
-        [User.ACL_GROUPS]: 'array',
-        [User.ACL_ROLES]: 'array',
-        [User.CREATED_AT]: 'date',
-        [User.UPDATED_AT]: 'date',
+        [USER_ATTRIBUTES.ACL_GROUPS]: 'array',
+        [USER_ATTRIBUTES.ACL_ROLES]: 'array',
+        [USER_ATTRIBUTES.CREATED_AT]: 'date',
+        [USER_ATTRIBUTES.UPDATED_AT]: 'date',
     }
 
     /**
@@ -68,10 +72,10 @@ export default class User extends BaseUserModel {
      * These fields cannot be set directly.
      */
     guarded: string[] = [
-        User.HASHED_PASSWORD,
-        User.PASSWORD,
-        User.ACL_GROUPS,
-        User.ACL_ROLES,
+        USER_ATTRIBUTES.HASHED_PASSWORD,
+        USER_ATTRIBUTES.PASSWORD,
+        USER_ATTRIBUTES.ACL_GROUPS,
+        USER_ATTRIBUTES.ACL_ROLES,
     ];
 
     /**
@@ -82,17 +86,17 @@ export default class User extends BaseUserModel {
     fields: string[] = [
         
         // fields required by AuthenticableUser
-        User.EMAIL,
-        User.HASHED_PASSWORD,
-        User.ACL_GROUPS,
-        User.ACL_ROLES,
+        USER_ATTRIBUTES.EMAIL,
+        USER_ATTRIBUTES.HASHED_PASSWORD,
+        USER_ATTRIBUTES.ACL_GROUPS,
+        USER_ATTRIBUTES.ACL_ROLES,
         
         // fields required by User
-        User.PASSWORD, // temporary field
-        User.FIRST_NAME,
-        User.LAST_NAME,
-        User.CREATED_AT,
-        User.UPDATED_AT,
+        USER_ATTRIBUTES.PASSWORD, // temporary field
+        USER_ATTRIBUTES.FIRST_NAME,
+        USER_ATTRIBUTES.LAST_NAME,
+        USER_ATTRIBUTES.CREATED_AT,
+        USER_ATTRIBUTES.UPDATED_AT,
     ]
 
     /**
@@ -102,7 +106,7 @@ export default class User extends BaseUserModel {
      * @returns The list of fields defined on the model.
      */
     getFields(): string[] {
-        return super.getFields().filter(field => !['password'].includes(field));
+        return super.getFields().filter(field => ![USER_ATTRIBUTES.PASSWORD as string].includes(field));
     }
 
     /**

@@ -1,4 +1,4 @@
-import ApiToken, { ApiTokenAttributes } from '@/app/models/auth/ApiToken.js';
+import { ApiToken, ApiTokenAttributes } from "@larascript-framework/larascript-auth";
 
 class TestApiTokenModel extends ApiToken {
     constructor(data: ApiTokenAttributes | null = null) {

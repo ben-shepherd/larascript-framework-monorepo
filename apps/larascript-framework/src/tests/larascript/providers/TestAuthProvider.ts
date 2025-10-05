@@ -1,17 +1,15 @@
-import ApiTokenFactory from "@/app/factory/ApiTokenFactory.js";
-import ApiTokenRepository from "@/app/repositories/auth/ApiTokenRepository.js";
 import UserRepository from "@/app/repositories/UserRepository.js";
 import { GROUPS, ROLES } from "@/config/acl.config.js";
 import AuthProvider from "@/core/providers/AuthProvider.js";
-import { IAuthRoutesConfig } from "@larascript-framework/contracts/auth";
+import { IAuthRoutesConfigExtended } from "@larascript-framework/contracts/auth";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
-import { AuthenticableUserFactory } from "@larascript-framework/larascript-auth";
+import { ApiTokenFactory, ApiTokenRepository, AuthenticableUserFactory } from "@larascript-framework/larascript-auth";
 import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
 
 
 export default class TestAuthProvider extends AuthProvider {
 
-    protected config: IAuthRoutesConfig = {
+    protected config: IAuthRoutesConfigExtended = {
         drivers: {
             jwt: {
                 name: 'jwt',
@@ -29,17 +27,15 @@ export default class TestAuthProvider extends AuthProvider {
                 }
             }
         },
-        http: {
-            routes: {
-                enabled: parseBooleanFromString(process.env.ENABLE_AUTH_ROUTES, 'true'),
-                endpoints: {
-                    register: true,
-                    login: true,
-                    refresh: true,
-                    update: true,
-                    logout: true
-                } 
-            }
+        routes: {
+            enabled: parseBooleanFromString(process.env.ENABLE_AUTH_ROUTES, 'true'),
+            endpoints: {
+                register: true,
+                login: true,
+                refresh: true,
+                update: true,
+                logout: true
+            } 
         }
     }
 

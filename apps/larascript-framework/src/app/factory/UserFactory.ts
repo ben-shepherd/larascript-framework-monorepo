@@ -11,11 +11,6 @@ class UserFactory extends BaseUserFactory {
         return {
             // Include AuthenticableUser attributes
             ...super.getDefinition(),
-            firstName: '',
-            lastName: '',
-            createdAt: new Date(),
-            updatedAt: new Date(),
-            
         }
     }
 

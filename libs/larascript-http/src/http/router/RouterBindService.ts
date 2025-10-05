@@ -266,7 +266,7 @@ export class RouterBindService {
                 await executeFn(new HttpContext(req as TBaseRequest, res, next, routeItem))
 
                 if(!res.headersSent) {
-                    res.send(200)
+                    res.sendStatus(200)
                 }
 
             } catch (error) {

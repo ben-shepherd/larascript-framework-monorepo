@@ -1,4 +1,4 @@
-import { IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
+import { AuthenticableUserModelAttributes, IAuthenticableUserModel } from "@larascript-framework/contracts/auth";
 import { ModelConstructor } from "@larascript-framework/larascript-database";
 import { USER_ATTRIBUTES } from "../consts/UserAttributes.js";
 import User from "../models/User.js";
@@ -10,7 +10,7 @@ export class UserFactory extends AuthenticableUserFactory {
         super(user);
     }
 
-    getDefinition(): NonNullable<User['attributes']> {
+    getDefinition(): NonNullable<AuthenticableUserModelAttributes> {
         return {
             // Include AuthenticableUser attributes
             ...super.getDefinition(),
@@ -18,10 +18,10 @@ export class UserFactory extends AuthenticableUserFactory {
             [USER_ATTRIBUTES.LAST_NAME]: '',
             [USER_ATTRIBUTES.CREATED_AT]: new Date(),
             [USER_ATTRIBUTES.UPDATED_AT]: new Date(),
-        } as NonNullable<User['attributes']>;
+        } as NonNullable<AuthenticableUserModelAttributes>;
     }
 
-    testDefinition(): NonNullable<User['attributes']> {
+    testDefinition(): NonNullable<AuthenticableUserModelAttributes> {
         return {
             ...this.getDefinition(),
             [USER_ATTRIBUTES.FIRST_NAME]: this.faker.person.firstName(),

@@ -25,6 +25,11 @@ export interface IUserAttributes {
   aclGroups: string[];
 }
 
+export interface IUserCreationAttributes extends Partial<AuthenticableUserModelAttributes> {
+  email: string;
+  password: string;
+}
+
 export interface AuthenticableUserModelAttributes extends IModelAttributes {
   id: string;
   email: string;

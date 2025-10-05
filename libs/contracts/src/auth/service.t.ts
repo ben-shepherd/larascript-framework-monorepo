@@ -2,7 +2,7 @@ import { IAsyncSessionService } from "@larascript-framework/async-session";
 import { IBasicACLService } from "@larascript-framework/larascript-acl";
 import { IApiTokenFactory, IUserFactory } from "./factory.js";
 import { IApiTokenRepository, IAuthConfig, IJwtAuthService, IUserRepository } from "./index.js";
-import { ApiTokenModelOptions, IApiTokenModel, IUserModel } from "./models.t.js";
+import { ApiTokenModelOptions, IApiTokenModel, IAuthenticableUserModel, IUserCreationAttributes, IUserModel } from "./models.t.js";
 
 export interface IAuthService {
   getConfig(): IAuthConfig;
@@ -32,4 +32,15 @@ export interface IOneTimeAuthenticationService {
     options?: SingleUseTokenOptions,
   ): Promise<string>;
   validateSingleUseToken(apiToken: IApiTokenModel): boolean;
+}
+
+export type IUserCreationServiceUpdateModelOptions = {
+  RequirePassword: boolean;
+}
+
+export interface IUserCreationService {
+  create(attributes: IUserCreationAttributes): Promise<IAuthenticableUserModel>;
+  createAndSave(attributes: IUserCreationAttributes): Promise<IAuthenticableUserModel>;
+  updateModel(model: IAuthenticableUserModel): Promise<IAuthenticableUserModel>;
+  updateAttributes(attributes: IUserCreationAttributes, updateOptions?: IUserCreationServiceUpdateModelOptions): Promise<IUserCreationAttributes>;
 }

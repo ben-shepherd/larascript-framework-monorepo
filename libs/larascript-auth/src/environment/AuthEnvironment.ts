@@ -4,12 +4,13 @@ import { createUserTable } from "@/auth/schema/createUserTable.js";
 import { resetApiTokenTable } from "@/auth/schema/resetApiTokenTable.js";
 import { resetUserTable } from "@/auth/schema/resetUserTable.js";
 import AuthService from "@/auth/services/AuthService.js";
+import { UserCreationService } from "@/auth/services/UserCreationService.js";
 import { AsyncSessionService, IAsyncSessionService } from "@larascript-framework/async-session";
-import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthService, IUserAttributes, IUserModel } from "@larascript-framework/contracts/auth";
+import { ApiTokenModelOptions, IAuthConfig, IAuthEnvironmentConfig, IAuthService, IUserAttributes, IUserCreationAttributes, IUserCreationService, IUserModel } from "@larascript-framework/contracts/auth";
 import { CryptoService, ICryptoService } from "@larascript-framework/crypto-js";
 import { BasicACLService, IAclConfig, IBasicACLService } from "@larascript-framework/larascript-acl";
 import { BaseSingleton } from "@larascript-framework/larascript-core";
-import { DatabaseEnvironment, IModel } from "@larascript-framework/larascript-database";
+import { DatabaseEnvironment } from "@larascript-framework/larascript-database";
 
 /**
  * Represents the authentication environment configuration and services.
@@ -22,6 +23,7 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
     asyncSessionService!: IAsyncSessionService;
     cryptoService!: ICryptoService;
     aclService!: IBasicACLService;
+    userCreationService!: IUserCreationService;
 
     /**
      * Constructs an AuthEnvironment instance with the provided configuration.
@@ -85,6 +87,7 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
             this.aclConfig,
             this.asyncSessionService
         )
+        this.userCreationService = new UserCreationService(this.authService);
     }
 
     /**
@@ -114,31 +117,6 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
     }
 
     /**
-     * Retrieves the default attributes for a user.
-     * @returns {IUserAttributes} The default user attributes.
-     */
-    getUserDefaultAttributes(): IUserAttributes {
-        return this.authService.getUserFactory().getDefinition() as IUserAttributes;
-    }
-
-    /**
-     * Creates a new user with the specified attributes, hashing the password.
-     * @param {Partial<IUserAttributes> & { password: string }} attributes - The attributes for the new user.
-     * @returns {Promise<IUserModel>} The created user model.
-     */
-    async createUser(attributes: Partial<IUserAttributes> & { password: string }) {
-        attributes.hashedPassword = await this.authService.getJwt().hashPassword(attributes.password);
-        const user = this.authService.getUserFactory().create({
-            ...this.getUserDefaultAttributes(),
-            ...attributes,
-        });
-        
-        await (user as unknown as IModel).save();
-
-        return user;
-    }
-
-    /**
      * Creates a JWT for a user with the specified scopes and options.
      * @param {IUserModel} user - The user model.
      * @param {string[]} scopes - The scopes for the JWT.
@@ -155,8 +133,8 @@ export class AuthEnvironment extends BaseSingleton<IAuthEnvironmentConfig> {
      * @param {Partial<IUserAttributes> & { password: string }} attributes - The attributes for the new user.
      * @returns {Promise<IUserModel>} The created and authorized user model.
      */
-    async createAndAuthorizeUser(attributes: Partial<IUserAttributes> & { password: string }) {
-        const user = await this.createUser(attributes);
+    async createAndAuthorizeUser(attributes: IUserCreationAttributes) {
+        const user = await this.userCreationService.createAndSave(attributes);
         await this.authorizeUser(user);
         return user;
     }

@@ -42,7 +42,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async login(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.loginUseCase.handle(context)
         })
     }
@@ -54,7 +54,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async register(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.registerUseCase.handle(context)
         })
     }
@@ -65,7 +65,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async user(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.userUseCase.handle(context)
         })
     }
@@ -77,7 +77,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async logout(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.logoutUseCase.handle(context)
         })
     }
@@ -88,7 +88,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async refresh(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.refreshUseCase.handle(context)
         })
     }
@@ -99,7 +99,7 @@ export class AuthController extends Controller {
      * @returns The API response
      */
     async update(context: HttpContext) {
-        this.handler(context, async () => {
+        await this.handler(context, async () => {
             return await this.updateUseCase.handle(context)
         })
     }

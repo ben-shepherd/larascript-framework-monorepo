@@ -1,6 +1,5 @@
 import { IAppService } from "@/app/interfaces/IAppService.js";
 import AppServiceProvider from "@/app/providers/AppServiceProvider.js";
-import RoutesProvider from "@/app/providers/RoutesProvider.js";
 import { IAppConfig } from "@/config/app.config.js";
 import ACLProvider from "@/core/providers/ACLProvider.js";
 import AsyncSessionProvider from "@/core/providers/AsyncSessionProvider.js";
@@ -10,7 +9,6 @@ import CryptoProvider from "@/core/providers/CryptoProvider.js";
 import DatabaseProvider from "@/core/providers/DatabaseProvider.js";
 import EnvServiceProvider from "@/core/providers/EnvServiceProvider.js";
 import EventProvider from "@/core/providers/EventProvider.js";
-import HttpErrorHandlerProvider from "@/core/providers/HttpErrorHandlerProvider.js";
 import HttpProvider from "@/core/providers/HttpProvider.js";
 import LoggerProvider from "@/core/providers/LoggerProvider.js";
 import MailProvider from "@/core/providers/MailProvider.js";
@@ -94,8 +92,6 @@ const providers: IProvider[] = [
     new ViewProvider(),
     new MailProvider(),
     new HttpProvider(),
-    new RoutesProvider(),
-    new HttpErrorHandlerProvider(),
 
     // Add your providers here
     new AppServiceProvider(),

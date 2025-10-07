@@ -35,14 +35,14 @@
   },
   "devDependencies": {
     "@larascript-framework/check-exports": "workspace:*",
-    "@larascript-framework/tsconfig": "workspace:*",
-    "@larascript-framework/eslint-config": "workspace:*",
-    "@larascript-framework/test-helpers": "workspace:*",
-    "@larascript-framework/jest-config": "workspace:*",
-    "@larascript-framework/larascript-core": "workspace:*",
-    "@larascript-framework/larascript-auth": "workspace:*",
-    "@larascript-framework/larascript-http": "workspace:*",
     "@larascript-framework/contracts": "workspace:*",
+    "@larascript-framework/eslint-config": "workspace:*",
+    "@larascript-framework/jest-config": "workspace:*",
+    "@larascript-framework/larascript-auth": "workspace:*",
+    "@larascript-framework/larascript-core": "workspace:*",
+    "@larascript-framework/larascript-http": "workspace:*",
+    "@larascript-framework/test-helpers": "workspace:*",
+    "@larascript-framework/tsconfig": "workspace:*",
     "tsc-alias": "^1.8.16"
   },
   "exports": {
@@ -50,5 +50,8 @@
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
     }
+  },
+  "dependencies": {
+    "tslint-no-circular-imports": "^0.7.0"
   }
 }

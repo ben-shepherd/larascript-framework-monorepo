@@ -1,28 +1,12 @@
-import { AppSingleton } from "../app/AppSingleton.js";
-import { BaseSingleton } from "../base/index.js";
-import { EnvironmentType } from "../interfaces/EnvironmentType.t.js";
+import { AppEnvironment } from "@/app/AppEnvironment.js";
+import { AppProviderState } from "@/app/AppProviderState.js";
+import { BaseSingleton } from "@/base/BaseSingleton.js";
+import { KernelConfig, KernelOptions } from "@/interfaces/kernel.js";
+import { AppContainers } from "../app/AppContainers.js";
 import { IProvider } from "../interfaces/Provider.t.js";
 
-export type Containers = {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  [key: string]: any;
-};
-export type KernelOptions = {
-  withoutProvider?: string[];
-};
-export type KernelConfig = {
-  environment: EnvironmentType;
-  providers: IProvider[];
-};
 
-export class Kernel<
-  T extends Containers = Containers,
-> extends BaseSingleton<KernelConfig> {
-  public containers: Map<keyof T, T[keyof T]> = new Map();
-
-  public preparedProviders: string[] = [];
-
-  public readyProviders: string[] = [];
+export class Kernel extends BaseSingleton<KernelConfig> {
 
   /**
    * Checks if the kernel has been booted
@@ -30,11 +14,7 @@ export class Kernel<
    * @returns True if the kernel has been booted, false otherwise
    */
   public booted(): boolean {
-    const definedProviders = this.config?.providers ?? [];
-    return (
-      definedProviders.length > 0 &&
-      this.readyProviders.length === definedProviders.length
-    );
+    return AppProviderState.booted();
   }
 
   /**
@@ -50,20 +30,36 @@ export class Kernel<
     config: KernelConfig,
     options: KernelOptions,
   ): Promise<void> {
-    const kernel = Kernel.getInstance(config);
-    const environment = config?.environment ?? null;
-    const providers = config?.providers ?? ([] as IProvider[]);
-    const withoutProviders = options.withoutProvider ?? [];
 
+    const kernel = Kernel.getInstance(config);
+    
     if (kernel.booted()) {
       throw new Error("Kernel is already booted");
     }
+    
+    const environment = config?.environment ?? null;
 
     if (!environment) {
       throw new Error("App environment is not set");
     }
 
-    AppSingleton.getInstance().env = environment;
+    AppEnvironment.getInstance().setEnvironment(environment);
+
+    await Kernel.bootProviders(config, options);
+  }
+
+  /**
+   * Boots the providers
+   *
+   * @param providers The providers to boot
+   * @param withoutProviders The providers to exclude from booting
+   * @returns A promise that resolves when the providers are booted
+   */
+  private static async bootProviders(config: KernelConfig, options: KernelOptions) {
+    const providers = config?.providers ?? ([] as IProvider[]);
+    const withoutProviders = options.withoutProvider ?? [];
+
+    AppProviderState.getInstance().definedProvidersCount = providers.length;
 
     for (const provider of providers) {
       if (withoutProviders.includes(provider.constructor.name)) {
@@ -71,6 +67,7 @@ export class Kernel<
       }
 
       await provider.register();
+      AppProviderState.getInstance().preparedProviders.push(provider.constructor.name);
     }
 
     for (const provider of providers) {
@@ -79,10 +76,11 @@ export class Kernel<
       }
 
       await provider.boot();
-      kernel.preparedProviders.push(provider.constructor.name);
+      AppProviderState.getInstance().readyProviders.push(provider.constructor.name);
     }
 
-    this.getInstance().readyProviders = [...kernel.preparedProviders];
+    AppProviderState.getInstance().readyProviders = [...AppProviderState.getInstance().preparedProviders];
+    AppProviderState.getInstance().booted = true;
   }
 
   /**
@@ -92,16 +90,16 @@ export class Kernel<
    * @returns Whether the provider is ready or not.
    */
   public static isProviderReady(providerName: string): boolean {
-    return (
-      this.getInstance().preparedProviders.includes(providerName) ||
-      this.getInstance().readyProviders.includes(providerName)
-    );
+    return AppProviderState.isProviderReady(providerName);
   }
 
+  /**
+   * Resets the kernel
+   */
   public static reset(): void {
-    this.getInstance().containers.clear();
-    this.getInstance().preparedProviders = [];
-    this.getInstance().readyProviders = [];
+    AppContainers.reset();
+    AppEnvironment.reset();
+    AppProviderState.reset();
   }
   
 }

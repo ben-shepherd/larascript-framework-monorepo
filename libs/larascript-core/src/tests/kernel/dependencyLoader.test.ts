@@ -14,10 +14,7 @@ import MockDatabaseService from "./services/MockDatabaseService.js";
 describe("Dependency Loader Test Suite", () => {
   describe("Kernel with successful database provider", () => {
     beforeAll(async () => {
-      // Reset the kernel before each test
-      Kernel.getInstance().containers.clear();
-      Kernel.getInstance().preparedProviders = [];
-      Kernel.getInstance().readyProviders = [];
+      Kernel.reset();
 
       await Kernel.boot(
         {
@@ -45,10 +42,7 @@ describe("Dependency Loader Test Suite", () => {
 
   describe("Kernel with connection failed database provider, logger should contain failed message", () => {
     beforeAll(async () => {
-      // Reset the kernel before each test
-      Kernel.getInstance().containers.clear();
-      Kernel.getInstance().preparedProviders = [];
-      Kernel.getInstance().readyProviders = [];
+      Kernel.reset();
 
       await Kernel.boot(
         {

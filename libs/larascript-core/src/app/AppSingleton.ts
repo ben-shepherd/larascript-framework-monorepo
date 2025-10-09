@@ -1,15 +1,8 @@
-import { BaseSingleton } from "../base/index.js";
-import { UninitializedContainerError } from "../exceptions/UninitializedContainerError.js";
+import { BaseSingleton } from "@/base/BaseSingleton.js";
+import { Containers } from "../interfaces/containers.js";
 import { RequiresDependency } from "../interfaces/index.js";
-import { Containers, Kernel } from "../kernel/Kernel.js";
-
-/**
- * @module App
- * @description The App service allows you to access kernel containers and configure the app environment
- */
-export const appSingleton = <T extends Containers, K extends keyof T = keyof T>(
-  name: K,
-) => AppSingleton.container<T>(name) as T[K];
+import { AppContainers } from "./AppContainers.js";
+import { AppEnvironment } from "./AppEnvironment.js";
 
 /**
 /**
@@ -36,7 +29,7 @@ export const withDependencies = <T extends RequiresDependency>(instance: T) => {
 /**
  * Short hand for App.env()
  */
-export const appEnv = (): string | undefined => AppSingleton.env();
+export const appEnv = (): string | undefined => AppEnvironment.env();
 
 /**
  * App service
@@ -45,12 +38,6 @@ export const appEnv = (): string | undefined => AppSingleton.env();
  */
 
 export class AppSingleton extends BaseSingleton {
-  /**
-   * Environment
-   * The environment the app is running in
-   */
-  public env!: string;
-
   /**
    * Global values
    */
@@ -82,19 +69,7 @@ export class AppSingleton extends BaseSingleton {
     name: Name,
     container: Containers[Name],
   ) {
-    const kernel = Kernel.getInstance();
-
-    if (kernel.booted()) {
-      throw new Error("Kernel is already booted");
-    }
-    if (!name || name === "") {
-      throw new Error("Container name cannot be empty");
-    }
-    if (kernel.containers.has(name)) {
-      throw new Error("Container already exists");
-    }
-
-    kernel.containers.set(name, container);
+    AppContainers.setContainer(name, container);
   }
 
   /**
@@ -102,16 +77,8 @@ export class AppSingleton extends BaseSingleton {
    * @param name The name of the container
    * @returns The container if it exists, or throws an UninitializedContainerError if not
    */
-  public static container<T extends Containers, K extends keyof T = keyof T>(
-    name: K,
-  ): T[K] {
-    const kernel = Kernel.getInstance();
-
-    if (!kernel.containers.has(name as keyof Containers)) {
-      throw new UninitializedContainerError(name as string);
-    }
-
-    return kernel.containers.get(name as keyof Containers) as T[K];
+  public static container<T extends Containers, K extends keyof T = keyof T>(name: K): T[K] {
+    return AppContainers.container(name);
   }
 
   /**
@@ -122,7 +89,7 @@ export class AppSingleton extends BaseSingleton {
    * @returns A function that retrieves containers by name.
    */
   public static dependencies() {
-    return this.container;
+    return AppContainers.dependencies();
   }
 
   /**
@@ -139,15 +106,7 @@ export class AppSingleton extends BaseSingleton {
   public static safeContainer<K extends keyof Containers = keyof Containers>(
     name: K,
   ): Containers[K] | undefined {
-    try {
-      return this.container(name);
-    } catch (err) {
-      if (err instanceof UninitializedContainerError) {
-        return undefined;
-      }
-
-      throw err;
-    }
+    return AppContainers.safeContainer(name);
   }
 
   /**
@@ -160,7 +119,7 @@ export class AppSingleton extends BaseSingleton {
   public static containerReady<K extends keyof Containers = keyof Containers>(
     name: K,
   ): boolean {
-    return this.safeContainer(name) !== undefined;
+    return AppContainers.containerReady(name);
   }
 
   /**
@@ -168,6 +127,6 @@ export class AppSingleton extends BaseSingleton {
    * @returns The environment if set, or undefined if not
    */
   public static env(): string | undefined {
-    return this.getInstance().env;
+    return AppEnvironment.env();
   }
 }

@@ -17,9 +17,9 @@
   },
   "scripts": {
     "prepare": "npm run build",
-    "test": "jest",
-    "test:watch": "jest --watch",
-    "test:coverage": "jest --coverage",
+    "test": "jest --runInBand",
+    "test:watch": "jest --watch --runInBand",
+    "test:coverage": "jest --coverage --runInBand",
     "build": "tsc --skipLibCheck && npx tsc-alias",
     "build:watch": "concurrently --kill-others \"tsc -w\" \"tsc-alias -w\"",
     "lint": "eslint --ignore-pattern .gitignore \"{src,tests}/**/*.+(ts|js|tsx)\"",
@@ -39,15 +39,16 @@
     "depcheck": "depcheck"
   },
   "dependencies": {
-    "@larascript-framework/larascript-utils": "workspace:*",
-    "@larascript-framework/compose": "workspace:*"
+    "@larascript-framework/compose": "workspace:*",
+    "@larascript-framework/larascript-utils": "workspace:*"
   },
   "devDependencies": {
     "@faker-js/faker": "^9.0.3",
     "@larascript-framework/eslint-config": "workspace:*",
     "@larascript-framework/jest-config": "workspace:*",
     "@larascript-framework/tsconfig": "workspace:*",
-    "tsc-alias": "^1.8.16"
+    "tsc-alias": "^1.8.16",
+    "tslint-no-circular-imports": "^0.7.0"
   },
   "exports": {
     ".": {

@@ -12,9 +12,7 @@ import {
 describe("Dependency Loader Test Suite", () => {
   beforeEach(async () => {
     // Reset the kernel before each test
-    Kernel.getInstance().containers.clear();
-    Kernel.getInstance().preparedProviders = [];
-    Kernel.getInstance().readyProviders = [];
+    Kernel.reset();
   });
 
   describe("AppSingleton.dependencies() method", () => {

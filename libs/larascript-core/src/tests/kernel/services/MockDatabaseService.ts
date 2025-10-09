@@ -2,15 +2,14 @@ import {
   DependencyLoader,
   RequiresDependency,
 } from "@/interfaces/Dependency.t.js";
-import { TestContainers } from "../providers/providers.js";
-import LoggerService from "./LoggerService.js";
+import { TestContainers } from "../interfaces/containers.js";
 
 type MockDatabaseServiceOptions = {
   connectionWillSucceed: boolean;
 };
 
 class MockDatabaseService implements RequiresDependency {
-  logger!: LoggerService;
+  logger!: TestContainers["logger"];
 
   constructor(
     protected options: MockDatabaseServiceOptions = {
@@ -20,7 +19,7 @@ class MockDatabaseService implements RequiresDependency {
   ) {}
 
   setDependencyLoader(loader: DependencyLoader): void {
-    this.logger = loader<TestContainers, "logger">("logger");
+    this.logger = loader<TestContainers, "logger">("logger") as TestContainers["logger"];
   }
 
   async connect(): Promise<boolean> {

@@ -86,7 +86,7 @@ describe('test validation', () => {
             ]
         })
         const result = await validator.validate({
-            email
+            email: 'unique@test.com'
         })
 
         expect(result.passes()).toBe(true)

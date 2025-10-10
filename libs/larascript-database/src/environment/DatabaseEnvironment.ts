@@ -39,9 +39,7 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
             ...DEFAULTS,
             ...config,
         });
-        this.databaseService = config.dependencies?.databaseService ?? new DatabaseService(config.databaseConfig ?? databaseConfig);
-        this.eloquentQueryBuilder = config.dependencies?.eloquentQueryBuilder ?? new EloquentQueryBuilderService();
-        this.setDependencies(config);
+        this.setupServices();
     }
 
     /**
@@ -50,7 +48,19 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
      * @returns {DatabaseEnvironment} The instance of DatabaseEnvironment.
      */
     static create(options: IDatabaseEnvironmentOptions) {
-        return DatabaseEnvironment.getInstance(options);
+        const instance = DatabaseEnvironment.getInstance(options);
+        instance.setupServices();
+        return instance;
+    }
+
+    setupServices() {
+        if(!this.config) {
+            throw new Error("Config is not set");
+        }
+        this.databaseService = this.config.dependencies?.databaseService ?? new DatabaseService(this.config.databaseConfig ?? databaseConfig);
+        this.eloquentQueryBuilder = this.config.dependencies?.eloquentQueryBuilder ?? new EloquentQueryBuilderService();
+        this.setDependencies(this.config);
+        this.databaseService.register();
     }
 
     /**
@@ -99,8 +109,6 @@ export class DatabaseEnvironment extends BaseSingleton<IDatabaseEnvironmentOptio
             console: this.console ?? {} as unknown as IConsoleService,
             logger: this.logger,
         });
-
-        this.databaseService.register();
 
         if (this.getConfig()?.boot) {
             await this.connect();

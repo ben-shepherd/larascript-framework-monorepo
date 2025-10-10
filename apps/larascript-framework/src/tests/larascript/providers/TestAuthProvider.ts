@@ -4,7 +4,6 @@ import AuthProvider from "@/core/providers/AuthProvider.js";
 import { IAuthRoutesConfigExtended } from "@larascript-framework/contracts/auth";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { ApiTokenFactory, ApiTokenRepository, AuthenticableUserFactory } from "@larascript-framework/larascript-auth";
-import { parseBooleanFromString } from "@larascript-framework/larascript-utils";
 
 
 export default class TestAuthProvider extends AuthProvider {
@@ -14,8 +13,8 @@ export default class TestAuthProvider extends AuthProvider {
             jwt: {
                 name: 'jwt',
                 options: {
-                    secret: process.env.JWT_SECRET as string ?? '',
-                    expiresInMinutes: process.env.JWT_EXPIRES_IN_MINUTES ? parseInt(process.env.JWT_EXPIRES_IN_MINUTES) : 60,
+                    secret: 'test-secret',
+                    expiresInMinutes: 60,
                     factory: {
                         user: AuthenticableUserFactory,
                         apiToken: ApiTokenFactory
@@ -28,7 +27,7 @@ export default class TestAuthProvider extends AuthProvider {
             }
         },
         routes: {
-            enabled: parseBooleanFromString(process.env.ENABLE_AUTH_ROUTES, 'true'),
+            enabled: true,
             endpoints: {
                 register: true,
                 login: true,

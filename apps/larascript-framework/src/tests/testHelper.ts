@@ -14,7 +14,8 @@ import TestDatabaseProvider, { testDbName } from "@/tests/larascript/providers/T
 import TestEnvServiceProvider from "@/tests/larascript/providers/TestEnvServiceProvider.js";
 import TestMigrationProvider from "@/tests/larascript/providers/TestMigrationProvider.js";
 import TestViewProvider from "@/tests/larascript/providers/TestViewProvider.js";
-import { EnvironmentTesting, Kernel, KernelConfig } from "@larascript-framework/larascript-core";
+import { KernelConfig } from "@larascript-framework/contracts/larascript-core";
+import { EnvironmentTesting, Kernel } from "@larascript-framework/larascript-core";
 import { DataTypes } from "sequelize";
 import TestPackageJsonProvider from "./larascript/providers/TestPackageJsonProvider.js";
 

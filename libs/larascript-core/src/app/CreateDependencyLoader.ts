@@ -1,6 +1,5 @@
+import { Containers, DependencyLoader } from "@larascript-framework/contracts/larascript-core";
 import { UninitializedContainerError } from "../exceptions/index.js";
-import { Containers } from "../interfaces/containers.js";
-import { DependencyLoader } from "../interfaces/index.js";
 
 /**
  * Utility class for creating dependency loader functions from plain objects.

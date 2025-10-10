@@ -1,5 +1,5 @@
-import { EnvironmentType } from "./EnvironmentType.t.js";
-import { IProvider } from "./Provider.t.js";
+import { EnvironmentType } from "./environment.js";
+import { IProvider } from "./provider.js";
 
 export type KernelOptions = {
     withoutProvider?: string[];

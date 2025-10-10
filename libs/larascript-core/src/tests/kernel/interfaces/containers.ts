@@ -1,4 +1,4 @@
-import { DependencyLoader } from "@/interfaces/Dependency.t.js";
+import { DependencyLoader } from "@larascript-framework/contracts/larascript-core";
 
 export type TestContainers = {
     example: string;

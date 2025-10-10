@@ -1,10 +1,9 @@
+import { DependencyLoader, RequiresDependency } from "@larascript-framework/contracts/larascript-core";
 import { ICryptoService } from "@larascript-framework/crypto-js";
 import { IConsoleService } from "@larascript-framework/larascript-console";
 import {
   BaseSingleton,
   CreateDependencyLoader,
-  DependencyLoader,
-  RequiresDependency,
 } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { IEloquent, IEloquentQueryBuilderService } from "../../eloquent/index.js";

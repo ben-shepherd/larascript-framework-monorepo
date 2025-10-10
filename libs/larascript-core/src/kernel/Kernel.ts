@@ -1,9 +1,8 @@
 import { AppEnvironment } from "@/app/AppEnvironment.js";
 import { AppProviderState } from "@/app/AppProviderState.js";
 import { BaseSingleton } from "@/base/BaseSingleton.js";
-import { KernelConfig, KernelOptions } from "@/interfaces/kernel.js";
+import { IProvider, KernelConfig, KernelOptions } from "@larascript-framework/contracts/larascript-core";
 import { AppContainers } from "../app/AppContainers.js";
-import { IProvider } from "../interfaces/Provider.t.js";
 
 
 export class Kernel extends BaseSingleton<KernelConfig> {

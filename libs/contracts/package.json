@@ -104,6 +104,10 @@
     "./logger": {
       "types": "./dist/logger/index.d.ts",
       "default": "./dist/logger/index.js"
+    },
+    "./larascript-core": {
+      "types": "./dist/larascript-core/index.d.ts",
+      "default": "./dist/larascript-core/index.js"
     }
   },
   "dependencies": {

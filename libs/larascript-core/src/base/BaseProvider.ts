@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
+import { IProvider } from "@larascript-framework/contracts/larascript-core";
 import { AppSingleton } from "../app/AppSingleton.js";
-import { IProvider } from "../interfaces/Provider.t.js";
 
 /**
  * Base class for providers

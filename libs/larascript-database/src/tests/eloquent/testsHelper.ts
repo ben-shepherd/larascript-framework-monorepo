@@ -1,12 +1,12 @@
 import {
+  BaseProvider,
   EnvironmentTesting,
   Kernel,
 } from "@larascript-framework/larascript-core";
 
 import {
-  BaseProvider,
   KernelConfig,
-} from "@larascript-framework/larascript-core";
+} from "@larascript-framework/contracts/larascript-core";
 
 class TestDatabaseProvider extends BaseProvider {
   async register(): Promise<void> {

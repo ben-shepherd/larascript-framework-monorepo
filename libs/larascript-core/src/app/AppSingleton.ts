@@ -1,5 +1,5 @@
 import { BaseSingleton } from "@/base/BaseSingleton.js";
-import { Containers } from "../interfaces/containers.js";
+import { Containers } from "@larascript-framework/contracts/larascript-core";
 import { RequiresDependency } from "../interfaces/index.js";
 import { AppContainers } from "./AppContainers.js";
 import { AppEnvironment } from "./AppEnvironment.js";

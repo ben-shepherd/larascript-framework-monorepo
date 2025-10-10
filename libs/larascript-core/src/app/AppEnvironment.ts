@@ -1,5 +1,5 @@
 import { BaseSingleton } from "@/base/BaseSingleton.js";
-import { EnvironmentType } from "@/interfaces/EnvironmentType.t.js";
+import { EnvironmentType } from "@larascript-framework/contracts/larascript-core";
 
 type AppEnvironmentConfig = {
   environment: EnvironmentType;

@@ -1,7 +1,7 @@
 import {
   DependencyLoader,
   RequiresDependency,
-} from "@larascript-framework/larascript-core";
+} from "@larascript-framework/contracts/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { TClassConstructor } from "@larascript-framework/larascript-utils";
 import { IMongoDbAdapter } from "../../mongodb-adapter/interfaces/index.js";

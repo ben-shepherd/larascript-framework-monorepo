@@ -1,5 +1,5 @@
+import { EnvironmentType } from "@/core/environment.js";
 import { ILoggerService } from "@/logger/index.js";
-import { EnvironmentType } from "@larascript-framework/larascript-core";
 import { TUploadedFile } from "./UploadedFile.js";
 
 

@@ -9,7 +9,7 @@ import {
 import { IConsoleInputService } from "@/console/interfaces/IConsoleInputService.js";
 import IConsoleService from "@/console/interfaces/IConsoleService.js";
 import { describe, expect, test } from "@jest/globals";
-import { KernelOptions } from "@larascript-framework/larascript-core";
+import { KernelOptions } from "@larascript-framework/contracts/larascript-core";
 
 // Mock implementations for testing interfaces
 class MockCommand extends BaseCommand implements ICommand {

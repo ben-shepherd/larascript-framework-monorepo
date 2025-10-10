@@ -1,5 +1,5 @@
  
-import { KernelOptions } from "@larascript-framework/larascript-core";
+import { KernelOptions } from "@larascript-framework/contracts/larascript-core";
 
 /**
  * Interface for a service that can boot the console interface

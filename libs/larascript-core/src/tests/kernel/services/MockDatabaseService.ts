@@ -1,7 +1,4 @@
-import {
-  DependencyLoader,
-  RequiresDependency,
-} from "@/interfaces/Dependency.t.js";
+import { DependencyLoader, RequiresDependency } from "@larascript-framework/contracts/larascript-core";
 import { TestContainers } from "../interfaces/containers.js";
 
 type MockDatabaseServiceOptions = {

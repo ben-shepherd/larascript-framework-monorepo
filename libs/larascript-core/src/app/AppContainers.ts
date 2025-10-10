@@ -1,6 +1,6 @@
 import { BaseSingleton } from "@/base/BaseSingleton.js";
+import { Containers } from "@larascript-framework/contracts/larascript-core";
 import { UninitializedContainerError } from "../exceptions/UninitializedContainerError.js";
-import { Containers } from "../interfaces/containers.js";
 import { AppProviderState } from "./AppProviderState.js";
 
 export class AppContainers<T extends Containers = Containers> extends BaseSingleton {

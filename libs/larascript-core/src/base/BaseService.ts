@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
-import IService from "../interfaces/Singleton.t.js";
+import { IService } from "@larascript-framework/contracts/larascript-core";
 
 /**
  * Service base class

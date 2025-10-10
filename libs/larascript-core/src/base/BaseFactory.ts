@@ -1,5 +1,5 @@
 import { faker } from "@faker-js/faker";
-import { IFactory } from "../interfaces/base.t.js";
+import { IFactory } from "@larascript-framework/contracts/larascript-core";
 
 /**
  * Abstract base class for factories that create instances of a specific model.

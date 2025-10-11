@@ -35,7 +35,14 @@ export class JwtAuthService
   /** Crypto service for password hashing and verification */
   protected cryptoService!: ICryptoService;
 
+  /** JWT configuration */
   declare config: IJwtConfig;
+
+  /** API token repository */
+  protected apiTokenRepository!: IApiTokenRepository;
+
+  /** User repository */
+  protected userRepository!: IUserRepository;
 
   /**
    * Creates a new JwtAuthService instance.
@@ -50,14 +57,8 @@ export class JwtAuthService
       secretKey: this.config.options.secret,
     });
     this._oneTimeService.setAuthService(authService);
-  }
-
-  get userRepository(): IUserRepository {
-    return new this.config.options.repository.user();
-  }
-
-  get apiTokenRepository(): IApiTokenRepository {
-    return new this.config.options.repository.apiToken();
+    this.userRepository = new this.config.options.repository.user();
+    this.apiTokenRepository = new this.config.options.repository.apiToken();
   }
 
   /**

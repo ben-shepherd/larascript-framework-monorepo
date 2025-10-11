@@ -1,7 +1,6 @@
+import { DependencyLoader, RequiresDependency } from "@larascript-framework/contracts/larascript-core";
 import {
-  BaseAdapter,
-  DependencyLoader,
-  RequiresDependency,
+  BaseAdapter
 } from "@larascript-framework/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import {

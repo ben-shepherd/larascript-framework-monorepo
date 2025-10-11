@@ -1,4 +1,4 @@
-import { DependencyLoader, RequiresDependency } from "@larascript-framework/larascript-core";
+import { DependencyLoader, RequiresDependency } from "@larascript-framework/contracts/larascript-core";
 import { ILoggerService } from "@larascript-framework/larascript-logger";
 import { IViewRenderService } from "@larascript-framework/larascript-views";
 import { IMail } from "../interfaces/index.js";

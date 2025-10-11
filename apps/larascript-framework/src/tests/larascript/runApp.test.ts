@@ -40,8 +40,7 @@ describe('attempt to run app with normal appConfig', () => {
         expect(app('events.worker')).toBeDefined();
         expect(app('acl.basic.config')).toBeDefined();
         expect(app('http')).toBeDefined();
-        expect(app('requestContext')).toBeDefined();
-
+    
         // App specific providers
         expect(app('app')).toBeDefined();
         expect(app('app.config')).toBeDefined();

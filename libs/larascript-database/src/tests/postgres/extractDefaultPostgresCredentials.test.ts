@@ -6,7 +6,7 @@ describe("extractDefaultPostgresCredentials", () => {
     test("should return the default postgres credentials", () => {
       const credentials = extractDefaultPostgresCredentials();
 
-      expect(credentials).toBe("postgres://root:example@localhost:5432/app");
+      expect(credentials).toBe("postgres://root:example@localhost:5433/app");
     });
   });
 });

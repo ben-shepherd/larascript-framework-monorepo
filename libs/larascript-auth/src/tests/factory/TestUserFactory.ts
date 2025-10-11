@@ -1,4 +1,4 @@
-import { IFactory } from "@larascript-framework/larascript-core";
+import { IFactory } from "@larascript-framework/contracts/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
 import { IUserAttributes, IUserModel } from "../../auth/index.js";
 import TestUserModel from "../model/TestUserModel.js";

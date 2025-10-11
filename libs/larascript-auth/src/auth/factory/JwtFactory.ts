@@ -1,5 +1,5 @@
 import { IJSonWebToken } from "@larascript-framework/contracts/auth";
-import { IFactory } from "@larascript-framework/larascript-core";
+import { IFactory } from "@larascript-framework/contracts/larascript-core";
 
 /**
  * Factory for creating JWT tokens.

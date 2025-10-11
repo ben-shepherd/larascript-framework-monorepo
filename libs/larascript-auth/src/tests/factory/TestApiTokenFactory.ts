@@ -1,4 +1,4 @@
-import { IFactory } from "@larascript-framework/larascript-core";
+import { IFactory } from "@larascript-framework/contracts/larascript-core";
 import { generateUuidV4 } from "@larascript-framework/larascript-utils";
 import { IApiTokenAttributes, IApiTokenModel } from "../../auth/index.js";
 import { TestApiTokenModel } from "../model/TestApiTokenModel.js";

@@ -852,6 +852,9 @@ importers:
 
   libs/larascript-mail:
     dependencies:
+      '@larascript-framework/contracts':
+        specifier: workspace:*
+        version: link:../contracts
       '@larascript-framework/larascript-core':
         specifier: workspace:*
         version: link:../larascript-core

@@ -3,6 +3,18 @@
 - **Async tests**: Prefer `--runInBand` for suites that touch databases, sockets, or HTTP servers to avoid race conditions.
 - **Per-package scripts**: Packages commonly expose `test`, `test:watch`, and `test:coverage`. Run from the package directory or use your workspace tool to run across the monorepo.
 
+## Monorepo Wide Testing
+
+```bash
+turbo test --concurrency=1
+```
+
+## Library Wide Testing
+
+```bash
+turbo run test --concurrency=1 --filter="./libs/*"
+```
+
 ## Recommended scripts (package-level)
 
 ```json

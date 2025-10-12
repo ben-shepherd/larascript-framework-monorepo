@@ -92,8 +92,6 @@ export class RouterBindService {
             // Add the OPTIONS route
             this.bindRoute(this.getOptionsRouteItem(routeItem))
 
-            // Log the route details
-            this.logBoundRouteDetails(routeItem)
         })
     }
 
@@ -273,23 +271,6 @@ export class RouterBindService {
                 baseErrorHandler(this.config!)(error as Error, req, res, next ?? (() => {}))
             }
         }
-    }
-
-    /**
-     * Logs the route details.
-     * 
-     * @param route The route to log
-     */
-    protected logBoundRouteDetails(route: TRouteItem): void {
-        HttpEnvironment.getInstance().loggerService?.info({
-            path: route.path,
-            method: route.method,
-            security: route?.security,
-            resource: route?.resource,
-            middlewares: route?.middlewares,
-            validator: route?.validator,
-            config: route?.config
-        })
     }
 
 }

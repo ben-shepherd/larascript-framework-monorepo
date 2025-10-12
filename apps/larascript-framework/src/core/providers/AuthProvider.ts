@@ -7,7 +7,7 @@ import { app } from "@/core/services/App.js";
 import { IAclConfig } from "@larascript-framework/larascript-acl";
 import { AuthEnvironment, IAuthRoutesConfigExtended } from "@larascript-framework/larascript-auth";
 import { AuthRoutesService } from "@larascript-framework/larascript-auth-routes";
-import { AppSingleton, BaseProvider, EnvironmentType } from "@larascript-framework/larascript-core";
+import { AppSingleton, BaseProvider } from "@larascript-framework/larascript-core";
 
 class AuthProvider extends BaseProvider {
 
@@ -18,7 +18,7 @@ class AuthProvider extends BaseProvider {
     async register() {
 
         await AuthEnvironment.create({
-            environment: AppSingleton.env() as EnvironmentType,
+            environment: AppSingleton.env(),
             authConfig: this.config,
             aclConfig: this.aclConfig,
             secretKey: this.config.drivers.jwt.options.secret,

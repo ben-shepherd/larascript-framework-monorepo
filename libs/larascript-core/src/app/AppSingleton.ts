@@ -1,5 +1,5 @@
 import { BaseSingleton } from "@/base/BaseSingleton.js";
-import { Containers } from "@larascript-framework/contracts/larascript-core";
+import { Containers, EnvironmentType } from "@larascript-framework/contracts/larascript-core";
 import { RequiresDependency } from "../interfaces/index.js";
 import { AppContainers } from "./AppContainers.js";
 import { AppEnvironment } from "./AppEnvironment.js";
@@ -126,7 +126,7 @@ export class AppSingleton extends BaseSingleton {
    * Gets the environment
    * @returns The environment if set, or undefined if not
    */
-  public static env(): string | undefined {
+  public static env(): EnvironmentType {
     return AppEnvironment.env();
   }
 }

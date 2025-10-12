@@ -156,19 +156,18 @@ export class JwtAuthService
       throw new UnauthorizedException();
     }
 
+    // Merge options with the default options
+    options = {
+      expiresAfterMinutes: options?.expiresAfterMinutes ?? this.getJwtExpiresInMinutes(),
+      ...options,
+    }
+
     // Generate the api token
     const apiToken = await this.buildApiTokenByUser(
       user,
       scopes,
       options ?? {},
     );
-
-    if (typeof options?.expiresAfterMinutes === "number") {
-      const expiresAt = new Date(
-        Date.now() + options.expiresAfterMinutes * 60 * 1000,
-      );
-      await apiToken.setRevokedAt(expiresAt);
-    }
 
     // Save
     await this.apiTokenRepository.create({
@@ -193,7 +192,7 @@ export class JwtAuthService
    * @param user - The user model to create the token for
    * @param scopes - Additional scopes to assign to the token (defaults to empty array)
    * @param options - API token configuration options (defaults to empty object)
-   * @returns A new API token model instance
+   * @returns A new API token model instance:
    */
   async buildApiTokenByUser(
     user: IUserModel,

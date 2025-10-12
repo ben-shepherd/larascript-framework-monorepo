@@ -232,7 +232,9 @@ describe("AuthService", () => {
       expect(apiToken).toBeDefined();
       expect(apiToken?.getUserId()).toBe("1");
       expect(apiToken?.getScopes()).toEqual([]);
-      expect(apiToken?.getOptions()).toEqual({});
+      expect(apiToken?.getOptions()).toEqual({
+        expiresAfterMinutes: 60,
+      });
     });
 
     test("should authorize a user and attempt authenticate token successfully with scopes", async () => {
@@ -254,7 +256,9 @@ describe("AuthService", () => {
       expect(apiToken?.getUserId()).toBe("1");
       expect(apiToken?.hasScope("user:read")).toBe(true);
       expect(apiToken?.hasScope("user:write")).toBe(true);
-      expect(apiToken?.getOptions()).toEqual({});
+      expect(apiToken?.getOptions()).toEqual({
+        expiresAfterMinutes: 60,
+      });
     });
 
     test("should authorize a user and attempt authenticate token successfully with scopes with group scopes", async () => {
@@ -278,7 +282,51 @@ describe("AuthService", () => {
       expect(apiToken?.hasScope("admin:write", true)).toBe(true);
       expect(apiToken?.hasScope("user:read", true)).toBe(true);
       expect(apiToken?.hasScope("user:write", true)).toBe(true);
-      expect(apiToken?.getOptions()).toEqual({});
+      expect(apiToken?.getOptions()).toEqual({
+        expiresAfterMinutes: 60,
+      });
+    });
+
+    test("should authorize a user and successfully set expiresAt", async () => {
+      await userRepository.create({
+        id: "1",
+        email: "test@test.com",
+        hashedPassword: await jwt.hashPassword("password"),
+        aclRoles: ["admin"],
+        aclGroups: ["admin"],
+      });
+      const jwtToken = await jwt.attemptCredentials(
+        "test@test.com",
+        "password",
+        ["user:read", "user:write"],
+      );
+      const apiToken = await jwt.attemptAuthenticateToken(jwtToken);
+
+      const dateNowPlusOneHour = new Date(Date.now() + 1 * 60 * 60 * 1000);
+      const expiresAt = apiToken?.getExpiresAt();
+
+      expect(apiToken).toBeDefined();
+      expect(apiToken?.getUserId()).toBe("1");
+      expect(expiresAt).toBeDefined();
+
+      const expectedDateComponents = {
+        year: dateNowPlusOneHour.getFullYear(),
+        month: dateNowPlusOneHour.getMonth(),
+        day: dateNowPlusOneHour.getDate(),
+        hour: dateNowPlusOneHour.getHours(),
+        minute: dateNowPlusOneHour.getMinutes(),
+      };
+
+      const actualDateComponents = {
+        year: expiresAt!.getFullYear(),
+        month: expiresAt!.getMonth(),
+        day: expiresAt!.getDate(),
+        hour: expiresAt!.getHours(),
+        minute: expiresAt!.getMinutes(),
+      };
+
+      // Assert both dates are equal up to the minute
+      expect(actualDateComponents).toEqual(expectedDateComponents);
     });
 
     test("should throw an error if provided ill formed token", async () => {

@@ -58,6 +58,18 @@ const config: IHttpServiceConfig = {
         ]
     },
 
+    /**
+     * Error handlers (Optional)
+     * Note: Errors will be handled by the framework automatically if not provided
+     */
+    // errorHandlers: {
+    //     notFoundHandler: (req, res, next) => {
+    //         res.status(404).json({ message: 'Route not found' });
+    //     },
+    //     errorHandler: (err, req, res, next) => {
+    //         res.status(500).json({ message: 'Internal server error' });
+    //     },
+    // },
 };
 
 export default config

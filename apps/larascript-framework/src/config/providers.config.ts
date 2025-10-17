@@ -20,11 +20,12 @@ import StorageProvider from "@/core/providers/StorageProvider.js";
 import ValidatorProvider from "@/core/providers/ValidatorProvider.js";
 import ViewProvider from "@/core/providers/ViewProvider.js";
 import { IAsyncSessionService } from '@larascript-framework/async-session';
+import { IProvider } from "@larascript-framework/contracts/larascript-core";
 import { ICryptoService } from '@larascript-framework/crypto-js';
 import { IAclConfig, IBasicACLService } from '@larascript-framework/larascript-acl';
 import { IAuthService } from '@larascript-framework/larascript-auth';
 import { IConsoleService } from '@larascript-framework/larascript-console';
-import { IEnvService, IPackageJsonService, IProvider } from '@larascript-framework/larascript-core';
+import { IEnvService, IPackageJsonService } from '@larascript-framework/larascript-core';
 import { IDatabaseService, IEloquentQueryBuilderService } from '@larascript-framework/larascript-database';
 import { IEventService, IWorkerService } from '@larascript-framework/larascript-events';
 import { IHttpService, IRequestContext } from "@larascript-framework/larascript-http";
@@ -73,7 +74,10 @@ export interface Providers {
  */
 const providers: IProvider[] = [
 
-    // Include the core providers
+    /**
+     * Include the core providers
+     * Important: Do not change the order of the core providers otherwise bad things will happen
+     */
     new LoggerProvider(),
     new AsyncSessionProvider(),
     new EnvServiceProvider(),
@@ -93,7 +97,9 @@ const providers: IProvider[] = [
     new MailProvider(),
     new HttpProvider(),
 
-    // Add your providers here
+    /**
+     * Add your providers here
+     */
     new AppServiceProvider(),
 
 ]

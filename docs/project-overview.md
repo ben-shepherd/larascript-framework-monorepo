@@ -1,22 +1,6 @@
-# Project Overview
-
-## What is Larascript?
+# What is Larascript?
 
 Larascript is a modern, type-safe Node.js framework designed for building scalable applications with a focus on developer experience. It provides a comprehensive ecosystem of modular packages that can be used independently or together to create robust, maintainable applications.
-
-## 🎯 Core Philosophy
-
-### Developer Experience First
-- **Type Safety**: Full TypeScript support with strict typing
-- **Modular Design**: Use only what you need, compose as you grow
-- **Intuitive APIs**: Clean, expressive interfaces that feel natural
-- **Comprehensive Tooling**: Built-in testing, linting, and development tools
-
-### Enterprise Ready
-- **Scalable Architecture**: Designed for growth from startup to enterprise
-- **Security Focused**: Built-in authentication, authorization, and security features
-- **Database Agnostic**: Support for multiple databases with unified interfaces
-- **Production Ready**: Comprehensive logging, monitoring, and deployment tools
 
 ## 🏗️ Architecture Overview
 
@@ -117,7 +101,6 @@ Scale from small applications to large enterprise systems with built-in security
 ### Databases & ORM
 - **PostgreSQL** - Primary relational database
 - **MongoDB** - NoSQL database support
-- **Sequelize** - ORM for database operations
 
 ### Web Framework & Middleware
 - **Express.js** - Web application framework
@@ -135,18 +118,3 @@ Scale from small applications to large enterprise systems with built-in security
 - **AWS SDK** - Cloud services integration
 - **Nodemailer** - Email functionality
 - **Resend** - Modern email API
-
-## 🎯 Getting Started
-
-Ready to dive in? Check out our [Quick Start Guide](./quick-start.md) to get up and running in minutes, or explore the [Architecture Guide](./architecture.md) to understand the system design.
-
-## 🤝 Community & Support
-
-- **GitHub**: [larascript-monorepo](https://github.com/ben-shepherd/larascript-monorepo)
-- **Issues**: [Report bugs or request features](https://github.com/ben-shepherd/larascript-monorepo/issues)
-- **Email**: ben.shepherd@gmx.com
-- **LinkedIn**: [Benjamin Shepherd](https://www.linkedin.com/in/benjamin-programmer/)
-
----
-
-**Next Steps**: [Quick Start Guide](./quick-start.md) → [Architecture Guide](./architecture.md) → [Development Setup](./development-setup.md)

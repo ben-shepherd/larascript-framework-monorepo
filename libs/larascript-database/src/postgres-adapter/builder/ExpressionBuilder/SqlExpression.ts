@@ -23,7 +23,7 @@ import Where from "./Clauses/Where.js";
 
 export type SqlRaw = { sql: string; bindings?: unknown };
 
-class SqlExpression extends BaseExpression<BindingsHelper> {
+export class SqlExpression extends BaseExpression<BindingsHelper> {
   bindingsUtility: BindingsHelper = new BindingsHelper();
 
   protected rawSelect: SqlRaw | null = null;

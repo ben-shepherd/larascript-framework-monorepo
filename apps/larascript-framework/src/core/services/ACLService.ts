@@ -1,3 +1,3 @@
 import { app } from "@/core/services/App.js";
 
-export const acl = () => app('acl.basic');
+export const acl = () => app('acl');

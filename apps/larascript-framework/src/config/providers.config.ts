@@ -48,8 +48,8 @@ export interface Providers {
     "events": IEventService;
     "events.worker": IWorkerService;
     "auth": IAuthService;
-    "acl.basic": IBasicACLService;
-    "acl.basic.config": IAclConfig;
+    "acl": IBasicACLService;
+    "acl.config": IAclConfig;
     "db": IDatabaseService;
     "query": IEloquentQueryBuilderService;
     "http": IHttpService;

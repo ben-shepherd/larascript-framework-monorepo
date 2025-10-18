@@ -16,13 +16,9 @@ export interface IDatabaseService {
 
   getDefaultConnectionName(): string;
 
-  // setDefaultConnectionName(connectionName: string): void;
-
   getAdapter<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(
     connectionName?: string,
   ): Adapter;
-
-  // getAdapterConstructor<Adapter extends IDatabaseAdapter = IDatabaseAdapter>(connectionName?: string): IDatabaseAdapterConstructor<Adapter>
 
   getAllAdapterConstructors(): TClassConstructor<IDatabaseAdapter>[];
 

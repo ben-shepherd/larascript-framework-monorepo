@@ -15,7 +15,7 @@ export type MongoRaw = object | object[];
  * @class PipelineBuilder
  * @extends {BaseExpression<unknown>}
  */
-class AggregateExpression extends BaseExpression<unknown> {
+export class AggregateExpression extends BaseExpression<unknown> {
 
   /** Raw MongoDB where conditions to be merged with builder conditions */
   rawWhere: MongoRaw | null = null;

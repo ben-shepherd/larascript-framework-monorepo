@@ -28,7 +28,8 @@ describe('attempt to run app with normal appConfig', () => {
         expect(app('crypto')).toBeDefined();
         expect(app('db')).toBeDefined();
         expect(app('events')).toBeDefined();
-        expect(app('acl.basic')).toBeDefined();
+        expect(app('acl')).toBeDefined();
+        expect(app('acl.config')).toBeDefined();
         expect(app('auth')).toBeDefined();
         expect(app('validatorFn')).toBeDefined();
         expect(app('storage')).toBeDefined();
@@ -38,7 +39,6 @@ describe('attempt to run app with normal appConfig', () => {
         // Additional core services
         expect(app('query')).toBeDefined();
         expect(app('events.worker')).toBeDefined();
-        expect(app('acl.basic.config')).toBeDefined();
         expect(app('http')).toBeDefined();
     
         // App specific providers

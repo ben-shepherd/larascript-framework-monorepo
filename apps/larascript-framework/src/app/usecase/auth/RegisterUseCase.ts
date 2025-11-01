@@ -55,7 +55,7 @@ class RegisterUseCase {
      */
     async createUser(context: HttpContext): Promise<IUserModel> {
 
-        const basicAclService = app('acl.basic')
+        const basicAclService = app('acl')
         const groups = [basicAclService.getDefaultGroup().name]
         const roles = basicAclService.getGroupRoles(basicAclService.getDefaultGroup()).map(role => role.name)
         const allowedFields = (auth().getUserFactory().create({} as IUserAttributes) as unknown as IModel).getFields()

@@ -772,6 +772,9 @@ importers:
 
   libs/larascript-http:
     dependencies:
+      aws-sdk:
+        specifier: ^2.1692.0
+        version: 2.1692.0
       cors:
         specifier: ^2.8.5
         version: 2.8.5

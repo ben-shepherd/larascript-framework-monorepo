@@ -96,7 +96,12 @@ export class HttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
     /**
      * Configures the upload directory for the HTTP environment.
      */
-    setUploadDirectory() {
+    setUploadService() {
+        if(typeof this.config?.dependencies?.uploadService !== 'undefined') {
+            this.uploadService = this.config?.dependencies?.uploadService!;
+            return;
+        }
+
         if (typeof this.uploadService === 'undefined') {
             this.uploadService = new HttpFileSystemUploader({
                 uploadsDirectory: this.config!.uploadDirectory,
@@ -131,7 +136,7 @@ export class HttpEnvironment extends BaseSingleton<IHttpEnvironmentConfig> {
         
         this.requestContext = new RequestContext();
         this.setupLoggerService();
-        this.setUploadDirectory();
+        this.setUploadService();
 
         await this.httpService.init();
         await this.httpService.boot();

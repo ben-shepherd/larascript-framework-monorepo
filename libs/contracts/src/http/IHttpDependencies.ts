@@ -24,7 +24,17 @@ export type IHttpFileSystemUploaderConfig = {
     uploadsDirectory: string;
 }
 
+export type IHttpS3UploaderConfig = {
+    tempUploadsDirectory: string;
+    bucketName: string;
+    region: string;
+    accessKeyId: string;
+    secretAccessKey: string;
+    filename?: (file: TUploadedFile, targetPath: string) => string;
+}
+
+
 export type IHttpUploadService = {
-    setConfig(config: IHttpFileSystemUploaderConfig): void;
+    setConfig(config: object): void;
     moveUploadedFile(file: TUploadedFile): Promise<TUploadedFile>;
 }

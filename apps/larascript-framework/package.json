@@ -57,6 +57,7 @@
     "@larascript-framework/test-helpers": "workspace:*",
     "@larascript-framework/setup": "workspace:*",
     "@larascript-framework/larascript-http": "workspace:*",
+    "@larascript-framework/compose": "workspace:*",
     "aws-sdk": "^2.1692.0",
     "bcryptjs": "^2.4.3",
     "collect.js": "^4.36.1",

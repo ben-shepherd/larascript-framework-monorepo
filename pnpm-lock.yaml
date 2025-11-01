@@ -195,6 +195,9 @@ importers:
       '@larascript-framework/cast-js':
         specifier: workspace:*
         version: link:../../libs/cast-js
+      '@larascript-framework/compose':
+        specifier: workspace:*
+        version: link:../../libs/compose
       '@larascript-framework/contracts':
         specifier: workspace:*
         version: link:../../libs/contracts

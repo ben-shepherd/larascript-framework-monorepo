@@ -4,7 +4,7 @@ import { ICommandConstructor } from '@larascript-framework/larascript-console';
 /**
  * Register your custom commands here.
  * Commands will be available through the CLI using:
- * yarn dev <command-name> --args
+ * pnpm run dev <command-name> --args
  */
 const commandsConfig: ICommandConstructor[] = [
     ExampleCommand,

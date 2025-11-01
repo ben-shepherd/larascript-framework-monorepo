@@ -1,8 +1,8 @@
 import httpConfig from "@/config/http.config.js";
 import { routesConfig } from "@/config/routes.config.js";
-import { IHttpServiceConfig, IRouter } from "@larascript-framework/contracts/http";
+import { IHttpServiceConfig, IHttpUploadService, IRouter } from "@larascript-framework/contracts/http";
 import { BaseProvider } from '@larascript-framework/larascript-core';
-import { HttpEnvironment, HttpService } from "@larascript-framework/larascript-http";
+import { HttpEnvironment, HttpFileSystemUploader, HttpS3Uploader, HttpService } from "@larascript-framework/larascript-http";
 import expressLayouts from 'express-ejs-layouts';
 import path from 'path';
 import { app } from "../services/App.js";
@@ -48,14 +48,28 @@ export default class HttpProvider extends BaseProvider {
             httpService.useRouter(route);
         }
 
+        let uploadService!: IHttpUploadService;
+        if (this.config.uploads.driver === 'filesystem') {
+            uploadService = new HttpFileSystemUploader({
+                uploadsDirectory: this.config.uploads.config.filesystem?.uploadsDirectory as string,
+            });
+        } else if (this.config.uploads.driver === 's3') {
+            uploadService = new HttpS3Uploader({
+                tempUploadsDirectory: this.config.uploads.config.s3?.tempUploadsDirectory as string,
+                bucketName: this.config.uploads.config.s3?.bucketName as string,
+                region: this.config.uploads.config.s3?.region as string,
+                accessKeyId: this.config.uploads.config.s3?.accessKeyId as string,
+                secretAccessKey: this.config.uploads.config.s3?.secretAccessKey as string,
+            });
+        }
+
         // Create the HttpEnvironment
         HttpEnvironment.create(httpService,  {
             authConfigured: true,
             databaseConfigured: true,
             dependencies: {
                 loggerService: app('logger'),
-                // TODO: we need an abstract upload service that uses s3
-                // uploadService: app('s3')
+                uploadService: uploadService,
             }
         })
 

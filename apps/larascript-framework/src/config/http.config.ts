@@ -1,5 +1,6 @@
 import { IHttpServiceConfig } from "@larascript-framework/contracts/http";
 import { parseBooleanFromString } from '@larascript-framework/larascript-utils';
+import path from "path";
 
 const config: IHttpServiceConfig = {
 
@@ -24,7 +25,7 @@ const config: IHttpServiceConfig = {
      * Global middleware to run after every other middleware
      */
     afterAllMiddlewares: [
-        
+
     ],
 
     /**
@@ -56,6 +57,25 @@ const config: IHttpServiceConfig = {
             '/auth/logout',
             '/auth/refresh',
         ]
+    },
+
+    /**
+     * Uploads configuration
+     */
+    uploads: {
+        driver: (process.env.HTTP_UPLOAD_DRIVER ?? 'filesystem') as 'filesystem' | 's3',
+        config: {
+            filesystem: {
+                uploadsDirectory: path.join(process.cwd(), 'storage/uploads'),
+            },
+            s3: {
+                tempUploadsDirectory: path.join(process.cwd(), 'storage/uploads'),
+                bucketName: process.env.S3_BUCKET ?? '',
+                region: process.env.S3_REGION ?? '',
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
+            },
+        }
     },
 
     /**

@@ -17,5 +17,20 @@ export const baseConfig: IHttpServiceConfig = {
             allowedPath: /./
         })
     },
-    csrf: {}
+    csrf: {},
+    uploads: {
+        driver: 'filesystem',
+        config: {
+            filesystem: {
+                uploadsDirectory: path.join(process.cwd(), 'storage', 'uploads'),
+            },
+            s3: {
+                tempUploadsDirectory: path.join(process.cwd(), 'storage', 'uploads'),
+                bucketName: process.env.S3_BUCKET ?? '',
+                region: process.env.S3_REGION ?? '',
+                accessKeyId: process.env.AWS_ACCESS_KEY_ID ?? '',
+                secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY ?? '',
+            },
+        },
+    },
 }

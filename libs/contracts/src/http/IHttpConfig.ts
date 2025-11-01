@@ -1,5 +1,6 @@
 import express, { NextFunction, Request, Response } from "express";
 import { ICsrfConfig } from "./ICSRF.js";
+import { IHttpFileSystemUploaderConfig, IHttpS3UploaderConfig } from "./IHttpDependencies.js";
 import { TExpressMiddlewareFnOrClass } from "./IMiddleware.js";
 
 // eslint-disable-next-line no-unused-vars
@@ -18,6 +19,13 @@ export interface IHttpServiceConfig {
         errorHandler?: (err: Error, req: Request, res: Response, next: NextFunction) => void;
     },
     disableErrorHandlers?: boolean;
+    uploads: {
+        driver: 'filesystem' | 's3';
+        config: {
+            filesystem?: IHttpFileSystemUploaderConfig;
+            s3?: IHttpS3UploaderConfig;
+        };
+    };
 }
 
 export default IHttpServiceConfig

@@ -62,6 +62,9 @@ export default class HttpProvider extends BaseProvider {
                 secretAccessKey: this.config.uploads.config.s3?.secretAccessKey as string,
             });
         }
+        else {
+            throw new Error('Unexepected http uploads driver value: \'' + this.config.uploads.driver)
+        }
 
         // Create the HttpEnvironment
         HttpEnvironment.create(httpService,  {
